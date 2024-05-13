@@ -1,0 +1,16 @@
+C:\Users\Usuario\Documents\Coder Growth 3\Cod3rsGrowth\Cod3rsGrowth.Forms\bin\Debug\net7.0-windows\Cod3rsGrowth.Forms.exe
+C:\Users\Usuario\Documents\Coder Growth 3\Cod3rsGrowth\Cod3rsGrowth.Forms\bin\Debug\net7.0-windows\Cod3rsGrowth.Forms.deps.json
+C:\Users\Usuario\Documents\Coder Growth 3\Cod3rsGrowth\Cod3rsGrowth.Forms\bin\Debug\net7.0-windows\Cod3rsGrowth.Forms.runtimeconfig.json
+C:\Users\Usuario\Documents\Coder Growth 3\Cod3rsGrowth\Cod3rsGrowth.Forms\bin\Debug\net7.0-windows\Cod3rsGrowth.Forms.dll
+C:\Users\Usuario\Documents\Coder Growth 3\Cod3rsGrowth\Cod3rsGrowth.Forms\bin\Debug\net7.0-windows\Cod3rsGrowth.Forms.pdb
+C:\Users\Usuario\Documents\Coder Growth 3\Cod3rsGrowth\Cod3rsGrowth.Forms\obj\Debug\net7.0-windows\Cod3rsGrowth.Forms.Form1.resources
+C:\Users\Usuario\Documents\Coder Growth 3\Cod3rsGrowth\Cod3rsGrowth.Forms\obj\Debug\net7.0-windows\Cod3rsGrowth.Forms.csproj.GenerateResource.cache
+C:\Users\Usuario\Documents\Coder Growth 3\Cod3rsGrowth\Cod3rsGrowth.Forms\obj\Debug\net7.0-windows\Cod3rsGrowth.Forms.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Usuario\Documents\Coder Growth 3\Cod3rsGrowth\Cod3rsGrowth.Forms\obj\Debug\net7.0-windows\Cod3rsGrowth.Forms.AssemblyInfoInputs.cache
+C:\Users\Usuario\Documents\Coder Growth 3\Cod3rsGrowth\Cod3rsGrowth.Forms\obj\Debug\net7.0-windows\Cod3rsGrowth.Forms.AssemblyInfo.cs
+C:\Users\Usuario\Documents\Coder Growth 3\Cod3rsGrowth\Cod3rsGrowth.Forms\obj\Debug\net7.0-windows\Cod3rsGrowth.Forms.csproj.CoreCompileInputs.cache
+C:\Users\Usuario\Documents\Coder Growth 3\Cod3rsGrowth\Cod3rsGrowth.Forms\obj\Debug\net7.0-windows\Cod3rsGrowth.Forms.dll
+C:\Users\Usuario\Documents\Coder Growth 3\Cod3rsGrowth\Cod3rsGrowth.Forms\obj\Debug\net7.0-windows\refint\Cod3rsGrowth.Forms.dll
+C:\Users\Usuario\Documents\Coder Growth 3\Cod3rsGrowth\Cod3rsGrowth.Forms\obj\Debug\net7.0-windows\Cod3rsGrowth.Forms.pdb
+C:\Users\Usuario\Documents\Coder Growth 3\Cod3rsGrowth\Cod3rsGrowth.Forms\obj\Debug\net7.0-windows\Cod3rsGrowth.Forms.genruntimeconfig.cache
+C:\Users\Usuario\Documents\Coder Growth 3\Cod3rsGrowth\Cod3rsGrowth.Forms\obj\Debug\net7.0-windows\ref\Cod3rsGrowth.Forms.dll
