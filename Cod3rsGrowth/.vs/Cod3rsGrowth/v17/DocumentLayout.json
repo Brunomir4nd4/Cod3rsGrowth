@@ -1,87 +1,12 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\Usuario\\Documents\\Coder Growth 3\\Cod3rsGrowth\\",
-  "Documents": [
-    {
-      "AbsoluteMoniker": "D:0:0:{564C69BB-0418-4628-B623-E61FDC5FDA41}|Cod3rsGrowth.Teste\\Cod3rsGrowth.Teste.csproj|c:\\users\\usuario\\documents\\coder growth 3\\cod3rsgrowth\\cod3rsgrowth.teste\\unittest1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{564C69BB-0418-4628-B623-E61FDC5FDA41}|Cod3rsGrowth.Teste\\Cod3rsGrowth.Teste.csproj|solutionrelative:cod3rsgrowth.teste\\unittest1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5DA3A9C5-0D60-476A-B458-114FF0F141F5}|Cod3rsGrowth.Forms\\Cod3rsGrowth.Forms.csproj|c:\\users\\usuario\\documents\\coder growth 3\\cod3rsgrowth\\cod3rsgrowth.forms\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{5DA3A9C5-0D60-476A-B458-114FF0F141F5}|Cod3rsGrowth.Forms\\Cod3rsGrowth.Forms.csproj|solutionrelative:cod3rsgrowth.forms\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{41C91AEE-9073-4ABF-9889-B7E54CF1E628}|Cod3rsGrowth.Infra\\Cod3rsGrowth.Infra.csproj|c:\\users\\usuario\\documents\\coder growth 3\\cod3rsgrowth\\cod3rsgrowth.infra\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{41C91AEE-9073-4ABF-9889-B7E54CF1E628}|Cod3rsGrowth.Infra\\Cod3rsGrowth.Infra.csproj|solutionrelative:cod3rsgrowth.infra\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B0D459CB-6E75-44AE-8EF7-36D77CD80647}|Cod3rsGrowth.Dominio\\Cod3rsGrowth.Dominio.csproj|c:\\users\\usuario\\documents\\coder growth 3\\cod3rsgrowth\\cod3rsgrowth.dominio\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B0D459CB-6E75-44AE-8EF7-36D77CD80647}|Cod3rsGrowth.Dominio\\Cod3rsGrowth.Dominio.csproj|solutionrelative:cod3rsgrowth.dominio\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    }
-  ],
+  "WorkspaceRootPath": "C:\\Users\\Usuario\\Documents\\Bruno\\Coder Growth 3\\Cod3rsGrowth\\",
+  "Documents": [],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": [
-        {
-          "DockedWidth": 200,
-          "SelectedChildIndex": 0,
-          "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "UnitTest1.cs",
-              "DocumentMoniker": "C:\\Users\\Usuario\\Documents\\Coder Growth 3\\Cod3rsGrowth\\Cod3rsGrowth.Teste\\UnitTest1.cs",
-              "RelativeDocumentMoniker": "Cod3rsGrowth.Teste\\UnitTest1.cs",
-              "ToolTip": "C:\\Users\\Usuario\\Documents\\Coder Growth 3\\Cod3rsGrowth\\Cod3rsGrowth.Teste\\UnitTest1.cs",
-              "RelativeToolTip": "Cod3rsGrowth.Teste\\UnitTest1.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-14T14:43:48.012Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Form1.cs [Projeto]",
-              "DocumentMoniker": "C:\\Users\\Usuario\\Documents\\Coder Growth 3\\Cod3rsGrowth\\Cod3rsGrowth.Forms\\Form1.cs",
-              "RelativeDocumentMoniker": "Cod3rsGrowth.Forms\\Form1.cs",
-              "ToolTip": "C:\\Users\\Usuario\\Documents\\Coder Growth 3\\Cod3rsGrowth\\Cod3rsGrowth.Forms\\Form1.cs [Projeto]",
-              "RelativeToolTip": "Cod3rsGrowth.Forms\\Form1.cs [Projeto]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-14T14:39:06.881Z",
-              "EditorCaption": " [Projeto]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Class1.cs",
-              "DocumentMoniker": "C:\\Users\\Usuario\\Documents\\Coder Growth 3\\Cod3rsGrowth\\Cod3rsGrowth.Infra\\Class1.cs",
-              "RelativeDocumentMoniker": "Cod3rsGrowth.Infra\\Class1.cs",
-              "ToolTip": "C:\\Users\\Usuario\\Documents\\Coder Growth 3\\Cod3rsGrowth\\Cod3rsGrowth.Infra\\Class1.cs",
-              "RelativeToolTip": "Cod3rsGrowth.Infra\\Class1.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-14T14:38:07.107Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Class1.cs",
-              "DocumentMoniker": "C:\\Users\\Usuario\\Documents\\Coder Growth 3\\Cod3rsGrowth\\Cod3rsGrowth.Dominio\\Class1.cs",
-              "RelativeDocumentMoniker": "Cod3rsGrowth.Dominio\\Class1.cs",
-              "ToolTip": "C:\\Users\\Usuario\\Documents\\Coder Growth 3\\Cod3rsGrowth\\Cod3rsGrowth.Dominio\\Class1.cs",
-              "RelativeToolTip": "Cod3rsGrowth.Dominio\\Class1.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-14T14:37:08.615Z",
-              "EditorCaption": ""
-            }
-          ]
-        }
-      ]
+      "DocumentGroups": []
     }
   ]
 }

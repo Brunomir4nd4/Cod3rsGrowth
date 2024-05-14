@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Usuario\\Documents\\Coder Growth 3\\Cod3rsGrowth\\Cod3rsGrowth.Forms\\Cod3rsGrowth.Forms.csproj",
+      "projectUniqueName": "C:\\Users\\Usuario\\Documents\\Bruno\\Coder Growth 3\\Cod3rsGrowth\\Cod3rsGrowth.Forms\\Cod3rsGrowth.Forms.csproj",
       "projectName": "Cod3rsGrowth.Forms",
-      "projectPath": "C:\\Users\\Usuario\\Documents\\Coder Growth 3\\Cod3rsGrowth\\Cod3rsGrowth.Forms\\Cod3rsGrowth.Forms.csproj",
+      "projectPath": "C:\\Users\\Usuario\\Documents\\Bruno\\Coder Growth 3\\Cod3rsGrowth\\Cod3rsGrowth.Forms\\Cod3rsGrowth.Forms.csproj",
       "packagesPath": "C:\\Users\\Usuario\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Usuario\\Documents\\Coder Growth 3\\Cod3rsGrowth\\Cod3rsGrowth.Forms\\obj\\",
+      "outputPath": "C:\\Users\\Usuario\\Documents\\Bruno\\Coder Growth 3\\Cod3rsGrowth\\Cod3rsGrowth.Forms\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Usuario\\AppData\\Roaming\\NuGet\\NuGet.Config",

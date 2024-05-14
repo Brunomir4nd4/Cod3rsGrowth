@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Usuario\\Documents\\Coder Growth 3\\Cod3rsGrowth\\Cod3rsGrowth.Infra\\Cod3rsGrowth.Infra.csproj",
+      "projectUniqueName": "C:\\Users\\Usuario\\Documents\\Bruno\\Coder Growth 3\\Cod3rsGrowth\\Cod3rsGrowth.Infra\\Cod3rsGrowth.Infra.csproj",
       "projectName": "Cod3rsGrowth.Infra",
-      "projectPath": "C:\\Users\\Usuario\\Documents\\Coder Growth 3\\Cod3rsGrowth\\Cod3rsGrowth.Infra\\Cod3rsGrowth.Infra.csproj",
+      "projectPath": "C:\\Users\\Usuario\\Documents\\Bruno\\Coder Growth 3\\Cod3rsGrowth\\Cod3rsGrowth.Infra\\Cod3rsGrowth.Infra.csproj",
       "packagesPath": "C:\\Users\\Usuario\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Usuario\\Documents\\Coder Growth 3\\Cod3rsGrowth\\Cod3rsGrowth.Infra\\obj\\",
+      "outputPath": "C:\\Users\\Usuario\\Documents\\Bruno\\Coder Growth 3\\Cod3rsGrowth\\Cod3rsGrowth.Infra\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Usuario\\AppData\\Roaming\\NuGet\\NuGet.Config",
