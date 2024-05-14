@@ -7,7 +7,7 @@
       "RelativeMoniker": "D:0:0:{B0D459CB-6E75-44AE-8EF7-36D77CD80647}|Cod3rsGrowth.Dominio\\Cod3rsGrowth.Dominio.csproj|solutionrelative:cod3rsgrowth.dominio\\entidades\\pocao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B0D459CB-6E75-44AE-8EF7-36D77CD80647}|Cod3rsGrowth.Dominio\\Cod3rsGrowth.Dominio.csproj|c:\\users\\usuario\\documents\\bruno\\coder growth 3\\cod3rsgrowth\\cod3rsgrowth.dominio\\entidades\\ingredientes.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{B0D459CB-6E75-44AE-8EF7-36D77CD80647}|Cod3rsGrowth.Dominio\\Cod3rsGrowth.Dominio.csproj|C:\\Users\\Usuario\\Documents\\Bruno\\Coder Growth 3\\Cod3rsGrowth\\cod3rsgrowth.dominio\\entidades\\ingredientes.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B0D459CB-6E75-44AE-8EF7-36D77CD80647}|Cod3rsGrowth.Dominio\\Cod3rsGrowth.Dominio.csproj|solutionrelative:cod3rsgrowth.dominio\\entidades\\ingredientes.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -43,8 +43,7 @@
               "RelativeToolTip": "Cod3rsGrowth.Dominio\\Entidades\\Ingredientes.cs",
               "ViewState": "AQIAAAcAAAAAAAAAAAAywA8AAAAoAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-14T14:37:08.615Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-14T14:37:08.615Z"
             }
           ]
         }

@@ -10,18 +10,5 @@
         public decimal Valor { get; set; }
         public int Qtd { get; set; }
         public string Imagem { get; set; }
-
-        public Pocao(int id, string nome, string descricao,
-            DateTime dataDeVencimento, bool vencimento, decimal valor, int qtd, string imagem)
-        {
-            Id = id;
-            Nome = nome;
-            Descricao = descricao;
-            DataDeVencimento = dataDeVencimento;
-            Vencido = vencimento;
-            Valor = valor;
-            Qtd = qtd;
-            Imagem = imagem;
-        }
     }
 }
