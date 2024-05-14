@@ -8,7 +8,7 @@ namespace Cod3rsGrowth.dominio.Entidades
 {
     internal class Pocao
     {
-        public int Id { get; set; }
+        public static int Id { get; set; }
         public string Nome { get; set; }
         public string Descricao { get; set; }
         public DateTime DataDeVencimento { get; set; }

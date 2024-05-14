@@ -4,7 +4,7 @@ namespace Cod3rsGrowth.dominio.Entidades
 {
     public class Ingrediente
     {
-        public int Id { get; set; }
+        public static int Id { get; set; }
         public string Nome { get; set; }
         public int Qtd { get; set; }
         public Naturalidade Naturalidade;
