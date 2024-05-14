@@ -15,9 +15,10 @@ namespace Cod3rsGrowth.dominio.Entidades
         public bool Vencido { get; set; }
         public decimal Valor { get; set; }
         public int Qtd { get; set; }
+        public string Imagem { get; set; }
 
         public Pocao(int id, string nome, string descricao, 
-            DateTime dataDeVencimento, bool vencimento, decimal valor, int qtd)
+            DateTime dataDeVencimento, bool vencimento, decimal valor, int qtd, string imagem)
         {
             Id = id;
             Nome = nome;
@@ -26,6 +27,7 @@ namespace Cod3rsGrowth.dominio.Entidades
             Vencido = vencimento;
             Valor = valor;
             Qtd = qtd;
+            Imagem = imagem;
         }
     }
 }
