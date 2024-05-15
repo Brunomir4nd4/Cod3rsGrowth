@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Cod3rsGrowth.Teste")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5f69354a0dadfdcd842d20a3c4398c848a9e3da3")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+fb10a03f024ed97a089df66a877e79f96ecc9a0e")]
 [assembly: System.Reflection.AssemblyProductAttribute("Cod3rsGrowth.Teste")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Cod3rsGrowth.Teste")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
