@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Cod3rsGrowth.Dominio")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+540bf8623646a01de53fcdc9b2f0e51b2251e1c4")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4113abaa324c0d562595e0f5a601c24d641fd471")]
 [assembly: System.Reflection.AssemblyProductAttribute("Cod3rsGrowth.Dominio")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Cod3rsGrowth.Dominio")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
