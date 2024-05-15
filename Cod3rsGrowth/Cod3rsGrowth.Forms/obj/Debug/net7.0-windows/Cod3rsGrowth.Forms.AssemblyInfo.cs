@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Cod3rsGrowth.Forms")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5f69354a0dadfdcd842d20a3c4398c848a9e3da3")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a8b5f8dbd9f16723dbee3e5a1ee94ad986b1d126")]
 [assembly: System.Reflection.AssemblyProductAttribute("Cod3rsGrowth.Forms")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Cod3rsGrowth.Forms")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
