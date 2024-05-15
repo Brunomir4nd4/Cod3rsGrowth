@@ -5511,19 +5511,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Usuario\\.nuget\\packages\\": {}
+    "C:\\Users\\bmb40\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Usuario\\Documents\\Bruno\\Coder Growth 3\\Cod3rsGrowth\\Cod3rsGrowth.Teste\\Cod3rsGrowth.Teste.csproj",
+      "projectUniqueName": "C:\\Users\\bmb40\\Documents\\Cod3rsGrowth2\\Cod3rsGrowth\\Cod3rsGrowth.Teste\\Cod3rsGrowth.Teste.csproj",
       "projectName": "Cod3rsGrowth.Teste",
-      "projectPath": "C:\\Users\\Usuario\\Documents\\Bruno\\Coder Growth 3\\Cod3rsGrowth\\Cod3rsGrowth.Teste\\Cod3rsGrowth.Teste.csproj",
-      "packagesPath": "C:\\Users\\Usuario\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Usuario\\Documents\\Bruno\\Coder Growth 3\\Cod3rsGrowth\\Cod3rsGrowth.Teste\\obj\\",
+      "projectPath": "C:\\Users\\bmb40\\Documents\\Cod3rsGrowth2\\Cod3rsGrowth\\Cod3rsGrowth.Teste\\Cod3rsGrowth.Teste.csproj",
+      "packagesPath": "C:\\Users\\bmb40\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\bmb40\\Documents\\Cod3rsGrowth2\\Cod3rsGrowth\\Cod3rsGrowth.Teste\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Usuario\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\bmb40\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -5586,6 +5586,20 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
+        "downloadDependencies": [
+          {
+            "name": "Microsoft.AspNetCore.App.Ref",
+            "version": "[7.0.18, 7.0.18]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Ref",
+            "version": "[7.0.18, 7.0.18]"
+          },
+          {
+            "name": "Microsoft.WindowsDesktop.App.Ref",
+            "version": "[7.0.18, 7.0.18]"
+          }
+        ],
         "frameworkReferences": {
           "Microsoft.NETCore.App": {
             "privateAssets": "all"

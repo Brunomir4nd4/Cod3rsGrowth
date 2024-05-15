@@ -1,8 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "h7TxuVqdA8dLTPOu1OYooFRQVY6IqQXbVCykBS+AUywzX/r6HAJ5+uGCmlDbLVvXYSt8divyHfxG8RaxVi3GfA==",
+  "dgSpecHash": "I7rKudEHcwotrwdR8FjhQWKBi6UWtC+FPUt4fBGYVXEJDvxglFu0gBZbSjtEXCjM+bO12AqryDTZsGNEnvl+UQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Usuario\\Documents\\Bruno\\Coder Growth 3\\Cod3rsGrowth\\Cod3rsGrowth.Dominio\\Cod3rsGrowth.Dominio.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "C:\\Users\\bmb40\\Documents\\Cod3rsGrowth2\\Cod3rsGrowth\\Cod3rsGrowth.Dominio\\Cod3rsGrowth.Dominio.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\bmb40\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\7.0.18\\microsoft.windowsdesktop.app.ref.7.0.18.nupkg.sha512",
+    "C:\\Users\\bmb40\\.nuget\\packages\\microsoft.netcore.app.ref\\7.0.18\\microsoft.netcore.app.ref.7.0.18.nupkg.sha512",
+    "C:\\Users\\bmb40\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\7.0.18\\microsoft.aspnetcore.app.ref.7.0.18.nupkg.sha512"
+  ],
   "logs": []
 }
