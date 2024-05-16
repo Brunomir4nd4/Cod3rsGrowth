@@ -16,7 +16,7 @@ namespace Cod3rsGrowth.Teste.ConfiguracaoAmbienteTeste
         protected TesteBase()
         {
             ServiceProvider = ObterServiceCollection().BuildServiceProvider();
-        }
+        }   
         public virtual void Dispose()
         {
             ServiceProvider.Dispose();
