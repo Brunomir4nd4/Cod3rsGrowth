@@ -5,6 +5,10 @@ namespace Cod3rsGrowth.Teste.ConfiguracaoAmbienteTeste
     public abstract class TesteBase : IDisposable
     {
         protected ServiceProvider ServiceProvider;
+        protected TesteBase()
+        {
+            ServiceProvider = ObterServiceCollection().BuildServiceProvider();
+        }   
 
         private IServiceCollection ObterServiceCollection()
         {
@@ -13,10 +17,6 @@ namespace Cod3rsGrowth.Teste.ConfiguracaoAmbienteTeste
             return servicos;
         }
 
-        protected TesteBase()
-        {
-            ServiceProvider = ObterServiceCollection().BuildServiceProvider();
-        }   
         public virtual void Dispose()
         {
             ServiceProvider.Dispose();
