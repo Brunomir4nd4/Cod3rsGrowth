@@ -3,7 +3,7 @@ using Cod3rsGrowth.Dominio.Interfaces;
 
 namespace Cod3rsGrowth.Teste
 {
-    public class RepositorioMock : IRepositorioMock
+    public class RepositorioMock : IRepositorio
     {
         public readonly List<Pocao> pocoes;
 
@@ -12,7 +12,7 @@ namespace Cod3rsGrowth.Teste
 
         }
 
-        List<Pocao> IRepositorioMock.ObterTodos()
+        public List<Pocao> ObterTodos()
         {
             return pocoes;
         }
