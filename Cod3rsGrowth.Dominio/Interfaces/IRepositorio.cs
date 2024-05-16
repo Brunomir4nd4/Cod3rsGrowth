@@ -2,7 +2,7 @@
 
 namespace Cod3rsGrowth.Dominio.Interfaces
 {
-    public interface IRepositorioMock
+    public interface IRepositorio
     {
         List<Pocao> ObterTodos();
     }
