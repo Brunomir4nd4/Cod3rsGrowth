@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace Cod3rsGrowth.Teste
+namespace Cod3rsGrowth.Teste.ConfiguracaoAmbienteTeste
 {
     public static class ModeloDeInjecao
     {

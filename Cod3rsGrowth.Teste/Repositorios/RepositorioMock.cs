@@ -1,7 +1,7 @@
 ﻿using Cod3rsGrowth.Dominio.Entidades;
-using Cod3rsGrowth.Dominio.Interfaces;
+using Cod3rsGrowth.Infra.Interfaces;
 
-namespace Cod3rsGrowth.Teste
+namespace Cod3rsGrowth.Teste.Repositorios
 {
     public class RepositorioMock : IRepositorio
     {
