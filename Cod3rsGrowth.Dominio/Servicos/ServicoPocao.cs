@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Cod3rsGrowth.Dominio.Interfaces;
 
 namespace Cod3rsGrowth.Dominio.Servicos
 {
-    internal class ServicoPocao
+    public class ServicoPocao : IServicoPocao
     {
     }
 }

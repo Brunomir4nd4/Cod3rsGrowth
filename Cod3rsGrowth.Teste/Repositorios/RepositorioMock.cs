@@ -9,7 +9,9 @@ namespace Cod3rsGrowth.Teste.Repositorios
 
         public RepositorioMock()
         {
-
+            var pocao = new Pocao();
+            pocao.Id = 0;
+            pocoes.Add(pocao);
         }
 
         public List<Pocao> ObterTodos()
