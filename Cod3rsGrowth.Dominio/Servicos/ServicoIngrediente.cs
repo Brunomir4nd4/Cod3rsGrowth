@@ -7,5 +7,14 @@ namespace Cod3rsGrowth.Dominio.Servicos
         public void CriarIngrediente()
         {
         }
+        public void ObterPorldIngrediente()
+        {
+        }
+        public void EditarIngrediente()
+        {
+        }
+        public void RemoverIngredientes()
+        {
+        }
     }
 }

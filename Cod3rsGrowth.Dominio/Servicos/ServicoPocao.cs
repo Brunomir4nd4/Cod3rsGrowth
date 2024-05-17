@@ -7,5 +7,14 @@ namespace Cod3rsGrowth.Dominio.Servicos
         public void CriarPocao()
         {
         }
+        public void ObterPorldPocao()
+        {
+        }
+        public void EditarPocao()
+        {
+        }
+        public void RemoverPocao()
+        {
+        }
     }
 }
