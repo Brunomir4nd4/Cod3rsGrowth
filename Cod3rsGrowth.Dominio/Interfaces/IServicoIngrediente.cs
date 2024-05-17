@@ -2,5 +2,6 @@
 {
     public interface IServicoIngrediente
     {
+        public void CriarIngrediente();
     }
 }

@@ -4,5 +4,8 @@ namespace Cod3rsGrowth.Dominio.Servicos
 {
     public class ServicoPocao : IServicoPocao
     {
+        public void CriarPocao()
+        {
+        }
     }
 }
