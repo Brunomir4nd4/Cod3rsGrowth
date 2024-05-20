@@ -1,21 +1,34 @@
 ﻿using Xunit;
 using Cod3rsGrowth.Teste.ConfiguracaoAmbienteTeste;
 using Microsoft.Extensions.DependencyInjection;
-using Cod3rsGrowth.Dominio.Interfaces;
-using Cod3rsGrowth.Dominio.Servicos;
+using Cod3rsGrowth.Infra.Interfaces;
+
 namespace Cod3rsGrowth.Teste
 {
     public class TesteUnitario : TesteBase
     {
-        private IServicoPocao servicoPocao;
+        private IRepositorio _repositorioMok;
         public TesteUnitario() 
         {
-            servicoPocao = ServiceProvider.GetService<IServicoPocao>();
+            _repositorioMok = ServiceProvider.GetService<IRepositorio>();
         }
         [Fact]
-        public void RetornarNomeDaPocao()
+        public void NetherFungusComPoteComAguaResultaStrangePotion()
         {
+            //  arrange
+            var listaSingleton = _repositorioMok.ObterTodos();
+            //  act
+            var listaIngrediente = listaSingleton.listaIngrediente;
+            //  assert 
+            var ingrediente = listaIngrediente[0];
+            var ingrediente2 = listaIngrediente[1];
+            var pocao = "pocao invalida";
 
+            if (ingrediente.Nome == "Fungus Nether" & ingrediente2.Nome == "Pote com Agua")
+            {
+                pocao = "StrangePotion";
+            } 
+            Assert.Equal("StrangePotion", pocao);
         }
     }
 }
