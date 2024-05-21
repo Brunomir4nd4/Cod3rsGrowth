@@ -4,10 +4,10 @@ namespace Cod3rsGrowth.Servico.Interfaces
 {
     public interface IServicoPocao
     {
-        public List<Pocao> ObterTodos();
-        public void CriarPocao(Pocao pocao);
-        public void ObterPorldPocao();
-        public void EditarPocao();
-        public void RemoverPocao();
+        List<Pocao> ObterTodos();
+        void CriarPocao(Pocao pocao);
+        void ObterPorldPocao();
+        void EditarPocao();
+        void RemoverPocao();
     }
 }

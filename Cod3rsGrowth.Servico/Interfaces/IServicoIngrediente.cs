@@ -4,10 +4,10 @@ namespace Cod3rsGrowth.Servico.Interfaces
 {
     public interface IServicoIngrediente
     {
-        public List<Ingrediente> ObterTodos();
-        public void CriarIngrediente(Ingrediente ingrediente);
-        public void ObterPorldIngrediente();
-        public void EditarIngrediente();
-        public void RemoverIngredientes();
+        List<Ingrediente> ObterTodos();
+        void CriarIngrediente(Ingrediente ingrediente);
+        void ObterPorldIngrediente();
+        void EditarIngrediente();
+        void RemoverIngredientes();
     }
 }
