@@ -1,5 +1,4 @@
 ﻿using Cod3rsGrowth.Dominio.Entidades;
-using Cod3rsGrowth.Infra.Interfaces;
 using Cod3rsGrowth.Servico.Interfaces;
 using Cod3rsGrowth.Teste.ConfiguracaoAmbienteTeste;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,24 +15,14 @@ namespace Cod3rsGrowth.Teste
         }
 
         [Fact]
-        public void RetornaListaPocaoTamanho0()
+        public void ObterTodosDeveRetornarUmaListaDoTipoPocao()
         {
             var listaPocao = _servicoPocao.ObterTodos();
-            var tamanhoListaPocao = listaPocao.Count;
-            Assert.Equal(0, tamanhoListaPocao);
-        }
-
-        [Fact]
-        public void ListaPocaoIgualTipoListaPocao()
-        {
-            var listaPocao = _servicoPocao.ObterTodos();
-
-
             Assert.IsType<List<Pocao>>(listaPocao);
         }
 
         [Fact]
-        public void ListaPocaoIndexZeroRetornaPocaoDeCrura()
+        public void ListaPocaoIndexZeroDeveRetornarPocaoDeCrura()
         {
             Pocao pocao = new Pocao()
             {

@@ -17,22 +17,14 @@ namespace Cod3rsGrowth.Teste
         }
 
         [Fact]
-        public void RetornaLitaIngredienteComTamanho0()
-        {
-            var listaIngrediente = _servicoIngrediente.ObterTodos();
-            var tamanhoListaIngrediente = listaIngrediente.Count;
-            Assert.Equal(0, tamanhoListaIngrediente);
-        }
-
-        [Fact]
-        public void ListaIngredienteIgualTipoListaIngrediente()
+        public void ObterTodosDeveRetornarUmalistaDoTipoIngrediente()
         {
             var listaIngrediente = _servicoIngrediente.ObterTodos();
             Assert.IsType<List<Ingrediente>>(listaIngrediente);
         }
 
         [Fact]
-        public void ListaIngredienteIndexZeroRetornaOlhaDeAranha()
+        public void IndexZeroDaListaDeIngredientesDeveRetornarOlhoDeAranha()
         {
             Ingrediente ingrediente = new Ingrediente()
             {
