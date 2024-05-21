@@ -37,8 +37,8 @@ namespace Cod3rsGrowth.Teste
             _servicoIngrediente.CriarIngrediente(ingrediente);
             var listaIngrediente = _servicoIngrediente.ObterTodos();
 
-            var nomeDoIngrediente = listaIngrediente[0].Nome;
-            Assert.Equal("Olho de Aranha", nomeDoIngrediente);
+            var ingredienteDoBanco = listaIngrediente.FirstOrDefault();
+            Assert.Equivalent(ingredienteDoBanco, ingrediente);
         }
     }
 }

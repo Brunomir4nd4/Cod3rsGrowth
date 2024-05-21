@@ -26,16 +26,15 @@ namespace Cod3rsGrowth.Teste
         {
             Pocao pocao = new Pocao()
             {
-                Id = 0,
                 Nome = "Pocao de Cura"
             };
 
             _servicoPocao.CriarPocao(pocao);
             var listaPocao = _servicoPocao.ObterTodos();
 
-            var nomePocao = listaPocao[0].Nome;
+            var pocaoDoBanco = listaPocao.FirstOrDefault();
 
-            Assert.Equal("Pocao de Cura", nomePocao);
+            Assert.Equivalent(pocaoDoBanco,pocao);
         }
     }
 }
