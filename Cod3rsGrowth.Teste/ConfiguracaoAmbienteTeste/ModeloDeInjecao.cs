@@ -12,7 +12,8 @@ namespace Cod3rsGrowth.Teste.ConfiguracaoAmbienteTeste
         {
             servicos.AddScoped<IServicoPocao, ServicoPocao>();
             servicos.AddScoped<IServicoIngrediente, ServicoIngrediente>();
-            servicos.AddScoped<IRepositorio, RepositorioMock>();
+            servicos.AddScoped<IRepositorioPocao, RepositorioPocaoMock>();
+            servicos.AddScoped<IRepositorioIngrediente, RepositorioIngredienteMock>();
         }
     }
 }

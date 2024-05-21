@@ -1,9 +1,11 @@
-﻿namespace Cod3rsGrowth.Servico.Interfaces
+﻿using Cod3rsGrowth.Dominio.Entidades;
+
+namespace Cod3rsGrowth.Servico.Interfaces
 {
     public interface IServicoIngrediente
     {
-        public void ObterTodos();
-        public void CriarIngrediente();
+        public List<Ingrediente> ObterTodos();
+        public void CriarIngrediente(Ingrediente ingrediente);
         public void ObterPorldIngrediente();
         public void EditarIngrediente();
         public void RemoverIngredientes();

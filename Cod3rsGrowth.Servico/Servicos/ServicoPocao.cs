@@ -1,23 +1,27 @@
 ﻿using Cod3rsGrowth.Servico.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Cod3rsGrowth.Dominio.Entidades;
+using Cod3rsGrowth.Infra.Interfaces;
 
 namespace Cod3rsGrowth.Servico.Servicos
 {
     public class ServicoPocao : IServicoPocao
     {
-        public void ObterTodos()
-        {
+        private readonly IRepositorioPocao _repositorioPocao;
 
-        }
-        public void CriarPocao()
+        public ServicoPocao(IRepositorioPocao repositorioPocao)
         {
+            _repositorioPocao = repositorioPocao;
+        }
+        public List<Pocao> ObterTodos()
+        {
+            return _repositorioPocao.ObterTodos();
         }
         public void ObterPorldPocao()
         {
+        }
+        public void CriarPocao(Pocao pocao)
+        {
+            _repositorioPocao.Criar(pocao);
         }
         public void EditarPocao()
         {

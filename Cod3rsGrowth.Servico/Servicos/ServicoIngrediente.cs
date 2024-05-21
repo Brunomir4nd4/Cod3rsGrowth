@@ -1,23 +1,29 @@
-﻿using Cod3rsGrowth.Servico.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Cod3rsGrowth.Dominio.Entidades;
+using Cod3rsGrowth.Infra.Interfaces;
+using Cod3rsGrowth.Servico.Interfaces;
 
 namespace Cod3rsGrowth.Servico.Servicos
 {
     public class ServicoIngrediente : IServicoIngrediente
     {
-        public void ObterTodos()
-        {
+        private IRepositorioIngrediente _repositorioIngrediente;
 
-        }
-        public void CriarIngrediente()
+
+        public ServicoIngrediente(IRepositorioIngrediente repositorioIngrediente)
         {
+            _repositorioIngrediente = repositorioIngrediente;
+        }
+
+        public List<Ingrediente> ObterTodos()
+        {
+            return _repositorioIngrediente.ObterTodos();
         }
         public void ObterPorldIngrediente()
         {
+        }
+        public void CriarIngrediente(Ingrediente ingrediente)
+        {
+            _repositorioIngrediente.Criar(ingrediente);
         }
         public void EditarIngrediente()
         {
