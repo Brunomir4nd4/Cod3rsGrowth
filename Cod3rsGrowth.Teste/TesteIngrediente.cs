@@ -80,7 +80,7 @@ namespace Cod3rsGrowth.Teste
         }
 
         [Fact]
-        public void ObterPorId_ComDadosExistentes_DeveRetornarUmObjetoIngrediente()
+        public void ObterPorId_ComDadosExistentes_DeveRetornarUmObjetoEsperado()
         {
             //arrange
             int idProcurado = 3;
