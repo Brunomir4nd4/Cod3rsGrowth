@@ -15,8 +15,8 @@ namespace Cod3rsGrowth.Teste.Repositorios
 
         public Ingrediente ObterPorId(int idProcurado)
         {
-            Ingrediente ingredienteProcurado = listaIngredientes.Find(objeto => objeto.Id == idProcurado);
-            return ingredienteProcurado;
+            return listaIngredientes.Find(objeto => objeto.Id == idProcurado)
+                ?? throw new Exception("Id não encontrado");
         }
 
         public void Criar(Ingrediente ingrediente)

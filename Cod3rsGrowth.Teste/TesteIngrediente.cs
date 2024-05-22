@@ -52,17 +52,17 @@ namespace Cod3rsGrowth.Teste
         public void ObterPorId_ComDadosExistentes_DeveRetornarUmObjetoIngredienteProcurado()
         {
             //arrange
-            int id1 = 0, id2 = 1;
+            int id1 = 1, id2 = 2;
             Ingrediente ingredienteMock1 = new Ingrediente()
             {
-                Id = 0,
+                Id = 1,
                 Nome = "Polvora",
                 Naturalidade = Naturalidade.OverWorld,
                 Quantidade = 6
             };
             Ingrediente ingredienteMock2 = new Ingrediente()
             {
-                Id = 1,
+                Id = 2,
                 Nome = "Bastão do Blaze",
                 Naturalidade = Naturalidade.Nether,
                 Quantidade = 2
@@ -77,6 +77,41 @@ namespace Cod3rsGrowth.Teste
             //assert
             Assert.Equal(ingredienteMock1, objetoDoBanco1);
             Assert.Equal(ingredienteMock2, objetoDoBanco2);
+        }
+
+        [Fact]
+        public void ObterPorId_ComDadosExistentes_DeveRetornarUmObjetoIngrediente()
+        {
+            //arrange
+            int idProcurado = 3;
+
+            Ingrediente ingrediente = new Ingrediente()
+            {
+                Id = 3,
+                Nome = "Olho de Aranha Fermentado",
+                Naturalidade = Naturalidade.OverWorld,
+                Quantidade = 9
+            };
+
+            //act
+            _servicoIngrediente.CriarIngrediente(ingrediente);
+            var ingredienteDoBanco = _servicoIngrediente.ObterPorId(idProcurado);
+
+            //assert
+            Assert.IsType<Ingrediente>(ingredienteDoBanco);
+        }
+
+        [Fact]
+        public void ObterPorId_ComDadosInesistentes_DeveRetornarIdNaoEncontrado()
+        {
+            //arrange
+            int idInesistente = 999;
+
+            //act
+            var excecao = Assert.Throws<Exception>(() => _servicoIngrediente.ObterPorId(idInesistente));
+
+            //assert
+            Assert.Equal("Id não encontrado", excecao.Message);
         }
     }
 }

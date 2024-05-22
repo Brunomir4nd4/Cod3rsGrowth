@@ -1,5 +1,7 @@
 ﻿using Cod3rsGrowth.Dominio.Entidades;
+using Cod3rsGrowth.Dominio.Enums;
 using Cod3rsGrowth.Servico.Interfaces;
+using Cod3rsGrowth.Servico.Servicos;
 using Cod3rsGrowth.Teste.ConfiguracaoAmbienteTeste;
 using Microsoft.Extensions.DependencyInjection;
 using Xunit;
@@ -53,10 +55,10 @@ namespace Cod3rsGrowth.Teste
         public void ObterPorId_ComDadosExistentes_DeveRetornarUmObjetoPocaoProcurado()
         {
             //arrange
-            int id1 = 0, id2 = 1;
+            int id1 = 1, id2 = 2;
             Pocao pocaoMock1 = new Pocao()
             {
-                Id = 0,
+                Id = 1,
                 Nome = "Pocao de Invissibilidade",
                 DataDeVencimento = DateTime.Now,
                 Descricao = "te deixa invissível",
@@ -67,7 +69,7 @@ namespace Cod3rsGrowth.Teste
             }; 
             Pocao pocaoMock2 = new Pocao()
             {
-                Id = 1,
+                Id = 2,
                 Nome = "Pocao de Queda Lenta",
                 DataDeVencimento = DateTime.Now,
                 Descricao = "Faz você cair sem levar dano",
@@ -86,6 +88,45 @@ namespace Cod3rsGrowth.Teste
             //assert
             Assert.Equal(pocaoMock1, objetoDoBanco1);
             Assert.Equal(pocaoMock2, objetoDoBanco2);
+        }
+
+        [Fact]
+        public void ObterPorId_ComDadosExistentes_DeveRetornarUmObjetoPocao()
+        {
+            //arrange
+            int idProcurado = 3;
+
+            Pocao pocao = new Pocao()
+            {
+                Id = 3,
+                Nome = "Pocao de Resistencia ao Fogo",
+                DataDeVencimento = DateTime.Now,
+                Descricao = "Fica resistente ao fogo",
+                Imagem = "caminho da imagem",
+                Quantidade = 4,
+                Valor = 7,
+                Vencido = true
+            };
+
+            //act
+            _servicoPocao.CriarPocao(pocao);
+            var pocaoDoBanco = _servicoPocao.ObterPorId(idProcurado);
+
+            //assert
+            Assert.IsType<Pocao>(pocaoDoBanco);
+        }
+
+        [Fact]
+        public void ObterPorId_ComDadosInesistentes_DeveRetornarIdNaoEncontrado()
+        {
+            //arrange
+            int idInesistente = 999;
+
+            //act
+            var excecao = Assert.Throws<Exception>(() => _servicoPocao.ObterPorId(idInesistente));
+
+            //assert
+            Assert.Equal("Id não encontrado", excecao.Message);
         }
     }
 }

@@ -15,8 +15,8 @@ namespace Cod3rsGrowth.Teste.Repositorios
 
         public Pocao ObterPorId(int idProcurado)
         {
-            Pocao pocaoProcurada = listaPocao.Find(objeto => objeto.Id == idProcurado);
-            return pocaoProcurada;
+            return listaPocao.Find(objeto => objeto.Id == idProcurado) 
+                ?? throw new Exception("Id não encontrado");
         }
 
         public void Criar(Pocao pocao)
