@@ -13,17 +13,17 @@ namespace Cod3rsGrowth.Teste.Repositorios
             return listaIngredientes;
         }
 
-        public Ingrediente ObterPorId(int id)
+        public Ingrediente ObterPorId(int idProcurado)
         {
-            int i;
-            for (i = 0; i <  listaIngredientes.Count; i++)
+            Ingrediente ingredienteProcurado = new Ingrediente();
+            foreach (var ingrediente in listaIngredientes)
             {
-                if (listaIngredientes[i].Id == id)
+                if (ingrediente.Id == idProcurado)
                 {
-                    break;
+                    ingredienteProcurado = ingrediente;
                 }
             }
-            return listaIngredientes[i];
+            return ingredienteProcurado;
         }
 
         public void Criar(Ingrediente ingrediente)
