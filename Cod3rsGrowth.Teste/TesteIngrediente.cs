@@ -12,19 +12,24 @@ namespace Cod3rsGrowth.Teste
         private IServicoIngrediente _servicoIngrediente;
         public TesteIngrediente()
         {
+            CarregarServico();
+        }
+
+        private void CarregarServico()
+        {
             _servicoIngrediente = ServiceProvider.GetService<IServicoIngrediente>()
                 ?? throw new Exception($"Erro ao obter servico [{nameof(IServicoIngrediente)}]");
         }
 
         [Fact]
-        public void ObterTodosDeveRetornarUmalistaDoTipoIngrediente()
+        public void ObterTodos_ComDadosDisponiveis_DeveRetornarUmalistaDoTipoIngrediente()
         {
             var listaIngrediente = _servicoIngrediente.ObterTodos();
             Assert.IsType<List<Ingrediente>>(listaIngrediente);
         }
 
         [Fact]
-        public void IndexZeroDaListaDeIngredientesDeveRetornarOlhoDeAranha()
+        public void ObterTodos_ComDadosDisponiveis_DeveSerEquivalenteAUmaListaDeIngrediente()
         {
             Ingrediente ingrediente = new Ingrediente()
             {
@@ -34,11 +39,12 @@ namespace Cod3rsGrowth.Teste
                 Quantidade = 5
             };
 
-            _servicoIngrediente.CriarIngrediente(ingrediente);
-            var listaIngrediente = _servicoIngrediente.ObterTodos();
+            List<Ingrediente> listaMock = new List<Ingrediente>() { ingrediente };
 
-            var ingredienteDoBanco = listaIngrediente.FirstOrDefault();
-            Assert.Equivalent(ingredienteDoBanco, ingrediente);
+            _servicoIngrediente.CriarIngrediente(ingrediente);
+            var listaDoBanco = _servicoIngrediente.ObterTodos();
+
+            Assert.Equivalent(listaMock, listaDoBanco);
         }
     }
 }

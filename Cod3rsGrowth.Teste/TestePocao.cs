@@ -10,31 +10,43 @@ namespace Cod3rsGrowth.Teste
         private IServicoPocao _servicoPocao;
         public TestePocao()
         {
+            CarregarServico();
+        }
+
+        private void CarregarServico()
+        {
             _servicoPocao = ServiceProvider.GetService<IServicoPocao>()
                 ?? throw new Exception($"Erro ao obter servico [{nameof(IServicoPocao)}]");
         }
 
         [Fact]
-        public void ObterTodosDeveRetornarUmaListaDoTipoPocao()
+        public void ObterTodos_ComUmaListaValida_DeveRetornarUmaListaDoTipoPocao()
         {
             var listaPocao = _servicoPocao.ObterTodos();
             Assert.IsType<List<Pocao>>(listaPocao);
         }
 
         [Fact]
-        public void ListaPocaoIndexZeroDeveRetornarPocaoDeCrura()
+        public void ObterTodos_ComDadosDisponiveis_DeveSerEquivalenteAUmaListaDePocao()
         {
             Pocao pocao = new Pocao()
             {
-                Nome = "Pocao de Cura"
+                Id = 0,
+                Nome = "Pocao de Cura",
+                DataDeVencimento = DateTime.Now,
+                Descricao = "Deve curar",
+                Imagem = "caminho da imagem",
+                Quantidade = 2,
+                Valor = 20,
+                Vencido = true
             };
 
+            List<Pocao> listaMock = new List<Pocao> { pocao };
+
             _servicoPocao.CriarPocao(pocao);
-            var listaPocao = _servicoPocao.ObterTodos();
+            var listaDoBanco = _servicoPocao.ObterTodos();
 
-            var pocaoDoBanco = listaPocao.FirstOrDefault();
-
-            Assert.Equivalent(pocaoDoBanco,pocao);
+            Assert.Equivalent(listaMock, listaDoBanco);
         }
     }
 }
