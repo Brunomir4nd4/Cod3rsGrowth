@@ -48,5 +48,44 @@ namespace Cod3rsGrowth.Teste
 
             Assert.Equivalent(listaMock, listaDoBanco);
         }
+
+        [Fact]
+        public void ObterPorId_ComDadosExistentes_DeveRetornarUmObjetoPocao()
+        {
+            //arrange
+            int id1 = 0, id2 = 1;
+            Pocao pocaoMock1 = new Pocao()
+            {
+                Id = 0,
+                Nome = "Pocao de Invissibilidade",
+                DataDeVencimento = DateTime.Now,
+                Descricao = "te deixa invissível",
+                Imagem = "caminho da imagem",
+                Quantidade = 3,
+                Valor = 13,
+                Vencido = true
+            }; 
+            Pocao pocaoMock2 = new Pocao()
+            {
+                Id = 1,
+                Nome = "Pocao de Queda Lenta",
+                DataDeVencimento = DateTime.Now,
+                Descricao = "Faz você cair sem levar dano",
+                Imagem = "caminho da imagem",
+                Quantidade = 4,
+                Valor = 7,
+                Vencido = true
+            };
+
+            //act
+            _servicoPocao.CriarPocao(pocaoMock1);
+            _servicoPocao.CriarPocao(pocaoMock2);
+            var objetoDoBanco1 = _servicoPocao.ObterPorId(id1);
+            var objetoDoBanco2 = _servicoPocao.ObterPorId(id2);
+
+            //assert
+            Assert.Equal(pocaoMock1, objetoDoBanco1);
+            Assert.Equal(pocaoMock2, objetoDoBanco2);
+        }
     }
 }

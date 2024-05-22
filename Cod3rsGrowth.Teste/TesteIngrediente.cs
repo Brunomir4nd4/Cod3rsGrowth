@@ -1,6 +1,7 @@
 ﻿using Cod3rsGrowth.Dominio.Entidades;
 using Cod3rsGrowth.Dominio.Enums;
 using Cod3rsGrowth.Servico.Interfaces;
+using Cod3rsGrowth.Servico.Servicos;
 using Cod3rsGrowth.Teste.ConfiguracaoAmbienteTeste;
 using Microsoft.Extensions.DependencyInjection;
 using Xunit;
@@ -45,6 +46,37 @@ namespace Cod3rsGrowth.Teste
             var listaDoBanco = _servicoIngrediente.ObterTodos();
 
             Assert.Equivalent(listaMock, listaDoBanco);
+        }
+
+        [Fact]
+        public void ObterPorId_ComDadosExistentes_DeveRetornarUmObjetoIngrediente()
+        {
+            //arrange
+            int id1 = 0, id2 = 1;
+            Ingrediente ingredienteMock1 = new Ingrediente()
+            {
+                Id = 0,
+                Nome = "Polvora",
+                Naturalidade = Naturalidade.OverWorld,
+                Quantidade = 6
+            };
+            Ingrediente ingredienteMock2 = new Ingrediente()
+            {
+                Id = 1,
+                Nome = "Bastão do Blaze",
+                Naturalidade = Naturalidade.Nether,
+                Quantidade = 2
+            };
+
+            //act
+            _servicoIngrediente.CriarIngrediente(ingredienteMock1);
+            _servicoIngrediente.CriarIngrediente(ingredienteMock2);
+            var objetoDoBanco1 = _servicoIngrediente.ObterPorId(id1);
+            var objetoDoBanco2 = _servicoIngrediente.ObterPorId(id2);
+
+            //assert
+            Assert.Equal(ingredienteMock1.Nome, objetoDoBanco1.Nome);
+            Assert.Equal(ingredienteMock2.Nome, objetoDoBanco2.Nome);
         }
     }
 }

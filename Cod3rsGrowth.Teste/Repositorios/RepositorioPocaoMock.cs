@@ -13,6 +13,19 @@ namespace Cod3rsGrowth.Teste.Repositorios
             return listaPocao;
         }
 
+        public Pocao ObterPorId(int id)
+        {
+            int i;
+            for (i = 0; i < listaPocao.Count; i++)
+            {
+                if (listaPocao[i].Id ==  id)
+                {
+                    break;
+                }
+            }
+            return listaPocao[i];
+        }
+
         public void Criar(Pocao pocao)
         {
             listaPocao.Add(pocao);
