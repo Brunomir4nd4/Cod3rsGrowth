@@ -75,8 +75,8 @@ namespace Cod3rsGrowth.Teste
             var objetoDoBanco2 = _servicoIngrediente.ObterPorId(id2);
 
             //assert
-            Assert.Equal(ingredienteMock1.Nome, objetoDoBanco1.Nome);
-            Assert.Equal(ingredienteMock2.Nome, objetoDoBanco2.Nome);
+            Assert.Equal(ingredienteMock1, objetoDoBanco1);
+            Assert.Equal(ingredienteMock2, objetoDoBanco2);
         }
     }
 }
