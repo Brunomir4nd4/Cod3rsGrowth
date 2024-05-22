@@ -3,15 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34728.123
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cod3rsGrowth.Dominio", "Cod3rsGrowth.Dominio\Cod3rsGrowth.Dominio.csproj", "{B0D459CB-6E75-44AE-8EF7-36D77CD80647}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cod3rsGrowth.Dominio", "Cod3rsGrowth.Dominio\Cod3rsGrowth.Dominio.csproj", "{B0D459CB-6E75-44AE-8EF7-36D77CD80647}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cod3rsGrowth.Infra", "Cod3rsGrowth.Infra\Cod3rsGrowth.Infra.csproj", "{41C91AEE-9073-4ABF-9889-B7E54CF1E628}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cod3rsGrowth.Infra", "Cod3rsGrowth.Infra\Cod3rsGrowth.Infra.csproj", "{41C91AEE-9073-4ABF-9889-B7E54CF1E628}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cod3rsGrowth.Forms", "Cod3rsGrowth.Forms\Cod3rsGrowth.Forms.csproj", "{5DA3A9C5-0D60-476A-B458-114FF0F141F5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cod3rsGrowth.Forms", "Cod3rsGrowth.Forms\Cod3rsGrowth.Forms.csproj", "{5DA3A9C5-0D60-476A-B458-114FF0F141F5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cod3rsGrowth.Web", "Cod3rsGrowth.Web\Cod3rsGrowth.Web.csproj", "{7891B6C3-7082-4C5F-9D10-BC2B6F56A773}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cod3rsGrowth.Web", "Cod3rsGrowth.Web\Cod3rsGrowth.Web.csproj", "{7891B6C3-7082-4C5F-9D10-BC2B6F56A773}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cod3rsGrowth.Teste", "Cod3rsGrowth.Teste\Cod3rsGrowth.Teste.csproj", "{564C69BB-0418-4628-B623-E61FDC5FDA41}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cod3rsGrowth.Teste", "Cod3rsGrowth.Teste\Cod3rsGrowth.Teste.csproj", "{564C69BB-0418-4628-B623-E61FDC5FDA41}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cod3rsGrowth.Servico", "Cod3rsGrowth.Servico\Cod3rsGrowth.Servico.csproj", "{B911D298-D5C4-4A1B-A963-A7ACD6F4F80B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{564C69BB-0418-4628-B623-E61FDC5FDA41}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{564C69BB-0418-4628-B623-E61FDC5FDA41}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{564C69BB-0418-4628-B623-E61FDC5FDA41}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B911D298-D5C4-4A1B-A963-A7ACD6F4F80B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B911D298-D5C4-4A1B-A963-A7ACD6F4F80B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B911D298-D5C4-4A1B-A963-A7ACD6F4F80B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B911D298-D5C4-4A1B-A963-A7ACD6F4F80B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
