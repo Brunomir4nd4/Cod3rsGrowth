@@ -80,7 +80,7 @@ namespace Cod3rsGrowth.Teste
             var pocaoDoBanco = _servicoPocao.ObterPorId(idDeBusca);
 
             //assert
-            Assert.Equal(pocaoMock, pocaoDoBanco);
+            Assert.Equivalent(pocaoMock, pocaoDoBanco);
         }
 
         [Fact]
