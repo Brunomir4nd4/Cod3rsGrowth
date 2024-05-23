@@ -11,9 +11,41 @@ namespace Cod3rsGrowth.Teste
     public class TesteIngrediente : TesteBase
     {
         private IServicoIngrediente _servicoIngrediente;
+        private List<Ingrediente> _listaMock;
+        private List<Ingrediente> _listaDoBanco;
+
         public TesteIngrediente()
         {
             CarregarServico();
+            _listaMock = IniciarBancoMock();
+        }
+
+        public List<Ingrediente> IniciarBancoMock()
+        {
+            List<Ingrediente> listaMock = new List<Ingrediente>
+            {
+                new Ingrediente
+                {
+                    Id = 0,
+                    Nome = "Olho de Aranha",
+                    Naturalidade = Naturalidade.OverWorld,
+                    Quantidade = 5
+                },
+                
+                new Ingrediente
+                {
+                    Id = 1,
+                    Nome = "Polvora",
+                    Naturalidade = Naturalidade.OverWorld,
+                    Quantidade = 6
+                }
+            };
+
+            foreach (var item in listaMock) 
+            {
+                _servicoIngrediente.CriarIngrediente(item);
+            }
+            return listaMock;
         }
 
         private void CarregarServico()
@@ -32,69 +64,32 @@ namespace Cod3rsGrowth.Teste
         [Fact]
         public void ObterTodos_ComDadosDisponiveis_DeveSerEquivalenteAUmaListaDeIngrediente()
         {
-            Ingrediente ingrediente = new Ingrediente()
-            {
-                Id = 0,
-                Nome = "Olho de Aranha",
-                Naturalidade = Naturalidade.OverWorld,
-                Quantidade = 5
-            };
+            _listaDoBanco = _servicoIngrediente.ObterTodos();
 
-            List<Ingrediente> listaMock = new List<Ingrediente>() { ingrediente };
-
-            _servicoIngrediente.CriarIngrediente(ingrediente);
-            var listaDoBanco = _servicoIngrediente.ObterTodos();
-
-            Assert.Equivalent(listaMock, listaDoBanco);
+            Assert.Equivalent(_listaMock, _listaDoBanco);
         }
 
         [Fact]
         public void ObterPorId_ComIdExistente_DeveRetornarIngredienteEsperado()
         {
             //arrange
-            int id1 = 1, id2 = 2;
-            Ingrediente ingredienteMock1 = new Ingrediente()
-            {
-                Id = 1,
-                Nome = "Polvora",
-                Naturalidade = Naturalidade.OverWorld,
-                Quantidade = 6
-            };
-            Ingrediente ingredienteMock2 = new Ingrediente()
-            {
-                Id = 2,
-                Nome = "Bastão do Blaze",
-                Naturalidade = Naturalidade.Nether,
-                Quantidade = 2
-            };
+            int idBuscado = 0;
+            var ingredienteMock = _listaMock.FirstOrDefault();
 
             //act
-            _servicoIngrediente.CriarIngrediente(ingredienteMock1);
-            _servicoIngrediente.CriarIngrediente(ingredienteMock2);
-            var objetoDoBanco1 = _servicoIngrediente.ObterPorId(id1);
-            var objetoDoBanco2 = _servicoIngrediente.ObterPorId(id2);
+            var objetoDoBanco = _servicoIngrediente.ObterPorId(idBuscado);
 
             //assert
-            Assert.Equal(ingredienteMock1, objetoDoBanco1);
-            Assert.Equal(ingredienteMock2, objetoDoBanco2);
+            Assert.Equal(ingredienteMock, objetoDoBanco);
         }
 
         [Fact]
         public void ObterPorId_ComIdExistente_DeveRetornarObjetoTypeIngrediente()
         {
             //arrange
-            int idProcurado = 3;
-
-            Ingrediente ingrediente = new Ingrediente()
-            {
-                Id = 3,
-                Nome = "Olho de Aranha Fermentado",
-                Naturalidade = Naturalidade.OverWorld,
-                Quantidade = 9
-            };
+            int idProcurado = 1;
 
             //act
-            _servicoIngrediente.CriarIngrediente(ingrediente);
             var ingredienteDoBanco = _servicoIngrediente.ObterPorId(idProcurado);
 
             //assert
@@ -102,7 +97,7 @@ namespace Cod3rsGrowth.Teste
         }
 
         [Fact]
-        public void ObterPorId_ComDadosInesistentes_DeveRetornarIdNaoEncontrado()
+        public void ObterPorId_ComIdInexistente_DeveLancarExcecaoObjetoNaoEncontrado()
         {
             //arrange
             int idInesistente = 999;
