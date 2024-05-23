@@ -52,7 +52,7 @@ namespace Cod3rsGrowth.Teste
         }
 
         [Fact]
-        public void ObterPorId_ComDadosExistentes_DeveRetornarUmObjetoPocaoProcurado()
+        public void ObterPorId_ComIdExistente_DeveRetornarIngredienteEsperado()
         {
             //arrange
             int id1 = 1, id2 = 2;
@@ -91,7 +91,7 @@ namespace Cod3rsGrowth.Teste
         }
 
         [Fact]
-        public void ObterPorId_ComDadosExistentes_DeveRetornarUmObjetoProcurado()
+        public void ObterPorId_ComIdExistente_DeveRetornarObjetoTypePocao()
         {
             //arrange
             int idProcurado = 3;
@@ -117,7 +117,7 @@ namespace Cod3rsGrowth.Teste
         }
 
         [Fact]
-        public void ObterPorId_ComDadosInesistentes_DeveRetornarIdNaoEncontrado()
+        public void ObterPorId_ComIdInexistente_DeveLancarExcecaoObjetoNaoEncontrado()
         {
             //arrange
             int idInesistente = 999;
@@ -126,7 +126,7 @@ namespace Cod3rsGrowth.Teste
             var excecao = Assert.Throws<Exception>(() => _servicoPocao.ObterPorId(idInesistente));
 
             //assert
-            Assert.Equal("Id não encontrado", excecao.Message);
+            Assert.Equal($"O objeto com id {idInesistente} não foi encontrado", excecao.Message);
         }
     }
 }

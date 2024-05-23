@@ -49,7 +49,7 @@ namespace Cod3rsGrowth.Teste
         }
 
         [Fact]
-        public void ObterPorId_ComDadosExistentes_DeveRetornarUmObjetoIngredienteProcurado()
+        public void ObterPorId_ComIdExistente_DeveRetornarIngredienteEsperado()
         {
             //arrange
             int id1 = 1, id2 = 2;
@@ -80,7 +80,7 @@ namespace Cod3rsGrowth.Teste
         }
 
         [Fact]
-        public void ObterPorId_ComDadosExistentes_DeveRetornarUmObjetoEsperado()
+        public void ObterPorId_ComIdExistente_DeveRetornarObjetoTypeIngrediente()
         {
             //arrange
             int idProcurado = 3;
@@ -111,7 +111,7 @@ namespace Cod3rsGrowth.Teste
             var excecao = Assert.Throws<Exception>(() => _servicoIngrediente.ObterPorId(idInesistente));
 
             //assert
-            Assert.Equal("Id não encontrado", excecao.Message);
+            Assert.Equal($"O objeto com id {idInesistente} não foi encontrado", excecao.Message);
         }
     }
 }
