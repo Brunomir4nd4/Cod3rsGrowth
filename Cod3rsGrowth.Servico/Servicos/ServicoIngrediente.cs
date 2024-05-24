@@ -8,7 +8,6 @@ namespace Cod3rsGrowth.Servico.Servicos
     {
         private IRepositorioIngrediente _repositorioIngrediente;
 
-
         public ServicoIngrediente(IRepositorioIngrediente repositorioIngrediente)
         {
             _repositorioIngrediente = repositorioIngrediente;
@@ -18,8 +17,9 @@ namespace Cod3rsGrowth.Servico.Servicos
         {
             return _repositorioIngrediente.ObterTodos();
         }
-        public void ObterPorldIngrediente()
+        public Ingrediente ObterPorId(int id)
         {
+            return _repositorioIngrediente.ObterPorId(id);
         }
         public void CriarIngrediente(Ingrediente ingrediente)
         {

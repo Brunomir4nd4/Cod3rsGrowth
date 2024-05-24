@@ -5,8 +5,8 @@ namespace Cod3rsGrowth.Servico.Interfaces
     public interface IServicoIngrediente
     {
         List<Ingrediente> ObterTodos();
+        Ingrediente ObterPorId(int id);
         void CriarIngrediente(Ingrediente ingrediente);
-        void ObterPorldIngrediente();
         void EditarIngrediente();
         void RemoverIngredientes();
     }

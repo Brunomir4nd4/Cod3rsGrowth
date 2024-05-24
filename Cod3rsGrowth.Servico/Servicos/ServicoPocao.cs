@@ -16,8 +16,9 @@ namespace Cod3rsGrowth.Servico.Servicos
         {
             return _repositorioPocao.ObterTodos();
         }
-        public void ObterPorldPocao()
+        public Pocao ObterPorId(int id)
         {
+            return _repositorioPocao.ObterPorId(id);
         }
         public void CriarPocao(Pocao pocao)
         {
