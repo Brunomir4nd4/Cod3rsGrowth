@@ -100,13 +100,13 @@ namespace Cod3rsGrowth.Teste
         public void ObterPorId_ComIdInexistente_DeveLancarExcecaoObjetoNaoEncontrado()
         {
             //arrange
-            int idInesistente = 999;
+            int idInexistente = 999;
 
             //act
-            var excecao = Assert.Throws<Exception>(() => _servicoPocao.ObterPorId(idInesistente));
+            var excecao = Assert.Throws<Exception>(() => _servicoPocao.ObterPorId(idInexistente));
 
             //assert
-            Assert.Equal($"O objeto com id {idInesistente} não foi encontrado", excecao.Message);
+            Assert.Equal($"O objeto com id {idInexistente} não foi encontrado", excecao.Message);
         }
     }
 }
