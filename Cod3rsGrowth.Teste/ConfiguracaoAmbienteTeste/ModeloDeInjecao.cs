@@ -13,11 +13,15 @@ namespace Cod3rsGrowth.Teste.ConfiguracaoAmbienteTeste
         {
             servicos.AddScoped<IServicoPocao, ServicoPocao>();
             servicos.AddScoped<IServicoIngrediente, ServicoIngrediente>();
+            servicos.AddScoped<IServicoReceita, ServicoReceita>();
 
             servicos.AddScoped<IRepositorioPocao, RepositorioPocaoMock>();
             servicos.AddScoped<IRepositorioIngrediente, RepositorioIngredienteMock>();
+            servicos.AddScoped<IRepositorioReceita, RepositorioReceitaMock>();
 
-            servicos.AddScoped<PocaoValidator>();
+            servicos.AddScoped<ReceitaValidator>();
+            servicos.AddScoped<IngredienteValidator>();
+            servicos.AddScoped<ReceitaValidator>();
         }
     }
 }

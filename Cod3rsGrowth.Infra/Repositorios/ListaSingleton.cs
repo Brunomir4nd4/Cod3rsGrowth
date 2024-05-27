@@ -6,11 +6,10 @@ namespace Cod3rsGrowth.Infra.Repositorios
     {
         private static ListaSingleton _instance;
 
+
         public List<Pocao> listaPocao { get; set; } = new List<Pocao>();
         public List<Ingrediente> listaIngrediente { get; set; } = new List<Ingrediente>();
-        private ListaSingleton()
-        {
-        }
+        public List<Receita> listaReceita { get; set; } = new List<Receita>();
 
         public static ListaSingleton getInstance
         {
@@ -23,6 +22,5 @@ namespace Cod3rsGrowth.Infra.Repositorios
                 return _instance;
             }
         }
-
     } 
 }

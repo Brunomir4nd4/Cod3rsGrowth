@@ -9,7 +9,6 @@
         public string Imagem { get; set; }
         public DateTime DataDeVencimento { get; set; }
         public bool Vencido { get; set; }
-        public int Quantidade { get; set; }
-
+        
     }
 }
