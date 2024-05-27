@@ -1,16 +1,19 @@
 ﻿using Cod3rsGrowth.Servico.Interfaces;
 using Cod3rsGrowth.Dominio.Entidades;
 using Cod3rsGrowth.Infra.Interfaces;
+using Cod3rsGrowth.Servico.Validadores;
+using FluentValidation;
 
 namespace Cod3rsGrowth.Servico.Servicos
 {
     public class ServicoPocao : IServicoPocao
     {
         private readonly IRepositorioPocao _repositorioPocao;
-
-        public ServicoPocao(IRepositorioPocao repositorioPocao)
+        private PocaoValidator _validator;
+        public ServicoPocao(IRepositorioPocao repositorioPocao, PocaoValidator validator)
         {
             _repositorioPocao = repositorioPocao;
+            _validator = validator;
         }
         public List<Pocao> ObterTodos()
         {
@@ -22,6 +25,7 @@ namespace Cod3rsGrowth.Servico.Servicos
         }
         public void CriarPocao(Pocao pocao)
         {
+            _validator.ValidateAndThrow(pocao);
             _repositorioPocao.Criar(pocao);
         }
         public void EditarPocao()

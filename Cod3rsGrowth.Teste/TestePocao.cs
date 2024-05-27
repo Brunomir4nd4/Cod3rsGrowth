@@ -1,8 +1,7 @@
 ﻿using Cod3rsGrowth.Dominio.Entidades;
-using Cod3rsGrowth.Dominio.Enums;
 using Cod3rsGrowth.Servico.Interfaces;
-using Cod3rsGrowth.Servico.Servicos;
 using Cod3rsGrowth.Teste.ConfiguracaoAmbienteTeste;
+using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 namespace Cod3rsGrowth.Teste
@@ -34,7 +33,7 @@ namespace Cod3rsGrowth.Teste
                 Descricao = "Deve curar",
                 Imagem = "caminho da imagem",
                 Quantidade = 2,
-                Valor = 20,
+                Valor = 20.00m,
                 Vencido = true},
 
                 new Pocao{Id = 1,
@@ -43,7 +42,7 @@ namespace Cod3rsGrowth.Teste
                 Descricao = "Te da Força",
                 Imagem = "caminho da imagem",
                 Quantidade = 5,
-                Valor = 15,
+                Valor = 15.00m,
                 Vencido = true}
             };
 
@@ -107,6 +106,70 @@ namespace Cod3rsGrowth.Teste
 
             //assert
             Assert.Equal($"O objeto com id {idInexistente} não foi encontrado", excecao.Message);
+        }
+
+        [Fact]
+        public void CriarPocao_ComNomeVazio_DeveRetornarMensagemDeErroEsperada()
+        {
+            Pocao pocao = new Pocao()
+            {
+                Nome = "",
+                Descricao = "Decrição A",
+                DataDeVencimento = DateTime.Today,
+                Valor = 20.22m
+            };
+
+            var excecao = Assert.Throws<ValidationException>(() => _servicoPocao.CriarPocao(pocao));
+
+            Assert.Equal("Campo Nome não preenchido!", excecao.Errors.Single().ErrorMessage);
+        }
+
+        [Fact]
+        public void CriarPocao_ComNomeContendoLetras_DeveRetornarMensagemDeErroEsperada()
+        {
+            Pocao pocao = new Pocao()
+            {
+                Nome = "Poção 1",
+                Descricao = "Decrição A",
+                DataDeVencimento = DateTime.Today,
+                Valor = 20.22m
+            };
+
+            var excecao = Assert.Throws<ValidationException>(() => _servicoPocao.CriarPocao(pocao));
+
+            Assert.Equal("Campo Nome Deve conter apenas letras!", excecao.Errors.Single().ErrorMessage);
+        }
+
+        [Fact]
+        public void CriarPocao_ComDescricaoComOverFlow_DeveRetornarMensagemDeErroEsperada()
+        {
+            Pocao pocao = new Pocao()
+            {
+                Nome = "Poção A",
+                Descricao = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                DataDeVencimento = DateTime.Today,
+                Valor = 20.22m
+            };
+
+            var excecao = Assert.Throws<ValidationException>(() => _servicoPocao.CriarPocao(pocao));
+
+            Assert.Equal("Campo Descrição deve ter no máximo 30 caracters!", excecao.Errors.Single().ErrorMessage);
+        }
+
+        [Fact]
+        public void CriarPocao_ComValorInvalido_DeveRetornarMensagemDeErroEsperada()
+        {
+            Pocao pocao = new Pocao()
+            {
+                Nome = "Poção A",
+                Descricao = "Descrição A",
+                DataDeVencimento = DateTime.Today,
+                Valor = 2000m
+            };
+
+            var excecao = Assert.Throws<ValidationException>(() => _servicoPocao.CriarPocao(pocao));
+
+            Assert.Equal("Campo Valor não pode execeder 3 digitos inteiros e 2 decimais!", excecao.Errors.Single().ErrorMessage);
         }
     }
 }
