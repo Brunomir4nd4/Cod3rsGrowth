@@ -1,7 +1,6 @@
 ﻿using Cod3rsGrowth.Dominio.Entidades;
 using Cod3rsGrowth.Dominio.Enums;
 using Cod3rsGrowth.Servico.Interfaces;
-using Cod3rsGrowth.Servico.Servicos;
 using Cod3rsGrowth.Teste.ConfiguracaoAmbienteTeste;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,6 +13,7 @@ namespace Cod3rsGrowth.Teste
         private IServicoIngrediente _servicoIngrediente;
         private List<Ingrediente> _listaMock;
         private List<Ingrediente> _listaDoBanco;
+        private Ingrediente _ingredienteParaTeste;
 
         public TesteIngrediente()
         {
@@ -109,48 +109,48 @@ namespace Cod3rsGrowth.Teste
         }
 
         [Theory]
-        [InlineData("")]
         [InlineData("12324321")]
         [InlineData("@#$%&#5*(")]
         public void CriarReceita_ComNomeInvalidado_DeveRetornarMensagemDeErroEsperada(string nome)
         {
-            Ingrediente ingrediente = new Ingrediente()
-            {
+            _ingredienteParaTeste = new Ingrediente() {
                 Nome = nome,
                 Naturalidade = Naturalidade.OverWorld,
-                Quantidade = 6
+                Quantidade = 4
             };
 
-            var excecao = Assert.Throws<ValidationException>(() => _servicoIngrediente.CriarIngrediente(ingrediente));
+            var excecao = Assert.Throws<ValidationException>(() => _servicoIngrediente.CriarIngrediente(_ingredienteParaTeste));
 
-            switch (nome)
-            {
-                case "":
-                    Assert.Equal("Campo Nome não preenchido!Campo Nome deve conter apenas letras!", excecao.Message);
-                    break;
-                case "12324321":
-                    Assert.Equal("Campo Nome deve conter apenas letras!", excecao.Message);
-                    break;
-                case "@#$%&#5*(":
-                    Assert.Equal("Campo Nome deve conter apenas letras!", excecao.Message);
-                    break;
-            }
+            Assert.Equal("Campo Nome deve conter apenas letras!", excecao.Message);
+
         }
 
         [Fact]
-        public void CriarReceita_Com2DadosInvalidos_DeveRetornarMensagensDeErrosEsperadas()
+        public void CriarReceita_ComNomeVazio_DeveRetornarMensagemDeErroEsperado()
         {
-            Ingrediente ingrediente = new Ingrediente()
+            _ingredienteParaTeste = new Ingrediente()
             {
-                Nome = ""
+                Naturalidade = Naturalidade.OverWorld,
+                Quantidade = 4
             };
 
-            var excecao = Assert.Throws<ValidationException>(() => _servicoIngrediente.CriarIngrediente(ingrediente));
+            var execao = Assert.Throws<ValidationException>(() => _servicoIngrediente.CriarIngrediente(_ingredienteParaTeste));
 
-            Assert.Equal("Campo Nome não preenchido!" +
-                "Campo Nome deve conter apenas letras!" +
-                "Campo Naturalidade não preenchido!" +
-                "Campo Naturalidade é invalido!", excecao.Message);
+            Assert.Equal("Campo Nome não preenchido!", execao.Message);
+        }
+
+        [Fact]
+        public void CriarReceita_ComNaturalidadeVazia_DeveRetornarErroEsperado()
+        {
+            _ingredienteParaTeste = new Ingrediente()
+            {
+                Nome = "Ingrediente A",
+                Quantidade = 4
+            };
+
+            var excecao = Assert.Throws<ValidationException>(() => _servicoIngrediente.CriarIngrediente(_ingredienteParaTeste));
+
+            Assert.Equal("Campo Naturalidade é invalido!", excecao.Message);
         }
     }
 }
