@@ -1,6 +1,5 @@
 ﻿using Cod3rsGrowth.Dominio.Entidades;
 using Cod3rsGrowth.Servico.Interfaces;
-using System.ComponentModel.DataAnnotations;
 using Cod3rsGrowth.Infra.Interfaces;
 using Cod3rsGrowth.Servico.Validadores;
 using FluentValidation;
@@ -26,7 +25,16 @@ namespace Cod3rsGrowth.Servico.Servicos
         }
         public void CriarReceita(Receita receita)
         {
-            _validator.ValidateAndThrow(receita);
+            string erros = "";
+            var validate = _validator.Validate(receita);
+            if (!validate.IsValid)
+            {
+                foreach (var erro in validate.Errors)
+                {
+                    erros += erro.ErrorMessage;
+                }
+                throw new ValidationException(erros);
+            }
             _repositorioReceita.Criar(receita);
         }
         public void EditarReceita()

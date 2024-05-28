@@ -6,22 +6,24 @@ namespace Cod3rsGrowth.Teste.Repositorios
 {
     public class RepositorioPocaoMock : IRepositorioPocao
     {
-        public List<Pocao> listaPocao = ListaSingleton.getInstance.listaPocao;
-
+        private List<Pocao> _listaPocao = ListaSingleton.getInstance.listaPocao;
+        private static int _novoId = 0;
         public List<Pocao> ObterTodos()
         {
-            return listaPocao;
+            return _listaPocao;
         }
 
         public Pocao ObterPorId(int idProcurado)
         {
-            return listaPocao.Find(objeto => objeto.Id == idProcurado) 
+            return _listaPocao.Find(objeto => objeto.Id == idProcurado) 
                 ?? throw new Exception($"O objeto com id {idProcurado} não foi encontrado");
         }
 
         public void Criar(Pocao pocao)
         {
-            listaPocao.Add(pocao);
+            pocao.Id = _novoId;
+            _novoId++;
+            _listaPocao.Add(pocao);
         }
     }
 }

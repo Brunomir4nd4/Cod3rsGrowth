@@ -8,10 +8,10 @@ namespace Cod3rsGrowth.Servico.Validadores
         public IngredienteValidator()
         {
             RuleFor(p => p.Nome)
-                .NotEmpty().WithMessage("Campo Nome não Preenchido!")
+                .NotEmpty().WithMessage("Campo Nome não preenchido!")
                 .Matches(@"^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$").WithMessage("Campo Nome deve conter apenas letras!");
             RuleFor(p => p.Naturalidade)
-                .NotEmpty().WithMessage("Campo não preenchido!")
+                .NotEmpty().WithMessage("Campo Naturalidade não preenchido!")
                 .IsInEnum().WithMessage("Campo Naturalidade é invalido!");
         }
     }

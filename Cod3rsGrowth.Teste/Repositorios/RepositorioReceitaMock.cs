@@ -6,22 +6,24 @@ namespace Cod3rsGrowth.Teste.Repositorios
 {
     internal class RepositorioReceitaMock : IRepositorioReceita
     {
-        public List<Receita> listaReceita = ListaSingleton.getInstance.listaReceita;
-
+        private List<Receita> _listaReceita = ListaSingleton.getInstance.listaReceita;
+        private int _novoId = 0;
         public List<Receita> ObterTodos()
         {
-            return listaReceita;
+            return _listaReceita;
         }
 
         public Receita ObterPorId(int idProcurado)
         {
-            return listaReceita.Find(objeto => objeto.Id == idProcurado)
+            return _listaReceita.Find(objeto => objeto.Id == idProcurado)
                 ?? throw new Exception($"O objeto com id {idProcurado} não foi encontrado");
         }
 
         public void Criar(Receita receita)
         {
-            listaReceita.Add(receita);
+            receita.Id = _novoId;
+            _novoId++;
+            _listaReceita.Add(receita);
         }
     }
 }

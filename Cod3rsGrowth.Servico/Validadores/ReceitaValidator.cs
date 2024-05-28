@@ -16,6 +16,8 @@ namespace Cod3rsGrowth.Servico.Validadores
             RuleFor(p => p.Valor)
                 .NotEmpty().WithMessage("Campo Valor não preenchido!")
                 .PrecisionScale(5, 2, false).WithMessage("Campo Valor não pode execeder 3 digitos inteiros e 2 decimais!");
+            RuleFor(p => p.ValidadeEmMeses)
+                .NotEmpty().WithMessage("Campo Validade Em Meses não preenchido!");
         }
     }
 }

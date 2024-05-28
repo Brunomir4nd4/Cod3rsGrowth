@@ -27,14 +27,14 @@ namespace Cod3rsGrowth.Teste
         {
             List<Receita> bancoMock = new List<Receita>()
             {
-                new Receita{Id = 0,
+                new Receita{
                 Nome = "receita de Cura",
                 Descricao = "Deve curar",
                 Imagem = "caminho da imagem",
                 Valor = 20.00m,
                 ValidadeEmMeses = 4},
 
-                new Receita{Id = 1,
+                new Receita{
                 Nome = "receita de Força",
                 Descricao = "Te da Força",
                 Imagem = "caminho da imagem", 
@@ -104,46 +104,15 @@ namespace Cod3rsGrowth.Teste
             Assert.Equal($"O objeto com id {idInexistente} não foi encontrado", excecao.Message);
         }
 
-        [Fact]
-        public void CriarReceita_ComNomeVazio_DeveRetornarMensagemDeErroEsperada()
-        {
-            Receita receita = new Receita()
-            {
-                Descricao = "Decrição A",
-                ValidadeEmMeses = 4,
-                Valor = 20.22m
-            };
-
-            var excecao = Assert.Throws<ValidationException>(() => _servicoReceita.CriarReceita(receita));
-
-            Assert.Contains("Campo Nome não preenchido!", excecao.Message);
-        }
-
-        [Fact]
-        public void CriarReceita_ComNomeContendoLetras_DeveRetornarMensagemDeErroEsperada()
-        {
-            Receita receita = new Receita()
-            {
-                Nome = "Receita 1",
-                Descricao = "Decrição A",
-                ValidadeEmMeses = 4,
-                Valor = 20.22m
-            };
-
-            var excecao = Assert.Throws<ValidationException>(() => _servicoReceita.CriarReceita(receita));
-
-            Assert.Contains("Campo Nome Deve conter apenas letras!", excecao.Message);
-        }
-
         [Theory]
         [InlineData("")]
         [InlineData("12324321")]
         [InlineData("@#$%&#5*(")]
-        public void teste(string nomeVazio)
+        public void CriarReceita_ComNomeInvalidado_DeveRetornarMensagemDeErroEsperada(string nome)
         {
             Receita receita = new Receita()
             {
-                Nome = "Receita 1",
+                Nome = nome,
                 Descricao = "Decrição A",
                 ValidadeEmMeses = 4,
                 Valor = 20.22m
@@ -151,7 +120,18 @@ namespace Cod3rsGrowth.Teste
 
             var excecao = Assert.Throws<ValidationException>(() => _servicoReceita.CriarReceita(receita));
 
-            Assert.Equal("Campo Nome Deve conter apenas letras!", excecao.Message);
+            switch (nome)
+            {
+                case "":
+                    Assert.Equal("Campo Nome não preenchido!Campo Nome Deve conter apenas letras!", excecao.Message);
+                    break;
+                case "12324321":
+                    Assert.Equal("Campo Nome Deve conter apenas letras!", excecao.Message);
+                    break;
+                case "@#$%&#5*(":
+                    Assert.Equal("Campo Nome Deve conter apenas letras!", excecao.Message);
+                    break;
+            }
         }
 
         [Fact]
@@ -167,7 +147,7 @@ namespace Cod3rsGrowth.Teste
 
             var excecao = Assert.Throws<ValidationException>(() => _servicoReceita.CriarReceita(receita));
 
-            Assert.Contains("Campo Descrição deve ter no máximo 30 caracters!", excecao.Message);
+            Assert.Equal("Campo Descrição deve ter no máximo 30 caracters!", excecao.Message);
         }
 
         [Fact]
@@ -183,7 +163,7 @@ namespace Cod3rsGrowth.Teste
 
             var excecao = Assert.Throws<ValidationException>(() => _servicoReceita.CriarReceita(receita));
 
-            Assert.Contains("Campo Valor não pode execeder 3 digitos inteiros e 2 decimais!", excecao.Message);
+            Assert.Equal("Campo Valor não pode execeder 3 digitos inteiros e 2 decimais!", excecao.Message);
         }
 
         [Fact]
@@ -193,12 +173,15 @@ namespace Cod3rsGrowth.Teste
             {
                 Nome = "Receita 1",
                 Descricao = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                Valor = 2000m
+                Valor = 2000m,
+                ValidadeEmMeses = 4
             };
 
             var excecao = Assert.Throws<ValidationException>(() => _servicoReceita.CriarReceita(receita));
 
-            Assert.Contains("Campo Nome Deve conter apenas letras!", excecao.Message);
+            Assert.Equal("Campo Nome Deve conter apenas letras!" +
+                "Campo Descrição deve ter no máximo 30 caracters!" +
+                "Campo Valor não pode execeder 3 digitos inteiros e 2 decimais!", excecao.Message);
         }
     }
 }
