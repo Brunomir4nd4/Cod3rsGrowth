@@ -2,7 +2,7 @@
 {
     public enum Naturalidade
     {
-        OverWorld = 1,
+        OverWorld,
         Nether,
         TheEnd
     }

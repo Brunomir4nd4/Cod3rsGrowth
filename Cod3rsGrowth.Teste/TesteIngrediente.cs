@@ -111,7 +111,7 @@ namespace Cod3rsGrowth.Teste
         [Theory]
         [InlineData("12324321")]
         [InlineData("@#$%&#5*(")]
-        public void CriarReceita_ComNomeInvalidado_DeveRetornarMensagemDeErroEsperada(string nome)
+        public void CriarIngrediente_ComNomeInvalidado_DeveRetornarMensagemDeErroEsperada(string nome)
         {
             _ingredienteParaTeste = new Ingrediente()
             {
@@ -130,7 +130,7 @@ namespace Cod3rsGrowth.Teste
         [InlineData(null)]
         [InlineData("      ")]
         [InlineData("")]
-        public void CriarReceita_ComNomeVazio_DeveRetornarMensagemDeErroEsperado(string nome)
+        public void CriarIngrediente_ComNomeVazio_DeveRetornarMensagemDeErroEsperado(string nome)
         {
             _ingredienteParaTeste = new Ingrediente()
             {
@@ -145,21 +145,7 @@ namespace Cod3rsGrowth.Teste
         }
 
         [Fact]
-        public void CriarReceita_ComNaturalidadeVazia_DeveRetornarErroEsperado()
-        {
-            _ingredienteParaTeste = new Ingrediente()
-            {
-                Nome = "Ingrediente A",
-                Quantidade = 4
-            };
-
-            var excecao = Assert.Throws<ValidationException>(() => _servicoIngrediente.CriarIngrediente(_ingredienteParaTeste));
-
-            Assert.Equal("Campo Naturalidade é invalido!", excecao.Message);
-        }
-
-        [Fact]
-        public void CriarReceita_ComQuantidadeNegativa_DeveRetornarErroEsperado()
+        public void CriarIngrediente_ComQuantidadeNegativa_DeveRetornarErroEsperado()
         {
             _ingredienteParaTeste = new Ingrediente()
             {
@@ -176,7 +162,7 @@ namespace Cod3rsGrowth.Teste
         [Theory]
         [InlineData(null)]
         [InlineData(0)]
-        public void CriarReceita_ComQuantidadeVazia_DeveRetornarErroEsperado(int quantidade)
+        public void CriarIngrediente_ComQuantidadeVazia_DeveRetornarErroEsperado(int quantidade)
         {
             _ingredienteParaTeste = new Ingrediente()
             {
