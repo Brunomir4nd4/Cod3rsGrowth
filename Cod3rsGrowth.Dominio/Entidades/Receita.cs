@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Cod3rsGrowth.Dominio.Entidades
+﻿namespace Cod3rsGrowth.Dominio.Entidades
 {
     public class Receita
     {
@@ -14,6 +8,6 @@ namespace Cod3rsGrowth.Dominio.Entidades
         public decimal Valor { get; set; }
         public string Imagem { get; set; }
         public int ValidadeEmMeses { get; set; }
-        public List<Ingrediente> ListaDeIngredientes { get; set; }
+        public List<int> ListaDeIdIngredientes { get; set; }
     }
 }

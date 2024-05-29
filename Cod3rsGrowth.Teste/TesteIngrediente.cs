@@ -1,6 +1,6 @@
 ﻿using Cod3rsGrowth.Dominio.Entidades;
 using Cod3rsGrowth.Dominio.Enums;
-using Cod3rsGrowth.Servico.Interfaces;
+using Cod3rsGrowth.Servico.Servicos;
 using Cod3rsGrowth.Teste.ConfiguracaoAmbienteTeste;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
@@ -10,7 +10,7 @@ namespace Cod3rsGrowth.Teste
 {
     public class TesteIngrediente : TesteBase
     {
-        private IServicoIngrediente _servicoIngrediente;
+        private ServicoIngrediente _servicoIngrediente;
         private List<Ingrediente> _listaMock;
         private List<Ingrediente> _listaDoBanco;
         private Ingrediente _ingredienteParaTeste;
@@ -31,7 +31,7 @@ namespace Cod3rsGrowth.Teste
                     Naturalidade = Naturalidade.OverWorld,
                     Quantidade = 5
                 },
-                
+
                 new Ingrediente
                 {
                     Nome = "Polvora",
@@ -40,7 +40,7 @@ namespace Cod3rsGrowth.Teste
                 }
             };
 
-            foreach (var item in listaMock) 
+            foreach (var item in listaMock)
             {
                 _servicoIngrediente.CriarIngrediente(item);
             }
@@ -49,8 +49,8 @@ namespace Cod3rsGrowth.Teste
 
         private void CarregarServico()
         {
-            _servicoIngrediente = ServiceProvider.GetService<IServicoIngrediente>()
-                ?? throw new Exception($"Erro ao obter servico [{nameof(IServicoIngrediente)}]");
+            _servicoIngrediente = ServiceProvider.GetService<ServicoIngrediente>()
+                ?? throw new Exception($"Erro ao obter servico [{nameof(ServicoIngrediente)}]");
         }
 
         [Fact]
@@ -113,7 +113,8 @@ namespace Cod3rsGrowth.Teste
         [InlineData("@#$%&#5*(")]
         public void CriarReceita_ComNomeInvalidado_DeveRetornarMensagemDeErroEsperada(string nome)
         {
-            _ingredienteParaTeste = new Ingrediente() {
+            _ingredienteParaTeste = new Ingrediente()
+            {
                 Nome = nome,
                 Naturalidade = Naturalidade.OverWorld,
                 Quantidade = 4
@@ -125,11 +126,15 @@ namespace Cod3rsGrowth.Teste
 
         }
 
-        [Fact]
-        public void CriarReceita_ComNomeVazio_DeveRetornarMensagemDeErroEsperado()
+        [Theory]
+        [InlineData(null)]
+        [InlineData("      ")]
+        [InlineData("")]
+        public void CriarReceita_ComNomeVazio_DeveRetornarMensagemDeErroEsperado(string nome)
         {
             _ingredienteParaTeste = new Ingrediente()
             {
+                Nome = nome,
                 Naturalidade = Naturalidade.OverWorld,
                 Quantidade = 4
             };
@@ -151,6 +156,38 @@ namespace Cod3rsGrowth.Teste
             var excecao = Assert.Throws<ValidationException>(() => _servicoIngrediente.CriarIngrediente(_ingredienteParaTeste));
 
             Assert.Equal("Campo Naturalidade é invalido!", excecao.Message);
+        }
+
+        [Fact]
+        public void CriarReceita_ComQuantidadeNegativa_DeveRetornarErroEsperado()
+        {
+            _ingredienteParaTeste = new Ingrediente()
+            {
+                Nome = "Ingrediente A",
+                Naturalidade = Naturalidade.Nether,
+                Quantidade = -99
+            };
+
+            var excecao = Assert.Throws<ValidationException>(() => _servicoIngrediente.CriarIngrediente(_ingredienteParaTeste));
+
+            Assert.Equal("Campo Quantidade deve ser maior que 0", excecao.Message);
+        }
+
+        [Theory]
+        [InlineData(null)]
+        [InlineData(0)]
+        public void CriarReceita_ComQuantidadeVazia_DeveRetornarErroEsperado(int quantidade)
+        {
+            _ingredienteParaTeste = new Ingrediente()
+            {
+                Nome = "Ingrediente A",
+                Naturalidade = Naturalidade.Nether,
+                Quantidade = quantidade
+            };
+
+            var excecao = Assert.Throws<ValidationException>(() => _servicoIngrediente.CriarIngrediente(_ingredienteParaTeste));
+
+            Assert.Equal("Campo Quantidade não preenchido!", excecao.Message);
         }
     }
 }

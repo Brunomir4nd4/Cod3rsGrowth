@@ -1,12 +1,11 @@
 ﻿using Cod3rsGrowth.Dominio.Entidades;
 using Cod3rsGrowth.Infra.Interfaces;
-using Cod3rsGrowth.Servico.Interfaces;
 using Cod3rsGrowth.Servico.Validadores;
 using FluentValidation;
 
 namespace Cod3rsGrowth.Servico.Servicos
 {
-    public class ServicoIngrediente : IServicoIngrediente
+    public class ServicoIngrediente
     {
         private IRepositorioIngrediente _repositorioIngrediente;
         private IngredienteValidator _validator;

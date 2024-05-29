@@ -12,14 +12,17 @@ namespace Cod3rsGrowth.Servico.Validadores
                 .NotEmpty().WithMessage("Campo Nome não preenchido!")
                 .Matches(@"^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$").WithMessage("Campo Nome Deve conter apenas letras!");
             RuleFor(p => p.Descricao)
+                .Cascade(CascadeMode.Stop)
                 .NotEmpty().WithMessage("Campo Descrição não preenchido!")
-                .MaximumLength(30).WithMessage("Campo Descrição deve ter no máximo 30 caracters!");
+                .MaximumLength(500).WithMessage("Campo Descrição deve ter no máximo 500 caracters!");
             RuleFor(p => p.Valor)
+                .Cascade(CascadeMode.Stop)
                 .NotEmpty().WithMessage("Campo Valor não preenchido!")
-                .PrecisionScale(5, 2, false).WithMessage("Campo Valor não pode execeder 3 digitos inteiros e 2 decimais!")
                 .GreaterThan(0).WithMessage("Campo Valor deve ser maior que 0");
             RuleFor(p => p.ValidadeEmMeses)
-                .NotEmpty().WithMessage("Campo Validade Em Meses não preenchido!");
+                .Cascade(CascadeMode.Stop)
+                .NotEmpty().WithMessage("Campo Validade Em Meses não preenchido!")
+                .GreaterThan(0).WithMessage("Campo Validade Em Meses deve ser maior que 0"); 
         }
     }
 }

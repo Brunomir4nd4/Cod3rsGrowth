@@ -19,9 +19,15 @@ namespace Cod3rsGrowth.Teste.Repositorios
                 ?? throw new Exception($"O objeto com id {idProcurado} não foi encontrado");
         }
 
-        public void Criar(Pocao pocao)
+        public void Criar(Receita receita)
         {
-            pocao.Id = _novoId;
+            Pocao pocao = new Pocao()
+            {
+                Id = _novoId,
+                IdReceita = receita.Id,
+                Vencido = false,
+                DataDeFabricação = DateTime.Today
+            };
             _novoId++;
             _listaPocao.Add(pocao);
         }

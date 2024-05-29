@@ -1,5 +1,5 @@
 ﻿using Cod3rsGrowth.Dominio.Entidades;
-using Cod3rsGrowth.Servico.Interfaces;
+using Cod3rsGrowth.Servico.Servicos;
 using Cod3rsGrowth.Teste.ConfiguracaoAmbienteTeste;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
@@ -8,7 +8,7 @@ namespace Cod3rsGrowth.Teste
 {
     public class TesteReceita : TesteBase
     {
-        private IServicoReceita _servicoReceita;
+        private ServicoReceita _servicoReceita;
         private List<Receita> _listaMock;
         private List<Receita> _listaDoBanco;
         private Receita _receitaParaTeste;
@@ -20,8 +20,8 @@ namespace Cod3rsGrowth.Teste
 
         private void CarregarServico()
         {
-            _servicoReceita = ServiceProvider.GetService<IServicoReceita>()
-                ?? throw new Exception($"Erro ao obter servico [{nameof(IServicoReceita)}]");
+            _servicoReceita = ServiceProvider.GetService<ServicoReceita>()
+                ?? throw new Exception($"Erro ao obter servico [{nameof(ServicoReceita)}]");
         }
 
         public List<Receita> IniciarBancoMock()
@@ -38,7 +38,7 @@ namespace Cod3rsGrowth.Teste
                 new Receita{
                 Nome = "receita de Força",
                 Descricao = "Te da Força",
-                Imagem = "caminho da imagem", 
+                Imagem = "caminho da imagem",
                 Valor = 15.00m,
                 ValidadeEmMeses = 4}
             };
@@ -50,6 +50,7 @@ namespace Cod3rsGrowth.Teste
             return bancoMock;
         }
 
+        //Obter todos
         [Fact]
         public void ObterTodos_ComUmaListaValida_DeveRetornarUmaListaDoTiporeceita()
         {
@@ -65,6 +66,7 @@ namespace Cod3rsGrowth.Teste
             Assert.Equivalent(_listaMock, _listaDoBanco);
         }
 
+        //ObterPorID
         [Fact]
         public void ObterPorId_ComIdExistente_DeveRetornarIngredienteEsperado()
         {
@@ -105,9 +107,11 @@ namespace Cod3rsGrowth.Teste
             Assert.Equal($"O objeto com id {idInexistente} não foi encontrado", excecao.Message);
         }
 
+        //Criar
         [Theory]
         [InlineData("12324321")]
         [InlineData("@#$%&#5*")]
+        [InlineData("wdada!@!#!@1231")]
         public void CriarReceita_ComNomeInvalidado_DeveRetornarMensagemDeErroEsperada(string nome)
         {
             _receitaParaTeste = new Receita()
@@ -123,38 +127,78 @@ namespace Cod3rsGrowth.Teste
             Assert.Equal("Campo Nome Deve conter apenas letras!", excecao.Message);
         }
 
-        [Fact]
-        public void CriarReceita_ComDescricaoComOverFlow_DeveRetornarMensagemDeErroEsperada()
+        [Theory]
+        [InlineData(null)]
+        [InlineData("      ")]
+        [InlineData("")]
+        public void CriarReceita_ComNomeVazio_DeveRetornarMensagemDeErroEsperada(string nome)
         {
             _receitaParaTeste = new Receita()
             {
-                Nome = "Receita A",
-                Descricao = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                Nome = nome,
+                Descricao = "Decrição A",
                 ValidadeEmMeses = 4,
                 Valor = 20.22m
             };
 
             var excecao = Assert.Throws<ValidationException>(() => _servicoReceita.CriarReceita(_receitaParaTeste));
 
-            Assert.Equal("Campo Descrição deve ter no máximo 30 caracters!", excecao.Message);
+            Assert.Equal("Campo Nome não preenchido!", excecao.Message);
         }
 
-        [Fact]
-        public void CriarReceita_ComValorInvalido_DeveRetornarMensagemDeErroEsperada()
+        [Theory]
+        [InlineData(null)]
+        [InlineData("      ")]
+        [InlineData("")]
+        public void CriarReceita_ComDescricaoVazia_DeveRetornarMensagemDeErroEsperada(string descricao)
         {
             _receitaParaTeste = new Receita()
             {
-                Nome = "Receita A",
-                Descricao = "Descrição A",
+                Nome = "Pocao A",
+                Descricao = descricao,
                 ValidadeEmMeses = 4,
-                Valor = 2000m
+                Valor = 20.22m
             };
 
             var excecao = Assert.Throws<ValidationException>(() => _servicoReceita.CriarReceita(_receitaParaTeste));
 
-            Assert.Equal("Campo Valor não pode execeder 3 digitos inteiros e 2 decimais!", excecao.Message);
+            Assert.Equal("Campo Descrição não preenchido!", excecao.Message);
         }
 
+        [Fact]
+        public void CriarReceita_ComDescricaoComOverFlow_DeveRetornarMensagemDeErroEsperada()
+        {
+            _receitaParaTeste = new Receita()
+            {
+                Nome = "Receita A",
+                Descricao = "Faz o modelo do jogador desaparecer. Os mobs agirão neutralmente em relação ao jogador, a menos que o jogador esteja usando uma armadura (Veja efeitos de estado para detalhes sobre armadura). Na forma arremessável é capaz de fazer mobs ou outros jogadores invisíveis. Armadura, itens na mão, flechas presas no jogador, uma sela de porco, um padrão de tapete de lhama, uma cabeça amareça de shulker e os olhos das aranhas e endermans não são afetados e ainda são visíveis.Faz o modelo do jogador desaparecer. Os mobs agirão neutralmente em relação ao jogador, a menos que o jogador esteja usando uma armadura (Veja efeitos de estado para detalhes sobre armadura). Na forma arremessável é capaz de fazer mobs ou outros jogadores invisíveis. Armadura, itens na mão, flechas presas no jogador, uma sela de porco, um padrão de tapete de lhama, uma cabeça amareça de shulker e os olhos das aranhas e endermans não são afetados e ainda são visíveis.",
+                ValidadeEmMeses = 4,
+                Valor = 20.22m
+            };
+
+            var excecao = Assert.Throws<ValidationException>(() => _servicoReceita.CriarReceita(_receitaParaTeste));
+
+            Assert.Equal("Campo Descrição deve ter no máximo 500 caracters!", excecao.Message);
+        }
+
+        [Theory]
+        [InlineData(null)]
+        [InlineData(0)]
+        public void CriarReceita_ComValorVazia_DeveRetornarMensagemDeErroEsperada(decimal valor)
+        {
+            _receitaParaTeste = new Receita()
+            {
+                Nome = "Pocao A",
+                Descricao = "Descrição A",
+                ValidadeEmMeses = 4,
+                Valor = valor
+            };
+
+            var excecao = Assert.Throws<ValidationException>(() => _servicoReceita.CriarReceita(_receitaParaTeste));
+
+            Assert.Equal("Campo Valor não preenchido!", excecao.Message);
+        }
+        
         [Fact]
         public void CriarReceita_ComValorNegativo_DeveRetornarMensagemDeErroEsperada()
         {

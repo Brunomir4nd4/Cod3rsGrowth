@@ -1,20 +1,17 @@
-﻿using Cod3rsGrowth.Servico.Interfaces;
-using Cod3rsGrowth.Dominio.Entidades;
+﻿using Cod3rsGrowth.Dominio.Entidades;
 using Cod3rsGrowth.Infra.Interfaces;
 using FluentValidation;
-using Cod3rsGrowth.Servico.Validadores;
 
 namespace Cod3rsGrowth.Servico.Servicos
 {
-    public class ServicoPocao : IServicoPocao
+    public class ServicoPocao
     {
         private readonly IRepositorioPocao _repositorioPocao;
-        private PocaoValidator _validator;
-
-        public ServicoPocao(IRepositorioPocao repositorioPocao, PocaoValidator validator)
+        private readonly IRepositorioReceita _repositorioReceita;
+        public ServicoPocao(IRepositorioPocao repositorioPocao, IRepositorioReceita repositorioReceita)
         {
             _repositorioPocao = repositorioPocao;
-            _validator = validator;
+            _repositorioReceita = repositorioReceita;
         }
         public List<Pocao> ObterTodos()
         {
@@ -24,10 +21,25 @@ namespace Cod3rsGrowth.Servico.Servicos
         {
             return _repositorioPocao.ObterPorId(id);
         }
-        public void CriarPocao(Pocao pocao)
+        public void CriarPocao(List<Ingrediente> ingredientesSelecionados)
         {
-            _validator.ValidateAndThrow(pocao);
-            _repositorioPocao.Criar(pocao);
+            var ingredientesInvalidos = ingredientesSelecionados.Where(i => i.Quantidade < 0).ToList();
+            if (ingredientesInvalidos.Count > 0)
+            {
+                var erros = string.Join(", ", ingredientesInvalidos.Select(i => $"Ingrediente {i.Nome} em falta!"));
+                throw new Exception(erros);
+            }
+            var listaReceita = _repositorioReceita.ObterTodos();
+            var listaIdIngrediente = ingredientesSelecionados.Select(item => item.Id);
+            Receita receitaIdentificada = new Receita();
+            foreach (var receitaDaLista in listaReceita)
+            {
+                if (receitaDaLista.ListaDeIdIngredientes == listaIdIngrediente)
+                {
+                    receitaIdentificada = receitaDaLista;
+                }
+            }
+            _repositorioPocao.Criar(receitaIdentificada);
         }
         public void RemoverPocao()
         {
