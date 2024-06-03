@@ -56,14 +56,14 @@ namespace Cod3rsGrowth.Teste
 
         //Obter todos
         [Fact]
-        public void ObterTodos_ComUmaListaValida_DeveRetornarUmaListaDoTiporeceita()
+        public void ObterTodos_ComUmaListaValida_DeveRetornarUmaListaDoTipoReceita()
         {
-            var listareceita = _servicoReceita.ObterTodos();
-            Assert.IsType<List<Receita>>(listareceita);
+            var listaReceita = _servicoReceita.ObterTodos();
+            Assert.IsType<List<Receita>>(listaReceita);
         }
 
         [Fact]
-        public void ObterTodos_ComDadosDisponiveis_DeveSerEquivalenteAUmaListaDereceita()
+        public void ObterTodos_ComDadosDisponiveis_DeveSerEquivalenteAUmaListaDeReceita()
         {
             _listaDoBanco = _servicoReceita.ObterTodos();
 
@@ -72,7 +72,7 @@ namespace Cod3rsGrowth.Teste
 
         //ObterPorID
         [Fact]
-        public void ObterPorId_ComIdExistente_DeveRetornarIngredienteEsperado()
+        public void ObterPorId_ComIdExistente_DeveRetornarReceitaEsperada()
         {
             //arrange
             int idDeBusca = 0;
@@ -86,7 +86,7 @@ namespace Cod3rsGrowth.Teste
         }
 
         [Fact]
-        public void ObterPorId_ComIdExistente_DeveRetornarObjetoTypereceita()
+        public void ObterPorId_ComIdExistente_DeveRetornarObjetoTypeReceita()
         {
             //arrange
             int idProcurado = 1;

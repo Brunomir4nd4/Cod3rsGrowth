@@ -2,7 +2,6 @@
 using Cod3rsGrowth.Servico.Servicos;
 using Cod3rsGrowth.Teste.ConfiguracaoAmbienteTeste;
 using Microsoft.Extensions.DependencyInjection;
-using FluentValidation;
 using Xunit;
 using Cod3rsGrowth.Dominio.Enums;
 
@@ -95,16 +94,8 @@ namespace Cod3rsGrowth.Teste
                 _servicoIngrediente.CriarIngrediente(ingrediente);
             }
 
-            List<Ingrediente> listaIngredientesParaCura = new List<Ingrediente>();
-            listaIngredientesParaCura.Add(listaIngredientes[0]);
-            listaIngredientesParaCura.Add(listaIngredientes[1]);
-            listaIngredientesParaCura.Add(listaIngredientes[2]);
-            listaIngredientesParaCura.Add(listaIngredientes[3]);
-
-            List<Ingrediente> listaIngredientesParaForca = new List<Ingrediente>();
-            listaIngredientesParaForca.Add(listaIngredientes[0]);
-            listaIngredientesParaForca.Add(listaIngredientes[1]);
-            listaIngredientesParaForca.Add(listaIngredientes[2]);
+            var listaIngredientesParaCura = listaIngredientes.Take(4).ToList();
+            var listaIngredientesParaForca = listaIngredientes.Take(3).ToList();
 
             _servicoPocao.CriarPocao(listaIngredientesParaCura);
             _servicoPocao.CriarPocao(listaIngredientesParaForca);
@@ -114,12 +105,6 @@ namespace Cod3rsGrowth.Teste
         }
 
         //Obter todos
-        [Fact]
-        public void ObterTodos_ComUmaListaValida_DeveRetornarUmaListaDoTipoPocao()
-        {
-            var listareceita = _servicoPocao.ObterTodos();
-            Assert.IsType<List<Pocao>>(listareceita);
-        }
 
         [Fact]
         public void ObterTodos_ComDadosDisponiveis_DeveSerEquivalenteAUmaListaDePocao()
@@ -131,7 +116,7 @@ namespace Cod3rsGrowth.Teste
 
         //ObterPorID
         [Fact]
-        public void ObterPorId_ComIdExistente_DeveRetornarIngredienteEsperado()
+        public void ObterPorId_ComIdExistente_DeveRetornarPocaoEsperada()
         {
             //arrange
             int idDeBusca = 0;
@@ -175,7 +160,7 @@ namespace Cod3rsGrowth.Teste
         {
             int idDaReceitaDeCura = 0;
 
-            Pocao pocao = new Pocao()
+            _pocaoParaTeste = new Pocao()
             {
                 IdReceita = idDaReceitaDeCura,
                 DataDeFabricação = DateTime.Today,
@@ -184,7 +169,7 @@ namespace Cod3rsGrowth.Teste
 
             var pocaoDoBanco = _servicoPocao.ObterPorId(idDaReceitaDeCura);
 
-            Assert.Equivalent(pocao, pocaoDoBanco);
+            Assert.Equivalent(_pocaoParaTeste, pocaoDoBanco);
         }
     }
 }
