@@ -25,14 +25,14 @@ namespace Cod3rsGrowth.Servico.Servicos
             var ingredientesInvalidos = ingredientesSelecionados.Where(i => i.Quantidade < 0).ToList();
             if (ingredientesInvalidos.Count > 0)
             {
-            //Fazer teste aqui
                 var erros = string.Join(", ", ingredientesInvalidos.Select(i => $"Ingrediente {i.Nome} em falta!"));
                 throw new Exception(erros);
             }
             List<Receita> receitasCadastradas = _repositorioReceita.ObterTodos();
             List<int> listaIdIngrediente = ingredientesSelecionados.Select(item => item.Id).ToList();
-            var receita = receitasCadastradas.Where(receita => receita.ListaDeIdIngredientes == listaIdIngrediente).FirstOrDefault()
-                ?? throw new Exception("Receita procurada não existe!");
+
+            Receita receita = receitasCadastradas.First(receita => receita.ListaDeIdIngredientes.SequenceEqual(listaIdIngrediente))
+                ?? throw new Exception("Receita não encontrada");
             _repositorioPocao.Criar(receita);
         }
         public void RemoverPocao()
