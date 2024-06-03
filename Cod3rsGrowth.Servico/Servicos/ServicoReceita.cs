@@ -24,16 +24,13 @@ namespace Cod3rsGrowth.Servico.Servicos
         }
         public void CriarReceita(Receita receita)
         {
-            string erros = "";
             var validate = _validator.Validate(receita);
             if (!validate.IsValid)
             {
-                foreach (var erro in validate.Errors)
-                {
-                    erros += erro.ErrorMessage;
-                }
+                var erros = string.Join(Environment.NewLine, validate.Errors.Select(e => e.ErrorMessage));
                 throw new ValidationException(erros);
             }
+
             _repositorioReceita.Criar(receita);
         }
         public void EditarReceita()

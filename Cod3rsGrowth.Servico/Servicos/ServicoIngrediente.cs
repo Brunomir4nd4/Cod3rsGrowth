@@ -26,16 +26,13 @@ namespace Cod3rsGrowth.Servico.Servicos
         }
         public void CriarIngrediente(Ingrediente ingrediente)
         {
-            string erros = "";
             var validate = _validator.Validate(ingrediente);
             if (!validate.IsValid)
             {
-                foreach (var erro in validate.Errors)
-                {
-                    erros += erro.ErrorMessage;
-                }
+                var erros = string.Join(Environment.NewLine, validate.Errors.Select(e => e.ErrorMessage));
                 throw new ValidationException(erros);
             }
+
             _repositorioIngrediente.Criar(ingrediente);
         }
         public void EditarIngrediente()

@@ -1,6 +1,5 @@
 ﻿using Cod3rsGrowth.Dominio.Entidades;
 using Cod3rsGrowth.Infra.Interfaces;
-using FluentValidation;
 
 namespace Cod3rsGrowth.Servico.Servicos
 {
@@ -26,20 +25,15 @@ namespace Cod3rsGrowth.Servico.Servicos
             var ingredientesInvalidos = ingredientesSelecionados.Where(i => i.Quantidade < 0).ToList();
             if (ingredientesInvalidos.Count > 0)
             {
+            //Fazer teste aqui
                 var erros = string.Join(", ", ingredientesInvalidos.Select(i => $"Ingrediente {i.Nome} em falta!"));
                 throw new Exception(erros);
             }
-            var listaReceita = _repositorioReceita.ObterTodos();
-            var listaIdIngrediente = ingredientesSelecionados.Select(item => item.Id);
-            Receita receitaIdentificada = new Receita();
-            foreach (var receitaDaLista in listaReceita)
-            {
-                if (receitaDaLista.ListaDeIdIngredientes == listaIdIngrediente)
-                {
-                    receitaIdentificada = receitaDaLista;
-                }
-            }
-            _repositorioPocao.Criar(receitaIdentificada);
+            List<Receita> receitasCadastradas = _repositorioReceita.ObterTodos();
+            List<int> listaIdIngrediente = ingredientesSelecionados.Select(item => item.Id).ToList();
+            var receita = receitasCadastradas.Where(receita => receita.ListaDeIdIngredientes == listaIdIngrediente).FirstOrDefault()
+                ?? throw new Exception("Receita procurada não existe!");
+            _repositorioPocao.Criar(receita);
         }
         public void RemoverPocao()
         {

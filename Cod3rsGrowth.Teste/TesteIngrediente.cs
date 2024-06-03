@@ -110,7 +110,9 @@ namespace Cod3rsGrowth.Teste
 
         [Theory]
         [InlineData("12324321")]
-        [InlineData("@#$%&#5*(")]
+        [InlineData("@#$%&#*(")]
+        [InlineData("ingr3di3nt3")]
+        [InlineData("🐱‍👤🐱‍👤🐱‍👤")]
         public void CriarIngrediente_ComNomeInvalidado_DeveRetornarMensagemDeErroEsperada(string nome)
         {
             _ingredienteParaTeste = new Ingrediente()
@@ -156,7 +158,7 @@ namespace Cod3rsGrowth.Teste
 
             var excecao = Assert.Throws<ValidationException>(() => _servicoIngrediente.CriarIngrediente(_ingredienteParaTeste));
 
-            Assert.Equal("Campo Quantidade deve ser maior que 0", excecao.Message);
+            Assert.Equal("Campo Quantidade deve ser maior ou igual a 1", excecao.Message);
         }
 
         [Theory]

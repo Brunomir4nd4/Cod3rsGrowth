@@ -33,14 +33,16 @@ namespace Cod3rsGrowth.Teste
                 Descricao = "Deve curar",
                 Imagem = "caminho da imagem",
                 Valor = 20.00m,
-                ValidadeEmMeses = 4},
+                ValidadeEmMeses = 4,
+                ListaDeIdIngredientes = { 0, 1, 2, 3 } },
 
                 new Receita{
                 Nome = "receita de Força",
                 Descricao = "Te da Força",
                 Imagem = "caminho da imagem",
                 Valor = 15.00m,
-                ValidadeEmMeses = 4}
+                ValidadeEmMeses = 4,
+                ListaDeIdIngredientes = {0, 1, 2} }
             };
 
             foreach (var item in bancoMock)
@@ -146,6 +148,7 @@ namespace Cod3rsGrowth.Teste
             Assert.Equal("Campo Nome não preenchido!", excecao.Message);
         }
 
+        //Descrição
         [Theory]
         [InlineData(null)]
         [InlineData("      ")]

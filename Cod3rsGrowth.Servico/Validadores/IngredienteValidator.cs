@@ -16,7 +16,7 @@ namespace Cod3rsGrowth.Servico.Validadores
             RuleFor(p => p.Quantidade)
                 .Cascade(CascadeMode.Stop)
                 .NotEmpty().WithMessage("Campo Quantidade não preenchido!")
-                .GreaterThan(0).WithMessage("Campo Quantidade deve ser maior que 0");
+                .GreaterThanOrEqualTo(1).WithMessage("Campo Quantidade deve ser maior ou igual a 1");
         }
     }
 }

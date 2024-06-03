@@ -7,7 +7,7 @@ namespace Cod3rsGrowth.Teste.Repositorios
     public class RepositorioPocaoMock : IRepositorioPocao
     {
         private List<Pocao> _listaPocao = ListaSingleton.getInstance.listaPocao;
-        private static int _novoId = 0;
+        private int _novoId = 0;
         public List<Pocao> ObterTodos()
         {
             return _listaPocao;
