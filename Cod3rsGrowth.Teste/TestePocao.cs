@@ -105,6 +105,12 @@ namespace Cod3rsGrowth.Teste
         }
 
         //Obter todos
+        [Fact]
+        public void ObterTodos_ComUmaListaValida_DeveRetornarUmaListaDoTipoPocao()
+        {
+            var listaPocao = _servicoPocao.ObterTodos();
+            Assert.IsType<List<Pocao>>(listaPocao);
+        }
 
         [Fact]
         public void ObterTodos_ComDadosDisponiveis_DeveSerEquivalenteAUmaListaDePocao()
@@ -170,6 +176,16 @@ namespace Cod3rsGrowth.Teste
             var pocaoDoBanco = _servicoPocao.ObterPorId(idDaReceitaDeCura);
 
             Assert.Equivalent(_pocaoParaTeste, pocaoDoBanco);
+        }
+
+        [Fact]
+        public void CriarPocao_ComDadosInvalidos_DeveLancarExecaoEsperada()
+        {
+            List<Ingrediente> listaIngredientes = _servicoIngrediente.ObterTodos().Take(2).ToList();
+
+            var excecao = Assert.Throws<Exception>(() => _servicoPocao.CriarPocao(listaIngredientes));
+
+            Assert.Equal("Receita não encontrada", excecao.Message);
         }
     }
 }

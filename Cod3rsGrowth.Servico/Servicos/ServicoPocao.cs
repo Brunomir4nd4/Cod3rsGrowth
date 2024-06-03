@@ -31,8 +31,9 @@ namespace Cod3rsGrowth.Servico.Servicos
             List<Receita> receitasCadastradas = _repositorioReceita.ObterTodos();
             List<int> listaIdIngrediente = ingredientesSelecionados.Select(item => item.Id).ToList();
 
-            Receita receita = receitasCadastradas.First(receita => receita.ListaDeIdIngredientes.SequenceEqual(listaIdIngrediente))
+            Receita receita = receitasCadastradas.FirstOrDefault(receita => receita.ListaDeIdIngredientes.SequenceEqual(listaIdIngrediente))
                 ?? throw new Exception("Receita não encontrada");
+
             _repositorioPocao.Criar(receita);
         }
         public void RemoverPocao()
