@@ -28,8 +28,8 @@ namespace Cod3rsGrowth.Teste
 
         public List<Receita> IniciarBancoMock()
         {
-            List<int> listaDeIdReceitas1 = new List<int> { 0, 1, 2, 3 };
-            List<int> listaDeIdReceitas2 = new List<int> { 0, 1, 2 };
+            List<int> listaDeIdIngredientes1 = new List<int> { 0, 1, 2, 3 };
+            List<int> listaDeIdIngredientes2 = new List<int> { 0, 1, 2 };
             List<Receita> bancoMock = new List<Receita>()
             {
                 new Receita{
@@ -38,7 +38,7 @@ namespace Cod3rsGrowth.Teste
                 Imagem = "caminho da imagem",
                 Valor = 20.00m,
                 ValidadeEmMeses = 4,
-                ListaDeIdIngredientes = listaDeIdReceitas1},
+                ListaDeIdIngredientes = listaDeIdIngredientes1},
 
                 new Receita{
                 Nome = "receita de Força",
@@ -46,7 +46,7 @@ namespace Cod3rsGrowth.Teste
                 Imagem = "caminho da imagem",
                 Valor = 15.00m,
                 ValidadeEmMeses = 4,
-                ListaDeIdIngredientes = listaDeIdReceitas2}
+                ListaDeIdIngredientes = listaDeIdIngredientes2}
             };
 
             foreach (var item in bancoMock)
