@@ -25,5 +25,17 @@ namespace Cod3rsGrowth.Teste.Repositorios
             _novoId++;
             _listaReceita.Add(receita);
         }
+        public Receita Editar(Receita receitaEditada)
+        {
+            int flagIndexNaoEncontrado = -1;
+            var indexReceitaEditada = ObterTodos().FindIndex(e => e.Id == receitaEditada.Id) != flagIndexNaoEncontrado
+                ?
+                ObterTodos().FindIndex(e => e.Id == receitaEditada.Id)
+                :
+                throw new Exception("Receita informada não encontrada!");
+
+            _listaReceita[indexReceitaEditada] = receitaEditada;
+            return _listaReceita[indexReceitaEditada];
+        }
     }
 }
