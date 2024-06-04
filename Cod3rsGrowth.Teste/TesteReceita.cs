@@ -16,6 +16,7 @@ namespace Cod3rsGrowth.Teste
         public TesteReceita()
         {
             CarregarServico();
+            _servicoReceita.ObterTodos().Clear();
             _listaMock = IniciarBancoMock();
         }
 

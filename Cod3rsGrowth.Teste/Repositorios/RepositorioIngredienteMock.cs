@@ -1,6 +1,7 @@
 ﻿using Cod3rsGrowth.Dominio.Entidades;
 using Cod3rsGrowth.Infra.Interfaces;
 using Cod3rsGrowth.Infra.Repositorios;
+using System.Runtime.InteropServices;
 
 namespace Cod3rsGrowth.Teste.Repositorios
 {
@@ -27,15 +28,13 @@ namespace Cod3rsGrowth.Teste.Repositorios
         }
         public Ingrediente Editar(Ingrediente ingredienteEditado)
         {
-            int flagIndexNaoEncontrado = -1;
-            var indexIngredienteEditado = ObterTodos().FindIndex(e => e.Id == ingredienteEditado.Id) != flagIndexNaoEncontrado
-                ?
-                ObterTodos().FindIndex(e => e.Id == ingredienteEditado.Id)
-                :
-                throw new Exception("Ingrediente informado não encontrado!");
+            var ingredienteDoBanco = ObterPorId(ingredienteEditado.Id);
 
-            _listaIngredientes[indexIngredienteEditado] = ingredienteEditado;
-            return _listaIngredientes[indexIngredienteEditado]; 
+            ingredienteDoBanco.Nome = ingredienteEditado.Nome;
+            ingredienteDoBanco.Naturalidade = ingredienteEditado.Naturalidade;
+            ingredienteDoBanco.Quantidade = ingredienteEditado.Quantidade;
+
+            return ingredienteDoBanco;
         }
     }
 }
