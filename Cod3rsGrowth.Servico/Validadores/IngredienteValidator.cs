@@ -7,6 +7,7 @@ namespace Cod3rsGrowth.Servico.Validadores
     {
         public IngredienteValidator()
         {
+            int valorMinimoParaQuantidade = 1;
             RuleFor(p => p.Nome)
                 .Cascade(CascadeMode.Stop)
                 .NotEmpty().WithMessage("Campo Nome não preenchido!")
@@ -16,7 +17,7 @@ namespace Cod3rsGrowth.Servico.Validadores
             RuleFor(p => p.Quantidade)
                 .Cascade(CascadeMode.Stop)
                 .NotEmpty().WithMessage("Campo Quantidade não preenchido!")
-                .GreaterThanOrEqualTo(1).WithMessage("Campo Quantidade deve ser maior ou igual a 1");
+                .GreaterThanOrEqualTo(valorMinimoParaQuantidade).WithMessage("Campo Quantidade deve ser maior ou igual a 1");
         }
     }
 }
