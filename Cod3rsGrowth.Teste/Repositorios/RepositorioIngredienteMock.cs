@@ -1,7 +1,6 @@
 ﻿using Cod3rsGrowth.Dominio.Entidades;
 using Cod3rsGrowth.Infra.Interfaces;
 using Cod3rsGrowth.Infra.Repositorios;
-using System.Runtime.InteropServices;
 
 namespace Cod3rsGrowth.Teste.Repositorios
 {

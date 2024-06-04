@@ -28,8 +28,8 @@ namespace Cod3rsGrowth.Teste
 
         public List<Receita> IniciarBancoMock()
         {
-            List<int> listaDeIdIngredientes1 = new List<int> { 0, 1, 2, 3 };
-            List<int> listaDeIdIngredientes2 = new List<int> { 0, 1, 2 };
+            List<int> listaDeIdReceitas1 = new List<int> { 0, 1, 2, 3 };
+            List<int> listaDeIdReceitas2 = new List<int> { 0, 1, 2 };
             List<Receita> bancoMock = new List<Receita>()
             {
                 new Receita{
@@ -38,7 +38,7 @@ namespace Cod3rsGrowth.Teste
                 Imagem = "caminho da imagem",
                 Valor = 20.00m,
                 ValidadeEmMeses = 4,
-                ListaDeIdIngredientes = listaDeIdIngredientes1},
+                ListaDeIdReceitas = listaDeIdReceitas1},
 
                 new Receita{
                 Nome = "receita de Força",
@@ -46,7 +46,7 @@ namespace Cod3rsGrowth.Teste
                 Imagem = "caminho da imagem",
                 Valor = 15.00m,
                 ValidadeEmMeses = 4,
-                ListaDeIdIngredientes = listaDeIdIngredientes2}
+                ListaDeIdReceitas = listaDeIdReceitas2}
             };
 
             foreach (var item in bancoMock)
@@ -225,7 +225,7 @@ namespace Cod3rsGrowth.Teste
         //Editar
 
         [Fact]
-        public void EditarReceita_ComDadosValidos_DeveRetornarIngredienteEditadoEsperado()
+        public void EditarReceita_ComDadosValidos_DeveRetornarReceitaEditadoEsperado()
         {
             _receitaParaTeste = new Receita()
             {
@@ -236,9 +236,9 @@ namespace Cod3rsGrowth.Teste
                 Valor = 99
             };
 
-            var ingredienteEditado = _servicoReceita.EditarReceita(_receitaParaTeste);
+            var receitaEditado = _servicoReceita.EditarReceita(_receitaParaTeste);
 
-            Assert.Equivalent(_receitaParaTeste, ingredienteEditado);
+            Assert.Equivalent(_receitaParaTeste, receitaEditado);
         }
 
         [Theory]
