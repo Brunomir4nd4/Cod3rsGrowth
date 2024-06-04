@@ -38,7 +38,7 @@ namespace Cod3rsGrowth.Teste
                 Imagem = "caminho da imagem",
                 Valor = 20.00m,
                 ValidadeEmMeses = 4,
-                ListaDeIdReceitas = listaDeIdReceitas1},
+                ListaDeIdIngredientes = listaDeIdReceitas1},
 
                 new Receita{
                 Nome = "receita de Força",
@@ -46,7 +46,7 @@ namespace Cod3rsGrowth.Teste
                 Imagem = "caminho da imagem",
                 Valor = 15.00m,
                 ValidadeEmMeses = 4,
-                ListaDeIdReceitas = listaDeIdReceitas2}
+                ListaDeIdIngredientes = listaDeIdReceitas2}
             };
 
             foreach (var item in bancoMock)
