@@ -1,8 +1,8 @@
 ﻿using Cod3rsGrowth.Dominio.Entidades;
 using Cod3rsGrowth.Dominio.Enums;
-using Cod3rsGrowth.Servico.Interfaces;
 using Cod3rsGrowth.Servico.Servicos;
 using Cod3rsGrowth.Teste.ConfiguracaoAmbienteTeste;
+using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 
@@ -10,9 +10,10 @@ namespace Cod3rsGrowth.Teste
 {
     public class TesteIngrediente : TesteBase
     {
-        private IServicoIngrediente _servicoIngrediente;
+        private ServicoIngrediente _servicoIngrediente;
         private List<Ingrediente> _listaMock;
         private List<Ingrediente> _listaDoBanco;
+        private Ingrediente _ingredienteParaTeste;
 
         public TesteIngrediente()
         {
@@ -26,22 +27,20 @@ namespace Cod3rsGrowth.Teste
             {
                 new Ingrediente
                 {
-                    Id = 0,
                     Nome = "Olho de Aranha",
                     Naturalidade = Naturalidade.OverWorld,
                     Quantidade = 5
                 },
-                
+
                 new Ingrediente
                 {
-                    Id = 1,
                     Nome = "Polvora",
                     Naturalidade = Naturalidade.OverWorld,
                     Quantidade = 6
                 }
             };
 
-            foreach (var item in listaMock) 
+            foreach (var item in listaMock)
             {
                 _servicoIngrediente.CriarIngrediente(item);
             }
@@ -50,8 +49,8 @@ namespace Cod3rsGrowth.Teste
 
         private void CarregarServico()
         {
-            _servicoIngrediente = ServiceProvider.GetService<IServicoIngrediente>()
-                ?? throw new Exception($"Erro ao obter servico [{nameof(IServicoIngrediente)}]");
+            _servicoIngrediente = ServiceProvider.GetService<ServicoIngrediente>()
+                ?? throw new Exception($"Erro ao obter servico [{nameof(ServicoIngrediente)}]");
         }
 
         [Fact]
@@ -107,6 +106,76 @@ namespace Cod3rsGrowth.Teste
 
             //assert
             Assert.Equal($"O objeto com id {idInexistente} não foi encontrado", excecao.Message);
+        }
+
+        [Theory]
+        [InlineData("12324321")]
+        [InlineData("@#$%&#*(")]
+        [InlineData("ingr3di3nt3")]
+        [InlineData("🐱‍👤🐱‍👤🐱‍👤")]
+        public void CriarIngrediente_ComNomeInvalidado_DeveRetornarMensagemDeErroEsperada(string nome)
+        {
+            _ingredienteParaTeste = new Ingrediente()
+            {
+                Nome = nome,
+                Naturalidade = Naturalidade.OverWorld,
+                Quantidade = 4
+            };
+
+            var excecao = Assert.Throws<ValidationException>(() => _servicoIngrediente.CriarIngrediente(_ingredienteParaTeste));
+
+            Assert.Equal("Campo Nome deve conter apenas letras!", excecao.Message);
+
+        }
+
+        [Theory]
+        [InlineData(null)]
+        [InlineData("      ")]
+        [InlineData("")]
+        public void CriarIngrediente_ComNomeVazio_DeveRetornarMensagemDeErroEsperado(string nome)
+        {
+            _ingredienteParaTeste = new Ingrediente()
+            {
+                Nome = nome,
+                Naturalidade = Naturalidade.OverWorld,
+                Quantidade = 4
+            };
+
+            var execao = Assert.Throws<ValidationException>(() => _servicoIngrediente.CriarIngrediente(_ingredienteParaTeste));
+
+            Assert.Equal("Campo Nome não preenchido!", execao.Message);
+        }
+
+        [Fact]
+        public void CriarIngrediente_ComQuantidadeNegativa_DeveRetornarErroEsperado()
+        {
+            _ingredienteParaTeste = new Ingrediente()
+            {
+                Nome = "Ingrediente A",
+                Naturalidade = Naturalidade.Nether,
+                Quantidade = -99
+            };
+
+            var excecao = Assert.Throws<ValidationException>(() => _servicoIngrediente.CriarIngrediente(_ingredienteParaTeste));
+
+            Assert.Equal("Campo Quantidade deve ser maior ou igual a 1", excecao.Message);
+        }
+
+        [Theory]
+        [InlineData(null)]
+        [InlineData(0)]
+        public void CriarIngrediente_ComQuantidadeVazia_DeveRetornarErroEsperado(int quantidade)
+        {
+            _ingredienteParaTeste = new Ingrediente()
+            {
+                Nome = "Ingrediente A",
+                Naturalidade = Naturalidade.Nether,
+                Quantidade = quantidade
+            };
+
+            var excecao = Assert.Throws<ValidationException>(() => _servicoIngrediente.CriarIngrediente(_ingredienteParaTeste));
+
+            Assert.Equal("Campo Quantidade não preenchido!", excecao.Message);
         }
     }
 }

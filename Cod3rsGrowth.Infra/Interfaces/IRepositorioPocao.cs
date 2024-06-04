@@ -7,6 +7,6 @@ namespace Cod3rsGrowth.Infra.Interfaces
     {
         List<Pocao> ObterTodos();
         Pocao ObterPorId(int id);
-        void Criar(Pocao pocao);
+        void Criar(Receita receita);
     }
 }
