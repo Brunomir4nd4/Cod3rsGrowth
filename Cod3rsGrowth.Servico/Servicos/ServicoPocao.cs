@@ -22,8 +22,9 @@ namespace Cod3rsGrowth.Servico.Servicos
         }
         public void CriarPocao(List<Ingrediente> ingredientesSelecionados)
         {
-            var ingredientesInvalidos = ingredientesSelecionados.Where(i => i.Quantidade < 0).ToList();
-            if (ingredientesInvalidos.Count > 0)
+            int quantidadeMinima = 0;
+            var ingredientesInvalidos = ingredientesSelecionados.Where(i => i.Quantidade < quantidadeMinima).ToList();
+            if (ingredientesInvalidos.Count > quantidadeMinima)
             {
                 var erros = string.Join(", ", ingredientesInvalidos.Select(i => $"Ingrediente {i.Nome} em falta!"));
                 throw new Exception(erros);
