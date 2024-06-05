@@ -159,7 +159,7 @@ namespace Cod3rsGrowth.Teste
             var excecao = Assert.Throws<Exception>(() => _servicoPocao.ObterPorId(idInexistente));
 
             //assert
-            Assert.Equal($"O objeto com id {idInexistente} não foi encontrado", excecao.Message);
+            Assert.Equal($"O objeto com id [{idInexistente}] não foi encontrado", excecao.Message);
         }
 
         [Fact]
@@ -186,7 +186,7 @@ namespace Cod3rsGrowth.Teste
 
             var excecao = Assert.Throws<Exception>(() => _servicoPocao.CriarPocao(listaIngredientes));
 
-            Assert.Equal("Receita não encontrada", excecao.Message);
+            Assert.Equal("Impossível criar uma poção com os ingredientes selecionados!", excecao.Message);
         }
 
         [Fact]
@@ -198,7 +198,7 @@ namespace Cod3rsGrowth.Teste
 
             var excecao = Assert.Throws<Exception>(() => _servicoPocao.RemoverPocao(_pocaoParaTeste));
 
-            Assert.Equal($"O objeto com id {_pocaoParaTeste.Id} não foi encontrado", excecao.Message);
+            Assert.Equal($"O objeto com id [{_pocaoParaTeste.Id}] não foi encontrado", excecao.Message);
         }
     }
 }

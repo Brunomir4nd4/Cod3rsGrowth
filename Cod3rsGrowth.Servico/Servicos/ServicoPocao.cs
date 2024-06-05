@@ -16,26 +16,28 @@ namespace Cod3rsGrowth.Servico.Servicos
         {
             return _repositorioPocao.ObterTodos();
         }
-        public Pocao ObterPorId(int id)
+        public Pocao ObterPorId(int idDeBusca)
         {
-            return _repositorioPocao.ObterPorId(id);
+            return _repositorioPocao.ObterPorId(idDeBusca);
         }
         public void CriarPocao(List<Ingrediente> ingredientesSelecionados)
         {
-            int quantidadeMinima = 0;
-            var ingredientesInvalidos = ingredientesSelecionados.Where(i => i.Quantidade < quantidadeMinima).ToList();
-            if (ingredientesInvalidos.Count > quantidadeMinima)
+            int quantidadeMinimaDeIngrediente = 0;
+            List<Ingrediente> ingredientesInvalidos = ingredientesSelecionados.Where(ingrediente => ingrediente.Quantidade < quantidadeMinimaDeIngrediente).ToList();
+
+            if (ingredientesInvalidos.Any())
             {
                 var erros = string.Join(", ", ingredientesInvalidos.Select(i => $"Ingrediente {i.Nome} em falta!"));
                 throw new Exception(erros);
             }
+
             List<Receita> receitasCadastradas = _repositorioReceita.ObterTodos();
             List<int> listaIdIngrediente = ingredientesSelecionados.Select(item => item.Id).ToList();
 
-            Receita receita = receitasCadastradas.FirstOrDefault(receita => receita.ListaDeIdIngredientes.SequenceEqual(listaIdIngrediente))
-                ?? throw new Exception("Receita não encontrada");
+            Receita novaReceita = receitasCadastradas.FirstOrDefault(receita => receita.ListaDeIdIngredientes.SequenceEqual(listaIdIngrediente))
+                ?? throw new Exception("Impossível criar uma poção com os ingredientes selecionados!");
 
-            _repositorioPocao.Criar(receita);
+            _repositorioPocao.Criar(novaReceita);
         }
         public void RemoverPocao(Pocao pocaoSelecionada)
         {

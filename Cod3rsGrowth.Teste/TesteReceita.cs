@@ -110,7 +110,7 @@ namespace Cod3rsGrowth.Teste
             var excecao = Assert.Throws<Exception>(() => _servicoReceita.ObterPorId(idInexistente));
 
             //assert
-            Assert.Equal($"O objeto com id {idInexistente} não foi encontrado", excecao.Message);
+            Assert.Equal($"O objeto com id [{idInexistente}] não foi encontrado", excecao.Message);
         }
 
         //Criar
@@ -381,7 +381,7 @@ namespace Cod3rsGrowth.Teste
 
             var excecao = Assert.Throws<Exception>(() => _servicoReceita.RemoverReceita(_receitaParaTeste));
 
-            Assert.Equal($"O objeto com id {_receitaParaTeste.Id} não foi encontrado", excecao.Message);
+            Assert.Equal($"O objeto com id [{_receitaParaTeste.Id}] não foi encontrado", excecao.Message);
         }
     }   
 }

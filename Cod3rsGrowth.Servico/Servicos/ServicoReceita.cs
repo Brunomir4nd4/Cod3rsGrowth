@@ -18,9 +18,9 @@ namespace Cod3rsGrowth.Servico.Servicos
         {
             return _repositorioReceita.ObterTodos();
         }
-        public Receita ObterPorId(int id)
+        public Receita ObterPorId(int idDeBusca)
         {
-            return _repositorioReceita.ObterPorId(id);
+            return _repositorioReceita.ObterPorId(idDeBusca);
         }
         public void CriarReceita(Receita receita)
         {

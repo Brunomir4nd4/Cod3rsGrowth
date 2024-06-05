@@ -26,28 +26,28 @@ namespace Cod3rsGrowth.Teste
         {
             List<Ingrediente> listaMock = new List<Ingrediente>
             {
-                new Ingrediente
+                new()
                 {
                     Nome = "Pote com água",
                     Naturalidade = Naturalidade.OverWorld,
                     Quantidade = 5
                 },
 
-                new Ingrediente
+                new()
                 {
                     Nome = "Fungo do Nether",
                     Naturalidade = Naturalidade.Nether,
                     Quantidade = 6
                 },
 
-                new Ingrediente
+                new()
                 {
                     Nome = "Pó de blase",
                     Naturalidade = Naturalidade.Nether,
                     Quantidade = 3
                 },
 
-                new Ingrediente
+                new()
                 {
                     Nome = "Melão dourado",
                     Naturalidade = Naturalidade.OverWorld,
@@ -55,9 +55,9 @@ namespace Cod3rsGrowth.Teste
                 }
             };
 
-            foreach (var item in listaMock)
+            foreach (var ingrediente in listaMock)
             {
-                _servicoIngrediente.CriarIngrediente(item);
+                _servicoIngrediente.CriarIngrediente(ingrediente);
             }
             return listaMock;
         }
@@ -120,7 +120,7 @@ namespace Cod3rsGrowth.Teste
             var excecao = Assert.Throws<Exception>(() => _servicoIngrediente.ObterPorId(idInexistente));
 
             //assert
-            Assert.Equal($"O objeto com id {idInexistente} não foi encontrado", excecao.Message);
+            Assert.Equal($"O objeto com id [{idInexistente}] não foi encontrado", excecao.Message);
         }
 
         [Theory]
@@ -272,7 +272,7 @@ namespace Cod3rsGrowth.Teste
 
             var excecao = Assert.Throws<Exception>(() => _servicoIngrediente.RemoverIngredientes(_ingredienteParaTeste));
 
-            Assert.Equal($"O objeto com id {_ingredienteParaTeste.Id} não foi encontrado", excecao.Message);
+            Assert.Equal($"O objeto com id [{_ingredienteParaTeste.Id}] não foi encontrado", excecao.Message);
         }
     }
 }
