@@ -32,21 +32,25 @@ namespace Cod3rsGrowth.Teste
             List<int> listaDeIdIngredientes2 = new List<int> { 0, 1, 2 };
             List<Receita> bancoMock = new List<Receita>()
             {
-                new Receita{
-                Nome = "receita de Cura",
-                Descricao = "Deve curar",
-                Imagem = "caminho da imagem",
-                Valor = 20.00m,
-                ValidadeEmMeses = 4,
-                ListaDeIdIngredientes = listaDeIdIngredientes1},
+                new()
+                {
+                    Nome = "receita de Cura",
+                    Descricao = "Deve curar",
+                    Imagem = "caminho da imagem",
+                    Valor = 20.00m,
+                    ValidadeEmMeses = 4,
+                    ListaDeIdIngredientes = listaDeIdIngredientes1
+                },
 
-                new Receita{
-                Nome = "receita de Força",
-                Descricao = "Te da Força",
-                Imagem = "caminho da imagem",
-                Valor = 15.00m,
-                ValidadeEmMeses = 4,
-                ListaDeIdIngredientes = listaDeIdIngredientes2}
+                new()
+                {
+                    Nome = "receita de Força",
+                    Descricao = "Te da Força",
+                    Imagem = "caminho da imagem",
+                    Valor = 15.00m,
+                    ValidadeEmMeses = 4,
+                    ListaDeIdIngredientes = listaDeIdIngredientes2
+                }
             };
 
             foreach (var item in bancoMock)
