@@ -16,9 +16,9 @@ namespace Cod3rsGrowth.Servico.Servicos
         {
             return _repositorioPocao.ObterTodos();
         }
-        public Pocao ObterPorId(int idDeBusca)
+        public Pocao ObterPorId(int id)
         {
-            return _repositorioPocao.ObterPorId(idDeBusca);
+            return _repositorioPocao.ObterPorId(id);
         }
         public void CriarPocao(List<Ingrediente> ingredientesSelecionados)
         {
@@ -34,10 +34,10 @@ namespace Cod3rsGrowth.Servico.Servicos
             List<Receita> receitasCadastradas = _repositorioReceita.ObterTodos();
             List<int> listaIdIngrediente = ingredientesSelecionados.Select(item => item.Id).ToList();
 
-            Receita novaReceita = receitasCadastradas.FirstOrDefault(receita => receita.ListaDeIdIngredientes.SequenceEqual(listaIdIngrediente))
+            Receita Receita = receitasCadastradas.FirstOrDefault(receita => receita.ListaDeIdIngredientes.SequenceEqual(listaIdIngrediente))
                 ?? throw new Exception("Impossível criar uma poção com os ingredientes selecionados!");
 
-            _repositorioPocao.Criar(novaReceita);
+            _repositorioPocao.Criar(Receita);
         }
         public void RemoverPocao(Pocao pocaoSelecionada)
         {

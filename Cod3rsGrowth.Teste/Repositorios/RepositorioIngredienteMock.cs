@@ -19,11 +19,11 @@ namespace Cod3rsGrowth.Teste.Repositorios
                 ?? throw new Exception($"O objeto com id [{idProcurado}] não foi encontrado");
         }
 
-        public void Criar(Ingrediente novoIngrediente)
+        public void Criar(Ingrediente ingrediente)
         {
-            novoIngrediente.Id = _novoId;
+            ingrediente.Id = _novoId;
             _novoId++;
-            _listaIngredientes.Add(novoIngrediente);
+            _listaIngredientes.Add(ingrediente);
         }
         public Ingrediente Editar(Ingrediente ingredienteEditado)
         {
@@ -35,9 +35,9 @@ namespace Cod3rsGrowth.Teste.Repositorios
 
             return ingredienteDoBanco;
         }
-        public void Remover(Ingrediente ingredienteSelecionadoParaRemocao)
+        public void Remover(Ingrediente ingrediente)
         {
-            var ingredienteRemovidoDoBanco = ObterPorId(ingredienteSelecionadoParaRemocao.Id);
+            var ingredienteRemovidoDoBanco = ObterPorId(ingrediente.Id);
 
             _listaIngredientes.Remove(ingredienteRemovidoDoBanco);
         }
