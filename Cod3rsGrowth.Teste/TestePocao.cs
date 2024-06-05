@@ -198,9 +198,9 @@ namespace Cod3rsGrowth.Teste
         {
             _pocaoParaTeste = _listaMock.FirstOrDefault();
 
-           _servicoPocao.RemoverPocao(_pocaoParaTeste);
+           _servicoPocao.RemoverPocao(_pocaoParaTeste.Id);
 
-            var excecao = Assert.Throws<Exception>(() => _servicoPocao.RemoverPocao(_pocaoParaTeste));
+            var excecao = Assert.Throws<Exception>(() => _servicoPocao.RemoverPocao(_pocaoParaTeste.Id));
 
             Assert.Equal($"O objeto com id [{_pocaoParaTeste.Id}] não foi encontrado", excecao.Message);
         }

@@ -268,9 +268,9 @@ namespace Cod3rsGrowth.Teste
         {
             _ingredienteParaTeste = _listaMock.FirstOrDefault();
 
-            _servicoIngrediente.RemoverIngredientes(_ingredienteParaTeste);
+            _servicoIngrediente.RemoverIngredientes(_ingredienteParaTeste.Id);
 
-            var excecao = Assert.Throws<Exception>(() => _servicoIngrediente.RemoverIngredientes(_ingredienteParaTeste));
+            var excecao = Assert.Throws<Exception>(() => _servicoIngrediente.RemoverIngredientes(_ingredienteParaTeste.Id));
 
             Assert.Equal($"O objeto com id [{_ingredienteParaTeste.Id}] não foi encontrado", excecao.Message);
         }

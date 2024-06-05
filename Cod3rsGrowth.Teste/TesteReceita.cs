@@ -381,9 +381,9 @@ namespace Cod3rsGrowth.Teste
         {
             _receitaParaTeste = _listaMock.FirstOrDefault();
 
-            _servicoReceita.RemoverReceita(_receitaParaTeste);
+            _servicoReceita.RemoverReceita(_receitaParaTeste.Id);
 
-            var excecao = Assert.Throws<Exception>(() => _servicoReceita.RemoverReceita(_receitaParaTeste));
+            var excecao = Assert.Throws<Exception>(() => _servicoReceita.RemoverReceita(_receitaParaTeste.Id));
 
             Assert.Equal($"O objeto com id [{_receitaParaTeste.Id}] não foi encontrado", excecao.Message);
         }

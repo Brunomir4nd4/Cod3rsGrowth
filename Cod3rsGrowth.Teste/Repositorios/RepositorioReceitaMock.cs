@@ -39,9 +39,9 @@ namespace Cod3rsGrowth.Teste.Repositorios
             return receitaDoBanco;
         }
 
-        public void Remover(Receita receita)
+        public void Remover(int idReceita)
         {
-            var receitaRemovidaDoBanco = ObterPorId(receita.Id);
+            var receitaRemovidaDoBanco = ObterPorId(idReceita);
 
             _listaReceita.Remove(receitaRemovidaDoBanco);
         }

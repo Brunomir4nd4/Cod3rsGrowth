@@ -32,9 +32,9 @@ namespace Cod3rsGrowth.Teste.Repositorios
             _listaPocao.Add(pocao);
         }
 
-        public void Remover(Pocao pocaoSelecionadaParaRemocao)
+        public void Remover(int idPocao)
         {
-            var pocaoRemovidaDoBanco = ObterPorId(pocaoSelecionadaParaRemocao.Id);
+            var pocaoRemovidaDoBanco = ObterPorId(idPocao);
 
             _listaPocao.Remove(pocaoRemovidaDoBanco);
         }

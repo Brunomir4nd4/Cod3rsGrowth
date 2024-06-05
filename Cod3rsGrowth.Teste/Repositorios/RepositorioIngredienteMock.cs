@@ -35,9 +35,9 @@ namespace Cod3rsGrowth.Teste.Repositorios
 
             return ingredienteDoBanco;
         }
-        public void Remover(Ingrediente ingrediente)
+        public void Remover(int idIngrediente)
         {
-            var ingredienteRemovidoDoBanco = ObterPorId(ingrediente.Id);
+            var ingredienteRemovidoDoBanco = ObterPorId(idIngrediente);
 
             _listaIngredientes.Remove(ingredienteRemovidoDoBanco);
         }

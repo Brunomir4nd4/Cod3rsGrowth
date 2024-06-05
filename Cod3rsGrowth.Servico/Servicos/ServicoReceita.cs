@@ -18,9 +18,9 @@ namespace Cod3rsGrowth.Servico.Servicos
         {
             return _repositorioReceita.ObterTodos();
         }
-        public Receita ObterPorId(int idDeBusca)
+        public Receita ObterPorId(int id)
         {
-            return _repositorioReceita.ObterPorId(idDeBusca);
+            return _repositorioReceita.ObterPorId(id);
         }
         public void CriarReceita(Receita receita)
         {
@@ -43,9 +43,9 @@ namespace Cod3rsGrowth.Servico.Servicos
             }
             return _repositorioReceita.Editar(receitaEditada);
         }
-        public void RemoverReceita(Receita receitaSelecionada)
+        public void RemoverReceita(int intReceitaSelecionada)
         {
-            _repositorioReceita.Remover(receitaSelecionada);
+            _repositorioReceita.Remover(intReceitaSelecionada);
         }
 
     }

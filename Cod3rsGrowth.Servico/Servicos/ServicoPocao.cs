@@ -39,9 +39,9 @@ namespace Cod3rsGrowth.Servico.Servicos
 
             _repositorioPocao.Criar(Receita);
         }
-        public void RemoverPocao(Pocao pocaoSelecionada)
+        public void RemoverPocao(int intPocaoSelecionada)
         {
-            _repositorioPocao.Remover(pocaoSelecionada);
+            _repositorioPocao.Remover(intPocaoSelecionada);
         }
     }
 }
