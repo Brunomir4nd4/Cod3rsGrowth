@@ -126,7 +126,7 @@ namespace Cod3rsGrowth.Teste
         public void ObterPorId_ComIdExistente_DeveRetornarPocaoEsperada()
         {
             //arrange
-            int idDeBusca = 0;
+            int idDeBusca = _listaMock.FirstOrDefault().Id;
             var pocaoMock = _listaMock.FirstOrDefault();
 
             //act
@@ -187,6 +187,18 @@ namespace Cod3rsGrowth.Teste
             var excecao = Assert.Throws<Exception>(() => _servicoPocao.CriarPocao(listaIngredientes));
 
             Assert.Equal("Receita não encontrada", excecao.Message);
+        }
+
+        [Fact]
+        public void RemoverPocao_ComPocaoExistente_DeveRetornarResultadoEsperado()
+        {
+            _pocaoParaTeste = _listaMock.FirstOrDefault();
+
+           _servicoPocao.RemoverPocao(_pocaoParaTeste);
+
+            var excecao = Assert.Throws<Exception>(() => _servicoPocao.RemoverPocao(_pocaoParaTeste));
+
+            Assert.Equal($"O objeto com id {_pocaoParaTeste.Id} não foi encontrado", excecao.Message);
         }
     }
 }

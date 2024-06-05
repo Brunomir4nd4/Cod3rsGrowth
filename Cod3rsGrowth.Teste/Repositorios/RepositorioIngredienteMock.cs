@@ -35,5 +35,11 @@ namespace Cod3rsGrowth.Teste.Repositorios
 
             return ingredienteDoBanco;
         }
+        public void Remover(Ingrediente ingrediente)
+        {
+            var ingredienteRemovido = ObterPorId(ingrediente.Id);
+
+            _listaIngredientes.Remove(ingredienteRemovido);
+        }
     }
 }
