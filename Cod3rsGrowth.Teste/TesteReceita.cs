@@ -53,9 +53,9 @@ namespace Cod3rsGrowth.Teste
                 }
             };
 
-            foreach (var item in bancoMock)
+            foreach (var receita in bancoMock)
             {
-                _servicoReceita.CriarReceita(item);
+                _servicoReceita.CriarReceita(receita);
             }
             return bancoMock;
         }

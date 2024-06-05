@@ -59,9 +59,9 @@ namespace Cod3rsGrowth.Teste
                 }
             };
 
-            foreach (var item in listaReceitaMock)
+            foreach (var receita in listaReceitaMock)
             {
-                _servicoReceita.CriarReceita(item);
+                _servicoReceita.CriarReceita(receita);
             }
 
             List<Ingrediente> listaIngredientes = new List<Ingrediente>
