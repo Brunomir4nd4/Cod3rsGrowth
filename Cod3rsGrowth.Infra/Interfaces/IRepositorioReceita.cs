@@ -8,5 +8,6 @@ namespace Cod3rsGrowth.Infra.Interfaces
         Receita ObterPorId(int id);
         void Criar(Receita receita);
         Receita Editar(Receita receita);
+        void Remover(Receita receita);
     }
 }

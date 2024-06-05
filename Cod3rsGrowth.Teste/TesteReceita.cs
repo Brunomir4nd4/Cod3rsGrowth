@@ -77,7 +77,7 @@ namespace Cod3rsGrowth.Teste
         public void ObterPorId_ComIdExistente_DeveRetornarReceitaEsperada()
         {
             //arrange
-            int idDeBusca = 0;
+            int idDeBusca = _listaMock.FirstOrDefault().Id;
             var receitaMock = _listaMock.FirstOrDefault();
 
             //act
@@ -370,6 +370,18 @@ namespace Cod3rsGrowth.Teste
             var excecao = Assert.Throws<ValidationException>(() => _servicoReceita.EditarReceita(_receitaParaTeste));
 
             Assert.Equal("Campo Valor deve ser maior que 0", excecao.Message);
+        }
+
+        [Fact]
+        public void RemoverReceita_ComReceitaExistente_DeveRetornarResultadoEsperado()
+        {
+            _receitaParaTeste = _listaMock.FirstOrDefault();
+
+            _servicoReceita.RemoverReceita(_receitaParaTeste);
+
+            var excecao = Assert.Throws<Exception>(() => _servicoReceita.RemoverReceita(_receitaParaTeste));
+
+            Assert.Equal($"O objeto com id {_receitaParaTeste.Id} não foi encontrado", excecao.Message);
         }
     }   
 }

@@ -28,16 +28,30 @@ namespace Cod3rsGrowth.Teste
             {
                 new Ingrediente
                 {
-                    Nome = "Olho de Aranha",
+                    Nome = "Pote com água",
                     Naturalidade = Naturalidade.OverWorld,
                     Quantidade = 5
                 },
 
                 new Ingrediente
                 {
-                    Nome = "Polvora",
-                    Naturalidade = Naturalidade.OverWorld,
+                    Nome = "Fungo do Nether",
+                    Naturalidade = Naturalidade.Nether,
                     Quantidade = 6
+                },
+
+                new Ingrediente
+                {
+                    Nome = "Pó de blase",
+                    Naturalidade = Naturalidade.Nether,
+                    Quantidade = 3
+                },
+
+                new Ingrediente
+                {
+                    Nome = "Melão dourado",
+                    Naturalidade = Naturalidade.OverWorld,
+                    Quantidade = 4
                 }
             };
 
@@ -73,14 +87,14 @@ namespace Cod3rsGrowth.Teste
         public void ObterPorId_ComIdExistente_DeveRetornarIngredienteEsperado()
         {
             //arrange
-            int idBuscado = 0;
+            int idBuscado = _listaMock.FirstOrDefault().Id;
             var ingredienteMock = _listaMock.FirstOrDefault();
 
             //act
             var objetoDoBanco = _servicoIngrediente.ObterPorId(idBuscado);
 
             //assert
-            Assert.Equal(ingredienteMock, objetoDoBanco);
+            Assert.Equivalent(ingredienteMock, objetoDoBanco);
         }
 
         [Fact]
@@ -247,6 +261,18 @@ namespace Cod3rsGrowth.Teste
             var excecao = Assert.Throws<ValidationException>(() => _servicoIngrediente.EditarIngrediente(_ingredienteParaTeste));
 
             Assert.Equal("Campo Quantidade deve ser maior ou igual a 1", excecao.Message);
+        }
+
+        [Fact]
+        public void RemoverIngrediente_ComIngredienteExistente_DeveRetornarResultadoEsperado()
+        {
+            _ingredienteParaTeste = _listaMock.FirstOrDefault();
+
+            _servicoIngrediente.RemoverIngredientes(_ingredienteParaTeste);
+
+            var excecao = Assert.Throws<Exception>(() => _servicoIngrediente.RemoverIngredientes(_ingredienteParaTeste));
+
+            Assert.Equal($"O objeto com id {_ingredienteParaTeste.Id} não foi encontrado", excecao.Message);
         }
     }
 }

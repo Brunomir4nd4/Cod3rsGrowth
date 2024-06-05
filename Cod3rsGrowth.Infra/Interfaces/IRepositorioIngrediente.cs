@@ -8,5 +8,6 @@ namespace Cod3rsGrowth.Infra.Interfaces
         Ingrediente ObterPorId(int id);
         void Criar(Ingrediente ingrediente);
         Ingrediente Editar(Ingrediente ingrediente);
+        void Remover(Ingrediente ingrediente);
     }
 }

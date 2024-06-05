@@ -46,8 +46,9 @@ namespace Cod3rsGrowth.Servico.Servicos
 
             return _repositorioIngrediente.Editar(ingredienteEditado);
         }
-        public void RemoverIngredientes()
+        public void RemoverIngredientes(Ingrediente ingredienteSelecionado)
         {
+            _repositorioIngrediente.Remover(ingredienteSelecionado);
         }
     }
 }

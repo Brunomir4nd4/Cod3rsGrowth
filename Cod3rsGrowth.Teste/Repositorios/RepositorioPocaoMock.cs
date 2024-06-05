@@ -31,5 +31,12 @@ namespace Cod3rsGrowth.Teste.Repositorios
             _novoId++;
             _listaPocao.Add(pocao);
         }
+
+        public void Remover(Pocao pocao)
+        {
+            var pocaoRemovida = ObterPorId(pocao.Id);
+
+            _listaPocao.Remove(pocaoRemovida);
+        }
     }
 }

@@ -37,8 +37,9 @@ namespace Cod3rsGrowth.Servico.Servicos
 
             _repositorioPocao.Criar(receita);
         }
-        public void RemoverPocao()
+        public void RemoverPocao(Pocao pocaoSelecionada)
         {
+            _repositorioPocao.Remover(pocaoSelecionada);
         }
     }
 }
