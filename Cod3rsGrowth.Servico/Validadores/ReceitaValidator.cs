@@ -7,11 +7,11 @@ namespace Cod3rsGrowth.Servico.Validadores
     {
         public ReceitaValidator() 
         {
-            int valorMinimoParaMensalidade = 0;
+            int valorMinimoParaMensalidade = 1;
             RuleFor(p => p.Nome)
                 .Cascade(CascadeMode.Stop)
                 .NotEmpty().WithMessage("Campo Nome não preenchido!")
-                .Matches(@"^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$").WithMessage("Campo Nome Deve conter apenas letras!");
+                .Matches(@"^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$").WithMessage("Campo Nome deve conter apenas letras!");
             RuleFor(p => p.Descricao)
                 .Cascade(CascadeMode.Stop)
                 .NotEmpty().WithMessage("Campo Descrição não preenchido!")
@@ -23,7 +23,7 @@ namespace Cod3rsGrowth.Servico.Validadores
             RuleFor(p => p.ValidadeEmMeses)
                 .Cascade(CascadeMode.Stop)
                 .NotEmpty().WithMessage("Campo Validade Em Meses não preenchido!")
-                .GreaterThan(valorMinimoParaMensalidade).WithMessage("Campo Validade Em Meses deve ser maior que 0"); 
+                .GreaterThanOrEqualTo(valorMinimoParaMensalidade).WithMessage("Campo Validade em meses deve ser maior ou igual a 1"); 
         }
     }
 }

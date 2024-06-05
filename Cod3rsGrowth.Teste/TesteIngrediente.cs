@@ -18,6 +18,7 @@ namespace Cod3rsGrowth.Teste
         public TesteIngrediente()
         {
             CarregarServico();
+            _servicoIngrediente.ObterTodos().Clear();
             _listaMock = IniciarBancoMock();
         }
 
@@ -176,6 +177,76 @@ namespace Cod3rsGrowth.Teste
             var excecao = Assert.Throws<ValidationException>(() => _servicoIngrediente.CriarIngrediente(_ingredienteParaTeste));
 
             Assert.Equal("Campo Quantidade não preenchido!", excecao.Message);
+        }
+
+        [Fact]
+        public void EditarIngrediente_ComDadosValidos_DeveRetornarIngredienteEditadoEsperado()
+        {
+            _ingredienteParaTeste = new Ingrediente()
+            {
+                Id = 1,
+                Naturalidade = Naturalidade.OverWorld,
+                Nome = "Polvora Editado",
+                Quantidade = 4
+            };
+
+            var ingredienteEditado = _servicoIngrediente.EditarIngrediente(_ingredienteParaTeste);
+
+            Assert.Equivalent(_ingredienteParaTeste, ingredienteEditado);
+        }
+
+        [Theory]
+        [InlineData("37297")]
+        [InlineData("@!*#&@!")]
+        [InlineData("@Ingr3di3nt3_3ditad0")]
+        [InlineData("👌👌")]
+        public void EditarIngrediente_ComNomeInvalido_DeveLancarExcecaoEsperada(string nome)
+        {
+            _ingredienteParaTeste = new Ingrediente()
+            {
+                Id = 1,
+                Nome = nome,
+                Naturalidade = Naturalidade.OverWorld,
+                Quantidade = 7
+            };
+
+            var excecao = Assert.Throws<ValidationException>(() => _servicoIngrediente.EditarIngrediente(_ingredienteParaTeste));
+
+            Assert.Equal("Campo Nome deve conter apenas letras!", excecao.Message);
+        }
+
+        [Theory]
+        [InlineData(null)]
+        [InlineData("  ")]
+        [InlineData("")]
+        public void EditarIngrediente_ComNomeVazio_DeveLancarExcecaoEsperada(string nome)
+        {
+            _ingredienteParaTeste = new Ingrediente()
+            {
+                Id = 1,
+                Nome = nome,
+                Naturalidade = Naturalidade.OverWorld,
+                Quantidade = 7
+            };
+
+            var excecao = Assert.Throws<ValidationException>(() => _servicoIngrediente.EditarIngrediente(_ingredienteParaTeste));
+
+            Assert.Equal("Campo Nome não preenchido!", excecao.Message);
+        }
+        [Fact]
+        public void EditarIngrediente_ComQuantidadeInvalida_DeveLancarExcecaoEsperada()
+        {
+            _ingredienteParaTeste = new Ingrediente()
+            {
+                Id = 1,
+                Nome = "Polvora Editada",
+                Naturalidade = Naturalidade.OverWorld,
+                Quantidade = -99
+            };
+
+            var excecao = Assert.Throws<ValidationException>(() => _servicoIngrediente.EditarIngrediente(_ingredienteParaTeste));
+
+            Assert.Equal("Campo Quantidade deve ser maior ou igual a 1", excecao.Message);
         }
     }
 }

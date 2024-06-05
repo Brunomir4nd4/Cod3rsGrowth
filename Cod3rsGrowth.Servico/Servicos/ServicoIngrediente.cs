@@ -35,8 +35,16 @@ namespace Cod3rsGrowth.Servico.Servicos
 
             _repositorioIngrediente.Criar(ingrediente);
         }
-        public void EditarIngrediente()
+        public Ingrediente EditarIngrediente(Ingrediente ingredienteEditado)
         {
+            var validate = _validator.Validate(ingredienteEditado);
+            if (!validate.IsValid)
+            {
+                var erros = string.Join(Environment.NewLine, validate.Errors.Select(e => e.ErrorMessage));
+                throw new ValidationException(erros);
+            }
+
+            return _repositorioIngrediente.Editar(ingredienteEditado);
         }
         public void RemoverIngredientes()
         {

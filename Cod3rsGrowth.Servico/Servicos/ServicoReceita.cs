@@ -33,8 +33,15 @@ namespace Cod3rsGrowth.Servico.Servicos
 
             _repositorioReceita.Criar(receita);
         }
-        public void EditarReceita()
+       public Receita EditarReceita(Receita receitaEditada)
         {
+            var validate = _validator.Validate(receitaEditada);
+            if (!validate.IsValid)
+            {
+                var erros = string.Join(Environment.NewLine, validate.Errors.Select(e => e.ErrorMessage));
+                throw new ValidationException(erros);
+            }
+            return _repositorioReceita.Editar(receitaEditada);
         }
         public void RemoverReceita()
         {

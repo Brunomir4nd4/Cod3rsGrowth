@@ -25,5 +25,18 @@ namespace Cod3rsGrowth.Teste.Repositorios
             _novoId++;
             _listaReceita.Add(receita);
         }
+        public Receita Editar(Receita receitaEditada)
+        {
+            var receitaDoBanco = ObterPorId(receitaEditada.Id);
+
+            receitaDoBanco.Nome = receitaEditada.Nome;
+            receitaDoBanco.Descricao = receitaEditada.Descricao;
+            receitaDoBanco.ValidadeEmMeses = receitaEditada.ValidadeEmMeses;
+            receitaDoBanco.Valor = receitaEditada.Valor;
+            receitaDoBanco.Imagem = receitaEditada.Imagem;
+            receitaDoBanco.ListaDeIdIngredientes = receitaEditada.ListaDeIdIngredientes;
+
+            return receitaDoBanco;
+        }
     }
 }

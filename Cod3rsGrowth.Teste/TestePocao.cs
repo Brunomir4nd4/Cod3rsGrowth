@@ -18,6 +18,7 @@ namespace Cod3rsGrowth.Teste
         public TestePocao()
         {
             CarregarServico();
+            _servicoIngrediente.ObterTodos().Clear();
             _listaMock = IniciarBancoMock();
         }
 

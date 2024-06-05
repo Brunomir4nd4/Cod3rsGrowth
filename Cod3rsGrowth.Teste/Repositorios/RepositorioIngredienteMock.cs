@@ -25,5 +25,15 @@ namespace Cod3rsGrowth.Teste.Repositorios
             _novoId++;
             _listaIngredientes.Add(ingrediente);
         }
+        public Ingrediente Editar(Ingrediente ingredienteEditado)
+        {
+            var ingredienteDoBanco = ObterPorId(ingredienteEditado.Id);
+
+            ingredienteDoBanco.Nome = ingredienteEditado.Nome;
+            ingredienteDoBanco.Naturalidade = ingredienteEditado.Naturalidade;
+            ingredienteDoBanco.Quantidade = ingredienteEditado.Quantidade;
+
+            return ingredienteDoBanco;
+        }
     }
 }
