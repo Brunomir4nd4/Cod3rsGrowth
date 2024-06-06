@@ -16,15 +16,15 @@ namespace Cod3rsGrowth.Teste.Repositorios
         public Pocao ObterPorId(int idProcurado)
         {
             return _listaPocao.Find(objeto => objeto.Id == idProcurado) 
-                ?? throw new Exception($"O objeto com id {idProcurado} não foi encontrado");
+                ?? throw new Exception($"O objeto com id [{idProcurado}] não foi encontrado");
         }
 
-        public void Criar(Receita receita)
+        public void Criar(Receita novaReceita)
         {
             Pocao pocao = new Pocao()
             {
                 Id = _novoId,
-                IdReceita = receita.Id,
+                IdReceita = novaReceita.Id,
                 Vencido = false,
                 DataDeFabricação = DateTime.Today
             };
@@ -32,11 +32,11 @@ namespace Cod3rsGrowth.Teste.Repositorios
             _listaPocao.Add(pocao);
         }
 
-        public void Remover(Pocao pocao)
+        public void Remover(int idPocao)
         {
-            var pocaoRemovida = ObterPorId(pocao.Id);
+            var pocaoRemovidaDoBanco = ObterPorId(idPocao);
 
-            _listaPocao.Remove(pocaoRemovida);
+            _listaPocao.Remove(pocaoRemovidaDoBanco);
         }
     }
 }

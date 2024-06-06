@@ -43,9 +43,9 @@ namespace Cod3rsGrowth.Servico.Servicos
             }
             return _repositorioReceita.Editar(receitaEditada);
         }
-        public void RemoverReceita(Receita receitaSelecionada)
+        public void RemoverReceita(int intReceitaSelecionada)
         {
-            _repositorioReceita.Remover(receitaSelecionada);
+            _repositorioReceita.Remover(intReceitaSelecionada);
         }
 
     }
