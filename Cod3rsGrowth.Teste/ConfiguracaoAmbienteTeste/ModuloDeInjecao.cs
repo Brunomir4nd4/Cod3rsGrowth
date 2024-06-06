@@ -6,7 +6,7 @@ using Cod3rsGrowth.Servico.Validadores;
 
 namespace Cod3rsGrowth.Teste.ConfiguracaoAmbienteTeste
 {
-    public class ModeloDeInjecao
+    public class ModuloDeInjecao
     {
         public static void BindServices(ServiceCollection servicos)
         {

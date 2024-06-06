@@ -16,7 +16,7 @@ namespace Cod3rsGrowth.Teste.Repositorios
         public Ingrediente ObterPorId(int idProcurado)
         {
             return _listaIngredientes.Find(objeto => objeto.Id == idProcurado)
-                ?? throw new Exception($"O objeto com id {idProcurado} não foi encontrado");
+                ?? throw new Exception($"O objeto com id [{idProcurado}] não foi encontrado");
         }
 
         public void Criar(Ingrediente ingrediente)
@@ -35,11 +35,11 @@ namespace Cod3rsGrowth.Teste.Repositorios
 
             return ingredienteDoBanco;
         }
-        public void Remover(Ingrediente ingrediente)
+        public void Remover(int idIngrediente)
         {
-            var ingredienteRemovido = ObterPorId(ingrediente.Id);
+            var ingredienteRemovidoDoBanco = ObterPorId(idIngrediente);
 
-            _listaIngredientes.Remove(ingredienteRemovido);
+            _listaIngredientes.Remove(ingredienteRemovidoDoBanco);
         }
     }
 }
