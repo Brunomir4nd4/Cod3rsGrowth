@@ -95,8 +95,9 @@ namespace Cod3rsGrowth.Teste
                 _servicoIngrediente.CriarIngrediente(ingrediente);
             }
 
-            var listaIngredientesParaCura = listaIngredientes.Take(4).ToList();
-            var listaIngredientesParaForca = listaIngredientes.Take(3).ToList();
+            int quantidadeDeIngredientes1 = 4, quantidadeDeIngredientes2 = 3
+            var listaIngredientesParaCura = listaIngredientes.Take(quantidadeDeIngredientes1).ToList();
+            var listaIngredientesParaForca = listaIngredientes.Take(quantidadeDeIngredientes2).ToList();
 
             _servicoPocao.CriarPocao(listaIngredientesParaCura);
             _servicoPocao.CriarPocao(listaIngredientesParaForca);
@@ -182,7 +183,8 @@ namespace Cod3rsGrowth.Teste
         [Fact]
         public void CriarPocao_ComDadosInvalidos_DeveLancarExecaoEsperada()
         {
-            List<Ingrediente> listaIngredientes = _servicoIngrediente.ObterTodos().Take(2).ToList();
+            int quantidadeDeIngredientes = 2
+            List<Ingrediente> listaIngredientes = _servicoIngrediente.ObterTodos().Take(quantidadeDeIngredientes).ToList();
 
             var excecao = Assert.Throws<Exception>(() => _servicoPocao.CriarPocao(listaIngredientes));
 
