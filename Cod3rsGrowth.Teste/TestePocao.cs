@@ -38,52 +38,56 @@ namespace Cod3rsGrowth.Teste
             List<int> listaDeIdIngredientes2 = new List<int> { 0, 1, 2 };
             List<Receita> listaReceitaMock = new List<Receita>()
             {
-                new Receita{
-                Nome = "receita de Cura",
-                Descricao = "Deve curar",
-                Imagem = "caminho da imagem",
-                Valor = 20.00m,
-                ValidadeEmMeses = 4,
-                ListaDeIdIngredientes = listaDeIdIngredientes1},
+                new()
+                {
+                    Nome = "receita de Cura",
+                    Descricao = "Deve curar",
+                    Imagem = "caminho da imagem",
+                    Valor = 20.00m,
+                    ValidadeEmMeses = 4,
+                    ListaDeIdIngredientes = listaDeIdIngredientes1
+                },
 
-                new Receita{
-                Nome = "receita de Força",
-                Descricao = "Te da Força",
-                Imagem = "caminho da imagem",
-                Valor = 15.00m,
-                ValidadeEmMeses = 4,
-                ListaDeIdIngredientes = listaDeIdIngredientes2}
+                new()
+                {
+                    Nome = "receita de Força",
+                    Descricao = "Te da Força",
+                    Imagem = "caminho da imagem",
+                    Valor = 15.00m,
+                    ValidadeEmMeses = 4,
+                    ListaDeIdIngredientes = listaDeIdIngredientes2
+                }
             };
 
-            foreach (var item in listaReceitaMock)
+            foreach (var receita in listaReceitaMock)
             {
-                _servicoReceita.CriarReceita(item);
+                _servicoReceita.CriarReceita(receita);
             }
 
             List<Ingrediente> listaIngredientes = new List<Ingrediente>
             {
-                new Ingrediente
+                new()
                 {
                     Nome = "Pote com água",
                     Naturalidade = Naturalidade.OverWorld,
                     Quantidade = 5
                 },
 
-                new Ingrediente
+                new()
                 {
                     Nome = "Fungo do Nether",
                     Naturalidade = Naturalidade.Nether,
                     Quantidade = 6
                 },
 
-                new Ingrediente
+                new()
                 {
                     Nome = "Pó de blase",
                     Naturalidade = Naturalidade.Nether,
                     Quantidade = 3
                 },
 
-                new Ingrediente
+                new()
                 {
                     Nome = "Melão dourado",
                     Naturalidade = Naturalidade.OverWorld,
@@ -160,7 +164,7 @@ namespace Cod3rsGrowth.Teste
             var excecao = Assert.Throws<Exception>(() => _servicoPocao.ObterPorId(idInexistente));
 
             //assert
-            Assert.Equal($"O objeto com id {idInexistente} não foi encontrado", excecao.Message);
+            Assert.Equal($"O objeto com id [{idInexistente}] não foi encontrado", excecao.Message);
         }
 
         [Fact]
@@ -188,7 +192,7 @@ namespace Cod3rsGrowth.Teste
 
             var excecao = Assert.Throws<Exception>(() => _servicoPocao.CriarPocao(listaIngredientes));
 
-            Assert.Equal("Receita não encontrada", excecao.Message);
+            Assert.Equal("Impossível criar uma poção com os ingredientes selecionados!", excecao.Message);
         }
 
         [Fact]
@@ -196,11 +200,11 @@ namespace Cod3rsGrowth.Teste
         {
             _pocaoParaTeste = _listaMock.FirstOrDefault();
 
-           _servicoPocao.RemoverPocao(_pocaoParaTeste);
+           _servicoPocao.RemoverPocao(_pocaoParaTeste.Id);
 
-            var excecao = Assert.Throws<Exception>(() => _servicoPocao.RemoverPocao(_pocaoParaTeste));
+            var excecao = Assert.Throws<Exception>(() => _servicoPocao.RemoverPocao(_pocaoParaTeste.Id));
 
-            Assert.Equal($"O objeto com id {_pocaoParaTeste.Id} não foi encontrado", excecao.Message);
+            Assert.Equal($"O objeto com id [{_pocaoParaTeste.Id}] não foi encontrado", excecao.Message);
         }
     }
 }
