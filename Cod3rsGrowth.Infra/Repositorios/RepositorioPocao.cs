@@ -1,14 +1,20 @@
 ﻿using Cod3rsGrowth.Dominio.Entidades;
-using Cod3rsGrowth.Dominio.Interface;
+using LinqToDB;
 
 namespace Cod3rsGrowth.Infra.Repositorios
 {
     public class RepositorioPocao
     {
+        private MeuContextoDeDados _db;
+
+        public RepositorioPocao(MeuContextoDeDados db)
+        {
+            _db = db;
+        }
+
         public List<Pocao> ObterTodos()
         {
-            var db = new MeuContextoDeDados();
-            var query = from p in db.pocao
+            var query = from p in _db.pocao
                         where p.Id > 0
                         select p;
             return query.ToList();
@@ -19,8 +25,9 @@ namespace Cod3rsGrowth.Infra.Repositorios
             return ObterPorId(idProcurado);
         }
 
-        public void Criar(Receita novaReceita)
+        public void Criar(Receita pocao)
         {
+            _db.Insert(pocao);
         }
 
         public void Remover(int idPocao)
