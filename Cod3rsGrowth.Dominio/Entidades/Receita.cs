@@ -8,6 +8,6 @@
         public decimal Valor { get; set; }
         public string Imagem { get; set; }
         public int ValidadeEmMeses { get; set; }
-        public List<int> ListaDeIdIngredientes { get; set; }
+        public List<Ingrediente> ListaDeIdIngredientes { get; set; }
     }
 }
