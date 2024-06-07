@@ -6,7 +6,7 @@ namespace Cod3rsGrowth.Infra
 {
     public class MeuContextoDeDados : DataConnection
     {
-        public MeuContextoDeDados() : base("contestoPadrao") { }
+        public MeuContextoDeDados() : base("contextoPadrao") { }
 
         public ITable<Pocao> pocao => this.GetTable<Pocao>();
         public ITable<Receita> receita => this.GetTable<Receita>();
