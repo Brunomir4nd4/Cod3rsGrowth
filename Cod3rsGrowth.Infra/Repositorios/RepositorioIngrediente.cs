@@ -7,7 +7,11 @@ namespace Cod3rsGrowth.Infra.Repositorios
     {
         public List<Ingrediente> ObterTodos()
         {
-            return ObterTodos();
+            var db = new MeuContextoDeDados();
+            var query = from p in db.ingrediente
+                        where p.Id > 0
+                        select p;
+            return query.ToList();
         }
 
         public Ingrediente ObterPorId(int idProcurado)

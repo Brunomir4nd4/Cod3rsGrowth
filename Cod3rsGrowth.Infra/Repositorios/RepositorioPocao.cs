@@ -7,7 +7,11 @@ namespace Cod3rsGrowth.Infra.Repositorios
     {
         public List<Pocao> ObterTodos()
         {
-            return ObterTodos();
+            var db = new MeuContextoDeDados();
+            var query = from p in db.pocao
+                        where p.Id > 0
+                        select p;
+            return query.ToList();
         }
 
         public Pocao ObterPorId(int idProcurado)
