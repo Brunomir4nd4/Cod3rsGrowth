@@ -18,6 +18,7 @@ namespace Cod3rsGrowth.Servico.Servicos
 
         public List<Ingrediente> ObterTodos()
         {
+
             return _repositorioIngrediente.ObterTodos();
         }
         public Ingrediente ObterPorId(int id)

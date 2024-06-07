@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="linq2db" Version="5.4.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Cod3rsGrowth.Dominio\Cod3rsGrowth.Dominio.csproj" />
   </ItemGroup>
 
