@@ -1,6 +1,7 @@
 ﻿using Cod3rsGrowth.Dominio.Interface;
 using Cod3rsGrowth.Dominio.Entidades;
 using LinqToDB;
+using System.Linq.Dynamic;
 
 namespace Cod3rsGrowth.Infra.Repositorios
 {
@@ -13,12 +14,10 @@ namespace Cod3rsGrowth.Infra.Repositorios
             _db = db;
         }
 
-        public List<Ingrediente> ObterTodos()
+        public List<Ingrediente> ObterTodos(Ingrediente ingrediente)
         {
-            var query = from p in _db.ingrediente
-                        where p.Id > 0
-                        select p;
-            return query.ToList();
+            var query = Filtrar(ingrediente);
+            return query;
         }
 
         public Ingrediente ObterPorId(int idProcurado)
@@ -38,6 +37,25 @@ namespace Cod3rsGrowth.Infra.Repositorios
         public void Remover(int idIngrediente)
         {
 
+        }
+
+        public List<Ingrediente> Filtrar(Ingrediente ingrediente)
+        {
+            IQueryable<Ingrediente> query = _db.ingrediente.AsQueryable();
+
+            if (ingrediente.Id != 0)
+                query = query.Where(r => r.Id == ingrediente.Id);
+
+            if (!string.IsNullOrWhiteSpace(ingrediente.Nome))
+                query = query.Where(r => r.Nome == ingrediente.Nome);
+
+            if (ingrediente.Quantidade != 0)
+                query = query.Where(r => r.Quantidade == ingrediente.Quantidade);
+
+            if (ingrediente.Naturalidade != null)
+                query = query.Where(r => r.Naturalidade == ingrediente.Naturalidade);
+
+            return query.ToList();
         }
     }
 }

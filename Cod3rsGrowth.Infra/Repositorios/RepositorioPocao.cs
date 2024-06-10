@@ -12,11 +12,9 @@ namespace Cod3rsGrowth.Infra.Repositorios
             _db = db;
         }
 
-        public List<Pocao> ObterTodos()
+        public List<Pocao> ObterTodos(Pocao pocao)
         {
-            var query = from p in _db.pocao
-                        where p.Id > 0
-                        select p;
+            var query = Filtrar(pocao);
             return query.ToList();
         }
 
@@ -32,6 +30,25 @@ namespace Cod3rsGrowth.Infra.Repositorios
 
         public void Remover(int idPocao)
         {
+        }
+
+        public List<Pocao> Filtrar(Pocao pocao)
+        {
+            IQueryable<Pocao> query = _db.pocao.AsQueryable();
+
+            if (pocao.Id != 0)
+                query = query.Where(r => r.Id == pocao.Id);
+
+            if (pocao.IdReceita != 0)
+                query = query.Where(r => r.IdReceita == pocao.IdReceita);
+
+            if (pocao.DataDeFabricação != null)
+                query = query.Where(r => r.DataDeFabricação == pocao.DataDeFabricação);
+
+            if (pocao.Vencido != null)
+                query = query.Where(r => r.Vencido == pocao.Vencido);
+
+            return query.ToList();
         }
     }
 }

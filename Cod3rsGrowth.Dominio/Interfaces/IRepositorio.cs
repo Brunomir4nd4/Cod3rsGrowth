@@ -4,7 +4,7 @@ namespace Cod3rsGrowth.Dominio.Interface
 {
     public interface IRepositorio<T>
     {
-        List<T> ObterTodos();
+        List<T> ObterTodos(T objeto);
         T ObterPorId(int id);
         void Criar(T item);
         T Editar(T item);
