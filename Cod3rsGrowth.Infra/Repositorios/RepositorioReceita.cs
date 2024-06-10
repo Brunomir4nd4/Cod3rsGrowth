@@ -1,8 +1,6 @@
 ﻿using Cod3rsGrowth.Dominio.Entidades;
-using Cod3rsGrowth.Dominio.Enums;
 using Cod3rsGrowth.Dominio.Interface;
 using LinqToDB;
-using System.Linq.Dynamic;
 
 namespace Cod3rsGrowth.Infra.Repositorios
 {
@@ -32,7 +30,17 @@ namespace Cod3rsGrowth.Infra.Repositorios
         }
         public Receita Editar(Receita receitaEditada)
         {
-            return receitaEditada;
+            var receitaAtualizada = ObterPorId(receitaEditada.Id);
+
+            receitaAtualizada.Nome = receitaEditada.Nome;
+            receitaAtualizada.Descricao = receitaEditada.Descricao;
+            receitaAtualizada.Valor = receitaEditada.Valor;
+            receitaAtualizada.Imagem = receitaEditada.Imagem;
+            receitaAtualizada.ValidadeEmMeses = receitaEditada.ValidadeEmMeses;
+            receitaAtualizada.ListaDeIdIngredientes = receitaEditada.ListaDeIdIngredientes;
+
+            _db.Update(receitaAtualizada);
+            return receitaAtualizada;
         }
 
         public void Remover(int idReceita)
