@@ -1,7 +1,6 @@
 ﻿using Cod3rsGrowth.Dominio.Interface;
 using Cod3rsGrowth.Dominio.Entidades;
 using LinqToDB;
-using System.Linq.Dynamic;
 
 namespace Cod3rsGrowth.Infra.Repositorios
 {
@@ -32,7 +31,14 @@ namespace Cod3rsGrowth.Infra.Repositorios
 
         public Ingrediente Editar(Ingrediente ingredienteEditado)
         {
-            return ingredienteEditado;
+            var ingredienteAtualizado = ObterPorId(ingredienteEditado.Id);
+
+            ingredienteAtualizado.Nome = ingredienteEditado.Nome;
+            ingredienteAtualizado.Quantidade = ingredienteEditado.Quantidade;
+            ingredienteAtualizado.Naturalidade = ingredienteEditado.Naturalidade;
+
+            _db.Update(ingredienteAtualizado);
+            return ingredienteAtualizado;
         }
         public void Remover(int idIngrediente)
         {
