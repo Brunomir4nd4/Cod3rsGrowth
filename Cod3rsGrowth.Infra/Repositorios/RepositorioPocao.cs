@@ -30,6 +30,9 @@ namespace Cod3rsGrowth.Infra.Repositorios
 
         public void Remover(int idPocao)
         {
+            _db.pocao
+                .Where(p => p.Id == idPocao)
+                .Delete();
         }
 
         public List<Pocao> Filtrar(Pocao pocao)
