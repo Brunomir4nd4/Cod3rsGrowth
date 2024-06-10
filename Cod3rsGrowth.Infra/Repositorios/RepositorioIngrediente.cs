@@ -42,7 +42,9 @@ namespace Cod3rsGrowth.Infra.Repositorios
         }
         public void Remover(int idIngrediente)
         {
-
+            _db.ingrediente
+                .Where(p => p.Id == idIngrediente)
+                .Delete();
         }
 
         public List<Ingrediente> Filtrar(Ingrediente ingrediente)
