@@ -21,7 +21,14 @@ namespace Cod3rsGrowth.Infra.Repositorios
 
         public Ingrediente ObterPorId(int idProcurado)
         {
-            return ObterPorId(idProcurado);
+            var query = from p in _db.ingrediente
+                        where (p.Id == idProcurado)
+                        select p;
+
+            var resultado = query.FirstOrDefault()
+                ?? throw new Exception($"Id: [{idProcurado}] não foi encontrado no banco de dados");
+
+            return resultado;
         }
 
         public void Criar(Ingrediente ingrediente)
