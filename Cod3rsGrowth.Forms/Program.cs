@@ -1,11 +1,7 @@
-using System;
-using System.Linq;
-
 using FluentMigrator.Runner;
-using FluentMigrator.Runner.Initialization;
 
 using Microsoft.Extensions.DependencyInjection;
-using Cod3rsGrowth.Infra;
+using Cod3rsGrowth.Infra.Migrators;
 
 namespace Cod3rsGrowth.Forms
 {
@@ -44,7 +40,7 @@ namespace Cod3rsGrowth.Forms
                     // Set the connection string
                     .WithGlobalConnectionString("Data Source=DESKTOP-G389DPC\\SQLEXPRESS;Initial Catalog=Cod3rsGrowthdb;Persist Security Info=True;User ID=sa;Password=sap@123;Trust Server Certificate=True")
                     // Define the assembly containing the migrations
-                    .ScanIn(typeof(LogTable).Assembly).For.Migrations())
+                    .ScanIn(typeof(tabelasIniciais).Assembly).For.Migrations())
                 // Enable logging to console in the FluentMigrator way
                 .AddLogging(lb => lb.AddFluentMigratorConsole())
                 // Build the service provider

@@ -1,9 +1,9 @@
 ﻿using FluentMigrator;
 
-namespace Cod3rsGrowth.Infra
+namespace Cod3rsGrowth.Infra.Migrators
 {
     [Migration(20240611094700)]
-    public class LogTable : Migration
+    public class tabelasIniciais : Migration
     {
         public override void Up()
         {
