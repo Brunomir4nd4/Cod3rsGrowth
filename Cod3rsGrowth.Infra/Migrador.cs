@@ -1,9 +1,9 @@
 ﻿using FluentMigrator;
 
-namespace Cod3rsGrowth.Infra.Migrators
+namespace Cod3rsGrowth.Infra
 {
-    [Migration(20240611094700)]
-    public class tabelasIniciais : Migration
+    [Migration(20240611131000)]
+    public class Migrador : Migration
     {
         public override void Up()
         {
@@ -26,6 +26,18 @@ namespace Cod3rsGrowth.Infra.Migrators
                 .WithColumn("Vencido").AsBoolean().NotNullable()
                 .WithColumn("DataDeFabricacao").AsDateTime().NotNullable();
 
+            Create.Table("ReceitaIngrediente")
+                .WithColumn("Id").AsInt32().PrimaryKey().Identity()
+                .WithColumn("ReceitaId").AsInt32().NotNullable().ForeignKey("Receita", "Id")
+                .WithColumn("IngredienteId").AsInt32().NotNullable().ForeignKey("Ingrediente", "Id");
+
+            Create.ForeignKey("fk_Receita")
+                .FromTable("ReceitaIngrediente").ForeignColumn("ReceitaId")
+                .ToTable("Receita").PrimaryColumn("Id");
+
+            Create.ForeignKey("fk_Ingrediente")
+                .FromTable("ReceitaIngrediente").ForeignColumn("IngredienteId")
+                .ToTable("Ingrediente").PrimaryColumn("Id");
         }
 
         public override void Down()
@@ -33,6 +45,7 @@ namespace Cod3rsGrowth.Infra.Migrators
             Delete.Table("Ingrediente");
             Delete.Table("Receita");
             Delete.Table("Pocao");
+            Delete.Table("Receita_Ingrediente");
         }
     }
 }
