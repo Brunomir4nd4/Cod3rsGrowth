@@ -14,9 +14,9 @@ namespace Cod3rsGrowth.Servico.Servicos
             _repositorioReceita = repositorioReceita;
             _validator = validator;
         }
-        public List<Receita> ObterTodos()
+        public List<Receita> ObterTodos(FiltroReceita receita)
         {
-            return _repositorioReceita.ObterTodos();
+            return _repositorioReceita.ObterTodos(receita);
         }
         public Receita ObterPorId(int id)
         {

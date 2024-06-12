@@ -4,6 +4,8 @@ using Cod3rsGrowth.Teste.ConfiguracaoAmbienteTeste;
 using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 using Cod3rsGrowth.Dominio.Enums;
+using LinqToDB;
+using static LinqToDB.DataProvider.SqlServer.SqlServerProviderAdapter;
 
 namespace Cod3rsGrowth.Teste
 {
@@ -15,10 +17,12 @@ namespace Cod3rsGrowth.Teste
         private List<Pocao> _listaMock;
         private List<Pocao> _listaDoBanco;
         private Pocao _pocaoParaTeste;
+        private Receita _receitaParaTeste;
+        private FiltroIngrediente _ingredienteParaTeste;
         public TestePocao()
         {
             CarregarServico();
-            _servicoIngrediente.ObterTodos().Clear();
+            _servicoIngrediente.ObterTodos(_ingredienteParaTeste).Clear();
             _listaMock = IniciarBancoMock();
         }
 
@@ -99,7 +103,7 @@ namespace Cod3rsGrowth.Teste
                 _servicoIngrediente.CriarIngrediente(ingrediente);
             }
 
-            int quantidadeDeIngredientes1 = 4, quantidadeDeIngredientes2 = 3
+            int quantidadeDeIngredientes1 = 4, quantidadeDeIngredientes2 = 3;
             var listaIngredientesParaCura = listaIngredientes.Take(quantidadeDeIngredientes1).ToList();
             var listaIngredientesParaForca = listaIngredientes.Take(quantidadeDeIngredientes2).ToList();
 
@@ -187,8 +191,8 @@ namespace Cod3rsGrowth.Teste
         [Fact]
         public void CriarPocao_ComDadosInvalidos_DeveLancarExecaoEsperada()
         {
-            int quantidadeDeIngredientes = 2
-            List<Ingrediente> listaIngredientes = _servicoIngrediente.ObterTodos().Take(quantidadeDeIngredientes).ToList();
+            int quantidadeDeIngredientes = 2;
+            List<Ingrediente> listaIngredientes = _servicoIngrediente.ObterTodos(_ingredienteParaTeste).Take(quantidadeDeIngredientes).ToList();
 
             var excecao = Assert.Throws<Exception>(() => _servicoPocao.CriarPocao(listaIngredientes));
 

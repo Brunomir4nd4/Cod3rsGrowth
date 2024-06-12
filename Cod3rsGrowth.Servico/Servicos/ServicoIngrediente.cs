@@ -16,9 +16,10 @@ namespace Cod3rsGrowth.Servico.Servicos
             _validator = validator;
         }
 
-        public List<Ingrediente> ObterTodos()
+        public List<Ingrediente> ObterTodos(FiltroIngrediente ingrediente)
         {
-            return _repositorioIngrediente.ObterTodos();
+
+            return _repositorioIngrediente.ObterTodos(ingrediente);
         }
         public Ingrediente ObterPorId(int id)
         {
