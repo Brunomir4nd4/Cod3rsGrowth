@@ -18,7 +18,7 @@ namespace Cod3rsGrowth.Teste
         private List<Pocao> _listaDoBanco;
         private Pocao _pocaoParaTeste;
         private Receita _receitaParaTeste;
-        private Ingrediente _ingredienteParaTeste;
+        private FiltroIngrediente _ingredienteParaTeste;
         public TestePocao()
         {
             CarregarServico();

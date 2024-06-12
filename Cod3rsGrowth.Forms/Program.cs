@@ -2,6 +2,8 @@ using FluentMigrator.Runner;
 
 using Microsoft.Extensions.DependencyInjection;
 using Cod3rsGrowth.Infra;
+using System.Configuration;
+using Microsoft.Data.SqlClient;
 
 namespace Cod3rsGrowth.Forms
 {
@@ -21,11 +23,13 @@ namespace Cod3rsGrowth.Forms
         }
         private static ServiceProvider CreateServices()
         {
+            // SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["contextoPadrao"]);
+            string connectionString = ConfigurationManager.ConnectionStrings["contextoPadrao"].ToString();
             return new ServiceCollection()
                 .AddFluentMigratorCore()
                 .ConfigureRunner(rb => rb
                     .AddSqlServer()
-                    .WithGlobalConnectionString("Data Source=DESKTOP-G389DPC\\SQLEXPRESS;Initial Catalog=Cod3rsGrowthdb;Persist Security Info=True;User ID=sa;Password=sap@123;Trust Server Certificate=True")
+                    .WithGlobalConnectionString(connectionString)
                     .ScanIn(typeof(Migrador).Assembly).For.Migrations())
                 .AddLogging(lb => lb.AddFluentMigratorConsole())
                 .BuildServiceProvider(false);

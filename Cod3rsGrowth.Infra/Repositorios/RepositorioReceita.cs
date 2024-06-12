@@ -1,10 +1,11 @@
 ﻿using Cod3rsGrowth.Dominio.Entidades;
 using Cod3rsGrowth.Dominio.Interface;
+using Cod3rsGrowth.Infra.Interfaces;
 using LinqToDB;
 
 namespace Cod3rsGrowth.Infra.Repositorios
 {
-    public class RepositorioReceita : IRepositorio<Receita>
+    public class RepositorioReceita : IRepositorioReceita
     {
         private MeuContextoDeDados _db;
 
@@ -13,7 +14,7 @@ namespace Cod3rsGrowth.Infra.Repositorios
             _db = db;
         }
 
-        public List<Receita> ObterTodos(Receita receita)
+        public List<Receita> ObterTodos(FiltroReceita receita)
         {
             var query = Filtrar(receita);
             return query;
@@ -57,7 +58,7 @@ namespace Cod3rsGrowth.Infra.Repositorios
                 .Delete();
         }
 
-        public List<Receita> Filtrar(Receita receita)
+        public List<Receita> Filtrar(FiltroReceita receita)
         {
             IQueryable<Receita> query = _db.receita.AsQueryable();
 
