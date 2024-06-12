@@ -17,10 +17,12 @@ namespace Cod3rsGrowth.Teste
         private List<Pocao> _listaMock;
         private List<Pocao> _listaDoBanco;
         private Pocao _pocaoParaTeste;
+        private Receita _receitaParaTeste;
+        private Ingrediente _ingredienteParaTeste;
         public TestePocao()
         {
             CarregarServico();
-            _servicoIngrediente.ObterTodos().Clear();
+            _servicoIngrediente.ObterTodos(_ingredienteParaTeste).Clear();
             _listaMock = IniciarBancoMock();
         }
 
@@ -190,7 +192,7 @@ namespace Cod3rsGrowth.Teste
         public void CriarPocao_ComDadosInvalidos_DeveLancarExecaoEsperada()
         {
             int quantidadeDeIngredientes = 2;
-            List<Ingrediente> listaIngredientes = _servicoIngrediente.ObterTodos().Take(quantidadeDeIngredientes).ToList();
+            List<Ingrediente> listaIngredientes = _servicoIngrediente.ObterTodos(_ingredienteParaTeste).Take(quantidadeDeIngredientes).ToList();
 
             var excecao = Assert.Throws<Exception>(() => _servicoPocao.CriarPocao(listaIngredientes));
 
