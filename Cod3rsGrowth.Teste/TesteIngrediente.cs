@@ -14,11 +14,12 @@ namespace Cod3rsGrowth.Teste
         private List<Ingrediente> _listaMock;
         private List<Ingrediente> _listaDoBanco;
         private Ingrediente _ingredienteParaTeste;
+        private FiltroIngrediente _filtroIngredienteParaTeste;
 
         public TesteIngrediente()
         {
             CarregarServico();
-            _servicoIngrediente.ObterTodos(_ingredienteParaTeste).Clear();
+            _servicoIngrediente.ObterTodos(_filtroIngredienteParaTeste).Clear();
             _listaMock = IniciarBancoMock();
         }
 
@@ -71,14 +72,14 @@ namespace Cod3rsGrowth.Teste
         [Fact]
         public void ObterTodos_ComDadosDisponiveis_DeveRetornarUmalistaDoTipoIngrediente()
         {
-            var listaIngrediente = _servicoIngrediente.ObterTodos(_ingredienteParaTeste);
+            var listaIngrediente = _servicoIngrediente.ObterTodos(_filtroIngredienteParaTeste);
             Assert.IsType<List<Ingrediente>>(listaIngrediente);
         }
 
         [Fact]
         public void ObterTodos_ComDadosDisponiveis_DeveSerEquivalenteAUmaListaDeIngrediente()
         {
-            _listaDoBanco = _servicoIngrediente.ObterTodos(_ingredienteParaTeste);
+            _listaDoBanco = _servicoIngrediente.ObterTodos(_filtroIngredienteParaTeste);
 
             Assert.Equivalent(_listaMock, _listaDoBanco);
         }
