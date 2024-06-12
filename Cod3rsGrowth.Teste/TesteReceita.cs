@@ -15,7 +15,7 @@ namespace Cod3rsGrowth.Teste
         public TesteReceita()
         {
             CarregarServico();
-            _servicoReceita.ObterTodos().Clear();
+            _servicoReceita.ObterTodos(_receitaParaTeste).Clear();
             _listaMock = IniciarBancoMock();
         }
 
@@ -63,14 +63,14 @@ namespace Cod3rsGrowth.Teste
         [Fact]
         public void ObterTodos_ComUmaListaValida_DeveRetornarUmaListaDoTipoReceita()
         {
-            var listaReceita = _servicoReceita.ObterTodos();
+            var listaReceita = _servicoReceita.ObterTodos(_receitaParaTeste);
             Assert.IsType<List<Receita>>(listaReceita);
         }
 
         [Fact]
         public void ObterTodos_ComDadosDisponiveis_DeveSerEquivalenteAUmaListaDeReceita()
         {
-            _listaDoBanco = _servicoReceita.ObterTodos();
+            _listaDoBanco = _servicoReceita.ObterTodos(_receitaParaTeste);
 
             Assert.Equivalent(_listaMock, _listaDoBanco);
         }

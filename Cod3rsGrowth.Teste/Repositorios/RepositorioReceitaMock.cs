@@ -8,7 +8,7 @@ namespace Cod3rsGrowth.Teste.Repositorios
     {
         private List<Receita> _listaReceita = ListaSingleton.getInstance.listaReceita;
         private int _novoId = 0;
-        public List<Receita> ObterTodos()
+        public List<Receita> ObterTodos(Receita receita)
         {
             return _listaReceita;
         }

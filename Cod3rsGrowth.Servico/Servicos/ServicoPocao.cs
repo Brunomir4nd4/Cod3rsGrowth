@@ -31,7 +31,7 @@ namespace Cod3rsGrowth.Servico.Servicos
                 throw new Exception(erros);
             }
 
-            List<Receita> receitasCadastradas = _repositorioReceita.ObterTodos();
+            List<Receita> receitasCadastradas = _repositorioReceita.ObterTodos(new Receita());
             List<int> listaIdIngrediente = ingredientesSelecionados.Select(item => item.Id).ToList();
 
             Receita Receita = receitasCadastradas.FirstOrDefault(receita => receita.ListaDeIdIngredientes.SequenceEqual(listaIdIngrediente))
