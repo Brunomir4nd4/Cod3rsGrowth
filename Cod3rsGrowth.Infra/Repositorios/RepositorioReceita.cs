@@ -1,5 +1,4 @@
 ﻿using Cod3rsGrowth.Dominio.Entidades;
-using Cod3rsGrowth.Dominio.Interface;
 using Cod3rsGrowth.Infra.Interfaces;
 using LinqToDB;
 
@@ -45,7 +44,7 @@ namespace Cod3rsGrowth.Infra.Repositorios
             receitaAtualizada.Valor = receitaEditada.Valor;
             receitaAtualizada.Imagem = receitaEditada.Imagem;
             receitaAtualizada.ValidadeEmMeses = receitaEditada.ValidadeEmMeses;
-            receitaAtualizada.ListaDeIdIngredientes = receitaEditada.ListaDeIdIngredientes;
+            receitaAtualizada.ListaDeIngredientes = receitaEditada.ListaDeIngredientes;
 
             _db.Update(receitaAtualizada);
             return receitaAtualizada;
