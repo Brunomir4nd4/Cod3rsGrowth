@@ -38,36 +38,6 @@ namespace Cod3rsGrowth.Teste
 
         public List<Pocao> IniciarBancoMock()
         {
-            List<int> listaDeIdIngredientes1 = new List<int> { 0, 1, 2, 3 };
-            List<int> listaDeIdIngredientes2 = new List<int> { 0, 1, 2 };
-            List<Receita> listaReceitaMock = new List<Receita>()
-            {
-                new()
-                {
-                    Nome = "receita de Cura",
-                    Descricao = "Deve curar",
-                    Imagem = "caminho da imagem",
-                    Valor = 20.00m,
-                    ValidadeEmMeses = 4,
-                    ListaDeIdIngredientes = listaDeIdIngredientes1
-                },
-
-                new()
-                {
-                    Nome = "receita de Força",
-                    Descricao = "Te da Força",
-                    Imagem = "caminho da imagem",
-                    Valor = 15.00m,
-                    ValidadeEmMeses = 4,
-                    ListaDeIdIngredientes = listaDeIdIngredientes2
-                }
-            };
-
-            foreach (var receita in listaReceitaMock)
-            {
-                _servicoReceita.CriarReceita(receita);
-            }
-
             List<Ingrediente> listaIngredientes = new List<Ingrediente>
             {
                 new()
@@ -103,9 +73,38 @@ namespace Cod3rsGrowth.Teste
                 _servicoIngrediente.CriarIngrediente(ingrediente);
             }
 
+
             int quantidadeDeIngredientes1 = 4, quantidadeDeIngredientes2 = 3;
             var listaIngredientesParaCura = listaIngredientes.Take(quantidadeDeIngredientes1).ToList();
             var listaIngredientesParaForca = listaIngredientes.Take(quantidadeDeIngredientes2).ToList();
+
+            List<Receita> listaReceitaMock = new List<Receita>()
+            {
+                new()
+                {
+                    Nome = "receita de Cura",
+                    Descricao = "Deve curar",
+                    Imagem = "caminho da imagem",
+                    Valor = 20.00m,
+                    ValidadeEmMeses = 4,
+                    ListaDeIngredientes = listaIngredientesParaCura
+                },
+
+                new()
+                {
+                    Nome = "receita de Força",
+                    Descricao = "Te da Força",
+                    Imagem = "caminho da imagem",
+                    Valor = 15.00m,
+                    ValidadeEmMeses = 4,
+                    ListaDeIngredientes = listaIngredientesParaForca
+                }
+            };
+
+            foreach (var receita in listaReceitaMock)
+            {
+                _servicoReceita.CriarReceita(receita);
+            }
 
             _servicoPocao.CriarPocao(listaIngredientesParaCura);
             _servicoPocao.CriarPocao(listaIngredientesParaForca);

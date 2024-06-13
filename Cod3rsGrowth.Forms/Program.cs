@@ -3,7 +3,7 @@ using FluentMigrator.Runner;
 using Microsoft.Extensions.DependencyInjection;
 using Cod3rsGrowth.Infra;
 using System.Configuration;
-using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Hosting;
 
 namespace Cod3rsGrowth.Forms
 {
@@ -13,7 +13,10 @@ namespace Cod3rsGrowth.Forms
         static void Main()
         {
             ApplicationConfiguration.Initialize();
-            Application.Run(new Form1());
+            var host = CreateHostBuilder().Build();
+            ServiceProvider = host.Services;
+
+            Application.Run(new FormListagem());
 
             using (var serviceProvider = CreateServices())
             using (var scope = serviceProvider.CreateScope())
@@ -23,7 +26,6 @@ namespace Cod3rsGrowth.Forms
         }
         private static ServiceProvider CreateServices()
         {
-            // SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["contextoPadrao"]);
             string connectionString = ConfigurationManager.ConnectionStrings["contextoPadrao"].ToString();
             return new ServiceCollection()
                 .AddFluentMigratorCore()
@@ -39,6 +41,14 @@ namespace Cod3rsGrowth.Forms
             var runner = serviceProvider.GetRequiredService<IMigrationRunner>();
 
             runner.MigrateUp();
+        }
+        public static IServiceProvider ServiceProvider { get; private set; }
+        static IHostBuilder CreateHostBuilder()
+        {
+            return Host.CreateDefaultBuilder()
+                .ConfigureServices((context, services) => {
+                    services.AddTransient<FormListagem>();
+                });
         }
     }
 }
