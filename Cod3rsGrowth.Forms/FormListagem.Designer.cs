@@ -34,21 +34,21 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(361, 177);
+            label1.Location = new Point(750, 9);
             label1.Name = "label1";
             label1.Size = new Size(38, 15);
             label1.TabIndex = 0;
             label1.Text = "label1";
             // 
-            // MainForm
+            // FormListagem
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
             Controls.Add(label1);
-            Name = "MainForm";
+            Name = "FormListagem";
             Text = "Form1";
-            Load += MainForm_Load;
+            Load += FormListagem_Load;
             ResumeLayout(false);
             PerformLayout();
         }
