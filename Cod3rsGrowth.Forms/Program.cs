@@ -16,7 +16,7 @@ namespace Cod3rsGrowth.Forms
             var host = CreateHostBuilder().Build();
             ServiceProvider = host.Services;
 
-            Application.Run(new MainForm());
+            Application.Run(new FormListagem());
 
             using (var serviceProvider = CreateServices())
             using (var scope = serviceProvider.CreateScope())
@@ -47,7 +47,7 @@ namespace Cod3rsGrowth.Forms
         {
             return Host.CreateDefaultBuilder()
                 .ConfigureServices((context, services) => {
-                    services.AddTransient<MainForm>();
+                    services.AddTransient<FormListagem>();
                 });
         }
     }
