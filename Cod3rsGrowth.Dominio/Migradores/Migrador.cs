@@ -1,6 +1,6 @@
 ﻿using FluentMigrator;
 
-namespace Cod3rsGrowth.Infra
+namespace Cod3rsGrowth.Dominio.Migradores
 {
     [Migration(20240611131000)]
     public class Migrador : Migration
@@ -26,18 +26,6 @@ namespace Cod3rsGrowth.Infra
                 .WithColumn("Vencido").AsBoolean().NotNullable()
                 .WithColumn("DataDeFabricacao").AsDateTime().NotNullable();
 
-            Create.Table("ReceitaIngrediente")
-                .WithColumn("Id").AsInt32().PrimaryKey().Identity()
-                .WithColumn("ReceitaId").AsInt32().NotNullable().ForeignKey("Receita", "Id")
-                .WithColumn("IngredienteId").AsInt32().NotNullable().ForeignKey("Ingrediente", "Id");
-
-            Create.ForeignKey("fk_Receita")
-                .FromTable("ReceitaIngrediente").ForeignColumn("ReceitaId")
-                .ToTable("Receita").PrimaryColumn("Id");
-
-            Create.ForeignKey("fk_Ingrediente")
-                .FromTable("ReceitaIngrediente").ForeignColumn("IngredienteId")
-                .ToTable("Ingrediente").PrimaryColumn("Id");
         }
 
         public override void Down()
@@ -45,7 +33,6 @@ namespace Cod3rsGrowth.Infra
             Delete.Table("Ingrediente");
             Delete.Table("Receita");
             Delete.Table("Pocao");
-            Delete.Table("Receita_Ingrediente");
         }
     }
 }

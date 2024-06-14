@@ -1,27 +1,32 @@
 using FluentMigrator.Runner;
 
 using Microsoft.Extensions.DependencyInjection;
-using Cod3rsGrowth.Infra;
 using System.Configuration;
 using Microsoft.Extensions.Hosting;
+
+using Cod3rsGrowth.Dominio.Migradores;
+using Cod3rsGrowth.Dominio.Interfaces;
+using Cod3rsGrowth.Infra.ConexaoBD;
+using Cod3rsGrowth.Infra.Repositorios;
+using Cod3rsGrowth.Servico.Servicos;
+using Cod3rsGrowth.Servico.Validadores;
 
 namespace Cod3rsGrowth.Forms
 {
     public static class Program
     {
+
         [STAThread]
         static void Main()
         {
             ApplicationConfiguration.Initialize();
-            var host = CreateHostBuilder().Build();
-            ServiceProvider = host.Services;
 
-            Application.Run(new FormListagem());
+            using (var ServiceProvider = CreateServices())
 
-            using (var serviceProvider = CreateServices())
-            using (var scope = serviceProvider.CreateScope())
+            using (var scope = ServiceProvider.CreateScope())
             {
                 UpdateDatabase(scope.ServiceProvider);
+                Application.Run(ServiceProvider.GetRequiredService<FormListagemIngrediente>());
             }
         }
         private static ServiceProvider CreateServices()
@@ -33,6 +38,11 @@ namespace Cod3rsGrowth.Forms
                     .AddSqlServer()
                     .WithGlobalConnectionString(connectionString)
                     .ScanIn(typeof(Migrador).Assembly).For.Migrations())
+                    .AddScoped<FormListagemIngrediente>()
+                    .AddScoped<ServicoIngrediente>()
+                    .AddScoped<IngredienteValidator>()
+                    .AddScoped<IRepositorioIngrediente, RepositorioIngrediente>()
+                    .AddScoped<MeuContextoDeDados2>()
                 .AddLogging(lb => lb.AddFluentMigratorConsole())
                 .BuildServiceProvider(false);
         }
@@ -42,13 +52,6 @@ namespace Cod3rsGrowth.Forms
 
             runner.MigrateUp();
         }
-        public static IServiceProvider ServiceProvider { get; private set; }
-        static IHostBuilder CreateHostBuilder()
-        {
-            return Host.CreateDefaultBuilder()
-                .ConfigureServices((context, services) => {
-                    services.AddTransient<FormListagem>();
-                });
-        }
+ 
     }
 }

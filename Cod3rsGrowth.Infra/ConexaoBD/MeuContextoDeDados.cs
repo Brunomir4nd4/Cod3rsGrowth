@@ -2,7 +2,7 @@
 using LinqToDB;
 using LinqToDB.Data;
 
-namespace Cod3rsGrowth.Infra
+namespace Cod3rsGrowth.Infra.ConexaoBD
 {
     public class MeuContextoDeDados : DataConnection
     {

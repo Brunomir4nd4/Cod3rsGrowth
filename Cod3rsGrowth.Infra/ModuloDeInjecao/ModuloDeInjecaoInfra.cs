@@ -1,6 +1,7 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Cod3rsGrowth.Infra.ConexaoBD;
+using Microsoft.Extensions.DependencyInjection;
 
-namespace Cod3rsGrowth.Infra
+namespace Cod3rsGrowth.Infra.ModuloDeInjecao
 {
     public class ModuloDeInjecaoInfra
     {
