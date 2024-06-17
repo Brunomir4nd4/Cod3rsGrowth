@@ -30,11 +30,11 @@
         {
             components = new System.ComponentModel.Container();
             dataGridView1 = new DataGridView();
-            pocaoBindingSource = new BindingSource(components);
             idDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             idReceitaDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             dataDeFabricaçãoDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             vencidoDataGridViewCheckBoxColumn = new DataGridViewCheckBoxColumn();
+            pocaoBindingSource = new BindingSource(components);
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pocaoBindingSource).BeginInit();
             SuspendLayout();
@@ -50,10 +50,6 @@
             dataGridView1.RowTemplate.Height = 25;
             dataGridView1.Size = new Size(445, 49);
             dataGridView1.TabIndex = 0;
-            // 
-            // pocaoBindingSource
-            // 
-            pocaoBindingSource.DataSource = typeof(Dominio.Entidades.Pocao);
             // 
             // idDataGridViewTextBoxColumn
             // 
@@ -79,6 +75,10 @@
             vencidoDataGridViewCheckBoxColumn.HeaderText = "Vencido";
             vencidoDataGridViewCheckBoxColumn.Name = "vencidoDataGridViewCheckBoxColumn";
             // 
+            // pocaoBindingSource
+            // 
+            pocaoBindingSource.DataSource = typeof(Dominio.Entidades.Pocao);
+            // 
             // FormListagemPocao
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -87,6 +87,7 @@
             Controls.Add(dataGridView1);
             Name = "FormListagemPocao";
             Text = "FormListagemPocao";
+            Load += FormListagemPocao_Load;
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ((System.ComponentModel.ISupportInitialize)pocaoBindingSource).EndInit();
             ResumeLayout(false);

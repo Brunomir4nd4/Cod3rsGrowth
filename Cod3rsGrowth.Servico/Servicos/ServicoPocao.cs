@@ -12,9 +12,9 @@ namespace Cod3rsGrowth.Servico.Servicos
             _repositorioPocao = repositorioPocao;
             _repositorioReceita = repositorioReceita;
         }
-        public List<Pocao> ObterTodos()
+        public List<Pocao> ObterTodos(FiltroPocao filtroPocao)
         {
-            return _repositorioPocao.ObterTodos();
+            return _repositorioPocao.ObterTodos(filtroPocao);
         }
         public Pocao ObterPorId(int id)
         {

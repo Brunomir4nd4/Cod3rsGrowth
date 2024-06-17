@@ -1,25 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using Cod3rsGrowth.Dominio.Entidades;
+using Cod3rsGrowth.Servico.Servicos;
 
 namespace Cod3rsGrowth.Forms
 {
     public partial class FormListagemReceita : Form
     {
-        public FormListagemReceita()
+        private ServicoReceita _servicoReceita;
+        public FormListagemReceita(ServicoReceita servicoReceita)
         {
+            _servicoReceita = servicoReceita;
             InitializeComponent();
+            GetData();
         }
 
         private void FormListagemReceita_Load(object sender, EventArgs e)
         {
 
+        }
+
+        public void GetData()
+        {
+            FiltroReceita filtroReceita = new FiltroReceita();
+
+            dataGridView1.DataSource = _servicoReceita.ObterTodos(filtroReceita);
         }
     }
 }

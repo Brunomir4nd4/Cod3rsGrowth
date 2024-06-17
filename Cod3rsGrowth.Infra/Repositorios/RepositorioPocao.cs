@@ -1,10 +1,11 @@
 ﻿using Cod3rsGrowth.Dominio.Entidades;
+using Cod3rsGrowth.Dominio.Interfaces;
 using Cod3rsGrowth.Infra.ConexaoBD;
 using LinqToDB;
 
 namespace Cod3rsGrowth.Infra.Repositorios
 {
-    public class RepositorioPocao
+    public class RepositorioPocao : IRepositorioPocao
     {
         private MeuContextoDeDados _db;
 
@@ -13,7 +14,7 @@ namespace Cod3rsGrowth.Infra.Repositorios
             _db = db;
         }
 
-        public List<Pocao> ObterTodos(Pocao pocao)
+        public List<Pocao> ObterTodos(FiltroPocao pocao)
         {
             var query = Filtrar(pocao);
             return query.ToList();
@@ -43,18 +44,18 @@ namespace Cod3rsGrowth.Infra.Repositorios
                 .Delete();
         }
 
-        public List<Pocao> Filtrar(Pocao pocao)
+        public List<Pocao> Filtrar(FiltroPocao pocao)
         {
             IQueryable<Pocao> query = _db.pocao.AsQueryable();
 
-            if (pocao.Id != 0)
+            if (pocao.Id != null)
                 query = query.Where(r => r.Id == pocao.Id);
 
-            if (pocao.IdReceita != 0)
+            if (pocao.IdReceita != null)
                 query = query.Where(r => r.IdReceita == pocao.IdReceita);
 
             if (pocao.DataDeFabricação != null)
-                query = query.Where(r => r.DataDeFabricação == pocao.DataDeFabricação);
+                query = query.Where(r => r.DataDeFabricacao == pocao.DataDeFabricação);
 
             if (pocao.Vencido != null)
                 query = query.Where(r => r.Vencido == pocao.Vencido);

@@ -18,7 +18,9 @@ namespace Cod3rsGrowth.Dominio.Migradores
                 .WithColumn("Nome").AsString().NotNullable()
                 .WithColumn("Descricao").AsString().NotNullable()
                 .WithColumn("Valor").AsDecimal().NotNullable()
-                .WithColumn("Imagem").AsString().NotNullable();
+                .WithColumn("ValidadeEmMeses").AsString().NotNullable()
+                .WithColumn("Imagem").AsString().NotNullable()
+                .WithColumn("ListaDeIngredientes").AsString().NotNullable();
 
             Create.Table("Pocao")
                 .WithColumn("Id").AsInt32().PrimaryKey().Identity()
