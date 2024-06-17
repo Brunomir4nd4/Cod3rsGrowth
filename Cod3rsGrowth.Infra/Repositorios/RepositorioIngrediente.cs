@@ -59,13 +59,13 @@ namespace Cod3rsGrowth.Infra.Repositorios
         {
             IQueryable<Ingrediente> query = _db.ingrediente.AsQueryable();
 
-            if (ingrediente.Id != 0)
+            if (ingrediente.Id != null)
                 query = query.Where(r => r.Id == ingrediente.Id);
 
             if (!string.IsNullOrWhiteSpace(ingrediente.Nome))
                 query = query.Where(r => r.Nome == ingrediente.Nome);
 
-            if (ingrediente.Quantidade != 0)
+            if (ingrediente.Quantidade != null)
                 query = query.Where(r => r.Quantidade == ingrediente.Quantidade);
 
             if (ingrediente.Naturalidade != null)

@@ -6,7 +6,8 @@ namespace Cod3rsGrowth.Infra.ConexaoBD
 {
     public class MeuContextoDeDados : DataConnection
     {
-        public MeuContextoDeDados() : base("contextoPadrao") { }
+        public MeuContextoDeDados(DataOptions<MeuContextoDeDados> options)
+            : base(options.Options) { }
 
         public ITable<Pocao> pocao => this.GetTable<Pocao>();
         public ITable<Receita> receita => this.GetTable<Receita>();

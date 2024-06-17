@@ -10,6 +10,9 @@ using Cod3rsGrowth.Infra.ConexaoBD;
 using Cod3rsGrowth.Infra.Repositorios;
 using Cod3rsGrowth.Servico.Servicos;
 using Cod3rsGrowth.Servico.Validadores;
+using LinqToDB.AspNet;
+using LinqToDB;
+using LinqToDB.AspNet.Logging;
 
 namespace Cod3rsGrowth.Forms
 {
@@ -42,7 +45,10 @@ namespace Cod3rsGrowth.Forms
                     .AddScoped<ServicoIngrediente>()
                     .AddScoped<IngredienteValidator>()
                     .AddScoped<IRepositorioIngrediente, RepositorioIngrediente>()
-                    .AddScoped<MeuContextoDeDados2>()
+                    .AddLinqToDBContext<MeuContextoDeDados>((provider, options)
+                        => options
+                            .UseSqlServer(ConfigurationManager.ConnectionStrings["contextoPadrao"].ConnectionString)
+                            .UseDefaultLogging(provider))
                 .AddLogging(lb => lb.AddFluentMigratorConsole())
                 .BuildServiceProvider(false);
         }
