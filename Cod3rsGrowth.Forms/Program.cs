@@ -18,7 +18,7 @@ namespace Cod3rsGrowth.Forms
 {
     public static class Program
     {
-
+        private static string _chaveDeConexao = "contextoPadrao";
         [STAThread]
         static void Main()
         {
@@ -34,7 +34,7 @@ namespace Cod3rsGrowth.Forms
         }
         private static ServiceProvider CreateServices()
         {
-            string connectionString = ConfigurationManager.ConnectionStrings["contextoPadrao"].ToString();
+            string connectionString = ConfigurationManager.ConnectionStrings[_chaveDeConexao].ToString();
             return new ServiceCollection()
                 .AddFluentMigratorCore()
                 .ConfigureRunner(rb => rb
@@ -47,7 +47,7 @@ namespace Cod3rsGrowth.Forms
                     .AddScoped<IRepositorioIngrediente, RepositorioIngrediente>()
                     .AddLinqToDBContext<MeuContextoDeDados>((provider, options)
                         => options
-                            .UseSqlServer(ConfigurationManager.ConnectionStrings["contextoPadrao"].ConnectionString)
+                            .UseSqlServer(ConfigurationManager.ConnectionStrings[_chaveDeConexao].ConnectionString)
                             .UseDefaultLogging(provider))
                 .AddLogging(lb => lb.AddFluentMigratorConsole())
                 .BuildServiceProvider(false);
