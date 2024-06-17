@@ -8,7 +8,7 @@ namespace Cod3rsGrowth.Teste.Repositorios
     {
         private List<Pocao> _listaPocao = ListaSingleton.getInstance.listaPocao;
         private int _novoId = 0;
-        public List<Pocao> ObterTodos()
+        public List<Pocao> ObterTodos(FiltroPocao filtroPocao)
         {
             return _listaPocao;
         }
@@ -26,7 +26,7 @@ namespace Cod3rsGrowth.Teste.Repositorios
                 Id = _novoId,
                 IdReceita = novaReceita.Id,
                 Vencido = false,
-                DataDeFabricação = DateTime.Today
+                DataDeFabricacao = DateTime.Today
             };
             _novoId++;
             _listaPocao.Add(pocao);

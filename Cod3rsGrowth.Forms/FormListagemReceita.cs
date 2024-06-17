@@ -24,5 +24,10 @@ namespace Cod3rsGrowth.Forms
 
             dataGridView1.DataSource = _servicoReceita.ObterTodos(filtroReceita);
         }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

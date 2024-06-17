@@ -27,5 +27,15 @@ namespace Cod3rsGrowth.Forms
 
             dataGridView1.DataSource = _servicoIngrediente.ObterTodos(filtroIngrediente);
         }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void painel_de_filtragem_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }

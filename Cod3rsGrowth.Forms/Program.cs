@@ -26,8 +26,8 @@ namespace Cod3rsGrowth.Forms
             using (var scope = ServiceProvider.CreateScope())
             {
                 UpdateDatabase(scope.ServiceProvider);
-                Application.Run(ServiceProvider.GetRequiredService<FormListagemIngrediente>());
-                Application.Run(ServiceProvider.GetRequiredService<FormListagemReceita>());
+                //Application.Run(ServiceProvider.GetRequiredService<FormListagemIngrediente>());
+                //Application.Run(ServiceProvider.GetRequiredService<FormListagemReceita>());
                 Application.Run(ServiceProvider.GetRequiredService<FormListagemPocao>());
             }
         }
