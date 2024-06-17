@@ -62,7 +62,7 @@ namespace Cod3rsGrowth.Infra.Repositorios
         {
             IQueryable<Receita> query = _db.receita.AsQueryable();
 
-            if (receita.Id != 0)
+            if (receita.Id != null)
                 query = query.Where(r => r.Id == receita.Id);
 
             if (!string.IsNullOrWhiteSpace(receita.Nome))
@@ -71,10 +71,10 @@ namespace Cod3rsGrowth.Infra.Repositorios
             if (!string.IsNullOrWhiteSpace(receita.Descricao))
                 query = query.Where(r => r.Descricao == receita.Descricao);
 
-            if (receita.Valor != 0)
+            if (receita.Valor != null)
                 query = query.Where(r => r.Valor == receita.Valor);
 
-            if (receita.ValidadeEmMeses != 0)
+            if (receita.ValidadeEmMeses != null)
                 query = query.Where(r => r.ValidadeEmMeses == receita.ValidadeEmMeses);
 
             return query.ToList();

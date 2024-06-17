@@ -44,13 +44,15 @@
             // dataGridView1
             // 
             dataGridView1.AutoGenerateColumns = false;
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView1.Columns.AddRange(new DataGridViewColumn[] { idDataGridViewTextBoxColumn, nomeDataGridViewTextBoxColumn, descricaoDataGridViewTextBoxColumn, valorDataGridViewTextBoxColumn, imagemDataGridViewTextBoxColumn, validadeEmMesesDataGridViewTextBoxColumn });
             dataGridView1.DataSource = receitaBindingSource;
-            dataGridView1.Location = new Point(66, 99);
+            dataGridView1.Dock = DockStyle.Top;
+            dataGridView1.Location = new Point(0, 0);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowTemplate.Height = 25;
-            dataGridView1.Size = new Size(644, 51);
+            dataGridView1.Size = new Size(800, 450);
             dataGridView1.TabIndex = 0;
             // 
             // idDataGridViewTextBoxColumn
