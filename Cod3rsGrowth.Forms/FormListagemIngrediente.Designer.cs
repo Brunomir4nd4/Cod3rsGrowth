@@ -39,16 +39,16 @@ namespace Cod3rsGrowth.Forms
             quantidadeDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             naturalidadeDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             painel_de_filtragem = new Panel();
-            comboBox1 = new ComboBox();
-            textBox5 = new TextBox();
+            comboBox_Naturalidade = new ComboBox();
+            textBox_Nome = new TextBox();
             label5 = new Label();
-            textBox3 = new TextBox();
+            textBox_Quantidade = new TextBox();
             label4 = new Label();
             label3 = new Label();
             label2 = new Label();
             label1 = new Label();
             button_Filtro = new Button();
-            textBox1 = new TextBox();
+            textBox_Id = new TextBox();
             button_Adicionar = new Button();
             button_Editar = new Button();
             button_Remover = new Button();
@@ -81,7 +81,6 @@ namespace Cod3rsGrowth.Forms
             dataGridView1.RowTemplate.Height = 25;
             dataGridView1.Size = new Size(800, 344);
             dataGridView1.TabIndex = 0;
-            dataGridView1.CellContentClick += dataGridView1_CellContentClick;
             // 
             // idDataGridViewTextBoxColumn
             // 
@@ -111,39 +110,37 @@ namespace Cod3rsGrowth.Forms
             // 
             painel_de_filtragem.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             painel_de_filtragem.BackColor = Color.White;
-            painel_de_filtragem.Controls.Add(comboBox1);
-            painel_de_filtragem.Controls.Add(textBox5);
+            painel_de_filtragem.Controls.Add(comboBox_Naturalidade);
+            painel_de_filtragem.Controls.Add(textBox_Nome);
             painel_de_filtragem.Controls.Add(label5);
-            painel_de_filtragem.Controls.Add(textBox3);
+            painel_de_filtragem.Controls.Add(textBox_Quantidade);
             painel_de_filtragem.Controls.Add(label4);
             painel_de_filtragem.Controls.Add(label3);
             painel_de_filtragem.Controls.Add(label2);
             painel_de_filtragem.Controls.Add(label1);
             painel_de_filtragem.Controls.Add(button_Filtro);
-            painel_de_filtragem.Controls.Add(textBox1);
+            painel_de_filtragem.Controls.Add(textBox_Id);
             painel_de_filtragem.Location = new Point(0, 0);
             painel_de_filtragem.Name = "painel_de_filtragem";
             painel_de_filtragem.Size = new Size(800, 68);
             painel_de_filtragem.TabIndex = 3;
-            painel_de_filtragem.Paint += painel_de_filtragem_Paint;
             // 
-            // comboBox1
+            // comboBox_Naturalidade
             // 
-            comboBox1.Anchor = AnchorStyles.Top;
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Items.AddRange(new object[] { "OverWorld", "Nather", "TheEnd" });
-            comboBox1.Location = new Point(598, 35);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(109, 23);
-            comboBox1.TabIndex = 11;
+            comboBox_Naturalidade.Anchor = AnchorStyles.Top;
+            comboBox_Naturalidade.FormattingEnabled = true;
+            comboBox_Naturalidade.Location = new Point(598, 35);
+            comboBox_Naturalidade.Name = "comboBox_Naturalidade";
+            comboBox_Naturalidade.Size = new Size(109, 23);
+            comboBox_Naturalidade.TabIndex = 11;
             // 
-            // textBox5
+            // textBox_Nome
             // 
-            textBox5.Anchor = AnchorStyles.Top;
-            textBox5.Location = new Point(169, 37);
-            textBox5.Name = "textBox5";
-            textBox5.Size = new Size(100, 23);
-            textBox5.TabIndex = 10;
+            textBox_Nome.Anchor = AnchorStyles.Top;
+            textBox_Nome.Location = new Point(169, 37);
+            textBox_Nome.Name = "textBox_Nome";
+            textBox_Nome.Size = new Size(100, 23);
+            textBox_Nome.TabIndex = 10;
             // 
             // label5
             // 
@@ -156,13 +153,13 @@ namespace Cod3rsGrowth.Forms
             label5.TabIndex = 8;
             label5.Text = "Naturalidade";
             // 
-            // textBox3
+            // textBox_Quantidade
             // 
-            textBox3.Anchor = AnchorStyles.Top;
-            textBox3.Location = new Point(378, 35);
-            textBox3.Name = "textBox3";
-            textBox3.Size = new Size(100, 23);
-            textBox3.TabIndex = 7;
+            textBox_Quantidade.Anchor = AnchorStyles.Top;
+            textBox_Quantidade.Location = new Point(378, 35);
+            textBox_Quantidade.Name = "textBox_Quantidade";
+            textBox_Quantidade.Size = new Size(100, 23);
+            textBox_Quantidade.TabIndex = 7;
             // 
             // label4
             // 
@@ -185,7 +182,6 @@ namespace Cod3rsGrowth.Forms
             label3.Size = new Size(40, 17);
             label3.TabIndex = 4;
             label3.Text = "Nome";
-            label3.Click += label3_Click;
             // 
             // label2
             // 
@@ -220,14 +216,15 @@ namespace Cod3rsGrowth.Forms
             button_Filtro.TabIndex = 1;
             button_Filtro.Text = "Filtrar";
             button_Filtro.UseVisualStyleBackColor = true;
+            button_Filtro.Click += button_Filtro_Click;
             // 
-            // textBox1
+            // textBox_Id
             // 
-            textBox1.Anchor = AnchorStyles.Top;
-            textBox1.Location = new Point(43, 36);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(71, 23);
-            textBox1.TabIndex = 0;
+            textBox_Id.Anchor = AnchorStyles.Top;
+            textBox_Id.Location = new Point(43, 36);
+            textBox_Id.Name = "textBox_Id";
+            textBox_Id.Size = new Size(71, 23);
+            textBox_Id.TabIndex = 0;
             // 
             // button_Adicionar
             // 
@@ -307,16 +304,16 @@ namespace Cod3rsGrowth.Forms
         private DataGridViewTextBoxColumn quantidadeDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn naturalidadeDataGridViewTextBoxColumn;
         private Panel painel_de_filtragem;
-        private TextBox textBox5;
+        private TextBox textBox_Nome;
         private Label label5;
-        private TextBox textBox3;
+        private TextBox textBox_Quantidade;
         private Label label4;
         private Label label3;
         private Label label2;
         private Label label1;
         private Button button_Filtro;
-        private TextBox textBox1;
-        private ComboBox comboBox1;
+        private TextBox textBox_Id;
+        private ComboBox comboBox_Naturalidade;
         private Button button_Adicionar;
         private Button button_Editar;
         private Button button_Remover;

@@ -63,7 +63,7 @@ namespace Cod3rsGrowth.Infra.Repositorios
                 query = query.Where(r => r.Id == ingrediente.Id);
 
             if (!string.IsNullOrWhiteSpace(ingrediente.Nome))
-                query = query.Where(r => r.Nome == ingrediente.Nome);
+                query = query.Where(r => r.Nome.Contains(ingrediente.Nome) );
 
             if (ingrediente.Quantidade != null)
                 query = query.Where(r => r.Quantidade == ingrediente.Quantidade);

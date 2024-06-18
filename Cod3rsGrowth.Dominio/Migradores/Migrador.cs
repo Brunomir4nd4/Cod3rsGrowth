@@ -24,10 +24,13 @@ namespace Cod3rsGrowth.Dominio.Migradores
 
             Create.Table("Pocao")
                 .WithColumn("Id").AsInt32().PrimaryKey().Identity()
-                .WithColumn("IdReceita").AsInt32().NotNullable()
+                .WithColumn("IdReceita").AsInt32().ForeignKey().NotNullable()
                 .WithColumn("Vencido").AsBoolean().NotNullable()
                 .WithColumn("DataDeFabricacao").AsDateTime().NotNullable();
 
+            Create.ForeignKey("fk_IdReceita")
+            .FromTable("Pocao").ForeignColumn("IdReceita")
+            .ToTable("Receita").PrimaryColumn("Id");
         }
 
         public override void Down()

@@ -66,10 +66,7 @@ namespace Cod3rsGrowth.Infra.Repositorios
                 query = query.Where(r => r.Id == receita.Id);
 
             if (!string.IsNullOrWhiteSpace(receita.Nome))
-                query = query.Where(r => r.Nome == receita.Nome);
-
-            if (!string.IsNullOrWhiteSpace(receita.Descricao))
-                query = query.Where(r => r.Descricao == receita.Descricao);
+                query = query.Where(r => r.Nome.Contains(receita.Nome));
 
             if (receita.Valor != null)
                 query = query.Where(r => r.Valor == receita.Valor);

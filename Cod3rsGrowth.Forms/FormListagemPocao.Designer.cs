@@ -29,28 +29,29 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             pocaoBindingSource = new BindingSource(components);
             pocaoBindingSource1 = new BindingSource(components);
             painel_de_filtragem = new Panel();
-            checkBox1 = new CheckBox();
-            textBox5 = new TextBox();
+            comboBox_Vencido = new ComboBox();
+            maskedTextBox_Data = new MaskedTextBox();
+            textBox_Nome = new TextBox();
             label5 = new Label();
-            textBox3 = new TextBox();
             label4 = new Label();
             label3 = new Label();
             label2 = new Label();
             label1 = new Label();
             button_Filtro = new Button();
-            textBox1 = new TextBox();
-            vencidoDataGridViewCheckBoxColumn = new DataGridViewCheckBoxColumn();
-            dataDeFabricacaoDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            idReceitaDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            idDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            textBox_Id = new TextBox();
             dataGridView1 = new DataGridView();
             panel1 = new Panel();
             button_Adicionar = new Button();
             button_Editar = new Button();
             button_Remover = new Button();
+            idDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            Nome = new DataGridViewTextBoxColumn();
+            dataDeFabricacaoDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            vencidoDataGridViewCheckBoxColumn = new DataGridViewCheckBoxColumn();
             ((System.ComponentModel.ISupportInitialize)pocaoBindingSource).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pocaoBindingSource1).BeginInit();
             painel_de_filtragem.SuspendLayout();
@@ -70,64 +71,64 @@
             // 
             painel_de_filtragem.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             painel_de_filtragem.BackColor = Color.White;
-            painel_de_filtragem.Controls.Add(checkBox1);
-            painel_de_filtragem.Controls.Add(textBox5);
+            painel_de_filtragem.Controls.Add(comboBox_Vencido);
+            painel_de_filtragem.Controls.Add(maskedTextBox_Data);
+            painel_de_filtragem.Controls.Add(textBox_Nome);
             painel_de_filtragem.Controls.Add(label5);
-            painel_de_filtragem.Controls.Add(textBox3);
             painel_de_filtragem.Controls.Add(label4);
             painel_de_filtragem.Controls.Add(label3);
             painel_de_filtragem.Controls.Add(label2);
             painel_de_filtragem.Controls.Add(label1);
             painel_de_filtragem.Controls.Add(button_Filtro);
-            painel_de_filtragem.Controls.Add(textBox1);
+            painel_de_filtragem.Controls.Add(textBox_Id);
             painel_de_filtragem.Location = new Point(0, 0);
             painel_de_filtragem.Name = "painel_de_filtragem";
-            painel_de_filtragem.Size = new Size(801, 68);
+            painel_de_filtragem.Size = new Size(801, 75);
             painel_de_filtragem.TabIndex = 2;
             // 
-            // checkBox1
+            // comboBox_Vencido
             // 
-            checkBox1.Anchor = AnchorStyles.Top;
-            checkBox1.AutoSize = true;
-            checkBox1.Location = new Point(652, 40);
-            checkBox1.Name = "checkBox1";
-            checkBox1.Size = new Size(15, 14);
-            checkBox1.TabIndex = 12;
-            checkBox1.UseVisualStyleBackColor = true;
+            comboBox_Vencido.FormattingEnabled = true;
+            comboBox_Vencido.Items.AddRange(new object[] { "Valido", "Vencido" });
+            comboBox_Vencido.Location = new Point(601, 35);
+            comboBox_Vencido.Name = "comboBox_Vencido";
+            comboBox_Vencido.Size = new Size(92, 23);
+            comboBox_Vencido.TabIndex = 14;
             // 
-            // textBox5
+            // maskedTextBox_Data
             // 
-            textBox5.Anchor = AnchorStyles.Top;
-            textBox5.Location = new Point(267, 36);
-            textBox5.Name = "textBox5";
-            textBox5.Size = new Size(100, 23);
-            textBox5.TabIndex = 10;
+            maskedTextBox_Data.Location = new Point(397, 34);
+            maskedTextBox_Data.Mask = "00/00/0000";
+            maskedTextBox_Data.Name = "maskedTextBox_Data";
+            maskedTextBox_Data.Size = new Size(100, 23);
+            maskedTextBox_Data.TabIndex = 13;
+            maskedTextBox_Data.ValidatingType = typeof(DateTime);
+            // 
+            // textBox_Nome
+            // 
+            textBox_Nome.Anchor = AnchorStyles.Top;
+            textBox_Nome.Location = new Point(217, 35);
+            textBox_Nome.Name = "textBox_Nome";
+            textBox_Nome.Size = new Size(100, 23);
+            textBox_Nome.TabIndex = 10;
             // 
             // label5
             // 
             label5.Anchor = AnchorStyles.Top;
             label5.AutoSize = true;
             label5.Font = new Font("JetBrains Mono SemiBold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
-            label5.Location = new Point(582, 38);
+            label5.Location = new Point(531, 38);
             label5.Name = "label5";
             label5.Size = new Size(64, 17);
             label5.TabIndex = 8;
             label5.Text = "Vencido";
-            // 
-            // textBox3
-            // 
-            textBox3.Anchor = AnchorStyles.Top;
-            textBox3.Location = new Point(461, 35);
-            textBox3.Name = "textBox3";
-            textBox3.Size = new Size(100, 23);
-            textBox3.TabIndex = 7;
             // 
             // label4
             // 
             label4.Anchor = AnchorStyles.Top;
             label4.AutoSize = true;
             label4.Font = new Font("JetBrains Mono SemiBold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
-            label4.Location = new Point(411, 38);
+            label4.Location = new Point(351, 39);
             label4.Name = "label4";
             label4.Size = new Size(40, 17);
             label4.TabIndex = 6;
@@ -138,12 +139,11 @@
             label3.Anchor = AnchorStyles.Top;
             label3.AutoSize = true;
             label3.Font = new Font("JetBrains Mono SemiBold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
-            label3.Location = new Point(173, 38);
+            label3.Location = new Point(171, 38);
             label3.Name = "label3";
-            label3.Size = new Size(88, 17);
+            label3.Size = new Size(40, 17);
             label3.TabIndex = 4;
-            label3.Text = "Id_Receita";
-            label3.Click += label3_Click;
+            label3.Text = "Nome";
             // 
             // label2
             // 
@@ -170,45 +170,23 @@
             // 
             // button_Filtro
             // 
+            button_Filtro.Anchor = AnchorStyles.Top;
             button_Filtro.Cursor = Cursors.Hand;
-            button_Filtro.Location = new Point(713, 35);
+            button_Filtro.Location = new Point(714, 34);
             button_Filtro.Name = "button_Filtro";
             button_Filtro.Size = new Size(75, 23);
             button_Filtro.TabIndex = 1;
             button_Filtro.Text = "Filtrar";
             button_Filtro.UseVisualStyleBackColor = true;
+            button_Filtro.Click += button_Filtro_Click;
             // 
-            // textBox1
+            // textBox_Id
             // 
-            textBox1.Anchor = AnchorStyles.Top;
-            textBox1.Location = new Point(63, 35);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(71, 23);
-            textBox1.TabIndex = 0;
-            // 
-            // vencidoDataGridViewCheckBoxColumn
-            // 
-            vencidoDataGridViewCheckBoxColumn.DataPropertyName = "Vencido";
-            vencidoDataGridViewCheckBoxColumn.HeaderText = "Vencido";
-            vencidoDataGridViewCheckBoxColumn.Name = "vencidoDataGridViewCheckBoxColumn";
-            // 
-            // dataDeFabricacaoDataGridViewTextBoxColumn
-            // 
-            dataDeFabricacaoDataGridViewTextBoxColumn.DataPropertyName = "DataDeFabricacao";
-            dataDeFabricacaoDataGridViewTextBoxColumn.HeaderText = "Data De Fabricacao";
-            dataDeFabricacaoDataGridViewTextBoxColumn.Name = "dataDeFabricacaoDataGridViewTextBoxColumn";
-            // 
-            // idReceitaDataGridViewTextBoxColumn
-            // 
-            idReceitaDataGridViewTextBoxColumn.DataPropertyName = "IdReceita";
-            idReceitaDataGridViewTextBoxColumn.HeaderText = "IdReceita";
-            idReceitaDataGridViewTextBoxColumn.Name = "idReceitaDataGridViewTextBoxColumn";
-            // 
-            // idDataGridViewTextBoxColumn
-            // 
-            idDataGridViewTextBoxColumn.DataPropertyName = "Id";
-            idDataGridViewTextBoxColumn.HeaderText = "Id";
-            idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
+            textBox_Id.Anchor = AnchorStyles.Top;
+            textBox_Id.Location = new Point(63, 35);
+            textBox_Id.Name = "textBox_Id";
+            textBox_Id.Size = new Size(71, 23);
+            textBox_Id.TabIndex = 0;
             // 
             // dataGridView1
             // 
@@ -216,7 +194,7 @@
             dataGridView1.AutoGenerateColumns = false;
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { idDataGridViewTextBoxColumn, idReceitaDataGridViewTextBoxColumn, dataDeFabricacaoDataGridViewTextBoxColumn, vencidoDataGridViewCheckBoxColumn });
+            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { idDataGridViewTextBoxColumn, Nome, dataDeFabricacaoDataGridViewTextBoxColumn, vencidoDataGridViewCheckBoxColumn });
             dataGridView1.DataSource = pocaoBindingSource;
             dataGridView1.Location = new Point(0, 74);
             dataGridView1.Name = "dataGridView1";
@@ -271,6 +249,32 @@
             button_Remover.Text = "Remover";
             button_Remover.UseVisualStyleBackColor = true;
             // 
+            // idDataGridViewTextBoxColumn
+            // 
+            idDataGridViewTextBoxColumn.DataPropertyName = "Id";
+            idDataGridViewTextBoxColumn.HeaderText = "Id";
+            idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
+            // 
+            // Nome
+            // 
+            Nome.HeaderText = "Nome";
+            Nome.Name = "Nome";
+            // 
+            // dataDeFabricacaoDataGridViewTextBoxColumn
+            // 
+            dataDeFabricacaoDataGridViewTextBoxColumn.DataPropertyName = "DataDeFabricacao";
+            dataGridViewCellStyle1.Format = "d";
+            dataGridViewCellStyle1.NullValue = null;
+            dataDeFabricacaoDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle1;
+            dataDeFabricacaoDataGridViewTextBoxColumn.HeaderText = "Data De Fabricacao";
+            dataDeFabricacaoDataGridViewTextBoxColumn.Name = "dataDeFabricacaoDataGridViewTextBoxColumn";
+            // 
+            // vencidoDataGridViewCheckBoxColumn
+            // 
+            vencidoDataGridViewCheckBoxColumn.DataPropertyName = "Vencido";
+            vencidoDataGridViewCheckBoxColumn.HeaderText = "Vencido";
+            vencidoDataGridViewCheckBoxColumn.Name = "vencidoDataGridViewCheckBoxColumn";
+            // 
             // FormListagemPocao
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -299,23 +303,23 @@
         private BindingSource pocaoBindingSource1;
         private Panel painel_de_filtragem;
         private Label label5;
-        private TextBox textBox3;
         private Label label4;
         private Label label3;
         private Label label2;
         private Label label1;
         private Button button_Filtro;
-        private TextBox textBox1;
-        private DataGridViewCheckBoxColumn vencidoDataGridViewCheckBoxColumn;
-        private DataGridViewTextBoxColumn dataDeFabricacaoDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn idReceitaDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
+        private TextBox textBox_Id;
         private DataGridView dataGridView1;
         private Panel panel1;
         private Button button_Adicionar;
         private Button button_Editar;
         private Button button_Remover;
-        private TextBox textBox5;
-        private CheckBox checkBox1;
+        private TextBox textBox_Nome;
+        private MaskedTextBox maskedTextBox_Data;
+        private ComboBox comboBox_Vencido;
+        private DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn Nome;
+        private DataGridViewTextBoxColumn dataDeFabricacaoDataGridViewTextBoxColumn;
+        private DataGridViewCheckBoxColumn vencidoDataGridViewCheckBoxColumn;
     }
 }

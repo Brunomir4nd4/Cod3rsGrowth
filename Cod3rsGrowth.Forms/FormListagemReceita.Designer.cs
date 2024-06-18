@@ -39,16 +39,16 @@
             validadeEmMesesDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             receitaBindingSource = new BindingSource(components);
             painel_de_filtragem = new Panel();
-            textBox4 = new TextBox();
+            textBox_Valor = new TextBox();
+            textBox_Validade = new TextBox();
             label5 = new Label();
-            textBox3 = new TextBox();
             label4 = new Label();
-            textBox2 = new TextBox();
+            textBox_Nome = new TextBox();
             label3 = new Label();
             label2 = new Label();
             label1 = new Label();
             button_Filtro = new Button();
-            textBox1 = new TextBox();
+            textBox_Id = new TextBox();
             panel1 = new Panel();
             button_Adicionar = new Button();
             button_Editar = new Button();
@@ -124,28 +124,35 @@
             // painel_de_filtragem
             // 
             painel_de_filtragem.BackColor = Color.White;
-            painel_de_filtragem.Controls.Add(textBox4);
+            painel_de_filtragem.Controls.Add(textBox_Valor);
+            painel_de_filtragem.Controls.Add(textBox_Validade);
             painel_de_filtragem.Controls.Add(label5);
-            painel_de_filtragem.Controls.Add(textBox3);
             painel_de_filtragem.Controls.Add(label4);
-            painel_de_filtragem.Controls.Add(textBox2);
+            painel_de_filtragem.Controls.Add(textBox_Nome);
             painel_de_filtragem.Controls.Add(label3);
             painel_de_filtragem.Controls.Add(label2);
             painel_de_filtragem.Controls.Add(label1);
             painel_de_filtragem.Controls.Add(button_Filtro);
-            painel_de_filtragem.Controls.Add(textBox1);
+            painel_de_filtragem.Controls.Add(textBox_Id);
             painel_de_filtragem.Dock = DockStyle.Top;
             painel_de_filtragem.Location = new Point(0, 0);
             painel_de_filtragem.Name = "painel_de_filtragem";
             painel_de_filtragem.Size = new Size(800, 68);
             painel_de_filtragem.TabIndex = 1;
             // 
-            // textBox4
+            // textBox_Valor
             // 
-            textBox4.Location = new Point(582, 35);
-            textBox4.Name = "textBox4";
-            textBox4.Size = new Size(100, 23);
-            textBox4.TabIndex = 9;
+            textBox_Valor.Location = new Point(388, 35);
+            textBox_Valor.Name = "textBox_Valor";
+            textBox_Valor.Size = new Size(100, 23);
+            textBox_Valor.TabIndex = 10;
+            // 
+            // textBox_Validade
+            // 
+            textBox_Validade.Location = new Point(582, 35);
+            textBox_Validade.Name = "textBox_Validade";
+            textBox_Validade.Size = new Size(100, 23);
+            textBox_Validade.TabIndex = 9;
             // 
             // label5
             // 
@@ -158,13 +165,6 @@
             label5.TabIndex = 8;
             label5.Text = "Validade";
             // 
-            // textBox3
-            // 
-            textBox3.Location = new Point(388, 35);
-            textBox3.Name = "textBox3";
-            textBox3.Size = new Size(100, 23);
-            textBox3.TabIndex = 7;
-            // 
             // label4
             // 
             label4.Anchor = AnchorStyles.Left;
@@ -176,12 +176,12 @@
             label4.TabIndex = 6;
             label4.Text = "Valor";
             // 
-            // textBox2
+            // textBox_Nome
             // 
-            textBox2.Location = new Point(213, 35);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(100, 23);
-            textBox2.TabIndex = 5;
+            textBox_Nome.Location = new Point(213, 35);
+            textBox_Nome.Name = "textBox_Nome";
+            textBox_Nome.Size = new Size(100, 23);
+            textBox_Nome.TabIndex = 5;
             // 
             // label3
             // 
@@ -216,7 +216,6 @@
             label1.TabIndex = 2;
             label1.Text = "Filtro";
             label1.TextAlign = ContentAlignment.TopCenter;
-            label1.Click += label1_Click;
             // 
             // button_Filtro
             // 
@@ -227,13 +226,14 @@
             button_Filtro.TabIndex = 1;
             button_Filtro.Text = "Filtrar";
             button_Filtro.UseVisualStyleBackColor = true;
+            button_Filtro.Click += button_Filtro_Click;
             // 
-            // textBox1
+            // textBox_Id
             // 
-            textBox1.Location = new Point(50, 35);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(100, 23);
-            textBox1.TabIndex = 0;
+            textBox_Id.Location = new Point(50, 35);
+            textBox_Id.Name = "textBox_Id";
+            textBox_Id.Size = new Size(100, 23);
+            textBox_Id.TabIndex = 0;
             // 
             // panel1
             // 
@@ -313,17 +313,17 @@
         private Panel painel_de_filtragem;
         private Label label1;
         private Button button_Filtro;
-        private TextBox textBox1;
+        private TextBox textBox_Id;
         private Panel panel1;
-        private TextBox textBox3;
-        private TextBox textBox2;
+        private TextBox textBox_Nome;
         private Label label3;
         private Label label2;
-        private TextBox textBox4;
+        private TextBox textBox_Validade;
         private Label label5;
         private Label label4;
         private Button button_Adicionar;
         private Button button_Editar;
         private Button button_Remover;
+        private TextBox textBox_Valor;
     }
 }
