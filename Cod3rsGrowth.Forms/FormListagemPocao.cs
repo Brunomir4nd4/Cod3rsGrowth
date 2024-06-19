@@ -11,7 +11,6 @@ namespace Cod3rsGrowth.Forms
         public FormListagemPocao(ServicoPocao servicoPocao, ServicoReceita servicoReceita)
         {
             _servicoPocao = servicoPocao;
-            _servicoReceita = servicoReceita;
 
             InitializeComponent();
 
@@ -51,7 +50,7 @@ namespace Cod3rsGrowth.Forms
                 }
             }
 
-            if (!textBox_Nome.Text.IsNullOrEmpty())
+           /* if (!textBox_Nome.Text.IsNullOrEmpty())
             {
                 try
                 {
@@ -62,7 +61,7 @@ namespace Cod3rsGrowth.Forms
                 {
                     MessageBox.Show($"Campo IdReceita inserido não é valido!");
                 }
-            }
+            }*/
 
             if (!maskedTextBox_Data.Text.IsNullOrEmpty() & maskedTextBox_Data.Text != "  /  /")
             {

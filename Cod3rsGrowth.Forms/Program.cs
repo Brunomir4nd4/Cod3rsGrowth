@@ -28,7 +28,8 @@ namespace Cod3rsGrowth.Forms
                 UpdateDatabase(scope.ServiceProvider);
                 //Application.Run(ServiceProvider.GetRequiredService<FormListagemIngrediente>());
                 //Application.Run(ServiceProvider.GetRequiredService<FormListagemReceita>());
-                Application.Run(ServiceProvider.GetRequiredService<FormListagemPocao>());
+                //Application.Run(ServiceProvider.GetRequiredService<FormListagemPocao>());
+                Application.Run(ServiceProvider.GetRequiredService<FormListagem>());
             }
         }
         private static ServiceProvider CreateServices()
@@ -43,6 +44,7 @@ namespace Cod3rsGrowth.Forms
                     .AddScoped<FormListagemIngrediente>()
                     .AddScoped<FormListagemPocao>()
                     .AddScoped<FormListagemReceita>()
+                    .AddScoped<FormListagem>()
                     .AddScoped<ServicoIngrediente>()
                     .AddScoped<ServicoPocao>()
                     .AddScoped<ServicoReceita>()

@@ -2,6 +2,7 @@
 using Cod3rsGrowth.Dominio.Interfaces;
 using Cod3rsGrowth.Infra.ConexaoBD;
 using LinqToDB;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Cod3rsGrowth.Infra.Repositorios
 {
@@ -46,21 +47,42 @@ namespace Cod3rsGrowth.Infra.Repositorios
 
         public List<Pocao> Filtrar(FiltroPocao pocao)
         {
-            IQueryable<Pocao> query = _db.pocao.AsQueryable();
+            List<Pocao> listaPocao = _db.pocao.ToList();
+            List<Receita> listaReceita = _db.receita.ToList();
+            List<FiltroPocao> listaFiltroPocao = new List<FiltroPocao>();
+
+            for (int i = 0; i < listaPocao.Count(); i++)
+            {
+                FiltroPocao filtroPocao = new FiltroPocao();
+
+                filtroPocao.Id = listaPocao[i].Id;
+                filtroPocao.Vencido = listaPocao[i].Vencido;
+                filtroPocao.DataDeFabricacao = listaPocao[i].DataDeFabricacao;
+
+                foreach (var receita in listaReceita)
+                {
+                    if (receita.Id == listaPocao[i].IdReceita)
+                    {
+                        filtroPocao.Nome = receita.Nome;
+                    }
+                }
+                listaFiltroPocao.Add(filtroPocao);
+            }
+            IQueryable<FiltroPocao> query = listaFiltroPocao.AsQueryable();
 
             if (pocao.Id != null)
                 query = query.Where(r => r.Id == pocao.Id);
 
-            if (pocao.IdReceita != null)
-                query = query.Where(r => r.IdReceita == pocao.IdReceita);
+            if (!string.IsNullOrWhiteSpace(pocao.Nome))
+                query = query.Where(p => p.Nome.Contains(pocao.Nome));
 
-            if (pocao.DataDeFabricação != null)
-                query = query.Where(r => r.DataDeFabricacao == pocao.DataDeFabricação);
+            if (pocao.DataDeFabricacao != null)
+                query = query.Where(r => r.DataDeFabricacao == pocao.DataDeFabricacao);
 
             if (pocao.Vencido != null)
                 query = query.Where(r => r.Vencido == pocao.Vencido);
 
-            return query.ToList();
+            return listaPocao;
         }
     }
 }

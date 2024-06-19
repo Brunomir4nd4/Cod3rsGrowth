@@ -47,7 +47,7 @@ namespace Cod3rsGrowth.Forms
             label3 = new Label();
             label2 = new Label();
             label1 = new Label();
-            button_Filtro = new Button();
+            button_Filtro1 = new Button();
             textBox_Id = new TextBox();
             button_Adicionar = new Button();
             button_Editar = new Button();
@@ -118,7 +118,7 @@ namespace Cod3rsGrowth.Forms
             painel_de_filtragem.Controls.Add(label3);
             painel_de_filtragem.Controls.Add(label2);
             painel_de_filtragem.Controls.Add(label1);
-            painel_de_filtragem.Controls.Add(button_Filtro);
+            painel_de_filtragem.Controls.Add(button_Filtro1);
             painel_de_filtragem.Controls.Add(textBox_Id);
             painel_de_filtragem.Location = new Point(0, 0);
             painel_de_filtragem.Name = "painel_de_filtragem";
@@ -206,17 +206,17 @@ namespace Cod3rsGrowth.Forms
             label1.Text = "Filtro";
             label1.TextAlign = ContentAlignment.TopCenter;
             // 
-            // button_Filtro
+            // button_Filtro1
             // 
-            button_Filtro.Anchor = AnchorStyles.Top;
-            button_Filtro.Cursor = Cursors.Hand;
-            button_Filtro.Location = new Point(713, 35);
-            button_Filtro.Name = "button_Filtro";
-            button_Filtro.Size = new Size(75, 23);
-            button_Filtro.TabIndex = 1;
-            button_Filtro.Text = "Filtrar";
-            button_Filtro.UseVisualStyleBackColor = true;
-            button_Filtro.Click += button_Filtro_Click;
+            button_Filtro1.Anchor = AnchorStyles.Top;
+            button_Filtro1.Cursor = Cursors.Hand;
+            button_Filtro1.Location = new Point(713, 35);
+            button_Filtro1.Name = "button_Filtro1";
+            button_Filtro1.Size = new Size(75, 23);
+            button_Filtro1.TabIndex = 1;
+            button_Filtro1.Text = "Filtrar";
+            button_Filtro1.UseVisualStyleBackColor = true;
+            button_Filtro1.Click += button_Filtro_Click;
             // 
             // textBox_Id
             // 
@@ -311,7 +311,7 @@ namespace Cod3rsGrowth.Forms
         private Label label3;
         private Label label2;
         private Label label1;
-        private Button button_Filtro;
+        private Button button_Filtro1;
         private TextBox textBox_Id;
         private ComboBox comboBox_Naturalidade;
         private Button button_Adicionar;
