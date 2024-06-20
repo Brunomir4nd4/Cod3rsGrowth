@@ -240,7 +240,7 @@
             button_Filtrar_Ingrediente.TabIndex = 12;
             button_Filtrar_Ingrediente.Text = "Filtrar";
             button_Filtrar_Ingrediente.UseVisualStyleBackColor = true;
-            button_Filtrar_Ingrediente.Click += button_Filtrar_Ingrediente_Click;
+            button_Filtrar_Ingrediente.Click += AoClicarBotaoFiltrarIngrediente;
             // 
             // textBox_Nome_Ingrediente
             // 
@@ -520,13 +520,13 @@
             // 
             button_Filtrar_Receita.Anchor = AnchorStyles.Top;
             button_Filtrar_Receita.Cursor = Cursors.Hand;
-            button_Filtrar_Receita.Location = new Point(707, 33);
+            button_Filtrar_Receita.Location = new Point(707, 33); 
             button_Filtrar_Receita.Name = "button_Filtrar_Receita";
             button_Filtrar_Receita.Size = new Size(75, 25);
             button_Filtrar_Receita.TabIndex = 22;
             button_Filtrar_Receita.Text = "Filtrar";
             button_Filtrar_Receita.UseVisualStyleBackColor = true;
-            button_Filtrar_Receita.Click += button_Filtrar_Receita_Click;
+            button_Filtrar_Receita.Click += AoClicarBotaoFiltrarReceita;
             // 
             // textBox_Id_Receita
             // 
@@ -800,7 +800,7 @@
             button_Filtrar_Pocao.TabIndex = 32;
             button_Filtrar_Pocao.Text = "Filtrar";
             button_Filtrar_Pocao.UseVisualStyleBackColor = true;
-            button_Filtrar_Pocao.Click += button_Filtrar_Pocao_Click;
+            button_Filtrar_Pocao.Click += AoClicarBotaoFiltrarPocao;
             // 
             // maskedTextBox_Data_Pocao
             // 
@@ -974,7 +974,7 @@
             Name = "FormListagem";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Estoque";
-            Load += FormListagem_Load_1;
+            Load += FormListagem_Load;
             tabControl.ResumeLayout(false);
             Ingredientes.ResumeLayout(false);
             panel1.ResumeLayout(false);

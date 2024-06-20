@@ -28,29 +28,28 @@ namespace Cod3rsGrowth.Forms
             _servicoIngrediente = servicoIngrediente;
             _servicoReceita = servicoReceita;
             _servicoPocao = servicoPocao;
+        }
 
-            comboBox_Naturalidade_Ingrediente.DataSource = Enum.GetValues(typeof(Naturalidade));
+        private void FormListagem_Load(object sender, EventArgs e)
+        {
+            comboBox_Naturalidade_Ingrediente.Text = "";
             CarregarDadosIngrediente(_filtroIngrediente);
             CarregarDadosReceita(_filtroReceita);
             CarregarDadosPocao(_filtroPocao);
+            comboBox_Naturalidade_Ingrediente.DataSource = Enum.GetValues(typeof(Naturalidade));
         }
 
-        private void FormListagem_Load_1(object sender, EventArgs e)
+        private void AoClicarBotaoFiltrarReceita(object sender, EventArgs e)
         {
-            comboBox_Naturalidade_Ingrediente.Text = "";
+            CarregarDadosReceita(ObterFiltroReceita());
         }
-
-        private void button_Filtrar_Receita_Click(object sender, EventArgs e)
+        private void AoClicarBotaoFiltrarIngrediente(object sender, EventArgs e)
         {
-            CarregarDadosReceita(AoClicarBotaoFiltrarReceita());
+            CarregarDadosIngrediente(ObterFiltroIngrediente());
         }
-        private void button_Filtrar_Ingrediente_Click(object sender, EventArgs e)
+        private void AoClicarBotaoFiltrarPocao(object sender, EventArgs e)
         {
-            CarregarDadosIngrediente(AoClicarBotaoFiltrarIngrediente());
-        }
-        private void button_Filtrar_Pocao_Click(object sender, EventArgs e)
-        {
-            CarregarDadosPocao(AoClicarBotaoFiltrarPocao());
+            CarregarDadosPocao(ObterFiltroPocao());
         }
 
         private void CarregarDadosIngrediente(FiltroIngrediente filtroIngrediente)
@@ -81,9 +80,7 @@ namespace Cod3rsGrowth.Forms
         {
             try
             {
-                var novaTabela = _servicoPocao.ObterTodos(filtroPocao);
-
-                dataGridView_Pocao.DataSource = novaTabela.ToList();
+                dataGridView_Pocao.DataSource = _servicoPocao.ObterTodos(filtroPocao);
             }
             catch (Exception ex)
             {
@@ -91,52 +88,52 @@ namespace Cod3rsGrowth.Forms
             }
         }
 
-        private FiltroIngrediente AoClicarBotaoFiltrarIngrediente()
+        private FiltroIngrediente ObterFiltroIngrediente()
         {
             FiltroIngrediente filtroIngrediente = new FiltroIngrediente();
 
-            if (!textBox_Id_Ingrediente.Text.IsNullOrEmpty())
+            try
             {
-                try
+                if (!textBox_Id_Ingrediente.Text.IsNullOrEmpty())
                 {
                     filtroIngrediente.Id = Int32.Parse(textBox_Id_Ingrediente.Text);
                     textBox_Id_Ingrediente.Text = "";
                 }
-                catch
-                {
-                    MessageBox.Show("Campo Id inserido não é valido!");
-                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Campo Id inserido não é valido! ERRO: {ex.Message}");
             }
 
-            if (!textBox_Quantidade_Ingrediente.Text.IsNullOrEmpty())
+            try
             {
-                try
+                if (!textBox_Quantidade_Ingrediente.Text.IsNullOrEmpty())
                 {
                     filtroIngrediente.Quantidade = Int32.Parse(textBox_Quantidade_Ingrediente.Text);
                     textBox_Quantidade_Ingrediente.Text = "";
                 }
-                catch
-                {
-                    MessageBox.Show("Campo Quantidade inserido não é valido!");
-                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Campo Quantidade inserido não é valido! ERRO: {ex.Message}");
             }
 
-            if (!textBox_Nome_Ingrediente.Text.IsNullOrEmpty())
+            try
             {
-                try
+                if (!textBox_Nome_Ingrediente.Text.IsNullOrEmpty())
                 {
                     filtroIngrediente.Nome = textBox_Nome_Ingrediente.Text;
                     textBox_Nome_Ingrediente.Text = "";
                 }
-                catch
-                {
-                    MessageBox.Show("Campo Nome inserido não é valido!");
-                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Campo Nome inserido não é valido! ERRO: {ex.Message}");
             }
 
-            if (!comboBox_Naturalidade_Ingrediente.Text.IsNullOrEmpty())
+            try
             {
-                try
+                if (!string.IsNullOrWhiteSpace(comboBox_Naturalidade_Ingrediente.Text))
                 {
                     var valorInteiroDoEnum = comboBox_Naturalidade_Ingrediente.SelectedIndex;
 
@@ -144,124 +141,131 @@ namespace Cod3rsGrowth.Forms
 
                     comboBox_Naturalidade_Ingrediente.Text = "";
                 }
-                catch
-                {
-                    MessageBox.Show("Campo Naturalidade inserido não é valido!");
-                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Campo Naturalidade inserido não é valido! ERRO: {ex.Message}");
             }
 
             return filtroIngrediente;
         }
 
-        private FiltroReceita AoClicarBotaoFiltrarReceita()
+        private FiltroReceita ObterFiltroReceita()
         {
             FiltroReceita filtroReceita = new FiltroReceita();
 
-            if (!textBox_Id_Receita.Text.IsNullOrEmpty())
+            try
             {
-                try
+                if (!textBox_Id_Receita.Text.IsNullOrEmpty())
                 {
                     filtroReceita.Id = Int32.Parse(textBox_Id_Receita.Text);
                     textBox_Id_Receita.Text = "";
                 }
-                catch
-                {
-                    MessageBox.Show($"Campo Id inserido não é valido!");
-                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Campo Id inserido não é valido! ERRO: {ex.Message}");
             }
 
-            if (!textBox_Nome_Receita.Text.IsNullOrEmpty())
+            try
             {
-                try
+                if (!textBox_Nome_Receita.Text.IsNullOrEmpty())
                 {
                     filtroReceita.Nome = textBox_Nome_Receita.Text;
                     textBox_Nome_Receita.Text = "";
                 }
-                catch
-                {
-                    MessageBox.Show($"Campo Nome inserido não é valido!");
-                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Campo Nome inserido não é valido! ERRO: {ex.Message}");
             }
 
-            if (!textBox_Valor_Receita.Text.IsNullOrEmpty())
+            try
             {
-                try
+                if (!textBox_Valor_Receita.Text.IsNullOrEmpty())
                 {
                     filtroReceita.Valor = Decimal.Parse(textBox_Valor_Receita.Text);
                     textBox_Valor_Receita.Text = "";
                 }
-                catch
-                {
-                    MessageBox.Show($"Campo Valor inserido não é valido!");
-                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Campo Valor inserido não é valido! ERRO: {ex.Message}");
             }
 
-            if (!textBox_Validade_Receita.Text.IsNullOrEmpty())
+            try
             {
-                try
+                if (!textBox_Validade_Receita.Text.IsNullOrEmpty())
                 {
                     filtroReceita.ValidadeEmMeses = Int32.Parse(textBox_Validade_Receita.Text);
                     textBox_Validade_Receita.Text = "";
                 }
-                catch
-                {
-                    MessageBox.Show($"Campo Validade inserido não é valido!");
-                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Campo Validade inserido não é valido! ERRO: {ex.Message}");
             }
 
             return filtroReceita;
         }
 
-        private FiltroPocao AoClicarBotaoFiltrarPocao()
+        private FiltroPocao ObterFiltroPocao()
         {
             FiltroPocao filtroPocao = new FiltroPocao();
 
-            if (!textBox_Id_Pocao.Text.IsNullOrEmpty())
+            try
             {
-                try
+                if (!textBox_Id_Pocao.Text.IsNullOrEmpty())
                 {
                     filtroPocao.Id = Int32.Parse(textBox_Id_Pocao.Text);
                     textBox_Id_Pocao.Text = "";
                 }
-                catch
-                {
-                    MessageBox.Show($"Campo Id inserido não é valido!");
-                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Campo Id inserido não é valido! ERRO: {ex.Message}");
             }
 
-            if (!textBox_Nome_Pocao.Text.IsNullOrEmpty())
+            try
             {
-                try
+                if (!textBox_Nome_Pocao.Text.IsNullOrEmpty())
                 {
                     filtroPocao.Nome = textBox_Nome_Pocao.Text;
                     textBox_Nome_Pocao.Text = "";
                 }
-                catch
-                {
-                    MessageBox.Show($"Campo Nome inserido não é valido!");
-                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Campo Nome inserido não é valido! ERRO: {ex.Message}");
             }
 
-            if (!maskedTextBox_Data_Pocao.Text.IsNullOrEmpty() & maskedTextBox_Data_Pocao.Text != "  /  /")
+            try
             {
-                try
+                if (!maskedTextBox_Data_Pocao.Text.IsNullOrEmpty() & maskedTextBox_Data_Pocao.Text != "  /  /")
                 {
                     filtroPocao.DataDeFabricacao = DateTime.Parse(maskedTextBox_Data_Pocao.Text);
                     maskedTextBox_Data_Pocao.Text = "";
                 }
-                catch
-                {
-                    MessageBox.Show($"Campo Data inserido não é valido!");
-                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Campo Data inserido não é valido! ERRO: {ex.Message}");
             }
 
-            if (!comboBox_Vencido_Pocao.Text.IsNullOrEmpty())
+            try
             {
-                filtroPocao.Vencido = comboBox_Vencido_Pocao.Text == "Vencido"
-                    ?
-                    true
-                    :
-                    false;
+                if (!comboBox_Vencido_Pocao.Text.IsNullOrEmpty())
+                {
+                    filtroPocao.Vencido = comboBox_Vencido_Pocao.Text == "Vencido"
+                        ?
+                        true
+                        :
+                        false;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Campo Vencido inserido não é valido! ERRO: {ex.Message}");
             }
 
             return filtroPocao;

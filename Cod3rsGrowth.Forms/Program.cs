@@ -26,9 +26,6 @@ namespace Cod3rsGrowth.Forms
             using (var scope = ServiceProvider.CreateScope())
             {
                 UpdateDatabase(scope.ServiceProvider);
-                //Application.Run(ServiceProvider.GetRequiredService<FormListagemIngrediente>());
-                //Application.Run(ServiceProvider.GetRequiredService<FormListagemReceita>());
-                //Application.Run(ServiceProvider.GetRequiredService<FormListagemPocao>());
                 Application.Run(ServiceProvider.GetRequiredService<FormListagem>());
             }
         }
@@ -41,9 +38,6 @@ namespace Cod3rsGrowth.Forms
                     .AddSqlServer()
                     .WithGlobalConnectionString(connectionString)
                     .ScanIn(typeof(Migrador).Assembly).For.Migrations())
-                    .AddScoped<FormListagemIngrediente>()
-                    .AddScoped<FormListagemPocao>()
-                    .AddScoped<FormListagemReceita>()
                     .AddScoped<FormListagem>()
                     .AddScoped<ServicoIngrediente>()
                     .AddScoped<ServicoPocao>()
