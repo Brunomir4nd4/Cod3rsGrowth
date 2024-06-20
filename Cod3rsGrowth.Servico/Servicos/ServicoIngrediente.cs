@@ -1,5 +1,5 @@
 ﻿using Cod3rsGrowth.Dominio.Entidades;
-using Cod3rsGrowth.Infra.Interfaces;
+using Cod3rsGrowth.Dominio.Interfaces;
 using Cod3rsGrowth.Servico.Validadores;
 using FluentValidation;
 
@@ -18,7 +18,6 @@ namespace Cod3rsGrowth.Servico.Servicos
 
         public List<Ingrediente> ObterTodos(FiltroIngrediente ingrediente)
         {
-
             return _repositorioIngrediente.ObterTodos(ingrediente);
         }
         public Ingrediente ObterPorId(int id)

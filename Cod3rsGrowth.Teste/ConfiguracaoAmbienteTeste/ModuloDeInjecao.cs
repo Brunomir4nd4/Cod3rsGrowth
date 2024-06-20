@@ -1,8 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Cod3rsGrowth.Servico.Servicos;
-using Cod3rsGrowth.Infra.Interfaces;
 using Cod3rsGrowth.Teste.Repositorios;
 using Cod3rsGrowth.Servico.Validadores;
+using Cod3rsGrowth.Dominio.Interfaces;
 
 namespace Cod3rsGrowth.Teste.ConfiguracaoAmbienteTeste
 {

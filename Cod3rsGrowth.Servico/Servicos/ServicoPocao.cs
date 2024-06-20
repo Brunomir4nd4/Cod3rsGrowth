@@ -1,5 +1,5 @@
 ﻿using Cod3rsGrowth.Dominio.Entidades;
-using Cod3rsGrowth.Infra.Interfaces;
+using Cod3rsGrowth.Dominio.Interfaces;
 
 namespace Cod3rsGrowth.Servico.Servicos
 {
@@ -12,9 +12,9 @@ namespace Cod3rsGrowth.Servico.Servicos
             _repositorioPocao = repositorioPocao;
             _repositorioReceita = repositorioReceita;
         }
-        public List<Pocao> ObterTodos()
+        public List<FiltroPocao> ObterTodos(FiltroPocao filtroPocao)
         {
-            return _repositorioPocao.ObterTodos();
+            return _repositorioPocao.ObterTodos(filtroPocao);
         }
         public Pocao ObterPorId(int id)
         {

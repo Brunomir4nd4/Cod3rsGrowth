@@ -1,5 +1,6 @@
 ﻿using Cod3rsGrowth.Dominio.Entidades;
-using Cod3rsGrowth.Infra.Interfaces;
+using Cod3rsGrowth.Dominio.Interfaces;
+using Cod3rsGrowth.Infra.ConexaoBD;
 using LinqToDB;
 
 namespace Cod3rsGrowth.Infra.Repositorios
@@ -61,19 +62,16 @@ namespace Cod3rsGrowth.Infra.Repositorios
         {
             IQueryable<Receita> query = _db.receita.AsQueryable();
 
-            if (receita.Id != 0)
+            if (receita.Id != null)
                 query = query.Where(r => r.Id == receita.Id);
 
             if (!string.IsNullOrWhiteSpace(receita.Nome))
-                query = query.Where(r => r.Nome == receita.Nome);
+                query = query.Where(r => r.Nome.Contains(receita.Nome));
 
-            if (!string.IsNullOrWhiteSpace(receita.Descricao))
-                query = query.Where(r => r.Descricao == receita.Descricao);
-
-            if (receita.Valor != 0)
+            if (receita.Valor != null)
                 query = query.Where(r => r.Valor == receita.Valor);
 
-            if (receita.ValidadeEmMeses != 0)
+            if (receita.ValidadeEmMeses != null)
                 query = query.Where(r => r.ValidadeEmMeses == receita.ValidadeEmMeses);
 
             return query.ToList();
