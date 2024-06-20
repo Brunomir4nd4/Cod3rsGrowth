@@ -2,7 +2,6 @@
 using Cod3rsGrowth.Dominio.Interfaces;
 using Cod3rsGrowth.Infra.ConexaoBD;
 using LinqToDB;
-using Microsoft.IdentityModel.Tokens;
 
 namespace Cod3rsGrowth.Infra.Repositorios
 {
@@ -15,10 +14,9 @@ namespace Cod3rsGrowth.Infra.Repositorios
             _db = db;
         }
 
-        public List<Pocao> ObterTodos(FiltroPocao pocao)
+        public List<FiltroPocao> ObterTodos(FiltroPocao pocao)
         {
-            var query = Filtrar(pocao);
-            return query.ToList();
+            return Filtrar(pocao);
         }
 
         public Pocao ObterPorId(int idProcurado)
@@ -45,44 +43,38 @@ namespace Cod3rsGrowth.Infra.Repositorios
                 .Delete();
         }
 
-        public List<Pocao> Filtrar(FiltroPocao pocao)
+        public List<FiltroPocao> Filtrar(FiltroPocao filtroPocao)
         {
-            List<Pocao> listaPocao = _db.pocao.ToList();
-            List<Receita> listaReceita = _db.receita.ToList();
-            List<FiltroPocao> listaFiltroPocao = new List<FiltroPocao>();
+            IQueryable<FiltroPocao> query = CriarListaPocaoComNome().AsQueryable();
 
-            for (int i = 0; i < listaPocao.Count(); i++)
-            {
-                FiltroPocao filtroPocao = new FiltroPocao();
+            if (filtroPocao.Id != null)
+                query = query.Where(r => r.Id == filtroPocao.Id);
 
-                filtroPocao.Id = listaPocao[i].Id;
-                filtroPocao.Vencido = listaPocao[i].Vencido;
-                filtroPocao.DataDeFabricacao = listaPocao[i].DataDeFabricacao;
+            if (!string.IsNullOrWhiteSpace(filtroPocao.Nome))
+                query = query.Where(p => p.Nome.Contains(filtroPocao.Nome));
 
-                foreach (var receita in listaReceita)
-                {
-                    if (receita.Id == listaPocao[i].IdReceita)
-                    {
-                        filtroPocao.Nome = receita.Nome;
-                    }
-                }
-                listaFiltroPocao.Add(filtroPocao);
-            }
-            IQueryable<FiltroPocao> query = listaFiltroPocao.AsQueryable();
+            if (filtroPocao.DataDeFabricacao != null)
+                query = query.Where(r => r.DataDeFabricacao == filtroPocao.DataDeFabricacao);
 
-            if (pocao.Id != null)
-                query = query.Where(r => r.Id == pocao.Id);
+            if (filtroPocao.Vencido != null)
+                query = query.Where(r => r.Vencido == filtroPocao.Vencido);
 
-            if (!string.IsNullOrWhiteSpace(pocao.Nome))
-                query = query.Where(p => p.Nome.Contains(pocao.Nome));
+            return query.ToList();
+        }
 
-            if (pocao.DataDeFabricacao != null)
-                query = query.Where(r => r.DataDeFabricacao == pocao.DataDeFabricacao);
-
-            if (pocao.Vencido != null)
-                query = query.Where(r => r.Vencido == pocao.Vencido);
-
-            return listaPocao;
+        public List<FiltroPocao> CriarListaPocaoComNome()
+        {
+            var query = from pocao in _db.pocao
+                             join receita in _db.receita on pocao.IdReceita equals receita.Id
+                             select new FiltroPocao { 
+                                 Id = pocao.Id, 
+                                 IdReceita = pocao.IdReceita, 
+                                 Nome = receita.Nome, 
+                                 DataDeFabricacao = pocao.DataDeFabricacao, 
+                                 Vencido = pocao.Vencido 
+                             };
+            
+            return query.ToList();
         }
     }
 }

@@ -67,7 +67,7 @@ namespace Cod3rsGrowth.Forms
             {
                 try
                 {
-                    filtroPocao.DataDeFabricação = DateTime.Parse(maskedTextBox_Data.Text);
+                    filtroPocao.DataDeFabricacao = DateTime.Parse(maskedTextBox_Data.Text);
                     maskedTextBox_Data.Text = "";
                 }
                 catch

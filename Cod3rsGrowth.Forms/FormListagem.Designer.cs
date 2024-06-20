@@ -29,9 +29,13 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
             tabControl = new TabControl();
             Ingredientes = new TabPage();
             panel1 = new Panel();
@@ -50,18 +54,9 @@
             label1 = new Label();
             textBox_Id_Ingrediente = new TextBox();
             dataGridView_Ingrediente = new DataGridView();
-            idDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            nomeDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            quantidadeDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            naturalidadeDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             ingredienteBindingSource = new BindingSource(components);
             Receitas = new TabPage();
             dataGridView_Receita = new DataGridView();
-            dataGridViewTextBoxColumn1 = new DataGridViewTextBoxColumn();
-            dataGridViewTextBoxColumn2 = new DataGridViewTextBoxColumn();
-            descricaoDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            valorDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            validadeEmMesesDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             receitaBindingSource = new BindingSource(components);
             panel3 = new Panel();
             button_Adicionar_Receita = new Button();
@@ -85,7 +80,7 @@
             dataGridView_Pocao = new DataGridView();
             idDataGridViewTextBoxColumn1 = new DataGridViewTextBoxColumn();
             Nome = new DataGridViewTextBoxColumn();
-            dataDeFabricacaoDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            DataDeFabricacao = new DataGridViewTextBoxColumn();
             vencidoDataGridViewCheckBoxColumn = new DataGridViewCheckBoxColumn();
             pocaoBindingSource = new BindingSource(components);
             panel5 = new Panel();
@@ -110,6 +105,15 @@
             textBox_Nome_Pocao = new TextBox();
             label12 = new Label();
             fbCommand1 = new FirebirdSql.Data.FirebirdClient.FbCommand();
+            idDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            nomeDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            quantidadeDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            naturalidadeDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn1 = new DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn2 = new DataGridViewTextBoxColumn();
+            descricaoDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            valorDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            validadeEmMesesDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             tabControl.SuspendLayout();
             Ingredientes.SuspendLayout();
             panel1.SuspendLayout();
@@ -337,36 +341,6 @@
             dataGridView_Ingrediente.Size = new Size(848, 397);
             dataGridView_Ingrediente.TabIndex = 1;
             // 
-            // idDataGridViewTextBoxColumn
-            // 
-            idDataGridViewTextBoxColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
-            idDataGridViewTextBoxColumn.DataPropertyName = "Id";
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            idDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle1;
-            idDataGridViewTextBoxColumn.HeaderText = "Id";
-            idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
-            idDataGridViewTextBoxColumn.Width = 46;
-            // 
-            // nomeDataGridViewTextBoxColumn
-            // 
-            nomeDataGridViewTextBoxColumn.DataPropertyName = "Nome";
-            nomeDataGridViewTextBoxColumn.HeaderText = "Nome";
-            nomeDataGridViewTextBoxColumn.Name = "nomeDataGridViewTextBoxColumn";
-            // 
-            // quantidadeDataGridViewTextBoxColumn
-            // 
-            quantidadeDataGridViewTextBoxColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
-            quantidadeDataGridViewTextBoxColumn.DataPropertyName = "Quantidade";
-            quantidadeDataGridViewTextBoxColumn.HeaderText = "Quantidade";
-            quantidadeDataGridViewTextBoxColumn.Name = "quantidadeDataGridViewTextBoxColumn";
-            quantidadeDataGridViewTextBoxColumn.Width = 102;
-            // 
-            // naturalidadeDataGridViewTextBoxColumn
-            // 
-            naturalidadeDataGridViewTextBoxColumn.DataPropertyName = "Naturalidade";
-            naturalidadeDataGridViewTextBoxColumn.HeaderText = "Naturalidade";
-            naturalidadeDataGridViewTextBoxColumn.Name = "naturalidadeDataGridViewTextBoxColumn";
-            // 
             // ingredienteBindingSource
             // 
             ingredienteBindingSource.DataSource = typeof(Dominio.Entidades.Ingrediente);
@@ -377,10 +351,10 @@
             Receitas.Controls.Add(panel3);
             Receitas.Controls.Add(panel2);
             Receitas.Font = new Font("JetBrains Mono", 8.999999F, FontStyle.Regular, GraphicsUnit.Point);
-            Receitas.Location = new Point(4, 24);
+            Receitas.Location = new Point(4, 25);
             Receitas.Name = "Receitas";
             Receitas.Padding = new Padding(3);
-            Receitas.Size = new Size(854, 528);
+            Receitas.Size = new Size(854, 527);
             Receitas.TabIndex = 1;
             Receitas.Text = "Receitas";
             Receitas.UseVisualStyleBackColor = true;
@@ -397,49 +371,8 @@
             dataGridView_Receita.Location = new Point(3, 82);
             dataGridView_Receita.Name = "dataGridView_Receita";
             dataGridView_Receita.RowTemplate.Height = 25;
-            dataGridView_Receita.Size = new Size(848, 374);
+            dataGridView_Receita.Size = new Size(848, 373);
             dataGridView_Receita.TabIndex = 26;
-            // 
-            // dataGridViewTextBoxColumn1
-            // 
-            dataGridViewTextBoxColumn1.AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
-            dataGridViewTextBoxColumn1.DataPropertyName = "Id";
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewTextBoxColumn1.DefaultCellStyle = dataGridViewCellStyle2;
-            dataGridViewTextBoxColumn1.HeaderText = "Id";
-            dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            dataGridViewTextBoxColumn1.Width = 46;
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            dataGridViewTextBoxColumn2.DataPropertyName = "Nome";
-            dataGridViewTextBoxColumn2.HeaderText = "Nome";
-            dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            // 
-            // descricaoDataGridViewTextBoxColumn
-            // 
-            descricaoDataGridViewTextBoxColumn.DataPropertyName = "Descricao";
-            descricaoDataGridViewTextBoxColumn.HeaderText = "Descricao";
-            descricaoDataGridViewTextBoxColumn.Name = "descricaoDataGridViewTextBoxColumn";
-            // 
-            // valorDataGridViewTextBoxColumn
-            // 
-            valorDataGridViewTextBoxColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
-            valorDataGridViewTextBoxColumn.DataPropertyName = "Valor";
-            dataGridViewCellStyle3.Format = "C2";
-            dataGridViewCellStyle3.NullValue = null;
-            valorDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle3;
-            valorDataGridViewTextBoxColumn.HeaderText = "Valor";
-            valorDataGridViewTextBoxColumn.Name = "valorDataGridViewTextBoxColumn";
-            valorDataGridViewTextBoxColumn.Width = 67;
-            // 
-            // validadeEmMesesDataGridViewTextBoxColumn
-            // 
-            validadeEmMesesDataGridViewTextBoxColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
-            validadeEmMesesDataGridViewTextBoxColumn.DataPropertyName = "ValidadeEmMeses";
-            validadeEmMesesDataGridViewTextBoxColumn.HeaderText = "Validade Em Meses";
-            validadeEmMesesDataGridViewTextBoxColumn.Name = "validadeEmMesesDataGridViewTextBoxColumn";
-            validadeEmMesesDataGridViewTextBoxColumn.Width = 88;
             // 
             // receitaBindingSource
             // 
@@ -454,7 +387,7 @@
             panel3.Controls.Add(button3);
             panel3.Controls.Add(button4);
             panel3.Dock = DockStyle.Bottom;
-            panel3.Location = new Point(3, 478);
+            panel3.Location = new Point(3, 477);
             panel3.Name = "panel3";
             panel3.Size = new Size(848, 47);
             panel3.TabIndex = 25;
@@ -668,31 +601,39 @@
             dataGridView_Pocao.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridView_Pocao.BackgroundColor = SystemColors.Window;
             dataGridView_Pocao.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView_Pocao.Columns.AddRange(new DataGridViewColumn[] { idDataGridViewTextBoxColumn1, Nome, dataDeFabricacaoDataGridViewTextBoxColumn, vencidoDataGridViewCheckBoxColumn });
+            dataGridView_Pocao.Columns.AddRange(new DataGridViewColumn[] { idDataGridViewTextBoxColumn1, Nome, DataDeFabricacao, vencidoDataGridViewCheckBoxColumn });
             dataGridView_Pocao.DataSource = pocaoBindingSource;
             dataGridView_Pocao.Location = new Point(0, 79);
             dataGridView_Pocao.Name = "dataGridView_Pocao";
             dataGridView_Pocao.RowTemplate.Height = 25;
-            dataGridView_Pocao.Size = new Size(851, 373);
+            dataGridView_Pocao.Size = new Size(851, 369);
             dataGridView_Pocao.TabIndex = 27;
             // 
             // idDataGridViewTextBoxColumn1
             // 
+            idDataGridViewTextBoxColumn1.AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
             idDataGridViewTextBoxColumn1.DataPropertyName = "Id";
+            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            idDataGridViewTextBoxColumn1.DefaultCellStyle = dataGridViewCellStyle6;
             idDataGridViewTextBoxColumn1.HeaderText = "Id";
             idDataGridViewTextBoxColumn1.Name = "idDataGridViewTextBoxColumn1";
+            idDataGridViewTextBoxColumn1.Width = 46;
             // 
             // Nome
             // 
             Nome.DataPropertyName = "Nome";
+            Nome.FillWeight = 200F;
             Nome.HeaderText = "Nome";
             Nome.Name = "Nome";
             // 
-            // dataDeFabricacaoDataGridViewTextBoxColumn
+            // DataDeFabricacao
             // 
-            dataDeFabricacaoDataGridViewTextBoxColumn.DataPropertyName = "DataDeFabricacao";
-            dataDeFabricacaoDataGridViewTextBoxColumn.HeaderText = "DataDeFabricacao";
-            dataDeFabricacaoDataGridViewTextBoxColumn.Name = "dataDeFabricacaoDataGridViewTextBoxColumn";
+            DataDeFabricacao.DataPropertyName = "DataDeFabricacao";
+            dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            DataDeFabricacao.DefaultCellStyle = dataGridViewCellStyle7;
+            DataDeFabricacao.FillWeight = 150F;
+            DataDeFabricacao.HeaderText = "Data De Fabricacao";
+            DataDeFabricacao.Name = "DataDeFabricacao";
             // 
             // vencidoDataGridViewCheckBoxColumn
             // 
@@ -946,6 +887,82 @@
             label12.TabIndex = 26;
             label12.Text = "Id";
             // 
+            // idDataGridViewTextBoxColumn
+            // 
+            idDataGridViewTextBoxColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+            idDataGridViewTextBoxColumn.DataPropertyName = "Id";
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            idDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle1;
+            idDataGridViewTextBoxColumn.HeaderText = "Id";
+            idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
+            idDataGridViewTextBoxColumn.Width = 46;
+            // 
+            // nomeDataGridViewTextBoxColumn
+            // 
+            nomeDataGridViewTextBoxColumn.DataPropertyName = "Nome";
+            nomeDataGridViewTextBoxColumn.HeaderText = "Nome";
+            nomeDataGridViewTextBoxColumn.Name = "nomeDataGridViewTextBoxColumn";
+            // 
+            // quantidadeDataGridViewTextBoxColumn
+            // 
+            quantidadeDataGridViewTextBoxColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+            quantidadeDataGridViewTextBoxColumn.DataPropertyName = "Quantidade";
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            quantidadeDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle2;
+            quantidadeDataGridViewTextBoxColumn.HeaderText = "Quantidade";
+            quantidadeDataGridViewTextBoxColumn.Name = "quantidadeDataGridViewTextBoxColumn";
+            quantidadeDataGridViewTextBoxColumn.Width = 102;
+            // 
+            // naturalidadeDataGridViewTextBoxColumn
+            // 
+            naturalidadeDataGridViewTextBoxColumn.DataPropertyName = "Naturalidade";
+            naturalidadeDataGridViewTextBoxColumn.HeaderText = "Naturalidade";
+            naturalidadeDataGridViewTextBoxColumn.Name = "naturalidadeDataGridViewTextBoxColumn";
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            dataGridViewTextBoxColumn1.AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+            dataGridViewTextBoxColumn1.DataPropertyName = "Id";
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewTextBoxColumn1.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewTextBoxColumn1.HeaderText = "Id";
+            dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            dataGridViewTextBoxColumn1.Width = 46;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            dataGridViewTextBoxColumn2.DataPropertyName = "Nome";
+            dataGridViewTextBoxColumn2.HeaderText = "Nome";
+            dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            // 
+            // descricaoDataGridViewTextBoxColumn
+            // 
+            descricaoDataGridViewTextBoxColumn.DataPropertyName = "Descricao";
+            descricaoDataGridViewTextBoxColumn.HeaderText = "Descricao";
+            descricaoDataGridViewTextBoxColumn.Name = "descricaoDataGridViewTextBoxColumn";
+            // 
+            // valorDataGridViewTextBoxColumn
+            // 
+            valorDataGridViewTextBoxColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+            valorDataGridViewTextBoxColumn.DataPropertyName = "Valor";
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle4.Format = "C2";
+            dataGridViewCellStyle4.NullValue = null;
+            valorDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle4;
+            valorDataGridViewTextBoxColumn.HeaderText = "Valor";
+            valorDataGridViewTextBoxColumn.Name = "valorDataGridViewTextBoxColumn";
+            valorDataGridViewTextBoxColumn.Width = 67;
+            // 
+            // validadeEmMesesDataGridViewTextBoxColumn
+            // 
+            validadeEmMesesDataGridViewTextBoxColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+            validadeEmMesesDataGridViewTextBoxColumn.DataPropertyName = "ValidadeEmMeses";
+            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            validadeEmMesesDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle5;
+            validadeEmMesesDataGridViewTextBoxColumn.HeaderText = "Validade Em Meses";
+            validadeEmMesesDataGridViewTextBoxColumn.Name = "validadeEmMesesDataGridViewTextBoxColumn";
+            validadeEmMesesDataGridViewTextBoxColumn.Width = 88;
+            // 
             // FormListagem
             // 
             AutoScaleDimensions = new SizeF(7F, 16F);
@@ -1003,10 +1020,6 @@
         private Button button_Editar_Ingrediente;
         private TabPage Poções;
         private DataGridView dataGridView_Ingrediente;
-        private DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn nomeDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn quantidadeDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn naturalidadeDataGridViewTextBoxColumn;
         private Panel panel2;
         private Button button_Filtrar_Receita;
         private TextBox textBox_Id_Receita;
@@ -1050,15 +1063,20 @@
         private DataGridView dataGridView_Receita;
         private DataGridView dataGridView_Pocao;
         private BindingSource pocaoBindingSource;
+        private FirebirdSql.Data.FirebirdClient.FbCommand fbCommand1;
+        private DataGridViewTextBoxColumn dataDeFabricacaoDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn idDataGridViewTextBoxColumn1;
+        private DataGridViewTextBoxColumn Nome;
+        private DataGridViewTextBoxColumn DataDeFabricacao;
+        private DataGridViewCheckBoxColumn vencidoDataGridViewCheckBoxColumn;
+        private DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn nomeDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn quantidadeDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn naturalidadeDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private DataGridViewTextBoxColumn descricaoDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn valorDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn validadeEmMesesDataGridViewTextBoxColumn;
-        private FirebirdSql.Data.FirebirdClient.FbCommand fbCommand1;
-        private DataGridViewTextBoxColumn idDataGridViewTextBoxColumn1;
-        private DataGridViewTextBoxColumn Nome;
-        private DataGridViewTextBoxColumn dataDeFabricacaoDataGridViewTextBoxColumn;
-        private DataGridViewCheckBoxColumn vencidoDataGridViewCheckBoxColumn;
     }
 }

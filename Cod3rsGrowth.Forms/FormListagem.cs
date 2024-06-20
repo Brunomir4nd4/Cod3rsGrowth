@@ -81,9 +81,7 @@ namespace Cod3rsGrowth.Forms
         {
             try
             {
-                var novaTabela = from pocao in _servicoPocao.ObterTodos(filtroPocao)
-                           join receita in _db.receita on pocao.IdReceita equals receita.Id
-                           select new { pocao.Id, receita.Nome, pocao.DataDeFabricacao, pocao.Vencido };
+                var novaTabela = _servicoPocao.ObterTodos(filtroPocao);
 
                 dataGridView_Pocao.DataSource = novaTabela.ToList();
             }
