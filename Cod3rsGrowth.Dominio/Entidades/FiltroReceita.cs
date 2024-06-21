@@ -1,5 +1,4 @@
 ﻿using Cod3rsGrowth.Dominio.Interfaces;
-
 namespace Cod3rsGrowth.Dominio.Entidades
 {
     public class FiltroReceita : IFiltro

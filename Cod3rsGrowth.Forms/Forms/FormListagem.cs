@@ -1,6 +1,5 @@
 ﻿using Cod3rsGrowth.Dominio.Entidades;
 using Cod3rsGrowth.Dominio.Enums;
-using Cod3rsGrowth.Infra.ConexaoBD;
 using Cod3rsGrowth.Servico.Servicos;
 using Microsoft.IdentityModel.Tokens;
 
@@ -11,20 +10,17 @@ namespace Cod3rsGrowth.Forms
         private ServicoIngrediente _servicoIngrediente;
         private ServicoReceita _servicoReceita;
         private ServicoPocao _servicoPocao;
-        private MeuContextoDeDados _db;
         private FiltroIngrediente _filtroIngrediente = new FiltroIngrediente();
         private FiltroReceita _filtroReceita = new FiltroReceita();
         private FiltroPocao _filtroPocao = new FiltroPocao();
         public FormListagem(
             ServicoIngrediente servicoIngrediente,
             ServicoReceita servicoReceita,
-            ServicoPocao servicoPocao,
-            MeuContextoDeDados db
+            ServicoPocao servicoPocao
             )
         {
             InitializeComponent();
 
-            _db = db;
             _servicoIngrediente = servicoIngrediente;
             _servicoReceita = servicoReceita;
             _servicoPocao = servicoPocao;
@@ -52,7 +48,7 @@ namespace Cod3rsGrowth.Forms
             CarregarDadosPocao(ObterFiltroPocao());
         }
 
-        private void CarregarDadosIngrediente(FiltroIngrediente filtroIngrediente)
+        public void CarregarDadosIngrediente(FiltroIngrediente filtroIngrediente)
         {
             try
             {
@@ -269,6 +265,20 @@ namespace Cod3rsGrowth.Forms
             }
 
             return filtroPocao;
+        }
+
+        private void AoClicarAbrirFormCriarIngrediente(object sender, EventArgs e)
+        {
+            var formCriarIngrediente = new FormCriarIngrediente(_servicoIngrediente);
+            formCriarIngrediente.ShowDialog();
+            CarregarDadosIngrediente(_filtroIngrediente);
+        }
+
+        private void AoClicarAbrirFormCriarReceita(object sender, EventArgs e)
+        {
+            var formCriarReceita = new FormCriarReceita(_servicoReceita, _servicoIngrediente);
+            formCriarReceita.ShowDialog();
+            CarregarDadosReceita(_filtroReceita);
         }
     }
 }

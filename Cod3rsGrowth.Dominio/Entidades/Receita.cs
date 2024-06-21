@@ -14,7 +14,7 @@ namespace Cod3rsGrowth.Dominio.Entidades
         [Column("Valor")]
         public decimal Valor { get; set; }
         [Column("Imagem")]
-        public string Imagem { get; set; }
+        public string? Imagem { get; set; }
         [Column("ValidadeEmMeses")]
         public int ValidadeEmMeses { get; set; }
         public List<Ingrediente> ListaDeIngredientes { get; set; }

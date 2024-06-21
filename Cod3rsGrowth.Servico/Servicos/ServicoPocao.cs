@@ -16,7 +16,7 @@ namespace Cod3rsGrowth.Servico.Servicos
         {
             return _repositorioPocao.ObterTodos(filtroPocao);
         }
-        public Pocao ObterPorId(int id)
+        public FiltroPocao ObterPorId(int? id)
         {
             return _repositorioPocao.ObterPorId(id);
         }
@@ -38,7 +38,7 @@ namespace Cod3rsGrowth.Servico.Servicos
 
             _repositorioPocao.Criar(Receita);
         }
-        public void RemoverPocao(int intPocaoSelecionada)
+        public void RemoverPocao(int? intPocaoSelecionada)
         {
             _repositorioPocao.Remover(intPocaoSelecionada);
         }

@@ -16,8 +16,7 @@ namespace Cod3rsGrowth.Infra.Repositorios
 
         public List<Receita> ObterTodos(FiltroReceita receita)
         {
-            var query = Filtrar(receita);
-            return query;
+            return Filtrar(receita);
         }
 
         public Receita ObterPorId(int idProcurado)
@@ -32,10 +31,11 @@ namespace Cod3rsGrowth.Infra.Repositorios
             return resultado;
         }
 
-        public void Criar(Receita novaReceita)
+        public void Criar(Receita receita)
         {
-            _db.Insert(novaReceita);
+            _db.Insert(receita);
         }
+
         public Receita Editar(Receita receitaEditada)
         {
             var receitaAtualizada = ObterPorId(receitaEditada.Id);
