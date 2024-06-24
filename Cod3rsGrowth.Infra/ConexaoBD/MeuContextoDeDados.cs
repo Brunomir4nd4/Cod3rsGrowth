@@ -12,5 +12,6 @@ namespace Cod3rsGrowth.Infra.ConexaoBD
         public ITable<Pocao> pocao => this.GetTable<Pocao>();
         public ITable<Receita> receita => this.GetTable<Receita>();
         public ITable<Ingrediente> ingrediente => this.GetTable<Ingrediente>();
+        public ITable<ReceitaIngrediente> receitaIngrediente => this.GetTable<ReceitaIngrediente>();
     }
 }

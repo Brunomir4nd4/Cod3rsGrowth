@@ -17,6 +17,6 @@ namespace Cod3rsGrowth.Dominio.Entidades
         public string? Imagem { get; set; }
         [Column("ValidadeEmMeses")]
         public int ValidadeEmMeses { get; set; }
-        public List<Ingrediente> ListaDeIngredientes { get; set; }
+        public List<int> ListaIdIngrediente { get; set; }
     }
 }

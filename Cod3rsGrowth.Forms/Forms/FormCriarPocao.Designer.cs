@@ -28,74 +28,146 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             button_Cancelar = new Button();
             button_Salvar = new Button();
             label1 = new Label();
-            label_Nome = new Label();
-            textBox_Nome = new TextBox();
+            dataGridView1 = new DataGridView();
+            Nome = new DataGridViewTextBoxColumn();
+            Chack = new DataGridViewCheckBoxColumn();
+            ingredienteBindingSource = new BindingSource(components);
+            label6 = new Label();
+            idDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            nomeDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            quantidadeDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            naturalidadeDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)ingredienteBindingSource).BeginInit();
             SuspendLayout();
             // 
             // button_Cancelar
             // 
+            button_Cancelar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             button_Cancelar.Cursor = Cursors.Hand;
-            button_Cancelar.Location = new Point(314, 334);
+            button_Cancelar.Location = new Point(314, 382);
             button_Cancelar.Name = "button_Cancelar";
-            button_Cancelar.Size = new Size(73, 26);
+            button_Cancelar.Size = new Size(73, 28);
             button_Cancelar.TabIndex = 20;
             button_Cancelar.Text = "Cancelar";
             button_Cancelar.UseVisualStyleBackColor = true;
+            button_Cancelar.Click += AoClicarFecharForms;
             // 
             // button_Salvar
             // 
             button_Salvar.Cursor = Cursors.Hand;
-            button_Salvar.Location = new Point(12, 334);
+            button_Salvar.Location = new Point(12, 382);
             button_Salvar.Name = "button_Salvar";
-            button_Salvar.Size = new Size(120, 26);
+            button_Salvar.Size = new Size(73, 28);
             button_Salvar.TabIndex = 19;
-            button_Salvar.Text = "Salvar Criação";
+            button_Salvar.Text = "Salvar";
             button_Salvar.UseVisualStyleBackColor = true;
+            button_Salvar.Click += AoClicarSlavarCriacaoPocao;
             // 
             // label1
             // 
+            label1.Anchor = AnchorStyles.Top;
             label1.AutoSize = true;
             label1.Font = new Font("JetBrains Mono", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
-            label1.Location = new Point(47, 19);
+            label1.Location = new Point(90, 18);
             label1.Name = "label1";
-            label1.Size = new Size(298, 27);
+            label1.Size = new Size(220, 27);
             label1.TabIndex = 18;
-            label1.Text = "Criação do Ingrediente";
+            label1.Text = "Criação da Poção";
             // 
-            // label_Nome
+            // dataGridView1
             // 
-            label_Nome.AutoSize = true;
-            label_Nome.Font = new Font("JetBrains Mono", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            label_Nome.Location = new Point(12, 67);
-            label_Nome.Name = "label_Nome";
-            label_Nome.Size = new Size(45, 19);
-            label_Nome.TabIndex = 14;
-            label_Nome.Text = "Nome";
+            dataGridView1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            dataGridView1.AutoGenerateColumns = false;
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridView1.BackgroundColor = Color.AliceBlue;
+            dataGridView1.BorderStyle = BorderStyle.None;
+            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { Nome, Chack, idDataGridViewTextBoxColumn, nomeDataGridViewTextBoxColumn, quantidadeDataGridViewTextBoxColumn, naturalidadeDataGridViewTextBoxColumn });
+            dataGridView1.DataSource = ingredienteBindingSource;
+            dataGridView1.Location = new Point(12, 102);
+            dataGridView1.Name = "dataGridView1";
+            dataGridView1.RowTemplate.Height = 25;
+            dataGridView1.Size = new Size(375, 247);
+            dataGridView1.TabIndex = 39;
             // 
-            // textBox_Nome
+            // Nome
             // 
-            textBox_Nome.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            textBox_Nome.Location = new Point(12, 89);
-            textBox_Nome.Name = "textBox_Nome";
-            textBox_Nome.Size = new Size(375, 23);
-            textBox_Nome.TabIndex = 21;
+            Nome.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            Nome.DataPropertyName = "Nome";
+            Nome.HeaderText = "Nome";
+            Nome.Name = "Nome";
+            // 
+            // Chack
+            // 
+            Chack.AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+            Chack.HeaderText = "Chack";
+            Chack.Name = "Chack";
+            Chack.Resizable = DataGridViewTriState.True;
+            Chack.SortMode = DataGridViewColumnSortMode.Automatic;
+            Chack.Width = 67;
+            // 
+            // ingredienteBindingSource
+            // 
+            ingredienteBindingSource.DataSource = typeof(Dominio.Entidades.Ingrediente);
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Font = new Font("JetBrains Mono", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            label6.Location = new Point(12, 69);
+            label6.Name = "label6";
+            label6.Size = new Size(117, 19);
+            label6.TabIndex = 38;
+            label6.Text = "Ingredientes";
+            // 
+            // idDataGridViewTextBoxColumn
+            // 
+            idDataGridViewTextBoxColumn.DataPropertyName = "Id";
+            idDataGridViewTextBoxColumn.HeaderText = "Id";
+            idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
+            // 
+            // nomeDataGridViewTextBoxColumn
+            // 
+            nomeDataGridViewTextBoxColumn.DataPropertyName = "Nome";
+            nomeDataGridViewTextBoxColumn.HeaderText = "Nome";
+            nomeDataGridViewTextBoxColumn.Name = "nomeDataGridViewTextBoxColumn";
+            // 
+            // quantidadeDataGridViewTextBoxColumn
+            // 
+            quantidadeDataGridViewTextBoxColumn.DataPropertyName = "Quantidade";
+            quantidadeDataGridViewTextBoxColumn.HeaderText = "Quantidade";
+            quantidadeDataGridViewTextBoxColumn.Name = "quantidadeDataGridViewTextBoxColumn";
+            // 
+            // naturalidadeDataGridViewTextBoxColumn
+            // 
+            naturalidadeDataGridViewTextBoxColumn.DataPropertyName = "Naturalidade";
+            naturalidadeDataGridViewTextBoxColumn.HeaderText = "Naturalidade";
+            naturalidadeDataGridViewTextBoxColumn.Name = "naturalidadeDataGridViewTextBoxColumn";
             // 
             // FormCriarPocao
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(7F, 16F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.AliceBlue;
-            ClientSize = new Size(399, 413);
-            Controls.Add(textBox_Nome);
+            ClientSize = new Size(399, 441);
+            Controls.Add(dataGridView1);
+            Controls.Add(label6);
             Controls.Add(button_Cancelar);
             Controls.Add(button_Salvar);
             Controls.Add(label1);
-            Controls.Add(label_Nome);
+            Font = new Font("JetBrains Mono", 8.999999F, FontStyle.Regular, GraphicsUnit.Point);
+            FormBorderStyle = FormBorderStyle.FixedDialog;
             Name = "FormCriarPocao";
-            Text = "FormCriarPocao";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Criar Pocao";
+            Load += FormCriarPocao_Load;
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)ingredienteBindingSource).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -105,7 +177,14 @@
         private Button button_Cancelar;
         private Button button_Salvar;
         private Label label1;
-        private Label label_Nome;
-        private TextBox textBox_Nome;
+        private DataGridView dataGridView1;
+        private BindingSource ingredienteBindingSource;
+        private Label label6;
+        private DataGridViewTextBoxColumn Nome;
+        private DataGridViewCheckBoxColumn Chack;
+        private DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn nomeDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn quantidadeDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn naturalidadeDataGridViewTextBoxColumn;
     }
 }

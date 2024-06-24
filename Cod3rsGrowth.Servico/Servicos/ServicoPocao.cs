@@ -33,10 +33,12 @@ namespace Cod3rsGrowth.Servico.Servicos
 
             List<Receita> receitasCadastradas = _repositorioReceita.ObterTodos(new FiltroReceita());
 
-            Receita Receita = receitasCadastradas.FirstOrDefault(receita => receita.ListaDeIngredientes.SequenceEqual(ingredientesSelecionados))
+            var listaIdIngrediente = ingredientesSelecionados.Select(i => i.Id);
+
+            Receita receita = receitasCadastradas.FirstOrDefault(receita => receita.ListaIdIngrediente.SequenceEqual(listaIdIngrediente))
                 ?? throw new Exception("Impossível criar uma poção com os ingredientes selecionados!");
 
-            _repositorioPocao.Criar(Receita);
+            _repositorioPocao.Criar(receita);
         }
         public void RemoverPocao(int? intPocaoSelecionada)
         {

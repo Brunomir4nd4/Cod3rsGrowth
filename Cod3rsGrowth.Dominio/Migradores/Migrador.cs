@@ -2,7 +2,7 @@
 
 namespace Cod3rsGrowth.Dominio.Migradores
 {
-    [Migration(20240611131000)]
+    [Migration(20240624091100)]
     public class Migrador : Migration
     {
         public override void Up()
@@ -27,9 +27,22 @@ namespace Cod3rsGrowth.Dominio.Migradores
                 .WithColumn("Vencido").AsBoolean().NotNullable()
                 .WithColumn("DataDeFabricacao").AsDateTime().NotNullable();
 
-            Create.ForeignKey("fk_IdReceita")
+            Create.Table("ReceitaIngrediente")
+                .WithColumn("Id").AsInt32().PrimaryKey().Identity()
+                .WithColumn("IdReceita").AsInt32().ForeignKey().NotNullable()
+                .WithColumn("IdIngrediente").AsInt32().ForeignKey().NotNullable();
+
+            Create.ForeignKey("fk_IdReceita_Para_Pocao")
             .FromTable("Pocao").ForeignColumn("IdReceita")
             .ToTable("Receita").PrimaryColumn("Id");
+            
+            Create.ForeignKey("fk_IdReceita_Para_ReceitaIngrediente")
+            .FromTable("ReceitaIngrediente").ForeignColumn("IdReceita")
+            .ToTable("Receita").PrimaryColumn("Id");
+            
+            Create.ForeignKey("fk_IdIngrediente_Para_ReceitaIngrediente")
+            .FromTable("ReceitaIngrediente").ForeignColumn("IdIngrediente")
+            .ToTable("Ingrediente").PrimaryColumn("Id");
         }
 
         public override void Down()

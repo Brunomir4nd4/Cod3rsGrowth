@@ -111,9 +111,9 @@
             button_Salvar.Cursor = Cursors.Hand;
             button_Salvar.Location = new Point(12, 350);
             button_Salvar.Name = "button_Salvar";
-            button_Salvar.Size = new Size(120, 26);
+            button_Salvar.Size = new Size(73, 26);
             button_Salvar.TabIndex = 10;
-            button_Salvar.Text = "Salvar Criação";
+            button_Salvar.Text = "Salvar";
             button_Salvar.UseVisualStyleBackColor = true;
             button_Salvar.Click += AoClicarSalvarCriacao;
             // 
@@ -126,7 +126,7 @@
             button_Cancelar.TabIndex = 11;
             button_Cancelar.Text = "Cancelar";
             button_Cancelar.UseVisualStyleBackColor = true;
-            button_Cancelar.Click += button_Cancelar_Click;
+            button_Cancelar.Click += AoClicarFcharForms;
             // 
             // FormCriarIngrediente
             // 

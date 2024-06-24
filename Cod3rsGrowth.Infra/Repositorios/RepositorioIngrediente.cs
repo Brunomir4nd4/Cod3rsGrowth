@@ -16,8 +16,7 @@ namespace Cod3rsGrowth.Infra.Repositorios
 
         public List<Ingrediente> ObterTodos(FiltroIngrediente ingrediente)
         {
-            var query = Filtrar(ingrediente);
-            return query;
+            return Filtrar(ingrediente);
         }
 
         public Ingrediente ObterPorId(int idProcurado)

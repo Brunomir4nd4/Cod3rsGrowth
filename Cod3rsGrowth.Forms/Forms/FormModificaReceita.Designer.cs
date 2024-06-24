@@ -1,6 +1,6 @@
 ﻿namespace Cod3rsGrowth.Forms
 {
-    partial class FormCriarReceita
+    partial class FormModificaReceita
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            label1 = new Label();
+            label_Titulo = new Label();
             label2 = new Label();
             label3 = new Label();
             label4 = new Label();
@@ -49,15 +49,14 @@
             ((System.ComponentModel.ISupportInitialize)ingredienteBindingSource).BeginInit();
             SuspendLayout();
             // 
-            // label1
+            // label_Titulo
             // 
-            label1.AutoSize = true;
-            label1.Font = new Font("JetBrains Mono", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
-            label1.Location = new Point(73, 19);
-            label1.Name = "label1";
-            label1.Size = new Size(246, 27);
-            label1.TabIndex = 19;
-            label1.Text = "Criação da Receita";
+            label_Titulo.AutoSize = true;
+            label_Titulo.Font = new Font("JetBrains Mono", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
+            label_Titulo.Location = new Point(73, 19);
+            label_Titulo.Name = "label_Titulo";
+            label_Titulo.Size = new Size(0, 27);
+            label_Titulo.TabIndex = 19;
             // 
             // label2
             // 
@@ -146,9 +145,9 @@
             button_Salvar.Cursor = Cursors.Hand;
             button_Salvar.Location = new Point(12, 561);
             button_Salvar.Name = "button_Salvar";
-            button_Salvar.Size = new Size(117, 23);
+            button_Salvar.Size = new Size(75, 23);
             button_Salvar.TabIndex = 35;
-            button_Salvar.Text = "Salvar Criação";
+            button_Salvar.Text = "Salvar";
             button_Salvar.UseVisualStyleBackColor = true;
             button_Salvar.Click += AoClicarSalvarCriacaoReceita;
             // 
@@ -199,7 +198,7 @@
             // 
             ingredienteBindingSource.DataSource = typeof(Dominio.Entidades.Ingrediente);
             // 
-            // FormCriarReceita
+            // FormModificaReceita
             // 
             AutoScaleDimensions = new SizeF(7F, 16F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -217,13 +216,12 @@
             Controls.Add(label4);
             Controls.Add(label3);
             Controls.Add(label2);
-            Controls.Add(label1);
+            Controls.Add(label_Titulo);
             Font = new Font("JetBrains Mono", 8.999999F, FontStyle.Regular, GraphicsUnit.Point);
             FormBorderStyle = FormBorderStyle.FixedDialog;
-            Name = "FormCriarReceita";
+            Name = "FormModificaReceita";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Criar Receita";
-            Load += FormCriarReceita_Load;
+            Load += FormModificaReceita_Load;
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ((System.ComponentModel.ISupportInitialize)ingredienteBindingSource).EndInit();
             ResumeLayout(false);
@@ -232,7 +230,7 @@
 
         #endregion
 
-        private Label label1;
+        private Label label_Titulo;
         private Label label2;
         private Label label3;
         private Label label4;

@@ -10,13 +10,15 @@ namespace Cod3rsGrowth.Forms
         private ServicoIngrediente _servicoIngrediente;
         private ServicoReceita _servicoReceita;
         private ServicoPocao _servicoPocao;
+        private ServicoReceitaIngrediente _servicoReceitaIngrediente;
         private FiltroIngrediente _filtroIngrediente = new FiltroIngrediente();
         private FiltroReceita _filtroReceita = new FiltroReceita();
         private FiltroPocao _filtroPocao = new FiltroPocao();
         public FormListagem(
             ServicoIngrediente servicoIngrediente,
             ServicoReceita servicoReceita,
-            ServicoPocao servicoPocao
+            ServicoPocao servicoPocao,
+            ServicoReceitaIngrediente servicoReceitaIngrediente
             )
         {
             InitializeComponent();
@@ -24,11 +26,11 @@ namespace Cod3rsGrowth.Forms
             _servicoIngrediente = servicoIngrediente;
             _servicoReceita = servicoReceita;
             _servicoPocao = servicoPocao;
+            _servicoReceitaIngrediente = servicoReceitaIngrediente;
         }
 
         private void FormListagem_Load(object sender, EventArgs e)
         {
-            comboBox_Naturalidade_Ingrediente.Text = "";
             CarregarDadosIngrediente(_filtroIngrediente);
             CarregarDadosReceita(_filtroReceita);
             CarregarDadosPocao(_filtroPocao);
@@ -48,11 +50,34 @@ namespace Cod3rsGrowth.Forms
             CarregarDadosPocao(ObterFiltroPocao());
         }
 
+        private void AoClicarAbrirFormCriarIngrediente(object sender, EventArgs e)
+        {
+            var formCriarIngrediente = new FormCriarIngrediente(_servicoIngrediente);
+            formCriarIngrediente.ShowDialog();
+            CarregarDadosIngrediente(_filtroIngrediente);
+        }
+
+        private void AoClicarAbrirFormModificaReceita(object sender, EventArgs e)
+        {
+            var formModificaReceita = new FormModificaReceita(_servicoReceita, _servicoIngrediente, _servicoReceitaIngrediente);
+            formModificaReceita.InsereTituloCriar();
+            formModificaReceita.ShowDialog();
+            CarregarDadosReceita(_filtroReceita);
+        }
+
+        private void AoClicarAbrirFromsCriarPocao(object sender, EventArgs e)
+        {
+            var formCriarPocao = new FormCriarPocao(_servicoPocao, _servicoIngrediente);
+            formCriarPocao.ShowDialog();
+            CarregarDadosPocao(_filtroPocao);
+        }
+
         public void CarregarDadosIngrediente(FiltroIngrediente filtroIngrediente)
         {
             try
             {
                 dataGridView_Ingrediente.DataSource = _servicoIngrediente.ObterTodos(filtroIngrediente);
+                comboBox_Naturalidade_Ingrediente.Text = "";
             }
             catch (Exception ex)
             {
@@ -266,19 +291,6 @@ namespace Cod3rsGrowth.Forms
 
             return filtroPocao;
         }
-
-        private void AoClicarAbrirFormCriarIngrediente(object sender, EventArgs e)
-        {
-            var formCriarIngrediente = new FormCriarIngrediente(_servicoIngrediente);
-            formCriarIngrediente.ShowDialog();
-            CarregarDadosIngrediente(_filtroIngrediente);
-        }
-
-        private void AoClicarAbrirFormCriarReceita(object sender, EventArgs e)
-        {
-            var formCriarReceita = new FormCriarReceita(_servicoReceita, _servicoIngrediente);
-            formCriarReceita.ShowDialog();
-            CarregarDadosReceita(_filtroReceita);
-        }
     }
 }
+

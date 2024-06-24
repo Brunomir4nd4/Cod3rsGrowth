@@ -73,10 +73,11 @@ namespace Cod3rsGrowth.Teste
                 _servicoIngrediente.CriarIngrediente(ingrediente);
             }
 
-
             int quantidadeDeIngredientes1 = 4, quantidadeDeIngredientes2 = 3;
             var listaIngredientesParaCura = listaIngredientes.Take(quantidadeDeIngredientes1).ToList();
             var listaIngredientesParaForca = listaIngredientes.Take(quantidadeDeIngredientes2).ToList();
+            List<int> listaIdIngredientesParaCura = new List<int> { 0, 1, 2, 3 };
+            List<int> listaIdIngredientesParaForca = new List<int> { 0, 1, 2 };
 
             List<Receita> listaReceitaMock = new List<Receita>()
             {
@@ -87,7 +88,7 @@ namespace Cod3rsGrowth.Teste
                     Imagem = "caminho da imagem",
                     Valor = 20.00m,
                     ValidadeEmMeses = 4,
-                    ListaDeIngredientes = listaIngredientesParaCura
+                    ListaIdIngrediente = listaIdIngredientesParaCura
                 },
 
                 new()
@@ -97,7 +98,7 @@ namespace Cod3rsGrowth.Teste
                     Imagem = "caminho da imagem",
                     Valor = 15.00m,
                     ValidadeEmMeses = 4,
-                    ListaDeIngredientes = listaIngredientesParaForca
+                    ListaIdIngrediente = listaIdIngredientesParaForca
                 }
             };
 

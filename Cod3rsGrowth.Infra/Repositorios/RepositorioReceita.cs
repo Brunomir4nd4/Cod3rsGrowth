@@ -31,9 +31,9 @@ namespace Cod3rsGrowth.Infra.Repositorios
             return resultado;
         }
 
-        public void Criar(Receita receita)
+        public int Criar(Receita receita)
         {
-            _db.Insert(receita);
+            _db.InsertWithInt32Identity(receita);
         }
 
         public Receita Editar(Receita receitaEditada)
@@ -45,7 +45,7 @@ namespace Cod3rsGrowth.Infra.Repositorios
             receitaAtualizada.Valor = receitaEditada.Valor;
             receitaAtualizada.Imagem = receitaEditada.Imagem;
             receitaAtualizada.ValidadeEmMeses = receitaEditada.ValidadeEmMeses;
-            receitaAtualizada.ListaDeIngredientes = receitaEditada.ListaDeIngredientes;
+            receitaAtualizada.ListaIdIngrediente = receitaEditada.ListaIdIngrediente;
 
             _db.Update(receitaAtualizada);
             return receitaAtualizada;

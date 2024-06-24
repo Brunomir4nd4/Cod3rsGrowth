@@ -1,26 +1,29 @@
 ﻿using Cod3rsGrowth.Dominio.Entidades;
 using Cod3rsGrowth.Servico.Servicos;
-using System.Text.Json;
 
 namespace Cod3rsGrowth.Forms
 {
-    public partial class FormCriarReceita : Form
+    public partial class FormModificaReceita : Form
     {
         private ServicoReceita _servicoReceita;
         private ServicoIngrediente _servicoIngrediente;
+        private ServicoReceitaIngrediente _servicoReceitaIngrediente;
         private FiltroIngrediente _filtroIngrediente = new FiltroIngrediente();
-        public FormCriarReceita(
+        private FiltroReceita _filtroReceita = new FiltroReceita();
+        public FormModificaReceita(
             ServicoReceita servicoReceita,
-            ServicoIngrediente servicoIngrediente
+            ServicoIngrediente servicoIngrediente,
+            ServicoReceitaIngrediente servicoReceitaIngrediente
             )
         {
             _servicoReceita = servicoReceita;
             _servicoIngrediente = servicoIngrediente;
+            _servicoReceitaIngrediente = servicoReceitaIngrediente;
 
             InitializeComponent();
         }
 
-        private void FormCriarReceita_Load(object sender, EventArgs e)
+        private void FormModificaReceita_Load(object sender, EventArgs e)
         {
             CarregarDadosIngrediente();
         }
@@ -35,14 +38,16 @@ namespace Cod3rsGrowth.Forms
             Receita receita = new Receita();
             try
             {
-                receita.ListaDeIngredientes = ObterListaDeIngredientesSelecionados();
                 receita.Nome = textBox_Nome.Text;
                 receita.Descricao = richTextBox_Descricao.Text;
                 receita.Valor = Decimal.Parse(textBox_Valor.Text);
                 receita.ValidadeEmMeses = Int32.Parse(textBox_Validade.Text);
                 receita.Imagem = "Caminho/da/imagem";
+                receita.ListaIdIngrediente = ObterListaIdIngredientesSelecionados();
+
 
                 _servicoReceita.CriarReceita(receita);
+
                 MessageBox.Show("Ingrediente Criado com sucesso!", "Sucesso!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 Close();
             }
@@ -68,9 +73,9 @@ namespace Cod3rsGrowth.Forms
             }
         }
 
-        private List<Ingrediente> ObterListaDeIngredientesSelecionados()
+        private List<int> ObterListaIdIngredientesSelecionados()
         {
-            List<Ingrediente> listaIngrediente = new List<Ingrediente>();
+            List<int> listaDeIdIngrediente = new List<int>();
             int indexChack = 1, indexNome = 0;
             foreach (DataGridViewRow row in dataGridView1.Rows)
             {
@@ -80,10 +85,15 @@ namespace Cod3rsGrowth.Forms
                     var ingrediente = _servicoIngrediente.ObterTodos(_filtroIngrediente).First(i
                         => i.Nome == row.Cells[indexNome].Value.ToString());
 
-                    listaIngrediente.Add(ingrediente);
+                    listaDeIdIngrediente.Add(ingrediente.Id);
                 }
             }
-            return listaIngrediente;
+            return listaDeIdIngrediente;
+        }
+
+        public void InsereTituloCriar()
+        {
+            label_Titulo.Text = "Criação da Receita";
         }
     }
 }

@@ -7,7 +7,6 @@ namespace Cod3rsGrowth.Forms
     public partial class FormCriarIngrediente : Form
     {
         private ServicoIngrediente _servicoIngrediente;
-        //private FormListagem _formListagem;
         public FormCriarIngrediente(ServicoIngrediente servicoIngrediente)
         {
             InitializeComponent();
@@ -40,7 +39,7 @@ namespace Cod3rsGrowth.Forms
         {
         }
 
-        private void button_Cancelar_Click(object sender, EventArgs e)
+        private void AoClicarFcharForms(object sender, EventArgs e)
         {
             Close();
         }

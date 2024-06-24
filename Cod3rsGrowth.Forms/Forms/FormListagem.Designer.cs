@@ -113,6 +113,7 @@
             label11 = new Label();
             textBox_Nome_Pocao = new TextBox();
             label12 = new Label();
+            receitaIngredienteBindingSource = new BindingSource(components);
             fbCommand1 = new FirebirdSql.Data.FirebirdClient.FbCommand();
             fbCommand2 = new FirebirdSql.Data.FirebirdClient.FbCommand();
             tabControl.SuspendLayout();
@@ -131,6 +132,7 @@
             ((System.ComponentModel.ISupportInitialize)pocaoBindingSource).BeginInit();
             panel5.SuspendLayout();
             panel4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)receitaIngredienteBindingSource).BeginInit();
             SuspendLayout();
             // 
             // tabControl
@@ -385,10 +387,10 @@
             Receitas.Controls.Add(panel3);
             Receitas.Controls.Add(panel2);
             Receitas.Font = new Font("JetBrains Mono", 8.999999F, FontStyle.Regular, GraphicsUnit.Point);
-            Receitas.Location = new Point(4, 24);
+            Receitas.Location = new Point(4, 25);
             Receitas.Name = "Receitas";
             Receitas.Padding = new Padding(3);
-            Receitas.Size = new Size(854, 528);
+            Receitas.Size = new Size(854, 527);
             Receitas.TabIndex = 1;
             Receitas.Text = "Receitas";
             Receitas.UseVisualStyleBackColor = true;
@@ -405,7 +407,7 @@
             dataGridView_Receita.Location = new Point(3, 82);
             dataGridView_Receita.Name = "dataGridView_Receita";
             dataGridView_Receita.RowTemplate.Height = 25;
-            dataGridView_Receita.Size = new Size(848, 367);
+            dataGridView_Receita.Size = new Size(848, 387);
             dataGridView_Receita.TabIndex = 26;
             // 
             // dataGridViewTextBoxColumn1
@@ -465,7 +467,7 @@
             panel3.Controls.Add(button3);
             panel3.Controls.Add(button4);
             panel3.Dock = DockStyle.Bottom;
-            panel3.Location = new Point(3, 478);
+            panel3.Location = new Point(3, 477);
             panel3.Name = "panel3";
             panel3.Size = new Size(848, 47);
             panel3.TabIndex = 25;
@@ -480,7 +482,7 @@
             button_Adicionar_Receita.TabIndex = 5;
             button_Adicionar_Receita.Text = "Adicionar";
             button_Adicionar_Receita.UseVisualStyleBackColor = true;
-            button_Adicionar_Receita.Click += AoClicarAbrirFormCriarReceita;
+            button_Adicionar_Receita.Click += AoClicarAbrirFormModificaReceita;
             // 
             // button_Remover_Receita
             // 
@@ -685,7 +687,7 @@
             dataGridView_Pocao.Location = new Point(0, 79);
             dataGridView_Pocao.Name = "dataGridView_Pocao";
             dataGridView_Pocao.RowTemplate.Height = 25;
-            dataGridView_Pocao.Size = new Size(851, 354);
+            dataGridView_Pocao.Size = new Size(851, 388);
             dataGridView_Pocao.TabIndex = 27;
             // 
             // idDataGridViewTextBoxColumn1
@@ -751,6 +753,7 @@
             button_Adicionar_Pocao.TabIndex = 8;
             button_Adicionar_Pocao.Text = "Adicionar";
             button_Adicionar_Pocao.UseVisualStyleBackColor = true;
+            button_Adicionar_Pocao.Click += AoClicarAbrirFromsCriarPocao;
             // 
             // button_Remover_Pocao
             // 
@@ -966,6 +969,10 @@
             label12.TabIndex = 26;
             label12.Text = "Id";
             // 
+            // receitaIngredienteBindingSource
+            // 
+            receitaIngredienteBindingSource.DataSource = typeof(Dominio.Entidades.ReceitaIngrediente);
+            // 
             // FormListagem
             // 
             AutoScaleDimensions = new SizeF(7F, 16F);
@@ -997,6 +1004,7 @@
             panel5.ResumeLayout(false);
             panel4.ResumeLayout(false);
             panel4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)receitaIngredienteBindingSource).EndInit();
             ResumeLayout(false);
         }
 
@@ -1082,5 +1090,6 @@
         private DataGridViewTextBoxColumn valorDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn validadeEmMesesDataGridViewTextBoxColumn;
         private FirebirdSql.Data.FirebirdClient.FbCommand fbCommand2;
+        private BindingSource receitaIngredienteBindingSource;
     }
 }

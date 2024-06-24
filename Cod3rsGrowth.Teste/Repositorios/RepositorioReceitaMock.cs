@@ -34,7 +34,7 @@ namespace Cod3rsGrowth.Teste.Repositorios
             receitaDoBanco.ValidadeEmMeses = receitaEditada.ValidadeEmMeses;
             receitaDoBanco.Valor = receitaEditada.Valor;
             receitaDoBanco.Imagem = receitaEditada.Imagem;
-            receitaDoBanco.ListaDeIngredientes = receitaEditada.ListaDeIngredientes;
+            receitaDoBanco.ListaIdIngrediente = receitaEditada.ListaIdIngrediente;
 
             return receitaDoBanco;
         }
