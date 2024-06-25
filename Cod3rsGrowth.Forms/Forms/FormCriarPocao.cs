@@ -18,7 +18,7 @@ namespace Cod3rsGrowth.Forms
         }
         private void FormCriarPocao_Load(object sender, EventArgs e)
         {
-            dataGridView1.DataSource = _servicoIngrediente.ObterTodos(_filtroIngrediente);
+            CarregarDados();
         }
 
         private void AoClicarSlavarCriacaoPocao(object sender, EventArgs e)
@@ -33,6 +33,11 @@ namespace Cod3rsGrowth.Forms
             {
                 MessageBox.Show($"ERRO: {ex.Message}", "ERROR!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void CarregarDados()
+        {
+            dataGridView1.DataSource = _servicoIngrediente.ObterTodos(_filtroIngrediente);
         }
 
         private void AoClicarFecharForms(object sender, EventArgs e)

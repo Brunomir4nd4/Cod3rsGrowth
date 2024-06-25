@@ -49,24 +49,45 @@ namespace Cod3rsGrowth.Forms
 
         private void AoClicarAbrirFormCriarIngrediente(object sender, EventArgs e)
         {
-            var formCriarIngrediente = new FormCriarIngrediente(_servicoIngrediente);
-            formCriarIngrediente.ShowDialog();
-            CarregarDadosIngrediente(_filtroIngrediente);
+            try
+            {
+                var formCriarIngrediente = new FormCriarIngrediente(_servicoIngrediente);
+                formCriarIngrediente.ShowDialog();
+                CarregarDadosIngrediente(_filtroIngrediente);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Não foi possível obter [formCriarIngrediente] ERRO: {ex.Message}");
+            }
         }
 
         private void AoClicarAbrirFormModificaReceita(object sender, EventArgs e)
         {
-            var formModificaReceita = new FormModificaReceita(_servicoReceita, _servicoIngrediente);
-            formModificaReceita.InsereTituloCriar();
-            formModificaReceita.ShowDialog();
-            CarregarDadosReceita(_filtroReceita);
+            try
+            {
+                var formModificaReceita = new FormModificaReceita(_servicoReceita, _servicoIngrediente);
+                formModificaReceita.InsereTituloCriar();
+                formModificaReceita.ShowDialog();
+                CarregarDadosReceita(_filtroReceita);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Não foi possível obter [formModificaReceita] ERRO: {ex.Message}");
+            }
         }
 
         private void AoClicarAbrirFromsCriarPocao(object sender, EventArgs e)
         {
-            var formCriarPocao = new FormCriarPocao(_servicoPocao, _servicoIngrediente);
-            formCriarPocao.ShowDialog();
-            CarregarDadosPocao(_filtroPocao);
+            try
+            {
+                var formCriarPocao = new FormCriarPocao(_servicoPocao, _servicoIngrediente);
+                formCriarPocao.ShowDialog();
+                CarregarDadosPocao(_filtroPocao);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Não foi possível obter [formCriarPocao] ERRO: {ex.Message}");
+            }
         }
 
         public void CarregarDadosIngrediente(FiltroIngrediente filtroIngrediente)

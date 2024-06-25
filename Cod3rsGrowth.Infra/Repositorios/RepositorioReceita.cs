@@ -21,9 +21,7 @@ namespace Cod3rsGrowth.Infra.Repositorios
         {
             var receitasFiltradas = Filtrar(receita);
             var listaReceitaIngrediente = _servicoReceitaIngrediente.ObterTodos();
-            //Pecorrer a lista de receitas OK
-            //Procura os igredientes de usando o id da receita
-            //Adicionar os igredientes a receita
+
             receitasFiltradas.ForEach(receita =>
             {
                 receita.ListaIdIngrediente = listaReceitaIngrediente
@@ -31,19 +29,6 @@ namespace Cod3rsGrowth.Infra.Repositorios
                     .Select(ri => ri.IdIngredinete)
                     .ToList();
             });
-
-            /*for (int i = 0; i < receitasFiltradas.Count; i++)
-            {
-                var listaId = new List<int>();
-                for (int j = 0; j < listaReceitaIngrediente.Count; j++)
-                {
-                    if (listaReceitaIngrediente[j].IdReceita == receitasFiltradas[i].Id)
-                    {
-                        listaId.Add(listaReceitaIngrediente[j].IdIngredinete);
-                    }
-                }
-                receitasFiltradas[i].ListaIdIngrediente = listaId;
-            }*/
             return receitasFiltradas;
         }
 

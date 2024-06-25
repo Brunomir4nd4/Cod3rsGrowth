@@ -11,15 +11,14 @@ namespace Cod3rsGrowth.Forms
         {
             InitializeComponent();
             _servicoIngrediente = servicoIngrediente;
-            comboBox_Naturalidade.DataSource = Enum.GetValues(typeof(Naturalidade));
         }
 
         private void AoClicarSalvarCriacao(object sender, EventArgs e)
         {
-            var ingrediente = new Ingrediente();
-            var valorInteiroDoEnum = comboBox_Naturalidade.SelectedIndex;
             try
             {
+                var ingrediente = new Ingrediente();
+                var valorInteiroDoEnum = comboBox_Naturalidade.SelectedIndex;
                 ingrediente.Nome = textBox_Nome.Text;
                 ingrediente.Quantidade = Int32.Parse(textBox_Quantidade.Text);
                 ingrediente.Naturalidade = (Naturalidade)valorInteiroDoEnum;
@@ -37,11 +36,17 @@ namespace Cod3rsGrowth.Forms
 
         private void FormCriarIngrediente_Load(object sender, EventArgs e)
         {
+            CarregarDadosComboBox();
         }
 
         private void AoClicarFcharForms(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void CarregarDadosComboBox() 
+        {
+            comboBox_Naturalidade.DataSource = Enum.GetValues(typeof(Naturalidade));
         }
     }
 }
