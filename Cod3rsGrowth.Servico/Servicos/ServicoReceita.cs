@@ -8,11 +8,17 @@ namespace Cod3rsGrowth.Servico.Servicos
     public class ServicoReceita
     {
         private readonly IRepositorioReceita _repositorioReceita;
+        private ServicoReceitaIngrediente _servicoReceitaIngrediente;
         private ReceitaValidator _validator;
-        public ServicoReceita(IRepositorioReceita repositorioReceita, ReceitaValidator validator)
+        public ServicoReceita(
+            IRepositorioReceita repositorioReceita, 
+            ReceitaValidator validator,
+            ServicoReceitaIngrediente servicoReceitaIngrediente
+            )
         {
             _repositorioReceita = repositorioReceita;
             _validator = validator;
+            _servicoReceitaIngrediente = servicoReceitaIngrediente;
         }
         public List<Receita> ObterTodos(FiltroReceita receita)
         {
@@ -31,9 +37,12 @@ namespace Cod3rsGrowth.Servico.Servicos
                 throw new ValidationException(erros);
             }
 
-            _repositorioReceita.Criar(receita);
+            var idReceita = _repositorioReceita.Criar(receita);
+
+            _servicoReceitaIngrediente.Criar(receita.ListaIdIngrediente, idReceita);
+
         }
-       public Receita EditarReceita(Receita receitaEditada)
+        public Receita EditarReceita(Receita receitaEditada)
         {
             var validate = _validator.Validate(receitaEditada);
             if (!validate.IsValid)

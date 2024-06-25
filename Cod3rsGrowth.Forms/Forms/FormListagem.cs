@@ -10,15 +10,13 @@ namespace Cod3rsGrowth.Forms
         private ServicoIngrediente _servicoIngrediente;
         private ServicoReceita _servicoReceita;
         private ServicoPocao _servicoPocao;
-        private ServicoReceitaIngrediente _servicoReceitaIngrediente;
         private FiltroIngrediente _filtroIngrediente = new FiltroIngrediente();
         private FiltroReceita _filtroReceita = new FiltroReceita();
         private FiltroPocao _filtroPocao = new FiltroPocao();
         public FormListagem(
             ServicoIngrediente servicoIngrediente,
             ServicoReceita servicoReceita,
-            ServicoPocao servicoPocao,
-            ServicoReceitaIngrediente servicoReceitaIngrediente
+            ServicoPocao servicoPocao
             )
         {
             InitializeComponent();
@@ -26,7 +24,6 @@ namespace Cod3rsGrowth.Forms
             _servicoIngrediente = servicoIngrediente;
             _servicoReceita = servicoReceita;
             _servicoPocao = servicoPocao;
-            _servicoReceitaIngrediente = servicoReceitaIngrediente;
         }
 
         private void FormListagem_Load(object sender, EventArgs e)
@@ -59,7 +56,7 @@ namespace Cod3rsGrowth.Forms
 
         private void AoClicarAbrirFormModificaReceita(object sender, EventArgs e)
         {
-            var formModificaReceita = new FormModificaReceita(_servicoReceita, _servicoIngrediente, _servicoReceitaIngrediente);
+            var formModificaReceita = new FormModificaReceita(_servicoReceita, _servicoIngrediente);
             formModificaReceita.InsereTituloCriar();
             formModificaReceita.ShowDialog();
             CarregarDadosReceita(_filtroReceita);

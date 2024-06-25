@@ -7,18 +7,14 @@ namespace Cod3rsGrowth.Forms
     {
         private ServicoReceita _servicoReceita;
         private ServicoIngrediente _servicoIngrediente;
-        private ServicoReceitaIngrediente _servicoReceitaIngrediente;
         private FiltroIngrediente _filtroIngrediente = new FiltroIngrediente();
-        private FiltroReceita _filtroReceita = new FiltroReceita();
         public FormModificaReceita(
             ServicoReceita servicoReceita,
-            ServicoIngrediente servicoIngrediente,
-            ServicoReceitaIngrediente servicoReceitaIngrediente
+            ServicoIngrediente servicoIngrediente
             )
         {
             _servicoReceita = servicoReceita;
             _servicoIngrediente = servicoIngrediente;
-            _servicoReceitaIngrediente = servicoReceitaIngrediente;
 
             InitializeComponent();
         }
@@ -44,7 +40,6 @@ namespace Cod3rsGrowth.Forms
                 receita.ValidadeEmMeses = Int32.Parse(textBox_Validade.Text);
                 receita.Imagem = "Caminho/da/imagem";
                 receita.ListaIdIngrediente = ObterListaIdIngredientesSelecionados();
-
 
                 _servicoReceita.CriarReceita(receita);
 

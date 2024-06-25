@@ -12,5 +12,6 @@ namespace Cod3rsGrowth.Infra.Repositorios
         public List<FiltroPocao> listaPocao { get; private set; } = new List<FiltroPocao>();
         public List<Ingrediente> listaIngrediente { get; private set; } = new List<Ingrediente>();
         public List<Receita> listaReceita { get; private set; } = new List<Receita>();
+        public List<ReceitaIngrediente> listaReceitaIngrediente { get; private set; } = new List<ReceitaIngrediente>();
     }
 }

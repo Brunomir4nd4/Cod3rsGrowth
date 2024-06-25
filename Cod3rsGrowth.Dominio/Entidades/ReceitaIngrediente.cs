@@ -8,7 +8,7 @@ namespace Cod3rsGrowth.Dominio.Entidades
         [PrimaryKey, Identity]
         public int Id { get; set; }
         [Column("IdReceita")]
-        public int IdReceia { get; set; }
+        public int IdReceita { get; set; }
         [Column("IdIngrediente")]
         public int IdIngredinete { get; set; }
     }

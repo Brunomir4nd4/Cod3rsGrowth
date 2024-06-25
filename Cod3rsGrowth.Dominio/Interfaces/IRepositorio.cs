@@ -5,7 +5,7 @@ namespace Cod3rsGrowth.Dominio.Interfaces
     {
         List<T> ObterTodos(TFiltro objeto);
         T ObterPorId(int id);
-        void Criar(T item);
+        int Criar(T item);
         T Editar(T item);
         void Remover(int idItem);
     }

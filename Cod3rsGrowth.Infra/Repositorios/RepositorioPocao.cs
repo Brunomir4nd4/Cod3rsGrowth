@@ -33,17 +33,7 @@ namespace Cod3rsGrowth.Infra.Repositorios
 
         public void Criar(Receita receita)
         {
-            FiltroPocao pocao = new FiltroPocao()
-            {
-                IdReceita = receita.Id,
-                Vencido = false,
-                DataDeFabricacao = DateTime.Today
-            };
-            _db.Insert(pocao);
-        }
-        public void Criar(FiltroReceita receita)
-        {
-            FiltroPocao pocao = new FiltroPocao()
+            Pocao pocao = new Pocao()
             {
                 IdReceita = receita.Id,
                 Vencido = false,

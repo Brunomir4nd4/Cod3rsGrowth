@@ -1,6 +1,7 @@
 ﻿using Cod3rsGrowth.Dominio.Entidades;
 using Cod3rsGrowth.Dominio.Interfaces;
 using Cod3rsGrowth.Infra.ConexaoBD;
+using Cod3rsGrowth.Servico.Servicos;
 using LinqToDB;
 
 namespace Cod3rsGrowth.Infra.Repositorios
@@ -8,15 +9,42 @@ namespace Cod3rsGrowth.Infra.Repositorios
     public class RepositorioReceita : IRepositorioReceita
     {
         private MeuContextoDeDados _db;
+        private ServicoReceitaIngrediente _servicoReceitaIngrediente;
 
-        public RepositorioReceita(MeuContextoDeDados db)
+        public RepositorioReceita(MeuContextoDeDados db, ServicoReceitaIngrediente servicoReceitaIngrediente)
         {
             _db = db;
+            _servicoReceitaIngrediente = servicoReceitaIngrediente;
         }
 
         public List<Receita> ObterTodos(FiltroReceita receita)
         {
-            return Filtrar(receita);
+            var receitasFiltradas = Filtrar(receita);
+            var listaReceitaIngrediente = _servicoReceitaIngrediente.ObterTodos();
+            //Pecorrer a lista de receitas OK
+            //Procura os igredientes de usando o id da receita
+            //Adicionar os igredientes a receita
+            receitasFiltradas.ForEach(receita =>
+            {
+                receita.ListaIdIngrediente = listaReceitaIngrediente
+                    .Where(ri => ri.IdReceita == receita.Id)
+                    .Select(ri => ri.IdIngredinete)
+                    .ToList();
+            });
+
+            /*for (int i = 0; i < receitasFiltradas.Count; i++)
+            {
+                var listaId = new List<int>();
+                for (int j = 0; j < listaReceitaIngrediente.Count; j++)
+                {
+                    if (listaReceitaIngrediente[j].IdReceita == receitasFiltradas[i].Id)
+                    {
+                        listaId.Add(listaReceitaIngrediente[j].IdIngredinete);
+                    }
+                }
+                receitasFiltradas[i].ListaIdIngrediente = listaId;
+            }*/
+            return receitasFiltradas;
         }
 
         public Receita ObterPorId(int idProcurado)
@@ -33,7 +61,7 @@ namespace Cod3rsGrowth.Infra.Repositorios
 
         public int Criar(Receita receita)
         {
-            _db.InsertWithInt32Identity(receita);
+            return _db.InsertWithInt32Identity(receita);
         }
 
         public Receita Editar(Receita receitaEditada)

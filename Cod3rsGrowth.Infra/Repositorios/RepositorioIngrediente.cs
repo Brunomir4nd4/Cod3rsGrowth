@@ -31,9 +31,9 @@ namespace Cod3rsGrowth.Infra.Repositorios
             return resultado;
         }
 
-        public void Criar(Ingrediente ingrediente)
+        public int Criar(Ingrediente ingrediente)
         {
-            _db.Insert(ingrediente);
+            return _db.InsertWithInt32Identity(ingrediente);
         }
 
         public Ingrediente Editar(Ingrediente ingredienteEditado)

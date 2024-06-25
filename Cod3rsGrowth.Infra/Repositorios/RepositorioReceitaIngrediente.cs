@@ -12,7 +12,7 @@ namespace Cod3rsGrowth.Infra.Repositorios
         {
             _db = db;
         }
-        public List<ReceitaIngrediente> ObterTodos(FiltroReceitaIngrediente filtroReceitaIngrediente)
+        public List<ReceitaIngrediente> ObterTodos()
         {
             var query = from p in _db.receitaIngrediente
                         select p;
@@ -37,7 +37,7 @@ namespace Cod3rsGrowth.Infra.Repositorios
             {
                 var receitaIngrediente = new ReceitaIngrediente()
                 {
-                    IdReceia = idReceita,
+                    IdReceita = idReceita,
                     IdIngredinete = idIngrediente
                 };
 
