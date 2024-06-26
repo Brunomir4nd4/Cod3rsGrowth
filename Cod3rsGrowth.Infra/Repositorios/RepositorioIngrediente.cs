@@ -16,8 +16,7 @@ namespace Cod3rsGrowth.Infra.Repositorios
 
         public List<Ingrediente> ObterTodos(FiltroIngrediente ingrediente)
         {
-            var query = Filtrar(ingrediente);
-            return query;
+            return Filtrar(ingrediente);
         }
 
         public Ingrediente ObterPorId(int idProcurado)
@@ -32,9 +31,9 @@ namespace Cod3rsGrowth.Infra.Repositorios
             return resultado;
         }
 
-        public void Criar(Ingrediente ingrediente)
+        public int Criar(Ingrediente ingrediente)
         {
-            _db.Insert(ingrediente);
+            return _db.InsertWithInt32Identity(ingrediente);
         }
 
         public Ingrediente Editar(Ingrediente ingredienteEditado)

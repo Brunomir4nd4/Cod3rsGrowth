@@ -1,6 +1,5 @@
 ﻿using Cod3rsGrowth.Dominio.Entidades;
 using Cod3rsGrowth.Dominio.Enums;
-using Cod3rsGrowth.Infra.ConexaoBD;
 using Cod3rsGrowth.Servico.Servicos;
 using Microsoft.IdentityModel.Tokens;
 
@@ -11,20 +10,17 @@ namespace Cod3rsGrowth.Forms
         private ServicoIngrediente _servicoIngrediente;
         private ServicoReceita _servicoReceita;
         private ServicoPocao _servicoPocao;
-        private MeuContextoDeDados _db;
         private FiltroIngrediente _filtroIngrediente = new FiltroIngrediente();
         private FiltroReceita _filtroReceita = new FiltroReceita();
         private FiltroPocao _filtroPocao = new FiltroPocao();
         public FormListagem(
             ServicoIngrediente servicoIngrediente,
             ServicoReceita servicoReceita,
-            ServicoPocao servicoPocao,
-            MeuContextoDeDados db
+            ServicoPocao servicoPocao
             )
         {
             InitializeComponent();
 
-            _db = db;
             _servicoIngrediente = servicoIngrediente;
             _servicoReceita = servicoReceita;
             _servicoPocao = servicoPocao;
@@ -32,11 +28,10 @@ namespace Cod3rsGrowth.Forms
 
         private void FormListagem_Load(object sender, EventArgs e)
         {
-            comboBox_Naturalidade_Ingrediente.Text = "";
             CarregarDadosIngrediente(_filtroIngrediente);
             CarregarDadosReceita(_filtroReceita);
             CarregarDadosPocao(_filtroPocao);
-            comboBox_Naturalidade_Ingrediente.DataSource = Enum.GetValues(typeof(Naturalidade));
+            CarregarDadosComboBox();
         }
 
         private void AoClicarBotaoFiltrarReceita(object sender, EventArgs e)
@@ -52,15 +47,79 @@ namespace Cod3rsGrowth.Forms
             CarregarDadosPocao(ObterFiltroPocao());
         }
 
-        private void CarregarDadosIngrediente(FiltroIngrediente filtroIngrediente)
+        private void AoClicarAbrirFormCriarIngrediente(object sender, EventArgs e)
+        {
+            try
+            {
+                var formCriarIngrediente = new FormCriarIngrediente(_servicoIngrediente);
+                formCriarIngrediente.ShowDialog();
+                CarregarDadosIngrediente(_filtroIngrediente);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    $"Não foi possível obter [formCriarIngrediente] ERRO: {ex.Message}",
+                    "ERROR!",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                    );
+            }
+        }
+
+        private void AoClicarAbrirFormModificaReceita(object sender, EventArgs e)
+        {
+            try
+            {
+                var formModificaReceita = new FormModificaReceita(_servicoReceita, _servicoIngrediente);
+                formModificaReceita.InsereTituloCriar();
+                formModificaReceita.ShowDialog();
+                CarregarDadosReceita(_filtroReceita);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    $"Não foi possível obter [formModificaReceita] ERRO: {ex.Message}",
+                    "ERROR!",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                    );
+            }
+        }
+
+        private void AoClicarAbrirFromsCriarPocao(object sender, EventArgs e)
+        {
+            try
+            {
+                var formCriarPocao = new FormCriarPocao(_servicoPocao, _servicoIngrediente);
+                formCriarPocao.ShowDialog();
+                CarregarDadosPocao(_filtroPocao);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    $"Não foi possível obter [formCriarPocao] ERRO: {ex.Message}",
+                    "ERROR!",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                    );
+            }
+        }
+
+        public void CarregarDadosIngrediente(FiltroIngrediente filtroIngrediente)
         {
             try
             {
                 dataGridView_Ingrediente.DataSource = _servicoIngrediente.ObterTodos(filtroIngrediente);
+                comboBox_Naturalidade_Ingrediente.Text = "";
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Não foi possível obter elementos de Ingrediente ERRO: {ex.Message}");
+                MessageBox.Show(
+                    $"Não foi possível obter elementos de Ingrediente ERRO: {ex.Message}",
+                    "ERROR!",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                    );
             }
         }
 
@@ -72,7 +131,12 @@ namespace Cod3rsGrowth.Forms
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Não foi possível obter elementos de Receita ERRO: {ex.Message}");
+                MessageBox.Show(
+                    $"Não foi possível obter elementos de Receita ERRO: {ex.Message}",
+                    "ERROR!",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                    );
             }
         }
 
@@ -84,7 +148,29 @@ namespace Cod3rsGrowth.Forms
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Não foi possível obter elementos de Pocao ERRO: {ex.Message}");
+                MessageBox.Show(
+                    $"Não foi possível obter elementos de Pocao ERRO: {ex.Message}",
+                    "ERROR!",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                    );
+            }
+        }
+
+        private void CarregarDadosComboBox()
+        {
+            try
+            {
+                comboBox_Naturalidade_Ingrediente.DataSource = Enum.GetValues(typeof(Naturalidade));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    $"Não foi possível carregar os dados de Naturalidade ERRO: {ex.Message}",
+                    "ERROR!",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                    );
             }
         }
 
@@ -102,7 +188,12 @@ namespace Cod3rsGrowth.Forms
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Campo Id inserido não é valido! ERRO: {ex.Message}");
+                MessageBox.Show(
+                    $"Campo Id inserido não é valido! ERRO: {ex.Message}",
+                    "ERROR!",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                    );
             }
 
             try
@@ -144,7 +235,7 @@ namespace Cod3rsGrowth.Forms
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Campo Naturalidade inserido não é valido! ERRO: {ex.Message}");
+                MenssagemDeErro(comboBox_Naturalidade_Ingrediente.Name, ex);            
             }
 
             return filtroIngrediente;
@@ -270,5 +361,16 @@ namespace Cod3rsGrowth.Forms
 
             return filtroPocao;
         }
+
+        private void MenssagemDeErro(string campo, Exception ex)
+        {
+            MessageBox.Show(
+                    $"Campo {campo} inserido não é valido! ERRO: {ex.Message}",
+                    "ERROR!",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                    );
+        }
     }
 }
+

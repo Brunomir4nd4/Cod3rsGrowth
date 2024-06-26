@@ -1,6 +1,7 @@
 ﻿using Cod3rsGrowth.Dominio.Entidades;
 using Cod3rsGrowth.Dominio.Interfaces;
 using Cod3rsGrowth.Infra.ConexaoBD;
+using Cod3rsGrowth.Servico.Servicos;
 using LinqToDB;
 
 namespace Cod3rsGrowth.Infra.Repositorios
@@ -8,16 +9,27 @@ namespace Cod3rsGrowth.Infra.Repositorios
     public class RepositorioReceita : IRepositorioReceita
     {
         private MeuContextoDeDados _db;
+        private ServicoReceitaIngrediente _servicoReceitaIngrediente;
 
-        public RepositorioReceita(MeuContextoDeDados db)
+        public RepositorioReceita(MeuContextoDeDados db, ServicoReceitaIngrediente servicoReceitaIngrediente)
         {
             _db = db;
+            _servicoReceitaIngrediente = servicoReceitaIngrediente;
         }
 
         public List<Receita> ObterTodos(FiltroReceita receita)
         {
-            var query = Filtrar(receita);
-            return query;
+            var receitasFiltradas = Filtrar(receita);
+            var listaReceitaIngrediente = _servicoReceitaIngrediente.ObterTodos();
+
+            receitasFiltradas.ForEach(receita =>
+            {
+                receita.ListaIdIngrediente = listaReceitaIngrediente
+                    .Where(ri => ri.IdReceita == receita.Id)
+                    .Select(ri => ri.IdIngredinete)
+                    .ToList();
+            });
+            return receitasFiltradas;
         }
 
         public Receita ObterPorId(int idProcurado)
@@ -32,10 +44,11 @@ namespace Cod3rsGrowth.Infra.Repositorios
             return resultado;
         }
 
-        public void Criar(Receita novaReceita)
+        public int Criar(Receita receita)
         {
-            _db.Insert(novaReceita);
+            return _db.InsertWithInt32Identity(receita);
         }
+
         public Receita Editar(Receita receitaEditada)
         {
             var receitaAtualizada = ObterPorId(receitaEditada.Id);
@@ -45,7 +58,7 @@ namespace Cod3rsGrowth.Infra.Repositorios
             receitaAtualizada.Valor = receitaEditada.Valor;
             receitaAtualizada.Imagem = receitaEditada.Imagem;
             receitaAtualizada.ValidadeEmMeses = receitaEditada.ValidadeEmMeses;
-            receitaAtualizada.ListaDeIngredientes = receitaEditada.ListaDeIngredientes;
+            receitaAtualizada.ListaIdIngrediente = receitaEditada.ListaIdIngrediente;
 
             _db.Update(receitaAtualizada);
             return receitaAtualizada;

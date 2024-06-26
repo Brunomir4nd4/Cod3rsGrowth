@@ -24,7 +24,7 @@ namespace Cod3rsGrowth.Servico.Servicos
         {
             return _repositorioIngrediente.ObterPorId(id);
         }
-        public void CriarIngrediente(Ingrediente ingrediente)
+        public int CriarIngrediente(Ingrediente ingrediente)
         {
             var validate = _validator.Validate(ingrediente);
             if (!validate.IsValid)
@@ -33,7 +33,7 @@ namespace Cod3rsGrowth.Servico.Servicos
                 throw new ValidationException(erros);
             }
 
-            _repositorioIngrediente.Criar(ingrediente);
+            return _repositorioIngrediente.Criar(ingrediente);
         }
         public Ingrediente EditarIngrediente(Ingrediente ingredienteEditado)
         {

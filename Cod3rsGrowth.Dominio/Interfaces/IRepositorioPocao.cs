@@ -5,8 +5,8 @@ namespace Cod3rsGrowth.Dominio.Interfaces
     public interface IRepositorioPocao
     {
         List<FiltroPocao> ObterTodos(FiltroPocao filtroPocao);
-        Pocao ObterPorId(int id);
+        FiltroPocao ObterPorId(int? id);
         void Criar(Receita receita);
-        void Remover(int idPocao);
+        void Remover(int? idPocao);
     }
 }

@@ -6,14 +6,14 @@ namespace Cod3rsGrowth.Teste.Repositorios
 {
     public class RepositorioPocaoMock : IRepositorioPocao
     {
-        private List<Pocao> _listaPocao = ListaSingleton.getInstance.listaPocao;
+        private List<FiltroPocao> _listaPocao = ListaSingleton.getInstance.listaPocao;
         private int _novoId = 0;
-        public List<Pocao> ObterTodos(FiltroPocao filtroPocao)
+        public List<FiltroPocao> ObterTodos(FiltroPocao filtroPocao)
         {
             return _listaPocao;
         }
 
-        public Pocao ObterPorId(int idProcurado)
+        public FiltroPocao ObterPorId(int? idProcurado)
         {
             return _listaPocao.Find(objeto => objeto.Id == idProcurado) 
                 ?? throw new Exception($"O objeto com id [{idProcurado}] não foi encontrado");
@@ -21,7 +21,7 @@ namespace Cod3rsGrowth.Teste.Repositorios
 
         public void Criar(Receita novaReceita)
         {
-            Pocao pocao = new Pocao()
+            FiltroPocao pocao = new FiltroPocao()
             {
                 Id = _novoId,
                 IdReceita = novaReceita.Id,
@@ -32,7 +32,7 @@ namespace Cod3rsGrowth.Teste.Repositorios
             _listaPocao.Add(pocao);
         }
 
-        public void Remover(int idPocao)
+        public void Remover(int? idPocao)
         {
             var pocaoRemovidaDoBanco = ObterPorId(idPocao);
 

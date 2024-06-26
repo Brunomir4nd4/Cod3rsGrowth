@@ -19,9 +19,9 @@ namespace Cod3rsGrowth.Infra.Repositorios
             return Filtrar(pocao);
         }
 
-        public Pocao ObterPorId(int idProcurado)
+        public FiltroPocao ObterPorId(int? idProcurado)
         {
-            var query = from p in _db.pocao
+            var query = from p in ObterPocaoComNome()
                         where (p.Id == idProcurado)
                         select p;
 
@@ -31,12 +31,18 @@ namespace Cod3rsGrowth.Infra.Repositorios
             return resultado;
         }
 
-        public void Criar(Receita pocao)
+        public void Criar(Receita receita)
         {
+            Pocao pocao = new Pocao()
+            {
+                IdReceita = receita.Id,
+                Vencido = false,
+                DataDeFabricacao = DateTime.Today
+            };
             _db.Insert(pocao);
         }
 
-        public void Remover(int idPocao)
+        public void Remover(int? idPocao)
         {
             _db.pocao
                 .Where(p => p.Id == idPocao)
@@ -45,7 +51,7 @@ namespace Cod3rsGrowth.Infra.Repositorios
 
         public List<FiltroPocao> Filtrar(FiltroPocao filtroPocao)
         {
-            IQueryable<FiltroPocao> query = CriarListaPocaoComNome().AsQueryable();
+            IQueryable<FiltroPocao> query = ObterPocaoComNome().AsQueryable();
 
             if (filtroPocao.Id != null)
                 query = query.Where(r => r.Id == filtroPocao.Id);
@@ -62,7 +68,7 @@ namespace Cod3rsGrowth.Infra.Repositorios
             return query.ToList();
         }
 
-        public List<FiltroPocao> CriarListaPocaoComNome()
+        public List<FiltroPocao> ObterPocaoComNome()
         {
             var query = from pocao in _db.pocao
                              join receita in _db.receita on pocao.IdReceita equals receita.Id
