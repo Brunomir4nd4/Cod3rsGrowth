@@ -25,12 +25,22 @@ namespace Cod3rsGrowth.Forms
 
                 _servicoIngrediente.CriarIngrediente(ingrediente);
 
-                MessageBox.Show("Ingrediente Criado com sucesso!", "Sucesso!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(
+                    "Ingrediente Criado com sucesso!", 
+                    "Sucesso!", 
+                    MessageBoxButtons.OK, 
+                    MessageBoxIcon.Information
+                    );
                 Close();
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"ERRO: {ex.Message}", "ERROR!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(
+                    $"ERRO: {ex.Message}",
+                    "ERROR!",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                    );
             }
         }
 
@@ -46,7 +56,19 @@ namespace Cod3rsGrowth.Forms
 
         private void CarregarDadosComboBox() 
         {
-            comboBox_Naturalidade.DataSource = Enum.GetValues(typeof(Naturalidade));
+            try
+            {
+                comboBox_Naturalidade.DataSource = Enum.GetValues(typeof(Naturalidade));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    $"Não foi possível carregar os dados de Naturalidade ERRO: {ex.Message}",
+                    "ERROR!",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                    );
+            }
         }
     }
 }

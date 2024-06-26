@@ -31,7 +31,7 @@ namespace Cod3rsGrowth.Forms
             CarregarDadosIngrediente(_filtroIngrediente);
             CarregarDadosReceita(_filtroReceita);
             CarregarDadosPocao(_filtroPocao);
-            comboBox_Naturalidade_Ingrediente.DataSource = Enum.GetValues(typeof(Naturalidade));
+            CarregarDadosComboBox();
         }
 
         private void AoClicarBotaoFiltrarReceita(object sender, EventArgs e)
@@ -57,7 +57,12 @@ namespace Cod3rsGrowth.Forms
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Não foi possível obter [formCriarIngrediente] ERRO: {ex.Message}");
+                MessageBox.Show(
+                    $"Não foi possível obter [formCriarIngrediente] ERRO: {ex.Message}",
+                    "ERROR!",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                    );
             }
         }
 
@@ -72,7 +77,12 @@ namespace Cod3rsGrowth.Forms
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Não foi possível obter [formModificaReceita] ERRO: {ex.Message}");
+                MessageBox.Show(
+                    $"Não foi possível obter [formModificaReceita] ERRO: {ex.Message}",
+                    "ERROR!",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                    );
             }
         }
 
@@ -86,7 +96,12 @@ namespace Cod3rsGrowth.Forms
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Não foi possível obter [formCriarPocao] ERRO: {ex.Message}");
+                MessageBox.Show(
+                    $"Não foi possível obter [formCriarPocao] ERRO: {ex.Message}",
+                    "ERROR!",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                    );
             }
         }
 
@@ -99,7 +114,12 @@ namespace Cod3rsGrowth.Forms
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Não foi possível obter elementos de Ingrediente ERRO: {ex.Message}");
+                MessageBox.Show(
+                    $"Não foi possível obter elementos de Ingrediente ERRO: {ex.Message}",
+                    "ERROR!",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                    );
             }
         }
 
@@ -111,7 +131,12 @@ namespace Cod3rsGrowth.Forms
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Não foi possível obter elementos de Receita ERRO: {ex.Message}");
+                MessageBox.Show(
+                    $"Não foi possível obter elementos de Receita ERRO: {ex.Message}",
+                    "ERROR!",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                    );
             }
         }
 
@@ -123,7 +148,29 @@ namespace Cod3rsGrowth.Forms
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Não foi possível obter elementos de Pocao ERRO: {ex.Message}");
+                MessageBox.Show(
+                    $"Não foi possível obter elementos de Pocao ERRO: {ex.Message}",
+                    "ERROR!",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                    );
+            }
+        }
+
+        private void CarregarDadosComboBox()
+        {
+            try
+            {
+                comboBox_Naturalidade_Ingrediente.DataSource = Enum.GetValues(typeof(Naturalidade));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    $"Não foi possível carregar os dados de Naturalidade ERRO: {ex.Message}",
+                    "ERROR!",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                    );
             }
         }
 
@@ -141,7 +188,12 @@ namespace Cod3rsGrowth.Forms
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Campo Id inserido não é valido! ERRO: {ex.Message}");
+                MessageBox.Show(
+                    $"Campo Id inserido não é valido! ERRO: {ex.Message}",
+                    "ERROR!",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                    );
             }
 
             try
@@ -183,7 +235,7 @@ namespace Cod3rsGrowth.Forms
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Campo Naturalidade inserido não é valido! ERRO: {ex.Message}");
+                MenssagemDeErro(comboBox_Naturalidade_Ingrediente.Name, ex);            
             }
 
             return filtroIngrediente;
@@ -308,6 +360,16 @@ namespace Cod3rsGrowth.Forms
             }
 
             return filtroPocao;
+        }
+
+        private void MenssagemDeErro(string campo, Exception ex)
+        {
+            MessageBox.Show(
+                    $"Campo {campo} inserido não é valido! ERRO: {ex.Message}",
+                    "ERROR!",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                    );
         }
     }
 }

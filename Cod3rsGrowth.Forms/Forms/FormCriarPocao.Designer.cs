@@ -36,7 +36,7 @@
             ingredienteBindingSource = new BindingSource(components);
             label6 = new Label();
             Nome = new DataGridViewTextBoxColumn();
-            Chack = new DataGridViewCheckBoxColumn();
+            Check = new DataGridViewCheckBoxColumn();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)ingredienteBindingSource).BeginInit();
             SuspendLayout();
@@ -83,7 +83,7 @@
             dataGridView1.BackgroundColor = Color.AliceBlue;
             dataGridView1.BorderStyle = BorderStyle.None;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { Nome, Chack });
+            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { Nome, Check });
             dataGridView1.DataSource = ingredienteBindingSource;
             dataGridView1.Location = new Point(12, 102);
             dataGridView1.Name = "dataGridView1";
@@ -112,14 +112,14 @@
             Nome.HeaderText = "Nome";
             Nome.Name = "Nome";
             // 
-            // Chack
+            // Check
             // 
-            Chack.AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
-            Chack.HeaderText = "Chack";
-            Chack.Name = "Chack";
-            Chack.Resizable = DataGridViewTriState.True;
-            Chack.SortMode = DataGridViewColumnSortMode.Automatic;
-            Chack.Width = 67;
+            Check.AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+            Check.HeaderText = "Check";
+            Check.Name = "Check";
+            Check.Resizable = DataGridViewTriState.True;
+            Check.SortMode = DataGridViewColumnSortMode.Automatic;
+            Check.Width = 67;
             // 
             // FormCriarPocao
             // 
@@ -153,6 +153,6 @@
         private BindingSource ingredienteBindingSource;
         private Label label6;
         private DataGridViewTextBoxColumn Nome;
-        private DataGridViewCheckBoxColumn Chack;
+        private DataGridViewCheckBoxColumn Check;
     }
 }
