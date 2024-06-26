@@ -9,11 +9,20 @@ namespace Cod3rsGrowth.Servico.Servicos
     {
         private IRepositorioIngrediente _repositorioIngrediente;
         private IngredienteValidator _validator;
+        private ServicoReceita _servicoReceita;
+        private ServicoReceitaIngrediente _servicoReceitaIngrediente;
 
-        public ServicoIngrediente(IRepositorioIngrediente repositorioIngrediente, IngredienteValidator validator)
+        public ServicoIngrediente(
+            IRepositorioIngrediente repositorioIngrediente, 
+            IngredienteValidator validator, 
+            ServicoReceita servicoReceita,
+            ServicoReceitaIngrediente servicoReceitaIngrediente
+            )
         {
-            _repositorioIngrediente = repositorioIngrediente;
             _validator = validator;
+            _repositorioIngrediente = repositorioIngrediente;
+            _servicoReceita = servicoReceita;
+            _servicoReceitaIngrediente = servicoReceitaIngrediente;
         }
 
         public List<Ingrediente> ObterTodos(FiltroIngrediente ingrediente)
@@ -48,6 +57,14 @@ namespace Cod3rsGrowth.Servico.Servicos
         }
         public void RemoverIngredientes(int idIngredienteSelecionado)
         {
+            var idReceita = _servicoReceitaIngrediente
+                .ObterTodos()
+                .Where(p => p.IdIngrediente == idIngredienteSelecionado)
+                .Select(p => p.IdReceita)
+                .First();
+
+            _servicoReceita.RemoverReceita(idReceita);
+
             _repositorioIngrediente.Remover(idIngredienteSelecionado);
         }
     }

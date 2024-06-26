@@ -38,7 +38,7 @@ namespace Cod3rsGrowth.Infra.Repositorios
                 var receitaIngrediente = new ReceitaIngrediente()
                 {
                     IdReceita = idReceita,
-                    IdIngredinete = idIngrediente
+                    IdIngrediente = idIngrediente
                 };
 
                 _db.Insert(receitaIngrediente);

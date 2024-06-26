@@ -26,7 +26,7 @@ namespace Cod3rsGrowth.Infra.Repositorios
             {
                 receita.ListaIdIngrediente = listaReceitaIngrediente
                     .Where(ri => ri.IdReceita == receita.Id)
-                    .Select(ri => ri.IdIngredinete)
+                    .Select(ri => ri.IdIngrediente)
                     .ToList();
             });
             return receitasFiltradas;
