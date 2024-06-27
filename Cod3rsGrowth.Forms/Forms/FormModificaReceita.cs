@@ -43,12 +43,24 @@ namespace Cod3rsGrowth.Forms
 
                 _servicoReceita.CriarReceita(receita);
 
-                MessageBox.Show("Ingrediente Criado com sucesso!", "Sucesso!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                MessageBox.Show(
+                    "Receita Criada com sucesso!", 
+                    "SECCESS!", 
+                    MessageBoxButtons.OK, 
+                    MessageBoxIcon.Information
+                );
+
                 Close();
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"ERRO: {ex.Message}", "ERROR!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(
+                    $"ERRO: {ex.Message}", 
+                    "ERROR!", 
+                    MessageBoxButtons.OK, 
+                    MessageBoxIcon.Error
+                );
             }
         }
         private void CarregarDadosIngrediente()
@@ -70,19 +82,20 @@ namespace Cod3rsGrowth.Forms
 
         private List<int> ObterListaIdIngredientesSelecionados()
         {
-            List<int> listaDeIdIngrediente = new List<int>();
-            int indexChack = 1, indexNome = 0;
-            foreach (DataGridViewRow row in dataGridView1.Rows)
-            {
-                DataGridViewCheckBoxCell chk = (DataGridViewCheckBoxCell)row.Cells[indexChack];
-                if (chk.Value != null)
+            const int indexCheck = 1, indexNome = 0;
+            var listaDeIdIngrediente = dataGridView1.Rows
+                .Cast<DataGridViewRow>()
+                .Where(row => row.Cells[indexCheck].Value != null)
+                .Select(row =>
                 {
-                    var ingrediente = _servicoIngrediente.ObterTodos(_filtroIngrediente).First(i
-                        => i.Nome == row.Cells[indexNome].Value.ToString());
+                    var nome = row.Cells[indexNome].Value.ToString();
+                    return _servicoIngrediente
+                        .ObterTodos(_filtroIngrediente)
+                        .First(i => i.Nome == nome)
+                        .Id;
+                })
+                .ToList();
 
-                    listaDeIdIngrediente.Add(ingrediente.Id);
-                }
-            }
             return listaDeIdIngrediente;
         }
 

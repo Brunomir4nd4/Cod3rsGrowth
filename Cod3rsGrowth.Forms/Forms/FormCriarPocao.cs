@@ -7,7 +7,6 @@ namespace Cod3rsGrowth.Forms
     {
         private ServicoPocao _servicoPocao;
         private ServicoIngrediente _servicoIngrediente;
-        private FiltroPocao _filtroPocao = new FiltroPocao();
         private FiltroIngrediente _filtroIngrediente = new FiltroIngrediente();
         public FormCriarPocao(ServicoPocao servicoPocao, ServicoIngrediente servicoIngrediente)
         {
@@ -21,12 +20,17 @@ namespace Cod3rsGrowth.Forms
             CarregarDados();
         }
 
-        private void AoClicarSlavarCriacaoPocao(object sender, EventArgs e)
+        private void AoClicarSalvarCriacaoPocao(object sender, EventArgs e)
         {
             try
             {
                 _servicoPocao.CriarPocao(ObterListaDeIngredientesSelecionados());
-                MessageBox.Show("Poção Criada com sucesso!", "Sucesso!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(
+                    "Poção Criada com sucesso!", 
+                    "SECCESS!", 
+                    MessageBoxButtons.OK, 
+                    MessageBoxIcon.Information
+                );
                 Close();
             }
             catch(Exception ex)
@@ -37,7 +41,19 @@ namespace Cod3rsGrowth.Forms
 
         private void CarregarDados()
         {
-            dataGridView1.DataSource = _servicoIngrediente.ObterTodos(_filtroIngrediente);
+            try
+            {
+                dataGridView1.DataSource = _servicoIngrediente.ObterTodos(_filtroIngrediente);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    $"Não foi possível carregar os dados de Ingrediente ERRO: {ex.Message}",
+                    "ERROR!",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+            }
         }
 
         private void AoClicarFecharForms(object sender, EventArgs e)
@@ -47,19 +63,19 @@ namespace Cod3rsGrowth.Forms
 
         private List<Ingrediente> ObterListaDeIngredientesSelecionados()
         {
-            List<Ingrediente> listaIngrediente = new List<Ingrediente>();
-            int indexChack = 1, indexNome = 0;
-            foreach (DataGridViewRow row in dataGridView1.Rows)
-            {
-                DataGridViewCheckBoxCell chk = (DataGridViewCheckBoxCell)row.Cells[indexChack];
-                if (chk.Value != null)
+            const int indexCheck = 1, indexNome = 0;
+            var listaIngrediente = dataGridView1.Rows
+                .Cast<DataGridViewRow>()
+                .Where(row => row.Cells[indexCheck].Value != null)
+                .Select(row =>
                 {
-                    var ingrediente = _servicoIngrediente.ObterTodos(_filtroIngrediente).First(i
-                        => i.Nome == row.Cells[indexNome].Value.ToString());
+                    var nome = row.Cells[indexNome].Value.ToString();
+                    return _servicoIngrediente
+                        .ObterTodos(_filtroIngrediente)
+                        .First(i => i.Nome == nome);
+                })
+                .ToList();
 
-                    listaIngrediente.Add(ingrediente);
-                }
-            }
             return listaIngrediente;
         }
     }
