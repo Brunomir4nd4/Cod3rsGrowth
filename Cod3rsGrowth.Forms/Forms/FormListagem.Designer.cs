@@ -195,7 +195,6 @@
             button_Remover_Ingrediente.TabIndex = 1;
             button_Remover_Ingrediente.Text = "Remover";
             button_Remover_Ingrediente.UseVisualStyleBackColor = true;
-            button_Remover_Ingrediente.Click += AoClicarRemoverIngrediente;
             // 
             // button_Editar_Ingrediente
             // 
@@ -389,10 +388,10 @@
             Receitas.Controls.Add(panel3);
             Receitas.Controls.Add(panel2);
             Receitas.Font = new Font("JetBrains Mono", 8.999999F, FontStyle.Regular, GraphicsUnit.Point);
-            Receitas.Location = new Point(4, 25);
+            Receitas.Location = new Point(4, 24);
             Receitas.Name = "Receitas";
             Receitas.Padding = new Padding(3);
-            Receitas.Size = new Size(854, 527);
+            Receitas.Size = new Size(854, 528);
             Receitas.TabIndex = 1;
             Receitas.Text = "Receitas";
             Receitas.UseVisualStyleBackColor = true;
@@ -409,7 +408,7 @@
             dataGridView_Receita.Location = new Point(3, 82);
             dataGridView_Receita.Name = "dataGridView_Receita";
             dataGridView_Receita.RowTemplate.Height = 25;
-            dataGridView_Receita.Size = new Size(848, 383);
+            dataGridView_Receita.Size = new Size(848, 386);
             dataGridView_Receita.TabIndex = 26;
             // 
             // dataGridViewTextBoxColumn1
@@ -469,7 +468,7 @@
             panel3.Controls.Add(button3);
             panel3.Controls.Add(button4);
             panel3.Dock = DockStyle.Bottom;
-            panel3.Location = new Point(3, 477);
+            panel3.Location = new Point(3, 478);
             panel3.Name = "panel3";
             panel3.Size = new Size(848, 47);
             panel3.TabIndex = 25;
@@ -496,7 +495,6 @@
             button_Remover_Receita.TabIndex = 4;
             button_Remover_Receita.Text = "Remover";
             button_Remover_Receita.UseVisualStyleBackColor = true;
-            button_Remover_Receita.Click += AoClicarRemoverReceita;
             // 
             // button_Editar_Receita
             // 
@@ -672,9 +670,9 @@
             Poções.Controls.Add(panel5);
             Poções.Controls.Add(panel4);
             Poções.Font = new Font("JetBrains Mono", 8.999999F, FontStyle.Regular, GraphicsUnit.Point);
-            Poções.Location = new Point(4, 25);
+            Poções.Location = new Point(4, 24);
             Poções.Name = "Poções";
-            Poções.Size = new Size(854, 527);
+            Poções.Size = new Size(854, 528);
             Poções.TabIndex = 2;
             Poções.Text = "Poções";
             // 
@@ -690,7 +688,7 @@
             dataGridView_Pocao.Location = new Point(0, 79);
             dataGridView_Pocao.Name = "dataGridView_Pocao";
             dataGridView_Pocao.RowTemplate.Height = 25;
-            dataGridView_Pocao.Size = new Size(851, 385);
+            dataGridView_Pocao.Size = new Size(851, 387);
             dataGridView_Pocao.TabIndex = 27;
             // 
             // idDataGridViewTextBoxColumn1
@@ -741,7 +739,7 @@
             panel5.Controls.Add(button13);
             panel5.Controls.Add(button14);
             panel5.Dock = DockStyle.Bottom;
-            panel5.Location = new Point(0, 480);
+            panel5.Location = new Point(0, 481);
             panel5.Name = "panel5";
             panel5.Size = new Size(854, 47);
             panel5.TabIndex = 26;
@@ -768,7 +766,6 @@
             button_Remover_Pocao.TabIndex = 7;
             button_Remover_Pocao.Text = "Remover";
             button_Remover_Pocao.UseVisualStyleBackColor = true;
-            button_Remover_Pocao.Click += AoClicarRemoverPocao;
             // 
             // button_Editar_Pocao
             // 
