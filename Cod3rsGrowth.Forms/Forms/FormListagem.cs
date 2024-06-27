@@ -105,6 +105,83 @@ namespace Cod3rsGrowth.Forms
             }
         }
 
+        const int indexDaColunaNome = 1, indexDaColunaId = 0;
+        private void AoClicarRemoverIngrediente(object sender, EventArgs e)
+        {
+            try
+            {
+                var resultadoDoDialogo = MessageBox.Show(
+                    $"Isso apagará todas as dependencias de " +
+                    $"{dataGridView_Ingrediente.CurrentCell.OwningRow.Cells[indexDaColunaNome].Value},\nDeseja continuar?",
+                    "",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Warning
+                    );
+                if (resultadoDoDialogo == DialogResult.Yes)
+                {
+                    int id = (int)dataGridView_Ingrediente.CurrentCell.OwningRow.Cells[indexDaColunaId].Value;
+                    _servicoIngrediente.RemoverIngredientes(id);
+                    CarregarDadosIngrediente(_filtroIngrediente);
+                    CarregarDadosReceita(_filtroReceita);
+                    CarregarDadosPocao(_filtroPocao);
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Nenhum elemento selecionado!");
+            }
+        }
+
+        private void AoClicarRemoverReceita(object sender, EventArgs e)
+        {
+            try
+            {
+                var resultadoDoDialogo = MessageBox.Show(
+                    $"Isso apagará todas as dependencias de " +
+                    $"{dataGridView_Receita.CurrentCell.OwningRow.Cells[indexDaColunaNome].Value},\nDeseja continuar?",
+                    "",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Warning
+                );
+                if (resultadoDoDialogo == DialogResult.Yes)
+                {
+                    int id = (int)dataGridView_Receita.CurrentCell.OwningRow.Cells[indexDaColunaId].Value;
+                    _servicoReceita.RemoverReceita(id);
+                    CarregarDadosReceita(_filtroReceita);
+                    CarregarDadosPocao(_filtroPocao);
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Nenhum elemento selecionado!");
+            }
+        }
+
+        private void AoClicarRemoverPocao(object sender, EventArgs e)
+        {
+            try
+            {
+                var resultadoDoDialogo = MessageBox.Show(
+                    $"Isso apagará todas as dependencias de " +
+                    $"{dataGridView_Pocao.CurrentCell.OwningRow.Cells[indexDaColunaNome].Value},\nDeseja continuar?",
+                    "",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Warning
+                );
+                if (resultadoDoDialogo == DialogResult.Yes)
+                {
+                    int id = (int)dataGridView_Pocao.CurrentCell.OwningRow.Cells[indexDaColunaId].Value;
+                    _servicoReceita.RemoverReceita(id);
+                    CarregarDadosReceita(_filtroReceita);
+                    CarregarDadosPocao(_filtroPocao);
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Nenhum elemento selecionado!");
+            }
+        }
+
         public void CarregarDadosIngrediente(FiltroIngrediente filtroIngrediente)
         {
             try
@@ -235,7 +312,7 @@ namespace Cod3rsGrowth.Forms
             }
             catch (Exception ex)
             {
-                MenssagemDeErro(comboBox_Naturalidade_Ingrediente.Name, ex);            
+                MenssagemDeErro(comboBox_Naturalidade_Ingrediente.Name, ex);
             }
 
             return filtroIngrediente;

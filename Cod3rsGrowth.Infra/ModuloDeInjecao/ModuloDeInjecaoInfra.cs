@@ -14,6 +14,8 @@ namespace Cod3rsGrowth.Infra.ModuloDeInjecao
         public static void BindServices(ServiceCollection servicos)
         {
             servicos.AddScoped<ServicoReceitaIngrediente>();
+            servicos.AddScoped<ServicoReceita>();
+            servicos.AddScoped<ServicoPocao>();
             servicos.AddLinqToDBContext<MeuContextoDeDados>((provider, options)
                 => options
                     .UseSqlServer(ConfigurationManager.ConnectionStrings[_chaveDeConexao].ConnectionString)
@@ -21,4 +23,4 @@ namespace Cod3rsGrowth.Infra.ModuloDeInjecao
                     );
         }
     }
-}
+}     
