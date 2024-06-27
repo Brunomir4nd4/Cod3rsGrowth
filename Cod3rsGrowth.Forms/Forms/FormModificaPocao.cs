@@ -3,19 +3,19 @@ using Cod3rsGrowth.Servico.Servicos;
 
 namespace Cod3rsGrowth.Forms
 {
-    public partial class FormCriarPocao : Form
+    public partial class FormModificaPocao : Form
     {
         private ServicoPocao _servicoPocao;
         private ServicoIngrediente _servicoIngrediente;
         private FiltroIngrediente _filtroIngrediente = new FiltroIngrediente();
-        public FormCriarPocao(ServicoPocao servicoPocao, ServicoIngrediente servicoIngrediente)
+        public FormModificaPocao(ServicoPocao servicoPocao, ServicoIngrediente servicoIngrediente)
         {
             InitializeComponent();
 
             _servicoIngrediente = servicoIngrediente;
             _servicoPocao = servicoPocao;
         }
-        private void FormCriarPocao_Load(object sender, EventArgs e)
+        private void FormModificaPocao_Load(object sender, EventArgs e)
         {
             CarregarDados();
         }

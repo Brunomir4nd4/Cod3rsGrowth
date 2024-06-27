@@ -13,6 +13,8 @@ namespace Cod3rsGrowth.Forms
         private FiltroIngrediente _filtroIngrediente = new FiltroIngrediente();
         private FiltroReceita _filtroReceita = new FiltroReceita();
         private FiltroPocao _filtroPocao = new FiltroPocao();
+        const int indexDaColunaNome = 1, indexDaColunaId = 0;
+
         public FormListagem(
             ServicoIngrediente servicoIngrediente,
             ServicoReceita servicoReceita,
@@ -51,8 +53,9 @@ namespace Cod3rsGrowth.Forms
         {
             try
             {
-                var formCriarIngrediente = new FormCriarIngrediente(_servicoIngrediente);
-                formCriarIngrediente.ShowDialog();
+                var formModificaIngrediente = new FormModificaIngrediente(_servicoIngrediente);
+                formModificaIngrediente.InserirCabecalhoDeCriacao();
+                formModificaIngrediente.ShowDialog();
                 CarregarDadosIngrediente(_filtroIngrediente);
             }
             catch (Exception ex)
@@ -82,7 +85,7 @@ namespace Cod3rsGrowth.Forms
         {
             try
             {
-                var formCriarPocao = new FormCriarPocao(_servicoPocao, _servicoIngrediente);
+                var formCriarPocao = new FormModificaPocao(_servicoPocao, _servicoIngrediente);
                 formCriarPocao.ShowDialog();
                 CarregarDadosPocao(_filtroPocao);
                 CarregarDadosIngrediente(_filtroIngrediente);
@@ -95,7 +98,6 @@ namespace Cod3rsGrowth.Forms
         }
 
 
-        const int indexDaColunaNome = 1, indexDaColunaId = 0;
         private void AoClicarRemoverIngrediente(object sender, EventArgs e)
         {
             try
@@ -125,7 +127,7 @@ namespace Cod3rsGrowth.Forms
             }
             catch (Exception ex)
             {
-                MenssagemDeErroModuloRemover(ex.Message);
+                MenssagemDeErroLinhaNaoSelecionada(ex.Message);
             }
         }
 
@@ -157,7 +159,7 @@ namespace Cod3rsGrowth.Forms
             }
             catch (Exception ex)
             {
-                MenssagemDeErroModuloRemover(ex.Message);
+                MenssagemDeErroLinhaNaoSelecionada(ex.Message);
             }
         }
 
@@ -184,7 +186,30 @@ namespace Cod3rsGrowth.Forms
             }
             catch (Exception ex)
             {
-                MenssagemDeErroModuloRemover(ex.Message);
+                MenssagemDeErroLinhaNaoSelecionada(ex.Message);
+            }
+        }
+        private void AoClicarEditarIngrediente(object sender, EventArgs e)
+        {
+            try
+            {
+                var id = dataGridView_Ingrediente.CurrentCell != null
+                    ? (int) dataGridView_Ingrediente
+                        .CurrentCell
+                        .OwningRow
+                        .Cells[indexDaColunaId]
+                        .Value
+                    : throw new Exception("Você precissa selecionar uma linha para editar");
+
+                var formModificaIngrediente = new FormModificaIngrediente(_servicoIngrediente);
+                formModificaIngrediente.InserirValoresTextoParaEdicao(id);
+                formModificaIngrediente.AddEventoClickEditar(id);
+                formModificaIngrediente.ShowDialog();
+                CarregarDadosIngrediente(_filtroIngrediente);
+            }
+            catch (Exception ex)
+            {
+                MenssagemDeErroLinhaNaoSelecionada(ex.Message);
             }
         }
 
@@ -237,7 +262,7 @@ namespace Cod3rsGrowth.Forms
             catch (Exception ex)
             {
                 const string campo = "Naturalidade";
-                MenssagemDeErroModuloCarregarDados(campo, ex.Message);       
+                MenssagemDeErroModuloCarregarDados(campo, ex.Message);
             }
         }
 
@@ -447,7 +472,7 @@ namespace Cod3rsGrowth.Forms
                 MessageBoxIcon.Error
                 );
         }
-        private void MenssagemDeErroModuloRemover(string menssagem)
+        private void MenssagemDeErroLinhaNaoSelecionada(string menssagem)
         {
             MessageBox.Show(
                 menssagem,

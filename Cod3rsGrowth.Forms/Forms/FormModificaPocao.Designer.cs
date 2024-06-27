@@ -1,6 +1,6 @@
 ﻿namespace Cod3rsGrowth.Forms
 {
-    partial class FormCriarPocao
+    partial class FormModificaPocao
     {
         /// <summary>
         /// Required designer variable.
@@ -137,7 +137,7 @@
             Name = "FormCriarPocao";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Criar Pocao";
-            Load += FormCriarPocao_Load;
+            Load += FormModificaPocao_Load;
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ((System.ComponentModel.ISupportInitialize)ingredienteBindingSource).EndInit();
             ResumeLayout(false);
