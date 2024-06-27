@@ -26,21 +26,21 @@ namespace Cod3rsGrowth.Forms
                 _servicoIngrediente.CriarIngrediente(ingrediente);
 
                 MessageBox.Show(
-                    "Ingrediente Criado com sucesso!", 
-                    "Sucesso!", 
-                    MessageBoxButtons.OK, 
+                    $"Ingrediente criado com sucesso!",
+                    "SUCCESS!",
+                    MessageBoxButtons.OK,
                     MessageBoxIcon.Information
-                    );
+                );
                 Close();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(
-                    $"ERRO: {ex.Message}",
+                    $"Erro ao tentar criar, {ex.Message}",
                     "ERROR!",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error
-                    );
+                );
             }
         }
 
@@ -67,7 +67,7 @@ namespace Cod3rsGrowth.Forms
                     "ERROR!",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error
-                    );
+                );
             }
         }
     }

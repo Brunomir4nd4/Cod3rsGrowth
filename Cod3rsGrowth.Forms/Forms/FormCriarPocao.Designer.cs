@@ -62,7 +62,7 @@
             button_Salvar.TabIndex = 19;
             button_Salvar.Text = "Salvar";
             button_Salvar.UseVisualStyleBackColor = true;
-            button_Salvar.Click += AoClicarSlavarCriacaoPocao;
+            button_Salvar.Click += AoClicarSalvarCriacaoPocao;
             // 
             // label1
             // 

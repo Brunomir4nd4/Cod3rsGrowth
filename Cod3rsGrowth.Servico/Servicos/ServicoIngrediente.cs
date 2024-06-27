@@ -46,7 +46,7 @@ namespace Cod3rsGrowth.Servico.Servicos
         }
         public Ingrediente EditarIngrediente(Ingrediente ingredienteEditado)
         {
-            var validate = _validator.Validate(ingredienteEditado);
+            var validate = _validator.Validate(ingredienteEditado, options => options.IncludeRuleSets("Editar"));
             if (!validate.IsValid)
             {
                 var erros = string.Join(Environment.NewLine, validate.Errors.Select(e => e.ErrorMessage));

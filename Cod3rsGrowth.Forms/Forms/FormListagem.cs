@@ -57,12 +57,8 @@ namespace Cod3rsGrowth.Forms
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    $"Não foi possível obter [formCriarIngrediente] ERRO: {ex.Message}",
-                    "ERROR!",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                    );
+                const string nomeForms = "FromModificaIngrediente";
+                MenssagemDeErroModuloAbrirFormDeModificao(nomeForms, ex.Message);
             }
         }
 
@@ -77,12 +73,8 @@ namespace Cod3rsGrowth.Forms
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    $"Não foi possível obter [formModificaReceita] ERRO: {ex.Message}",
-                    "ERROR!",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                    );
+                const string nomeForms = "FromModificaReceita";
+                MenssagemDeErroModuloAbrirFormDeModificao(nomeForms, ex.Message);
             }
         }
 
@@ -93,15 +85,12 @@ namespace Cod3rsGrowth.Forms
                 var formCriarPocao = new FormCriarPocao(_servicoPocao, _servicoIngrediente);
                 formCriarPocao.ShowDialog();
                 CarregarDadosPocao(_filtroPocao);
+                CarregarDadosIngrediente(_filtroIngrediente);
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    $"Não foi possível obter [formCriarPocao] ERRO: {ex.Message}",
-                    "ERROR!",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                    );
+                const string nomeForms = "FromModificaPocao";
+                MenssagemDeErroModuloAbrirFormDeModificao(nomeForms, ex.Message);
             }
         }
 
@@ -110,25 +99,32 @@ namespace Cod3rsGrowth.Forms
         {
             try
             {
-                var resultadoDoDialogo = MessageBox.Show(
-                    $"Isso apagará todas as dependencias de " +
-                    $"{dataGridView_Ingrediente.CurrentCell.OwningRow.Cells[indexDaColunaNome].Value},\nDeseja continuar?",
-                    "",
-                    MessageBoxButtons.YesNo,
-                    MessageBoxIcon.Warning
-                    );
-                if (resultadoDoDialogo == DialogResult.Yes)
+                var nomeObjetoSelecionado = dataGridView_Ingrediente.CurrentCell != null
+                    ? dataGridView_Ingrediente
+                        .CurrentCell
+                        .OwningRow
+                        .Cells[indexDaColunaNome]
+                        .Value
+                        .ToString()
+                    : throw new Exception("Você precissa selecionar uma linha para remover");
+
+                if (MenssagemDeAlertaModuloRemover(nomeObjetoSelecionado) == DialogResult.Yes)
                 {
-                    int id = (int)dataGridView_Ingrediente.CurrentCell.OwningRow.Cells[indexDaColunaId].Value;
+                    int id = (int)dataGridView_Ingrediente
+                        .CurrentCell
+                        .OwningRow
+                        .Cells[indexDaColunaId]
+                        .Value;
+
                     _servicoIngrediente.RemoverIngredientes(id);
                     CarregarDadosIngrediente(_filtroIngrediente);
                     CarregarDadosReceita(_filtroReceita);
                     CarregarDadosPocao(_filtroPocao);
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                MessageBox.Show("Nenhum elemento selecionado!");
+                MenssagemDeErroModuloRemover(ex.Message);
             }
         }
 
@@ -136,24 +132,31 @@ namespace Cod3rsGrowth.Forms
         {
             try
             {
-                var resultadoDoDialogo = MessageBox.Show(
-                    $"Isso apagará todas as dependencias de " +
-                    $"{dataGridView_Receita.CurrentCell.OwningRow.Cells[indexDaColunaNome].Value},\nDeseja continuar?",
-                    "",
-                    MessageBoxButtons.YesNo,
-                    MessageBoxIcon.Warning
-                );
-                if (resultadoDoDialogo == DialogResult.Yes)
+                var nomeObjetoSelecionado = dataGridView_Receita.CurrentCell != null
+                    ? dataGridView_Receita
+                        .CurrentCell
+                        .OwningRow
+                        .Cells[indexDaColunaNome]
+                        .Value
+                        .ToString()
+                    : throw new Exception("Você precissa selecionar uma linha para remover");
+
+                if (MenssagemDeAlertaModuloRemover(nomeObjetoSelecionado) == DialogResult.Yes)
                 {
-                    int id = (int)dataGridView_Receita.CurrentCell.OwningRow.Cells[indexDaColunaId].Value;
+                    int id = (int)dataGridView_Receita
+                        .CurrentCell
+                        .OwningRow
+                        .Cells[indexDaColunaId]
+                        .Value;
+
                     _servicoReceita.RemoverReceita(id);
                     CarregarDadosReceita(_filtroReceita);
                     CarregarDadosPocao(_filtroPocao);
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                MessageBox.Show("Nenhum elemento selecionado!");
+                MenssagemDeErroModuloRemover(ex.Message);
             }
         }
 
@@ -161,14 +164,16 @@ namespace Cod3rsGrowth.Forms
         {
             try
             {
-                var resultadoDoDialogo = MessageBox.Show(
-                    $"Isso apagará todas as dependencias de " +
-                    $"{dataGridView_Pocao.CurrentCell.OwningRow.Cells[indexDaColunaNome].Value},\nDeseja continuar?",
-                    "",
-                    MessageBoxButtons.YesNo,
-                    MessageBoxIcon.Warning
-                );
-                if (resultadoDoDialogo == DialogResult.Yes)
+                var nomeObjetoSelecionado = dataGridView_Pocao.CurrentCell != null
+                    ? dataGridView_Pocao
+                        .CurrentCell
+                        .OwningRow
+                        .Cells[indexDaColunaNome]
+                        .Value
+                        .ToString()
+                    : throw new Exception("Você precissa selecionar uma linha para remover");
+
+                if (MenssagemDeAlertaModuloRemover(nomeObjetoSelecionado) == DialogResult.Yes)
                 {
                     int id = (int)dataGridView_Pocao.CurrentCell.OwningRow.Cells[indexDaColunaId].Value;
                     _servicoReceita.RemoverReceita(id);
@@ -176,9 +181,9 @@ namespace Cod3rsGrowth.Forms
                     CarregarDadosPocao(_filtroPocao);
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                MessageBox.Show("Nenhum elemento selecionado!");
+                MenssagemDeErroModuloRemover(ex.Message);
             }
         }
 
@@ -191,12 +196,8 @@ namespace Cod3rsGrowth.Forms
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    $"Não foi possível obter elementos de Ingrediente ERRO: {ex.Message}",
-                    "ERROR!",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                    );
+                const string campo = "Ingrediente";
+                MenssagemDeErroModuloCarregarDados(campo, ex.Message);
             }
         }
 
@@ -208,12 +209,8 @@ namespace Cod3rsGrowth.Forms
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    $"Não foi possível obter elementos de Receita ERRO: {ex.Message}",
-                    "ERROR!",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                    );
+                const string campo = "Receita";
+                MenssagemDeErroModuloCarregarDados(campo, ex.Message);
             }
         }
 
@@ -225,12 +222,8 @@ namespace Cod3rsGrowth.Forms
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    $"Não foi possível obter elementos de Pocao ERRO: {ex.Message}",
-                    "ERROR!",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                    );
+                const string campo = "Poção";
+                MenssagemDeErroModuloCarregarDados(campo, ex.Message);
             }
         }
 
@@ -242,12 +235,8 @@ namespace Cod3rsGrowth.Forms
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    $"Não foi possível carregar os dados de Naturalidade ERRO: {ex.Message}",
-                    "ERROR!",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                    );
+                const string campo = "Naturalidade";
+                MenssagemDeErroModuloCarregarDados(campo, ex.Message);       
             }
         }
 
@@ -265,12 +254,8 @@ namespace Cod3rsGrowth.Forms
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    $"Campo Id inserido não é valido! ERRO: {ex.Message}",
-                    "ERROR!",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                    );
+                const string campo = "Id";
+                MenssagemDeErroModuloFiltragem(campo, ex.Message);
             }
 
             try
@@ -283,7 +268,8 @@ namespace Cod3rsGrowth.Forms
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Campo Quantidade inserido não é valido! ERRO: {ex.Message}");
+                const string campo = "Quantidade";
+                MenssagemDeErroModuloFiltragem(campo, ex.Message);
             }
 
             try
@@ -296,7 +282,8 @@ namespace Cod3rsGrowth.Forms
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Campo Nome inserido não é valido! ERRO: {ex.Message}");
+                const string campo = "Nome";
+                MenssagemDeErroModuloFiltragem(campo, ex.Message);
             }
 
             try
@@ -312,7 +299,8 @@ namespace Cod3rsGrowth.Forms
             }
             catch (Exception ex)
             {
-                MenssagemDeErro(comboBox_Naturalidade_Ingrediente.Name, ex);
+                const string campo = "Naturalidade";
+                MenssagemDeErroModuloFiltragem(campo, ex.Message);
             }
 
             return filtroIngrediente;
@@ -332,7 +320,8 @@ namespace Cod3rsGrowth.Forms
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Campo Id inserido não é valido! ERRO: {ex.Message}");
+                const string campo = "Id";
+                MenssagemDeErroModuloFiltragem(campo, ex.Message);
             }
 
             try
@@ -345,7 +334,8 @@ namespace Cod3rsGrowth.Forms
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Campo Nome inserido não é valido! ERRO: {ex.Message}");
+                const string campo = "Nome";
+                MenssagemDeErroModuloFiltragem(campo, ex.Message);
             }
 
             try
@@ -358,7 +348,8 @@ namespace Cod3rsGrowth.Forms
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Campo Valor inserido não é valido! ERRO: {ex.Message}");
+                const string campo = "Valor";
+                MenssagemDeErroModuloFiltragem(campo, ex.Message);
             }
 
             try
@@ -371,7 +362,8 @@ namespace Cod3rsGrowth.Forms
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Campo Validade inserido não é valido! ERRO: {ex.Message}");
+                const string campo = "Validade";
+                MenssagemDeErroModuloFiltragem(campo, ex.Message);
             }
 
             return filtroReceita;
@@ -391,7 +383,8 @@ namespace Cod3rsGrowth.Forms
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Campo Id inserido não é valido! ERRO: {ex.Message}");
+                const string campo = "Id";
+                MenssagemDeErroModuloFiltragem(campo, ex.Message);
             }
 
             try
@@ -404,12 +397,14 @@ namespace Cod3rsGrowth.Forms
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Campo Nome inserido não é valido! ERRO: {ex.Message}");
+                const string campo = "Nome";
+                MenssagemDeErroModuloFiltragem(campo, ex.Message);
             }
 
             try
             {
-                if (!maskedTextBox_Data_Pocao.Text.IsNullOrEmpty() & maskedTextBox_Data_Pocao.Text != "  /  /")
+                const string mascaraData = "  /  /";
+                if (!maskedTextBox_Data_Pocao.Text.IsNullOrEmpty() & maskedTextBox_Data_Pocao.Text != mascaraData)
                 {
                     filtroPocao.DataDeFabricacao = DateTime.Parse(maskedTextBox_Data_Pocao.Text);
                     maskedTextBox_Data_Pocao.Text = "";
@@ -417,14 +412,16 @@ namespace Cod3rsGrowth.Forms
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Campo Data inserido não é valido! ERRO: {ex.Message}");
+                const string campo = "Data";
+                MenssagemDeErroModuloFiltragem(campo, ex.Message);
             }
 
             try
             {
+                const string stringEsperada = "Vencido";
                 if (!comboBox_Vencido_Pocao.Text.IsNullOrEmpty())
                 {
-                    filtroPocao.Vencido = comboBox_Vencido_Pocao.Text == "Vencido"
+                    filtroPocao.Vencido = comboBox_Vencido_Pocao.Text == stringEsperada
                         ?
                         true
                         :
@@ -433,16 +430,54 @@ namespace Cod3rsGrowth.Forms
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Campo Vencido inserido não é valido! ERRO: {ex.Message}");
+                const string campo = "Vencido";
+                MenssagemDeErroModuloFiltragem(campo, ex.Message);
             }
 
             return filtroPocao;
         }
 
-        private void MenssagemDeErro(string campo, Exception ex)
+        private void MenssagemDeErroModuloAbrirFormDeModificao(string nomeForms, string menssagem)
         {
             MessageBox.Show(
-                    $"Campo {campo} inserido não é valido! ERRO: {ex.Message}",
+                $"Não foi possível obter {nomeForms} ERRO: {menssagem}",
+                "ERROR!",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Error
+                );
+        }
+        private void MenssagemDeErroModuloRemover(string menssagem)
+        {
+            MessageBox.Show(
+                menssagem,
+                "ERROR!",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Error
+                );
+        }
+        private DialogResult MenssagemDeAlertaModuloRemover(string nomeObjetoSelecionado)
+        {
+            return MessageBox.Show(
+                    $"Isso apagará todas as dependencias de " +
+                    $"{nomeObjetoSelecionado},\nDeseja continuar?",
+                    "WARNING!",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Warning
+                );
+        }
+        private void MenssagemDeErroModuloCarregarDados(string campo, string menssagem)
+        {
+            MessageBox.Show(
+                    $"Não foi possível carregar os dados de {campo} ERRO: {menssagem}",
+                    "ERROR!",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                    );
+        }
+        private void MenssagemDeErroModuloFiltragem(string campo, string menssagem)
+        {
+            MessageBox.Show(
+                    $"Campo {campo} inserido não é valido! ERRO: {menssagem}",
                     "ERROR!",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error

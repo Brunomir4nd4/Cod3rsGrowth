@@ -409,7 +409,7 @@
             dataGridView_Receita.Location = new Point(3, 82);
             dataGridView_Receita.Name = "dataGridView_Receita";
             dataGridView_Receita.RowTemplate.Height = 25;
-            dataGridView_Receita.Size = new Size(848, 383);
+            dataGridView_Receita.Size = new Size(848, 382);
             dataGridView_Receita.TabIndex = 26;
             // 
             // dataGridViewTextBoxColumn1
@@ -690,7 +690,7 @@
             dataGridView_Pocao.Location = new Point(0, 79);
             dataGridView_Pocao.Name = "dataGridView_Pocao";
             dataGridView_Pocao.RowTemplate.Height = 25;
-            dataGridView_Pocao.Size = new Size(851, 385);
+            dataGridView_Pocao.Size = new Size(851, 383);
             dataGridView_Pocao.TabIndex = 27;
             // 
             // idDataGridViewTextBoxColumn1
