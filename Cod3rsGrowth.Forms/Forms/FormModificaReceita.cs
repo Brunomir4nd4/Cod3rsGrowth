@@ -43,7 +43,7 @@ namespace Cod3rsGrowth.Forms
 
                 _servicoReceita.CriarReceita(receita);
 
-                MessageBox.Show("Receita Criada com sucesso!", "Sucesso!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Ingrediente Criado com sucesso!", "Sucesso!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 Close();
             }
             catch (Exception ex)
