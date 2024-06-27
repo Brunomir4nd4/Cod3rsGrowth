@@ -10,6 +10,6 @@ namespace Cod3rsGrowth.Dominio.Entidades
         [Column("IdReceita")]
         public int IdReceita { get; set; }
         [Column("IdIngrediente")]
-        public int IdIngrediente { get; set; }
+        public int IdIngredinete { get; set; }
     }
 }

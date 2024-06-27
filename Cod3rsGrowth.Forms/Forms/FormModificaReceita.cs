@@ -43,12 +43,14 @@ namespace Cod3rsGrowth.Forms
 
                 _servicoReceita.CriarReceita(receita);
 
+
                 MessageBox.Show(
                     "Receita Criada com sucesso!", 
                     "SECCESS!", 
                     MessageBoxButtons.OK, 
                     MessageBoxIcon.Information
                 );
+
                 Close();
             }
             catch (Exception ex)

@@ -1,5 +1,4 @@
 ﻿using FluentMigrator;
-using System.Data;
 
 namespace Cod3rsGrowth.Dominio.Migradores
 {
@@ -24,7 +23,7 @@ namespace Cod3rsGrowth.Dominio.Migradores
 
             Create.Table("Pocao")
                 .WithColumn("Id").AsInt32().PrimaryKey().Identity()
-                .WithColumn("IdReceita").AsInt32().ForeignKey().Nullable()
+                .WithColumn("IdReceita").AsInt32().ForeignKey().NotNullable()
                 .WithColumn("Vencido").AsBoolean().NotNullable()
                 .WithColumn("DataDeFabricacao").AsDateTime().NotNullable();
 
@@ -35,19 +34,15 @@ namespace Cod3rsGrowth.Dominio.Migradores
 
             Create.ForeignKey("fk_IdReceita_Para_Pocao")
             .FromTable("Pocao").ForeignColumn("IdReceita")
-            .ToTable("Receita").PrimaryColumn("Id")
-            .OnDelete(Rule.SetNull)
-            .OnUpdate(Rule.Cascade);
+            .ToTable("Receita").PrimaryColumn("Id");
             
             Create.ForeignKey("fk_IdReceita_Para_ReceitaIngrediente")
             .FromTable("ReceitaIngrediente").ForeignColumn("IdReceita")
-            .ToTable("Receita").PrimaryColumn("Id")
-            .OnDeleteOrUpdate(Rule.Cascade);
-
+            .ToTable("Receita").PrimaryColumn("Id");
+            
             Create.ForeignKey("fk_IdIngrediente_Para_ReceitaIngrediente")
             .FromTable("ReceitaIngrediente").ForeignColumn("IdIngrediente")
-            .ToTable("Ingrediente").PrimaryColumn("Id")
-            .OnDeleteOrUpdate(Rule.Cascade);
+            .ToTable("Ingrediente").PrimaryColumn("Id");
         }
 
         public override void Down()

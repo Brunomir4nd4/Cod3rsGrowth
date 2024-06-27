@@ -8,6 +8,7 @@ namespace Cod3rsGrowth.Infra.Repositorios
     public class RepositorioIngrediente : IRepositorioIngrediente
     {
         private MeuContextoDeDados _db;
+
         public RepositorioIngrediente(MeuContextoDeDados db)
         {
             _db = db;

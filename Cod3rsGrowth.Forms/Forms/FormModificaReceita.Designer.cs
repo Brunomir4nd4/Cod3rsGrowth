@@ -42,10 +42,9 @@
             button_Salvar = new Button();
             button_Cancelar = new Button();
             dataGridView1 = new DataGridView();
+            ingredienteBindingSource = new BindingSource(components);
             nomeDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             Check = new DataGridViewCheckBoxColumn();
-            ingredienteBindingSource = new BindingSource(components);
-            sqlCommand1 = new Microsoft.Data.SqlClient.SqlCommand();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)ingredienteBindingSource).BeginInit();
             SuspendLayout();
@@ -180,6 +179,10 @@
             dataGridView1.Size = new Size(375, 137);
             dataGridView1.TabIndex = 37;
             // 
+            // ingredienteBindingSource
+            // 
+            ingredienteBindingSource.DataSource = typeof(Dominio.Entidades.Ingrediente);
+            // 
             // nomeDataGridViewTextBoxColumn
             // 
             nomeDataGridViewTextBoxColumn.DataPropertyName = "Nome";
@@ -194,15 +197,6 @@
             Check.Resizable = DataGridViewTriState.True;
             Check.SortMode = DataGridViewColumnSortMode.Automatic;
             Check.Width = 67;
-            // 
-            // ingredienteBindingSource
-            // 
-            ingredienteBindingSource.DataSource = typeof(Dominio.Entidades.Ingrediente);
-            // 
-            // sqlCommand1
-            // 
-            sqlCommand1.CommandTimeout = 30;
-            sqlCommand1.EnableOptimizedParameterBinding = false;
             // 
             // FormModificaReceita
             // 
@@ -256,6 +250,5 @@
         private BindingSource ingredienteBindingSource;
         private DataGridViewTextBoxColumn nomeDataGridViewTextBoxColumn;
         private DataGridViewCheckBoxColumn Check;
-        private Microsoft.Data.SqlClient.SqlCommand sqlCommand1;
     }
 }
