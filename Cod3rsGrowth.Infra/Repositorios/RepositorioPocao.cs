@@ -71,14 +71,14 @@ namespace Cod3rsGrowth.Infra.Repositorios
         public List<FiltroPocao> ObterPocaoComNome()
         {
             var query = from pocao in _db.pocao
-                             join receita in _db.receita on pocao.IdReceita equals receita.Id
-                             select new FiltroPocao { 
-                                 Id = pocao.Id, 
-                                 IdReceita = pocao.IdReceita, 
-                                 Nome = receita.Nome, 
-                                 DataDeFabricacao = pocao.DataDeFabricacao, 
-                                 Vencido = pocao.Vencido 
-                             };
+                        join receita in _db.receita on pocao.IdReceita equals receita.Id
+                        select new FiltroPocao { 
+                            Id = pocao.Id, 
+                            IdReceita = pocao.IdReceita, 
+                            Nome = receita.Nome, 
+                            DataDeFabricacao = pocao.DataDeFabricacao, 
+                            Vencido = pocao.Vencido 
+                        };
             
             return query.ToList();
         }

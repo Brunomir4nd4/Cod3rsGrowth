@@ -381,10 +381,10 @@
             Receitas.Controls.Add(panel3);
             Receitas.Controls.Add(panel2);
             Receitas.Font = new Font("JetBrains Mono", 8.999999F, FontStyle.Regular, GraphicsUnit.Point);
-            Receitas.Location = new Point(4, 24);
+            Receitas.Location = new Point(4, 25);
             Receitas.Name = "Receitas";
             Receitas.Padding = new Padding(3);
-            Receitas.Size = new Size(854, 528);
+            Receitas.Size = new Size(854, 527);
             Receitas.TabIndex = 1;
             Receitas.Text = "Receitas";
             Receitas.UseVisualStyleBackColor = true;
@@ -401,7 +401,7 @@
             dataGridView_Receita.Location = new Point(3, 82);
             dataGridView_Receita.Name = "dataGridView_Receita";
             dataGridView_Receita.RowTemplate.Height = 25;
-            dataGridView_Receita.Size = new Size(848, 375);
+            dataGridView_Receita.Size = new Size(848, 374);
             dataGridView_Receita.TabIndex = 26;
             // 
             // dataGridViewTextBoxColumn7
@@ -447,7 +447,7 @@
             panel3.Controls.Add(button3);
             panel3.Controls.Add(button4);
             panel3.Dock = DockStyle.Bottom;
-            panel3.Location = new Point(3, 478);
+            panel3.Location = new Point(3, 477);
             panel3.Name = "panel3";
             panel3.Size = new Size(848, 47);
             panel3.TabIndex = 25;
@@ -669,7 +669,7 @@
             dataGridView_Pocao.Location = new Point(0, 79);
             dataGridView_Pocao.Name = "dataGridView_Pocao";
             dataGridView_Pocao.RowTemplate.Height = 25;
-            dataGridView_Pocao.Size = new Size(851, 377);
+            dataGridView_Pocao.Size = new Size(851, 376);
             dataGridView_Pocao.TabIndex = 27;
             // 
             // idDataGridViewTextBoxColumn

@@ -42,7 +42,7 @@ namespace Cod3rsGrowth.Forms
                 receita.Imagem = "Caminho/da/imagem";
                 receita.ListaIdIngrediente = ObterListaIdIngredientesSelecionados();
 
-                _servicoReceita.CriarReceita(receita);
+                _servicoReceita.Criar(receita);
 
 
                 MessageBox.Show(
@@ -75,7 +75,7 @@ namespace Cod3rsGrowth.Forms
             receita.ValidadeEmMeses = Int32.Parse(textBox_Validade.Text);
             receita.ListaIdIngrediente = ObterListaIdIngredientesSelecionados();
 
-            _servicoReceita.EditarReceita(receita);
+            _servicoReceita.Editar(receita);
             MessageBox.Show(
                 $"Receita atualizado com sucesso!",
                 "SUCCESS!",
@@ -99,16 +99,17 @@ namespace Cod3rsGrowth.Forms
                     "ERROR",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error
-                    );
+                );
             }
         }
 
         private List<int> ObterListaIdIngredientesSelecionados()
         {
             const int indexCheck = 1, indexNome = 0;
+            const bool CheckBoxDesmaracado = false;
             var listaDeIdIngrediente = dataGridView1.Rows
                 .Cast<DataGridViewRow>()
-                .Where(row => Convert.ToBoolean(row.Cells[indexCheck].Value) != false)
+                .Where(row => Convert.ToBoolean(row.Cells[indexCheck].Value) != CheckBoxDesmaracado)
                 .Select(row =>
                 {
                     var nome = row.Cells[indexNome].Value.ToString();
@@ -125,27 +126,28 @@ namespace Cod3rsGrowth.Forms
         private void InserirIngredientesDaReceitaAoCheckList(List<int> listaIdIngrediente)
         {
             const int indexNome = 0, indexCheck = 1;
+            const bool checkBoxMarcado = true;
             foreach (DataGridViewRow row in dataGridView1.Rows)
             {
                 var nome = row.Cells[indexNome].Value.ToString();
 
                 if (listaIdIngrediente.Any(id => _servicoIngrediente.ObterPorId(id).Nome == nome))
                 {
-                    row.Cells[indexCheck].Value = true;
+                    row.Cells[indexCheck].Value = checkBoxMarcado;
                 }
             }
         }
 
         public void InserirCabecalhoDeCriacao()
         {
-            label_Titulo.Text = "Criação do Receita";
+            label_Titulo.Text = "Criação da Receita";
         }
 
         public void InserirValoresTextoParaEdicao(int id)
         {
             var receita = _servicoReceita.ObterPorId(id);
 
-            label_Titulo.Text = "  Edição do Receita";
+            label_Titulo.Text = "  Edição da Receita";
             textBox_Nome.Text = receita.Nome;
             richTextBox_Descricao.Text = receita.Descricao;
             textBox_Valor.Text = receita.Valor.ToString();

@@ -120,7 +120,7 @@ namespace Cod3rsGrowth.Forms
                         .Cells[indexDaColunaId]
                         .Value;
 
-                    _servicoIngrediente.RemoverIngredientes(id);
+                    _servicoIngrediente.Remover(id);
                     CarregarDadosIngrediente(_filtroIngrediente);
                     CarregarDadosReceita(_filtroReceita);
                     CarregarDadosPocao(_filtroPocao);
@@ -153,7 +153,7 @@ namespace Cod3rsGrowth.Forms
                         .Cells[indexDaColunaId]
                         .Value;
 
-                    _servicoReceita.RemoverReceita(id);
+                    _servicoReceita.Remover(id);
                     CarregarDadosReceita(_filtroReceita);
                     CarregarDadosPocao(_filtroPocao);
                 }
@@ -180,7 +180,7 @@ namespace Cod3rsGrowth.Forms
                 if (MenssagemDeAlertaModuloRemover(nomeObjetoSelecionado) == DialogResult.Yes)
                 {
                     int id = (int)dataGridView_Pocao.CurrentCell.OwningRow.Cells[indexDaColunaId].Value;
-                    _servicoPocao.RemoverPocao(id);
+                    _servicoPocao.Remover(id);
                     CarregarDadosReceita(_filtroReceita);
                     CarregarDadosPocao(_filtroPocao);
                 }

@@ -15,7 +15,7 @@ namespace Cod3rsGrowth.Teste.Repositorios
 
         public Receita ObterPorId(int idProcurado)
         {
-            return _listaReceita.Find(objeto => objeto.Id == idProcurado)
+            return _listaReceita.Find(r => r.Id == idProcurado)
                 ?? throw new Exception($"O objeto com id [{idProcurado}] não foi encontrado");
         }
 

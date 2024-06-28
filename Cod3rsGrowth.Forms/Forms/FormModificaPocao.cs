@@ -24,7 +24,7 @@ namespace Cod3rsGrowth.Forms
         {
             try
             {
-                _servicoPocao.CriarPocao(ObterListaDeIngredientesSelecionados());
+                _servicoPocao.Criar(ObterListaDeIngredientesSelecionados());
                 MessageBox.Show(
                     "Poção Criada com sucesso!", 
                     "SECCESS!", 
@@ -35,8 +35,12 @@ namespace Cod3rsGrowth.Forms
             }
             catch(Exception ex)
             {
-
-                MessageBox.Show($"ERRO: {ex.Message}", "ERROR!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(
+                    $"ERRO: {ex.Message}", 
+                    "ERROR!", 
+                    MessageBoxButtons.OK, 
+                    MessageBoxIcon.Error
+                );
             }
         }
 
@@ -65,12 +69,12 @@ namespace Cod3rsGrowth.Forms
         private List<Ingrediente> ObterListaDeIngredientesSelecionados()
         {
             const int indexCheck = 1, indexNome = 0;
-
+            const bool checkBoxDesmarcado = false;
             List<Ingrediente> listaIngrediente;
 
             listaIngrediente = dataGridView1.Rows
                 .Cast<DataGridViewRow>()
-                .Where(row => Convert.ToBoolean(row.Cells[indexCheck].Value) != false)
+                .Where(row => Convert.ToBoolean(row.Cells[indexCheck].Value) != checkBoxDesmarcado)
                 .Select(row =>
                 {
                     var nome = row.Cells[indexNome].Value.ToString();

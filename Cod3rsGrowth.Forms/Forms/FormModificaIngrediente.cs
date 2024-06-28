@@ -24,7 +24,7 @@ namespace Cod3rsGrowth.Forms
                 ingrediente.Quantidade = Int32.Parse(textBox_Quantidade.Text);
                 ingrediente.Naturalidade = (Naturalidade)valorInteiroDeNaturalidade;
 
-                _servicoIngrediente.CriarIngrediente(ingrediente);
+                _servicoIngrediente.Criar(ingrediente);
 
                 MessageBox.Show(
                     $"Ingrediente criado com sucesso!",
@@ -54,7 +54,7 @@ namespace Cod3rsGrowth.Forms
             ingrediente.Quantidade = Int32.Parse(textBox_Quantidade.Text);
             ingrediente.Naturalidade = (Naturalidade)valorInteiroDeNaturalidade;
 
-            _servicoIngrediente.EditarIngrediente(ingrediente);
+            _servicoIngrediente.Editar(ingrediente);
             MessageBox.Show(
                 $"Ingrediente atualizado com sucesso!",
                 "SUCCESS!",
