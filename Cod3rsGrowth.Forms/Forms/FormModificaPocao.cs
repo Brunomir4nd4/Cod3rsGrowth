@@ -35,6 +35,7 @@ namespace Cod3rsGrowth.Forms
             }
             catch(Exception ex)
             {
+
                 MessageBox.Show($"ERRO: {ex.Message}", "ERROR!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -64,9 +65,12 @@ namespace Cod3rsGrowth.Forms
         private List<Ingrediente> ObterListaDeIngredientesSelecionados()
         {
             const int indexCheck = 1, indexNome = 0;
-            var listaIngrediente = dataGridView1.Rows
+
+            List<Ingrediente> listaIngrediente;
+
+            listaIngrediente = dataGridView1.Rows
                 .Cast<DataGridViewRow>()
-                .Where(row => row.Cells[indexCheck].Value != null)
+                .Where(row => Convert.ToBoolean(row.Cells[indexCheck].Value) != false)
                 .Select(row =>
                 {
                     var nome = row.Cells[indexNome].Value.ToString();

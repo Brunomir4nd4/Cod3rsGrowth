@@ -33,14 +33,10 @@
             button_Salvar = new Button();
             label1 = new Label();
             dataGridView1 = new DataGridView();
-            Nome = new DataGridViewTextBoxColumn();
-            Check = new DataGridViewCheckBoxColumn();
             ingredienteBindingSource = new BindingSource(components);
             label6 = new Label();
-            idDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            nomeDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            quantidadeDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            naturalidadeDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            Nome = new DataGridViewTextBoxColumn();
+            Check = new DataGridViewCheckBoxColumn();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)ingredienteBindingSource).BeginInit();
             SuspendLayout();
@@ -87,13 +83,27 @@
             dataGridView1.BackgroundColor = Color.AliceBlue;
             dataGridView1.BorderStyle = BorderStyle.None;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { Nome, Check, idDataGridViewTextBoxColumn, nomeDataGridViewTextBoxColumn, quantidadeDataGridViewTextBoxColumn, naturalidadeDataGridViewTextBoxColumn });
+            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { Nome, Check });
             dataGridView1.DataSource = ingredienteBindingSource;
             dataGridView1.Location = new Point(12, 102);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowTemplate.Height = 25;
             dataGridView1.Size = new Size(375, 247);
             dataGridView1.TabIndex = 39;
+            // 
+            // ingredienteBindingSource
+            // 
+            ingredienteBindingSource.DataSource = typeof(Dominio.Entidades.Ingrediente);
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Font = new Font("JetBrains Mono", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            label6.Location = new Point(12, 69);
+            label6.Name = "label6";
+            label6.Size = new Size(117, 19);
+            label6.TabIndex = 38;
+            label6.Text = "Ingredientes";
             // 
             // Nome
             // 
@@ -110,44 +120,6 @@
             Check.Resizable = DataGridViewTriState.True;
             Check.SortMode = DataGridViewColumnSortMode.Automatic;
             Check.Width = 67;
-            // 
-            // ingredienteBindingSource
-            // 
-            ingredienteBindingSource.DataSource = typeof(Dominio.Entidades.Ingrediente);
-            // 
-            // label6
-            // 
-            label6.AutoSize = true;
-            label6.Font = new Font("JetBrains Mono", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            label6.Location = new Point(12, 69);
-            label6.Name = "label6";
-            label6.Size = new Size(117, 19);
-            label6.TabIndex = 38;
-            label6.Text = "Ingredientes";
-            // 
-            // idDataGridViewTextBoxColumn
-            // 
-            idDataGridViewTextBoxColumn.DataPropertyName = "Id";
-            idDataGridViewTextBoxColumn.HeaderText = "Id";
-            idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
-            // 
-            // nomeDataGridViewTextBoxColumn
-            // 
-            nomeDataGridViewTextBoxColumn.DataPropertyName = "Nome";
-            nomeDataGridViewTextBoxColumn.HeaderText = "Nome";
-            nomeDataGridViewTextBoxColumn.Name = "nomeDataGridViewTextBoxColumn";
-            // 
-            // quantidadeDataGridViewTextBoxColumn
-            // 
-            quantidadeDataGridViewTextBoxColumn.DataPropertyName = "Quantidade";
-            quantidadeDataGridViewTextBoxColumn.HeaderText = "Quantidade";
-            quantidadeDataGridViewTextBoxColumn.Name = "quantidadeDataGridViewTextBoxColumn";
-            // 
-            // naturalidadeDataGridViewTextBoxColumn
-            // 
-            naturalidadeDataGridViewTextBoxColumn.DataPropertyName = "Naturalidade";
-            naturalidadeDataGridViewTextBoxColumn.HeaderText = "Naturalidade";
-            naturalidadeDataGridViewTextBoxColumn.Name = "naturalidadeDataGridViewTextBoxColumn";
             // 
             // FormModificaPocao
             // 
@@ -182,9 +154,5 @@
         private Label label6;
         private DataGridViewTextBoxColumn Nome;
         private DataGridViewCheckBoxColumn Check;
-        private DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn nomeDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn quantidadeDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn naturalidadeDataGridViewTextBoxColumn;
     }
 }

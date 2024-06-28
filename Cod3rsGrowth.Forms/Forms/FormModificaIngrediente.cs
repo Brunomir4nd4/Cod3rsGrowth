@@ -7,11 +7,11 @@ namespace Cod3rsGrowth.Forms
     public partial class FormModificaIngrediente : Form
     {
         private ServicoIngrediente _servicoIngrediente;
+        private Naturalidade _NATURALIDADE;
         public FormModificaIngrediente(ServicoIngrediente servicoIngrediente)
         {
             InitializeComponent();
             _servicoIngrediente = servicoIngrediente;
-            CarregarDadosComboBox();
         }
 
         private void AoClicarSalvarCriacao(object sender, EventArgs e)
@@ -66,6 +66,7 @@ namespace Cod3rsGrowth.Forms
 
         private void FormModificaIngrediente_Load(object sender, EventArgs e)
         {
+            CarregarDadosComboBox();
         }
 
         private void AoClicarFcharForms(object sender, EventArgs e)
@@ -78,6 +79,7 @@ namespace Cod3rsGrowth.Forms
             try
             {
                 comboBox_Naturalidade.DataSource = Enum.GetValues(typeof(Naturalidade));
+                comboBox_Naturalidade.SelectedItem = _NATURALIDADE;
             }
             catch (Exception ex)
             {
@@ -101,7 +103,7 @@ namespace Cod3rsGrowth.Forms
             label_Cabecalho.Text = "  Edição do Ingrediente";
             textBox_Nome.Text = ingrediente.Nome;
             textBox_Quantidade.Text = ingrediente.Quantidade.ToString();
-            comboBox_Naturalidade.SelectedItem = ingrediente.Naturalidade;
+            _NATURALIDADE = ingrediente.Naturalidade;
         }
         public void AddEventoClickCriar()
         {

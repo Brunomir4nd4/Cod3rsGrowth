@@ -229,7 +229,7 @@ namespace Cod3rsGrowth.Forms
                 formModificaReceita.AddEventoClickEditar(id);
                 formModificaReceita.InserirValoresTextoParaEdicao(id);
                 formModificaReceita.ShowDialog();
-                CarregarDadosIngrediente(_filtroIngrediente);
+                CarregarDadosReceita(_filtroReceita);
                 CarregarDadosPocao(_filtroPocao);
             }
             catch (Exception ex)
