@@ -11,6 +11,7 @@ namespace Cod3rsGrowth.Forms
         {
             InitializeComponent();
             _servicoIngrediente = servicoIngrediente;
+            CarregarDadosComboBox();
         }
 
         private void AoClicarSalvarCriacao(object sender, EventArgs e)
@@ -65,7 +66,6 @@ namespace Cod3rsGrowth.Forms
 
         private void FormModificaIngrediente_Load(object sender, EventArgs e)
         {
-            CarregarDadosComboBox();
         }
 
         private void AoClicarFcharForms(object sender, EventArgs e)
@@ -98,10 +98,10 @@ namespace Cod3rsGrowth.Forms
         {
             var ingrediente = _servicoIngrediente.ObterPorId(id);
 
-            label_Cabecalho.Text = "Edição do Ingrediente";
+            label_Cabecalho.Text = "  Edição do Ingrediente";
             textBox_Nome.Text = ingrediente.Nome;
             textBox_Quantidade.Text = ingrediente.Quantidade.ToString();
-            comboBox_Naturalidade.SelectedValue = (int) ingrediente.Naturalidade;
+            comboBox_Naturalidade.SelectedItem = ingrediente.Naturalidade;
         }
         public void AddEventoClickCriar()
         {

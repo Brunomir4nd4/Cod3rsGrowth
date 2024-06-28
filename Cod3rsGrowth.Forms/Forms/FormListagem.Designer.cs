@@ -48,10 +48,19 @@
             label1 = new Label();
             textBox_Id_Ingrediente = new TextBox();
             dataGridView_Ingrediente = new DataGridView();
-            ingredienteBindingSource = new BindingSource(components);
+            dataGridViewTextBoxColumn3 = new DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn4 = new DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn5 = new DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn6 = new DataGridViewTextBoxColumn();
+            ingredienteBindingSource1 = new BindingSource(components);
             Receitas = new TabPage();
             dataGridView_Receita = new DataGridView();
-            receitaBindingSource = new BindingSource(components);
+            dataGridViewTextBoxColumn7 = new DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn8 = new DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn9 = new DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn10 = new DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn11 = new DataGridViewTextBoxColumn();
+            receitaBindingSource1 = new BindingSource(components);
             panel3 = new Panel();
             button_Adicionar_Receita = new Button();
             button_Remover_Receita = new Button();
@@ -72,11 +81,14 @@
             label8 = new Label();
             Poções = new TabPage();
             dataGridView_Pocao = new DataGridView();
-            pocaoBindingSource = new BindingSource(components);
+            idDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            Nome = new DataGridViewTextBoxColumn();
+            DataDeFabricacao = new DataGridViewTextBoxColumn();
+            vencidoDataGridViewCheckBoxColumn = new DataGridViewCheckBoxColumn();
+            pocaoBindingSource1 = new BindingSource(components);
             panel5 = new Panel();
             button_Adicionar_Pocao = new Button();
             button_Remover_Pocao = new Button();
-            button_Editar_Pocao = new Button();
             button9 = new Button();
             button10 = new Button();
             button11 = new Button();
@@ -94,46 +106,33 @@
             label11 = new Label();
             textBox_Nome_Pocao = new TextBox();
             label12 = new Label();
+            ingredienteBindingSource = new BindingSource(components);
+            receitaBindingSource = new BindingSource(components);
+            pocaoBindingSource = new BindingSource(components);
             receitaIngredienteBindingSource = new BindingSource(components);
             fbCommand1 = new FirebirdSql.Data.FirebirdClient.FbCommand();
             fbCommand2 = new FirebirdSql.Data.FirebirdClient.FbCommand();
             fbCommand3 = new FirebirdSql.Data.FirebirdClient.FbCommand();
-            ingredienteBindingSource1 = new BindingSource(components);
-            dataGridViewTextBoxColumn3 = new DataGridViewTextBoxColumn();
-            dataGridViewTextBoxColumn4 = new DataGridViewTextBoxColumn();
-            dataGridViewTextBoxColumn5 = new DataGridViewTextBoxColumn();
-            dataGridViewTextBoxColumn6 = new DataGridViewTextBoxColumn();
-            receitaBindingSource1 = new BindingSource(components);
-            dataGridViewTextBoxColumn7 = new DataGridViewTextBoxColumn();
-            dataGridViewTextBoxColumn8 = new DataGridViewTextBoxColumn();
-            dataGridViewTextBoxColumn9 = new DataGridViewTextBoxColumn();
-            dataGridViewTextBoxColumn10 = new DataGridViewTextBoxColumn();
-            dataGridViewTextBoxColumn11 = new DataGridViewTextBoxColumn();
-            pocaoBindingSource1 = new BindingSource(components);
-            idDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            Nome = new DataGridViewTextBoxColumn();
-            DataDeFabricacao = new DataGridViewTextBoxColumn();
-            vencidoDataGridViewCheckBoxColumn = new DataGridViewCheckBoxColumn();
             tabControl.SuspendLayout();
             Ingredientes.SuspendLayout();
             panel1.SuspendLayout();
             painel_de_filtragem.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView_Ingrediente).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)ingredienteBindingSource).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)ingredienteBindingSource1).BeginInit();
             Receitas.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView_Receita).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)receitaBindingSource).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)receitaBindingSource1).BeginInit();
             panel3.SuspendLayout();
             panel2.SuspendLayout();
             Poções.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView_Pocao).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pocaoBindingSource).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pocaoBindingSource1).BeginInit();
             panel5.SuspendLayout();
             panel4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)ingredienteBindingSource).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)receitaBindingSource).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pocaoBindingSource).BeginInit();
             ((System.ComponentModel.ISupportInitialize)receitaIngredienteBindingSource).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)ingredienteBindingSource1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)receitaBindingSource1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pocaoBindingSource1).BeginInit();
             SuspendLayout();
             // 
             // tabControl
@@ -195,6 +194,7 @@
             button_Remover_Ingrediente.TabIndex = 1;
             button_Remover_Ingrediente.Text = "Remover";
             button_Remover_Ingrediente.UseVisualStyleBackColor = true;
+            button_Remover_Ingrediente.Click += AoClicarRemoverIngrediente;
             // 
             // button_Editar_Ingrediente
             // 
@@ -206,7 +206,7 @@
             button_Editar_Ingrediente.TabIndex = 0;
             button_Editar_Ingrediente.Text = "Editar";
             button_Editar_Ingrediente.UseVisualStyleBackColor = true;
-            button_Editar_Ingrediente.Click += AoClicarEditarIngrediente;
+            button_Editar_Ingrediente.Click += AoClicarAbrirFormEditarIngrediente;
             // 
             // painel_de_filtragem
             // 
@@ -347,16 +347,44 @@
             dataGridView_Ingrediente.Size = new Size(848, 397);
             dataGridView_Ingrediente.TabIndex = 1;
             // 
+            // dataGridViewTextBoxColumn3
+            // 
+            dataGridViewTextBoxColumn3.DataPropertyName = "Id";
+            dataGridViewTextBoxColumn3.HeaderText = "Id";
+            dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            dataGridViewTextBoxColumn4.DataPropertyName = "Nome";
+            dataGridViewTextBoxColumn4.HeaderText = "Nome";
+            dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            // 
+            // dataGridViewTextBoxColumn5
+            // 
+            dataGridViewTextBoxColumn5.DataPropertyName = "Quantidade";
+            dataGridViewTextBoxColumn5.HeaderText = "Quantidade";
+            dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
+            // 
+            // dataGridViewTextBoxColumn6
+            // 
+            dataGridViewTextBoxColumn6.DataPropertyName = "Naturalidade";
+            dataGridViewTextBoxColumn6.HeaderText = "Naturalidade";
+            dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
+            // 
+            // ingredienteBindingSource1
+            // 
+            ingredienteBindingSource1.DataSource = typeof(Dominio.Entidades.Ingrediente);
+            // 
             // Receitas
             // 
             Receitas.Controls.Add(dataGridView_Receita);
             Receitas.Controls.Add(panel3);
             Receitas.Controls.Add(panel2);
             Receitas.Font = new Font("JetBrains Mono", 8.999999F, FontStyle.Regular, GraphicsUnit.Point);
-            Receitas.Location = new Point(4, 25);
+            Receitas.Location = new Point(4, 24);
             Receitas.Name = "Receitas";
             Receitas.Padding = new Padding(3);
-            Receitas.Size = new Size(854, 527);
+            Receitas.Size = new Size(854, 528);
             Receitas.TabIndex = 1;
             Receitas.Text = "Receitas";
             Receitas.UseVisualStyleBackColor = true;
@@ -373,8 +401,42 @@
             dataGridView_Receita.Location = new Point(3, 82);
             dataGridView_Receita.Name = "dataGridView_Receita";
             dataGridView_Receita.RowTemplate.Height = 25;
-            dataGridView_Receita.Size = new Size(848, 381);
+            dataGridView_Receita.Size = new Size(848, 375);
             dataGridView_Receita.TabIndex = 26;
+            // 
+            // dataGridViewTextBoxColumn7
+            // 
+            dataGridViewTextBoxColumn7.DataPropertyName = "Id";
+            dataGridViewTextBoxColumn7.HeaderText = "Id";
+            dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
+            // 
+            // dataGridViewTextBoxColumn8
+            // 
+            dataGridViewTextBoxColumn8.DataPropertyName = "Nome";
+            dataGridViewTextBoxColumn8.HeaderText = "Nome";
+            dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
+            // 
+            // dataGridViewTextBoxColumn9
+            // 
+            dataGridViewTextBoxColumn9.DataPropertyName = "Descricao";
+            dataGridViewTextBoxColumn9.HeaderText = "Descricao";
+            dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
+            // 
+            // dataGridViewTextBoxColumn10
+            // 
+            dataGridViewTextBoxColumn10.DataPropertyName = "Valor";
+            dataGridViewTextBoxColumn10.HeaderText = "Valor";
+            dataGridViewTextBoxColumn10.Name = "dataGridViewTextBoxColumn10";
+            // 
+            // dataGridViewTextBoxColumn11
+            // 
+            dataGridViewTextBoxColumn11.DataPropertyName = "ValidadeEmMeses";
+            dataGridViewTextBoxColumn11.HeaderText = "ValidadeEmMeses";
+            dataGridViewTextBoxColumn11.Name = "dataGridViewTextBoxColumn11";
+            // 
+            // receitaBindingSource1
+            // 
+            receitaBindingSource1.DataSource = typeof(Dominio.Entidades.Receita);
             // 
             // panel3
             // 
@@ -385,7 +447,7 @@
             panel3.Controls.Add(button3);
             panel3.Controls.Add(button4);
             panel3.Dock = DockStyle.Bottom;
-            panel3.Location = new Point(3, 477);
+            panel3.Location = new Point(3, 478);
             panel3.Name = "panel3";
             panel3.Size = new Size(848, 47);
             panel3.TabIndex = 25;
@@ -400,7 +462,7 @@
             button_Adicionar_Receita.TabIndex = 5;
             button_Adicionar_Receita.Text = "Adicionar";
             button_Adicionar_Receita.UseVisualStyleBackColor = true;
-            button_Adicionar_Receita.Click += AoClicarAbrirFormModificaReceita;
+            button_Adicionar_Receita.Click += AoClicarAbrirFormCriarReceita;
             // 
             // button_Remover_Receita
             // 
@@ -412,6 +474,7 @@
             button_Remover_Receita.TabIndex = 4;
             button_Remover_Receita.Text = "Remover";
             button_Remover_Receita.UseVisualStyleBackColor = true;
+            button_Remover_Receita.Click += AoClicarRemoverReceita;
             // 
             // button_Editar_Receita
             // 
@@ -423,6 +486,7 @@
             button_Editar_Receita.TabIndex = 3;
             button_Editar_Receita.Text = "Editar";
             button_Editar_Receita.UseVisualStyleBackColor = true;
+            button_Editar_Receita.Click += AoClicarAbrirFormEditarReceita;
             // 
             // button2
             // 
@@ -605,14 +669,45 @@
             dataGridView_Pocao.Location = new Point(0, 79);
             dataGridView_Pocao.Name = "dataGridView_Pocao";
             dataGridView_Pocao.RowTemplate.Height = 25;
-            dataGridView_Pocao.Size = new Size(851, 382);
+            dataGridView_Pocao.Size = new Size(851, 380);
             dataGridView_Pocao.TabIndex = 27;
+            // 
+            // idDataGridViewTextBoxColumn
+            // 
+            idDataGridViewTextBoxColumn.DataPropertyName = "Id";
+            idDataGridViewTextBoxColumn.HeaderText = "Id";
+            idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
+            // 
+            // Nome
+            // 
+            Nome.DataPropertyName = "Nome";
+            Nome.FillWeight = 200F;
+            Nome.HeaderText = "Nome";
+            Nome.Name = "Nome";
+            // 
+            // DataDeFabricacao
+            // 
+            DataDeFabricacao.DataPropertyName = "DataDeFabricacao";
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            DataDeFabricacao.DefaultCellStyle = dataGridViewCellStyle1;
+            DataDeFabricacao.FillWeight = 150F;
+            DataDeFabricacao.HeaderText = "Data De Fabricacao";
+            DataDeFabricacao.Name = "DataDeFabricacao";
+            // 
+            // vencidoDataGridViewCheckBoxColumn
+            // 
+            vencidoDataGridViewCheckBoxColumn.DataPropertyName = "Vencido";
+            vencidoDataGridViewCheckBoxColumn.HeaderText = "Vencido";
+            vencidoDataGridViewCheckBoxColumn.Name = "vencidoDataGridViewCheckBoxColumn";
+            // 
+            // pocaoBindingSource1
+            // 
+            pocaoBindingSource1.DataSource = typeof(Dominio.Entidades.Pocao);
             // 
             // panel5
             // 
             panel5.Controls.Add(button_Adicionar_Pocao);
             panel5.Controls.Add(button_Remover_Pocao);
-            panel5.Controls.Add(button_Editar_Pocao);
             panel5.Controls.Add(button9);
             panel5.Controls.Add(button10);
             panel5.Controls.Add(button11);
@@ -629,7 +724,7 @@
             // 
             button_Adicionar_Pocao.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             button_Adicionar_Pocao.Cursor = Cursors.Hand;
-            button_Adicionar_Pocao.Location = new Point(566, 13);
+            button_Adicionar_Pocao.Location = new Point(647, 13);
             button_Adicionar_Pocao.Name = "button_Adicionar_Pocao";
             button_Adicionar_Pocao.Size = new Size(75, 25);
             button_Adicionar_Pocao.TabIndex = 8;
@@ -647,17 +742,7 @@
             button_Remover_Pocao.TabIndex = 7;
             button_Remover_Pocao.Text = "Remover";
             button_Remover_Pocao.UseVisualStyleBackColor = true;
-            // 
-            // button_Editar_Pocao
-            // 
-            button_Editar_Pocao.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            button_Editar_Pocao.Cursor = Cursors.Hand;
-            button_Editar_Pocao.Location = new Point(647, 13);
-            button_Editar_Pocao.Name = "button_Editar_Pocao";
-            button_Editar_Pocao.Size = new Size(75, 25);
-            button_Editar_Pocao.TabIndex = 6;
-            button_Editar_Pocao.Text = "Editar";
-            button_Editar_Pocao.UseVisualStyleBackColor = true;
+            button_Remover_Pocao.Click += AoClicarRemoverPocao;
             // 
             // button9
             // 
@@ -851,100 +936,6 @@
             label12.TabIndex = 26;
             label12.Text = "Id";
             // 
-            // ingredienteBindingSource1
-            // 
-            ingredienteBindingSource1.DataSource = typeof(Dominio.Entidades.Ingrediente);
-            // 
-            // dataGridViewTextBoxColumn3
-            // 
-            dataGridViewTextBoxColumn3.DataPropertyName = "Id";
-            dataGridViewTextBoxColumn3.HeaderText = "Id";
-            dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            // 
-            // dataGridViewTextBoxColumn4
-            // 
-            dataGridViewTextBoxColumn4.DataPropertyName = "Nome";
-            dataGridViewTextBoxColumn4.HeaderText = "Nome";
-            dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
-            // 
-            // dataGridViewTextBoxColumn5
-            // 
-            dataGridViewTextBoxColumn5.DataPropertyName = "Quantidade";
-            dataGridViewTextBoxColumn5.HeaderText = "Quantidade";
-            dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
-            // 
-            // dataGridViewTextBoxColumn6
-            // 
-            dataGridViewTextBoxColumn6.DataPropertyName = "Naturalidade";
-            dataGridViewTextBoxColumn6.HeaderText = "Naturalidade";
-            dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
-            // 
-            // receitaBindingSource1
-            // 
-            receitaBindingSource1.DataSource = typeof(Dominio.Entidades.Receita);
-            // 
-            // dataGridViewTextBoxColumn7
-            // 
-            dataGridViewTextBoxColumn7.DataPropertyName = "Id";
-            dataGridViewTextBoxColumn7.HeaderText = "Id";
-            dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
-            // 
-            // dataGridViewTextBoxColumn8
-            // 
-            dataGridViewTextBoxColumn8.DataPropertyName = "Nome";
-            dataGridViewTextBoxColumn8.HeaderText = "Nome";
-            dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
-            // 
-            // dataGridViewTextBoxColumn9
-            // 
-            dataGridViewTextBoxColumn9.DataPropertyName = "Descricao";
-            dataGridViewTextBoxColumn9.HeaderText = "Descricao";
-            dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
-            // 
-            // dataGridViewTextBoxColumn10
-            // 
-            dataGridViewTextBoxColumn10.DataPropertyName = "Valor";
-            dataGridViewTextBoxColumn10.HeaderText = "Valor";
-            dataGridViewTextBoxColumn10.Name = "dataGridViewTextBoxColumn10";
-            // 
-            // dataGridViewTextBoxColumn11
-            // 
-            dataGridViewTextBoxColumn11.DataPropertyName = "ValidadeEmMeses";
-            dataGridViewTextBoxColumn11.HeaderText = "ValidadeEmMeses";
-            dataGridViewTextBoxColumn11.Name = "dataGridViewTextBoxColumn11";
-            // 
-            // pocaoBindingSource1
-            // 
-            pocaoBindingSource1.DataSource = typeof(Dominio.Entidades.Pocao);
-            // 
-            // idDataGridViewTextBoxColumn
-            // 
-            idDataGridViewTextBoxColumn.DataPropertyName = "Id";
-            idDataGridViewTextBoxColumn.HeaderText = "Id";
-            idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
-            // 
-            // Nome
-            // 
-            Nome.DataPropertyName = "Nome";
-            Nome.FillWeight = 200F;
-            Nome.HeaderText = "Nome";
-            Nome.Name = "Nome";
-            // 
-            // DataDeFabricacao
-            // 
-            DataDeFabricacao.DataPropertyName = "DataDeFabricacao";
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            DataDeFabricacao.DefaultCellStyle = dataGridViewCellStyle1;
-            DataDeFabricacao.FillWeight = 150F;
-            DataDeFabricacao.HeaderText = "Data De Fabricacao";
-            DataDeFabricacao.Name = "DataDeFabricacao";
-            // 
-            // vencidoDataGridViewCheckBoxColumn
-            // 
-            vencidoDataGridViewCheckBoxColumn.DataPropertyName = "Vencido";
-            vencidoDataGridViewCheckBoxColumn.HeaderText = "Vencido";
-            vencidoDataGridViewCheckBoxColumn.Name = "vencidoDataGridViewCheckBoxColumn";
-            // 
             // FormListagem
             // 
             AutoScaleDimensions = new SizeF(7F, 16F);
@@ -963,23 +954,23 @@
             painel_de_filtragem.ResumeLayout(false);
             painel_de_filtragem.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView_Ingrediente).EndInit();
-            ((System.ComponentModel.ISupportInitialize)ingredienteBindingSource).EndInit();
+            ((System.ComponentModel.ISupportInitialize)ingredienteBindingSource1).EndInit();
             Receitas.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dataGridView_Receita).EndInit();
-            ((System.ComponentModel.ISupportInitialize)receitaBindingSource).EndInit();
+            ((System.ComponentModel.ISupportInitialize)receitaBindingSource1).EndInit();
             panel3.ResumeLayout(false);
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
             Poções.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dataGridView_Pocao).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pocaoBindingSource).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pocaoBindingSource1).EndInit();
             panel5.ResumeLayout(false);
             panel4.ResumeLayout(false);
             panel4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)ingredienteBindingSource).EndInit();
+            ((System.ComponentModel.ISupportInitialize)receitaBindingSource).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pocaoBindingSource).EndInit();
             ((System.ComponentModel.ISupportInitialize)receitaIngredienteBindingSource).EndInit();
-            ((System.ComponentModel.ISupportInitialize)ingredienteBindingSource1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)receitaBindingSource1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pocaoBindingSource1).EndInit();
             ResumeLayout(false);
         }
 
@@ -1030,7 +1021,6 @@
         private Panel panel5;
         private Button button_Adicionar_Pocao;
         private Button button_Remover_Pocao;
-        private Button button_Editar_Pocao;
         private Button button9;
         private Button button10;
         private Button button11;

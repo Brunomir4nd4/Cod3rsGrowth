@@ -43,10 +43,12 @@
             button_Cancelar = new Button();
             dataGridView1 = new DataGridView();
             ingredienteBindingSource = new BindingSource(components);
+            bindingSource1 = new BindingSource(components);
             nomeDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             Check = new DataGridViewCheckBoxColumn();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)ingredienteBindingSource).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)bindingSource1).BeginInit();
             SuspendLayout();
             // 
             // label_Titulo
@@ -149,7 +151,6 @@
             button_Salvar.TabIndex = 35;
             button_Salvar.Text = "Salvar";
             button_Salvar.UseVisualStyleBackColor = true;
-            button_Salvar.Click += AoClicarSalvarCriacaoReceita;
             // 
             // button_Cancelar
             // 
@@ -192,6 +193,7 @@
             // Check
             // 
             Check.AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+            Check.FalseValue = "false";
             Check.HeaderText = "Check";
             Check.Name = "Check";
             Check.Resizable = DataGridViewTriState.True;
@@ -224,6 +226,7 @@
             Load += FormModificaReceita_Load;
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ((System.ComponentModel.ISupportInitialize)ingredienteBindingSource).EndInit();
+            ((System.ComponentModel.ISupportInitialize)bindingSource1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -248,6 +251,7 @@
         private Button button_Cancelar;
         private DataGridView dataGridView1;
         private BindingSource ingredienteBindingSource;
+        private BindingSource bindingSource1;
         private DataGridViewTextBoxColumn nomeDataGridViewTextBoxColumn;
         private DataGridViewCheckBoxColumn Check;
     }

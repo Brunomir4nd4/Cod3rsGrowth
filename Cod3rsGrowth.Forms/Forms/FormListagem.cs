@@ -55,6 +55,7 @@ namespace Cod3rsGrowth.Forms
             {
                 var formModificaIngrediente = new FormModificaIngrediente(_servicoIngrediente);
                 formModificaIngrediente.InserirCabecalhoDeCriacao();
+                formModificaIngrediente.AddEventoClickCriar();
                 formModificaIngrediente.ShowDialog();
                 CarregarDadosIngrediente(_filtroIngrediente);
             }
@@ -65,12 +66,13 @@ namespace Cod3rsGrowth.Forms
             }
         }
 
-        private void AoClicarAbrirFormModificaReceita(object sender, EventArgs e)
+        private void AoClicarAbrirFormCriarReceita(object sender, EventArgs e)
         {
             try
             {
                 var formModificaReceita = new FormModificaReceita(_servicoReceita, _servicoIngrediente);
-                formModificaReceita.InsereTituloCriar();
+                formModificaReceita.InserirCabecalhoDeCriacao();
+                formModificaReceita.AddEventoClickCriar();
                 formModificaReceita.ShowDialog();
                 CarregarDadosReceita(_filtroReceita);
             }
@@ -96,7 +98,6 @@ namespace Cod3rsGrowth.Forms
                 MenssagemDeErroModuloAbrirFormDeModificao(nomeForms, ex.Message);
             }
         }
-
 
         private void AoClicarRemoverIngrediente(object sender, EventArgs e)
         {
@@ -179,7 +180,7 @@ namespace Cod3rsGrowth.Forms
                 if (MenssagemDeAlertaModuloRemover(nomeObjetoSelecionado) == DialogResult.Yes)
                 {
                     int id = (int)dataGridView_Pocao.CurrentCell.OwningRow.Cells[indexDaColunaId].Value;
-                    _servicoReceita.RemoverReceita(id);
+                    _servicoPocao.RemoverPocao(id);
                     CarregarDadosReceita(_filtroReceita);
                     CarregarDadosPocao(_filtroPocao);
                 }
@@ -189,7 +190,7 @@ namespace Cod3rsGrowth.Forms
                 MenssagemDeErroLinhaNaoSelecionada(ex.Message);
             }
         }
-        private void AoClicarEditarIngrediente(object sender, EventArgs e)
+        private void AoClicarAbrirFormEditarIngrediente(object sender, EventArgs e)
         {
             try
             {
@@ -206,6 +207,30 @@ namespace Cod3rsGrowth.Forms
                 formModificaIngrediente.AddEventoClickEditar(id);
                 formModificaIngrediente.ShowDialog();
                 CarregarDadosIngrediente(_filtroIngrediente);
+            }
+            catch (Exception ex)
+            {
+                MenssagemDeErroLinhaNaoSelecionada(ex.Message);
+            }
+        }
+        private void AoClicarAbrirFormEditarReceita(object sender, EventArgs e)
+        {
+            try
+            {
+                var id = dataGridView_Receita.CurrentCell != null
+                    ? (int) dataGridView_Receita
+                        .CurrentCell
+                        .OwningRow
+                        .Cells[indexDaColunaId]
+                        .Value
+                    : throw new Exception("Você precissa selecionar uma linha para editar");
+
+                var formModificaReceita = new FormModificaReceita(_servicoReceita, _servicoIngrediente);
+                formModificaReceita.AddEventoClickEditar(id);
+                formModificaReceita.InserirValoresTextoParaEdicao(id);
+                formModificaReceita.ShowDialog();
+                CarregarDadosIngrediente(_filtroIngrediente);
+                CarregarDadosPocao(_filtroPocao);
             }
             catch (Exception ex)
             {
