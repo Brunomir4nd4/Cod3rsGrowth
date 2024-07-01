@@ -1,6 +1,6 @@
 ﻿namespace Cod3rsGrowth.Forms
 {
-    partial class FormCriarIngrediente
+    partial class FormModificaIngrediente
     {
         /// <summary>
         /// Required designer variable.
@@ -34,7 +34,7 @@
             label_Quantidade = new Label();
             label_Naturalidade = new Label();
             comboBox_Naturalidade = new ComboBox();
-            label1 = new Label();
+            label_Cabecalho = new Label();
             button_Salvar = new Button();
             button_Cancelar = new Button();
             SuspendLayout();
@@ -96,15 +96,14 @@
             comboBox_Naturalidade.Size = new Size(375, 24);
             comboBox_Naturalidade.TabIndex = 8;
             // 
-            // label1
+            // label_Cabecalho
             // 
-            label1.AutoSize = true;
-            label1.Font = new Font("JetBrains Mono", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
-            label1.Location = new Point(46, 20);
-            label1.Name = "label1";
-            label1.Size = new Size(298, 27);
-            label1.TabIndex = 9;
-            label1.Text = "Criação do Ingrediente";
+            label_Cabecalho.AutoSize = true;
+            label_Cabecalho.Font = new Font("JetBrains Mono", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
+            label_Cabecalho.Location = new Point(46, 20);
+            label_Cabecalho.Name = "label_Cabecalho";
+            label_Cabecalho.Size = new Size(0, 27);
+            label_Cabecalho.TabIndex = 9;
             // 
             // button_Salvar
             // 
@@ -115,7 +114,6 @@
             button_Salvar.TabIndex = 10;
             button_Salvar.Text = "Salvar";
             button_Salvar.UseVisualStyleBackColor = true;
-            button_Salvar.Click += AoClicarSalvarCriacao;
             // 
             // button_Cancelar
             // 
@@ -128,7 +126,7 @@
             button_Cancelar.UseVisualStyleBackColor = true;
             button_Cancelar.Click += AoClicarFcharForms;
             // 
-            // FormCriarIngrediente
+            // FormModificaIngrediente
             // 
             AutoScaleDimensions = new SizeF(7F, 16F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -136,7 +134,7 @@
             ClientSize = new Size(399, 413);
             Controls.Add(button_Cancelar);
             Controls.Add(button_Salvar);
-            Controls.Add(label1);
+            Controls.Add(label_Cabecalho);
             Controls.Add(comboBox_Naturalidade);
             Controls.Add(label_Naturalidade);
             Controls.Add(label_Quantidade);
@@ -145,10 +143,10 @@
             Controls.Add(textBox_Nome);
             Font = new Font("JetBrains Mono", 8.999999F, FontStyle.Regular, GraphicsUnit.Point);
             FormBorderStyle = FormBorderStyle.FixedDialog;
-            Name = "FormCriarIngrediente";
+            Name = "FormModificaIngrediente";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Criar Ingrediente";
-            Load += FormCriarIngrediente_Load;
+            Load += FormModificaIngrediente_Load;
             ResumeLayout(false);
             PerformLayout();
         }
@@ -161,7 +159,7 @@
         private Label label_Quantidade;
         private Label label_Naturalidade;
         private ComboBox comboBox_Naturalidade;
-        private Label label1;
+        private Label label_Cabecalho;
         private Button button_Salvar;
         private Button button_Cancelar;
     }

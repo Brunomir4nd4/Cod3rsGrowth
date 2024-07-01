@@ -3,19 +3,19 @@ using Cod3rsGrowth.Servico.Servicos;
 
 namespace Cod3rsGrowth.Forms
 {
-    public partial class FormCriarPocao : Form
+    public partial class FormModificaPocao : Form
     {
         private ServicoPocao _servicoPocao;
         private ServicoIngrediente _servicoIngrediente;
         private FiltroIngrediente _filtroIngrediente = new FiltroIngrediente();
-        public FormCriarPocao(ServicoPocao servicoPocao, ServicoIngrediente servicoIngrediente)
+        public FormModificaPocao(ServicoPocao servicoPocao, ServicoIngrediente servicoIngrediente)
         {
             InitializeComponent();
 
             _servicoIngrediente = servicoIngrediente;
             _servicoPocao = servicoPocao;
         }
-        private void FormCriarPocao_Load(object sender, EventArgs e)
+        private void FormModificaPocao_Load(object sender, EventArgs e)
         {
             CarregarDados();
         }
@@ -24,7 +24,7 @@ namespace Cod3rsGrowth.Forms
         {
             try
             {
-                _servicoPocao.CriarPocao(ObterListaDeIngredientesSelecionados());
+                _servicoPocao.Criar(ObterListaDeIngredientesSelecionados());
                 MessageBox.Show(
                     "Poção Criada com sucesso!", 
                     "SECCESS!", 
@@ -35,7 +35,12 @@ namespace Cod3rsGrowth.Forms
             }
             catch(Exception ex)
             {
-                MessageBox.Show($"ERRO: {ex.Message}", "ERROR!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(
+                    $"ERRO: {ex.Message}", 
+                    "ERROR!", 
+                    MessageBoxButtons.OK, 
+                    MessageBoxIcon.Error
+                );
             }
         }
 
@@ -64,9 +69,12 @@ namespace Cod3rsGrowth.Forms
         private List<Ingrediente> ObterListaDeIngredientesSelecionados()
         {
             const int indexCheck = 1, indexNome = 0;
-            var listaIngrediente = dataGridView1.Rows
+            const bool checkBoxDesmarcado = false;
+            List<Ingrediente> listaIngrediente;
+
+            listaIngrediente = dataGridView1.Rows
                 .Cast<DataGridViewRow>()
-                .Where(row => row.Cells[indexCheck].Value != null)
+                .Where(row => Convert.ToBoolean(row.Cells[indexCheck].Value) != checkBoxDesmarcado)
                 .Select(row =>
                 {
                     var nome = row.Cells[indexNome].Value.ToString();

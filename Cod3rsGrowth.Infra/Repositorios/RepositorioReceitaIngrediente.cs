@@ -16,6 +16,7 @@ namespace Cod3rsGrowth.Infra.Repositorios
         {
             var query = from p in _db.receitaIngrediente
                         select p;
+
             return query.ToList();
         }
 
@@ -33,16 +34,16 @@ namespace Cod3rsGrowth.Infra.Repositorios
 
         public void Criar(List<int> listaIdIngrediente, int idReceita) 
         {
-            foreach (var idIngrediente in listaIdIngrediente)
+            listaIdIngrediente.ForEach(id =>
             {
                 var receitaIngrediente = new ReceitaIngrediente()
                 {
                     IdReceita = idReceita,
-                    IdIngredinete = idIngrediente
+                    IdIngredinete = id
                 };
 
                 _db.Insert(receitaIngrediente);
-            }
+            });
         }
 
         public void Remover(ReceitaIngrediente receitaIngrediente)

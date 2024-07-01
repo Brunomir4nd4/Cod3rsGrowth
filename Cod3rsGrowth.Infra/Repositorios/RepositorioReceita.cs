@@ -40,6 +40,13 @@ namespace Cod3rsGrowth.Infra.Repositorios
 
             var resultado = query.FirstOrDefault()
                 ?? throw new Exception($"Id: [{idProcurado}] não foi encontrado no banco de dados");
+            
+            var listaReceitaIngrediente = _servicoReceitaIngrediente.ObterTodos();
+
+            resultado.ListaIdIngrediente = listaReceitaIngrediente
+                .Where(ri => ri.IdReceita == resultado.Id)
+                .Select(ri => ri.IdIngredinete)
+                .ToList();
 
             return resultado;
         }
@@ -60,6 +67,12 @@ namespace Cod3rsGrowth.Infra.Repositorios
             receitaAtualizada.ValidadeEmMeses = receitaEditada.ValidadeEmMeses;
             receitaAtualizada.ListaIdIngrediente = receitaEditada.ListaIdIngrediente;
 
+            _db.receitaIngrediente
+                .Where(ri => ri.IdReceita == receitaEditada.Id)
+                .Delete();
+
+            _servicoReceitaIngrediente.Criar(receitaAtualizada.ListaIdIngrediente, receitaEditada.Id);
+            
             _db.Update(receitaAtualizada);
             return receitaAtualizada;
         }

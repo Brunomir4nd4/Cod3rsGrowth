@@ -20,13 +20,17 @@ namespace Cod3rsGrowth.Servico.Servicos
         {
             return _repositorioIngrediente.ObterTodos(ingrediente);
         }
+
         public Ingrediente ObterPorId(int id)
         {
             return _repositorioIngrediente.ObterPorId(id);
         }
-        public int CriarIngrediente(Ingrediente ingrediente)
+
+        public int Criar(Ingrediente ingrediente)
         {
-            var validate = _validator.Validate(ingrediente);
+            var validate = _validator.Validate(ingrediente, options =>
+                options.IncludeRuleSets("Criar").IncludeRulesNotInRuleSet());
+
             if (!validate.IsValid)
             {
                 var erros = string.Join(Environment.NewLine, validate.Errors.Select(e => e.ErrorMessage));
@@ -35,9 +39,12 @@ namespace Cod3rsGrowth.Servico.Servicos
 
             return _repositorioIngrediente.Criar(ingrediente);
         }
-        public Ingrediente EditarIngrediente(Ingrediente ingredienteEditado)
+
+        public Ingrediente Editar(Ingrediente ingredienteEditado)
         {
-            var validate = _validator.Validate(ingredienteEditado, options => options.IncludeRuleSets("Editar"));
+            var validate = _validator.Validate(ingredienteEditado, options => 
+                options.IncludeRuleSets("Editar").IncludeRulesNotInRuleSet());
+
             if (!validate.IsValid)
             {
                 var erros = string.Join(Environment.NewLine, validate.Errors.Select(e => e.ErrorMessage));
@@ -46,7 +53,8 @@ namespace Cod3rsGrowth.Servico.Servicos
 
             return _repositorioIngrediente.Editar(ingredienteEditado);
         }
-        public void RemoverIngredientes(int idIngredienteSelecionado)
+
+        public void Remover(int idIngredienteSelecionado)
         {
             _repositorioIngrediente.Remover(idIngredienteSelecionado);
         }

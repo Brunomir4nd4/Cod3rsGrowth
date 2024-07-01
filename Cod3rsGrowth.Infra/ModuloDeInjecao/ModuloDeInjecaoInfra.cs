@@ -18,7 +18,7 @@ namespace Cod3rsGrowth.Infra.ModuloDeInjecao
                 => options
                     .UseSqlServer(ConfigurationManager.ConnectionStrings[_chaveDeConexao].ConnectionString)
                     .UseDefaultLogging(provider)
-                    );
+                );
         }
     }
 }

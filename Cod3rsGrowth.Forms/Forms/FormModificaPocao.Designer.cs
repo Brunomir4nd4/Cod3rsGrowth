@@ -1,6 +1,6 @@
 ﻿namespace Cod3rsGrowth.Forms
 {
-    partial class FormCriarPocao
+    partial class FormModificaPocao
     {
         /// <summary>
         /// Required designer variable.
@@ -121,7 +121,7 @@
             Check.SortMode = DataGridViewColumnSortMode.Automatic;
             Check.Width = 67;
             // 
-            // FormCriarPocao
+            // FormModificaPocao
             // 
             AutoScaleDimensions = new SizeF(7F, 16F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -134,10 +134,10 @@
             Controls.Add(label1);
             Font = new Font("JetBrains Mono", 8.999999F, FontStyle.Regular, GraphicsUnit.Point);
             FormBorderStyle = FormBorderStyle.FixedDialog;
-            Name = "FormCriarPocao";
+            Name = "FormModificaPocao";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Criar Pocao";
-            Load += FormCriarPocao_Load;
+            Load += FormModificaPocao_Load;
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ((System.ComponentModel.ISupportInitialize)ingredienteBindingSource).EndInit();
             ResumeLayout(false);

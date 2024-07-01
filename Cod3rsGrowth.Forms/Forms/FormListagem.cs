@@ -13,6 +13,8 @@ namespace Cod3rsGrowth.Forms
         private FiltroIngrediente _filtroIngrediente = new FiltroIngrediente();
         private FiltroReceita _filtroReceita = new FiltroReceita();
         private FiltroPocao _filtroPocao = new FiltroPocao();
+        const int indexDaColunaNome = 1, indexDaColunaId = 0;
+
         public FormListagem(
             ServicoIngrediente servicoIngrediente,
             ServicoReceita servicoReceita,
@@ -51,8 +53,10 @@ namespace Cod3rsGrowth.Forms
         {
             try
             {
-                var formCriarIngrediente = new FormCriarIngrediente(_servicoIngrediente);
-                formCriarIngrediente.ShowDialog();
+                var formModificaIngrediente = new FormModificaIngrediente(_servicoIngrediente);
+                formModificaIngrediente.InserirCabecalhoDeCriacao();
+                formModificaIngrediente.AddEventoClickCriar();
+                formModificaIngrediente.ShowDialog();
                 CarregarDadosIngrediente(_filtroIngrediente);
             }
             catch (Exception ex)
@@ -62,12 +66,13 @@ namespace Cod3rsGrowth.Forms
             }
         }
 
-        private void AoClicarAbrirFormModificaReceita(object sender, EventArgs e)
+        private void AoClicarAbrirFormCriarReceita(object sender, EventArgs e)
         {
             try
             {
                 var formModificaReceita = new FormModificaReceita(_servicoReceita, _servicoIngrediente);
-                formModificaReceita.InsereTituloCriar();
+                formModificaReceita.InserirCabecalhoDeCriacao();
+                formModificaReceita.AddEventoClickCriar();
                 formModificaReceita.ShowDialog();
                 CarregarDadosReceita(_filtroReceita);
             }
@@ -82,7 +87,7 @@ namespace Cod3rsGrowth.Forms
         {
             try
             {
-                var formCriarPocao = new FormCriarPocao(_servicoPocao, _servicoIngrediente);
+                var formCriarPocao = new FormModificaPocao(_servicoPocao, _servicoIngrediente);
                 formCriarPocao.ShowDialog();
                 CarregarDadosPocao(_filtroPocao);
                 CarregarDadosIngrediente(_filtroIngrediente);
@@ -94,8 +99,6 @@ namespace Cod3rsGrowth.Forms
             }
         }
 
-
-        const int indexDaColunaNome = 1, indexDaColunaId = 0;
         private void AoClicarRemoverIngrediente(object sender, EventArgs e)
         {
             try
@@ -117,7 +120,7 @@ namespace Cod3rsGrowth.Forms
                         .Cells[indexDaColunaId]
                         .Value;
 
-                    _servicoIngrediente.RemoverIngredientes(id);
+                    _servicoIngrediente.Remover(id);
                     CarregarDadosIngrediente(_filtroIngrediente);
                     CarregarDadosReceita(_filtroReceita);
                     CarregarDadosPocao(_filtroPocao);
@@ -125,7 +128,7 @@ namespace Cod3rsGrowth.Forms
             }
             catch (Exception ex)
             {
-                MenssagemDeErroModuloRemover(ex.Message);
+                MenssagemDeErroLinhaNaoSelecionada(ex.Message);
             }
         }
 
@@ -150,14 +153,14 @@ namespace Cod3rsGrowth.Forms
                         .Cells[indexDaColunaId]
                         .Value;
 
-                    _servicoReceita.RemoverReceita(id);
+                    _servicoReceita.Remover(id);
                     CarregarDadosReceita(_filtroReceita);
                     CarregarDadosPocao(_filtroPocao);
                 }
             }
             catch (Exception ex)
             {
-                MenssagemDeErroModuloRemover(ex.Message);
+                MenssagemDeErroLinhaNaoSelecionada(ex.Message);
             }
         }
 
@@ -177,14 +180,61 @@ namespace Cod3rsGrowth.Forms
                 if (MenssagemDeAlertaModuloRemover(nomeObjetoSelecionado) == DialogResult.Yes)
                 {
                     int id = (int)dataGridView_Pocao.CurrentCell.OwningRow.Cells[indexDaColunaId].Value;
-                    _servicoReceita.RemoverReceita(id);
+                    _servicoPocao.Remover(id);
                     CarregarDadosReceita(_filtroReceita);
                     CarregarDadosPocao(_filtroPocao);
                 }
             }
             catch (Exception ex)
             {
-                MenssagemDeErroModuloRemover(ex.Message);
+                MenssagemDeErroLinhaNaoSelecionada(ex.Message);
+            }
+        }
+        private void AoClicarAbrirFormEditarIngrediente(object sender, EventArgs e)
+        {
+            try
+            {
+                var id = dataGridView_Ingrediente.CurrentCell != null
+                    ? (int) dataGridView_Ingrediente
+                        .CurrentCell
+                        .OwningRow
+                        .Cells[indexDaColunaId]
+                        .Value
+                    : throw new Exception("Você precissa selecionar uma linha para editar");
+
+                var formModificaIngrediente = new FormModificaIngrediente(_servicoIngrediente);
+                formModificaIngrediente.InserirValoresTextoParaEdicao(id);
+                formModificaIngrediente.AddEventoClickEditar(id);
+                formModificaIngrediente.ShowDialog();
+                CarregarDadosIngrediente(_filtroIngrediente);
+            }
+            catch (Exception ex)
+            {
+                MenssagemDeErroLinhaNaoSelecionada(ex.Message);
+            }
+        }
+        private void AoClicarAbrirFormEditarReceita(object sender, EventArgs e)
+        {
+            try
+            {
+                var id = dataGridView_Receita.CurrentCell != null
+                    ? (int) dataGridView_Receita
+                        .CurrentCell
+                        .OwningRow
+                        .Cells[indexDaColunaId]
+                        .Value
+                    : throw new Exception("Você precissa selecionar uma linha para editar");
+
+                var formModificaReceita = new FormModificaReceita(_servicoReceita, _servicoIngrediente);
+                formModificaReceita.AddEventoClickEditar(id);
+                formModificaReceita.InserirValoresTextoParaEdicao(id);
+                formModificaReceita.ShowDialog();
+                CarregarDadosReceita(_filtroReceita);
+                CarregarDadosPocao(_filtroPocao);
+            }
+            catch (Exception ex)
+            {
+                MenssagemDeErroLinhaNaoSelecionada(ex.Message);
             }
         }
 
@@ -237,7 +287,7 @@ namespace Cod3rsGrowth.Forms
             catch (Exception ex)
             {
                 const string campo = "Naturalidade";
-                MenssagemDeErroModuloCarregarDados(campo, ex.Message);       
+                MenssagemDeErroModuloCarregarDados(campo, ex.Message);
             }
         }
 
@@ -447,7 +497,7 @@ namespace Cod3rsGrowth.Forms
                 MessageBoxIcon.Error
                 );
         }
-        private void MenssagemDeErroModuloRemover(string menssagem)
+        private void MenssagemDeErroLinhaNaoSelecionada(string menssagem)
         {
             MessageBox.Show(
                 menssagem,

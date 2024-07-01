@@ -16,6 +16,7 @@ namespace Cod3rsGrowth.Servico.Servicos
         {
             return _receitaIngrediente.ObterTodos();
         }
+
         public ReceitaIngrediente ObterPorId(int idProcurado)
         {
             return _receitaIngrediente.ObterPorId(idProcurado);

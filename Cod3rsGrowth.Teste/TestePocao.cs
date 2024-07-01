@@ -70,7 +70,7 @@ namespace Cod3rsGrowth.Teste
             };
             foreach (var ingrediente in listaIngredientes)
             {
-                _servicoIngrediente.CriarIngrediente(ingrediente);
+                _servicoIngrediente.Criar(ingrediente);
             }
 
             int quantidadeDeIngredientes1 = 4, quantidadeDeIngredientes2 = 3;
@@ -104,11 +104,11 @@ namespace Cod3rsGrowth.Teste
 
             foreach (var receita in listaReceitaMock)
             {
-                _servicoReceita.CriarReceita(receita);
+                _servicoReceita.Criar(receita);
             }
 
-            _servicoPocao.CriarPocao(listaIngredientesParaCura);
-            _servicoPocao.CriarPocao(listaIngredientesParaForca);
+            _servicoPocao.Criar(listaIngredientesParaCura);
+            _servicoPocao.Criar(listaIngredientesParaForca);
 
             List<FiltroPocao> listaMock = _servicoPocao.ObterTodos(_filtroPocao);
             return listaMock;
@@ -195,7 +195,7 @@ namespace Cod3rsGrowth.Teste
             int quantidadeDeIngredientes = 2;
             List<Ingrediente> listaIngredientes = _servicoIngrediente.ObterTodos(_ingredienteParaTeste).Take(quantidadeDeIngredientes).ToList();
 
-            var excecao = Assert.Throws<Exception>(() => _servicoPocao.CriarPocao(listaIngredientes));
+            var excecao = Assert.Throws<Exception>(() => _servicoPocao.Criar(listaIngredientes));
 
             Assert.Equal("Impossível criar uma poção com os ingredientes selecionados!", excecao.Message);
         }
@@ -205,9 +205,9 @@ namespace Cod3rsGrowth.Teste
         {
             _pocaoParaTeste = _listaMock.FirstOrDefault();
 
-           _servicoPocao.RemoverPocao(_pocaoParaTeste.Id);
+           _servicoPocao.Remover(_pocaoParaTeste.Id);
 
-            var excecao = Assert.Throws<Exception>(() => _servicoPocao.RemoverPocao(_pocaoParaTeste.Id));
+            var excecao = Assert.Throws<Exception>(() => _servicoPocao.Remover(_pocaoParaTeste.Id));
 
             Assert.Equal($"O objeto com id [{_pocaoParaTeste.Id}] não foi encontrado", excecao.Message);
         }
