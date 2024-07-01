@@ -1,4 +1,4 @@
-﻿using Cod3rsGrowth.Infra;
+﻿using Cod3rsGrowth.Infra.ModuloDeInjecao;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Cod3rsGrowth.Teste.ConfiguracaoAmbienteTeste

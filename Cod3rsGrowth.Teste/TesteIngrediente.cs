@@ -58,7 +58,7 @@ namespace Cod3rsGrowth.Teste
 
             foreach (var ingrediente in listaMock)
             {
-                _servicoIngrediente.CriarIngrediente(ingrediente);
+                _servicoIngrediente.Criar(ingrediente);
             }
             return listaMock;
         }
@@ -138,7 +138,7 @@ namespace Cod3rsGrowth.Teste
                 Quantidade = 4
             };
 
-            var excecao = Assert.Throws<ValidationException>(() => _servicoIngrediente.CriarIngrediente(_ingredienteParaTeste));
+            var excecao = Assert.Throws<ValidationException>(() => _servicoIngrediente.Criar(_ingredienteParaTeste));
 
             Assert.Equal("Campo Nome deve conter apenas letras!", excecao.Message);
 
@@ -157,7 +157,7 @@ namespace Cod3rsGrowth.Teste
                 Quantidade = 4
             };
 
-            var execao = Assert.Throws<ValidationException>(() => _servicoIngrediente.CriarIngrediente(_ingredienteParaTeste));
+            var execao = Assert.Throws<ValidationException>(() => _servicoIngrediente.Criar(_ingredienteParaTeste));
 
             Assert.Equal("Campo Nome não preenchido!", execao.Message);
         }
@@ -172,7 +172,7 @@ namespace Cod3rsGrowth.Teste
                 Quantidade = -99
             };
 
-            var excecao = Assert.Throws<ValidationException>(() => _servicoIngrediente.CriarIngrediente(_ingredienteParaTeste));
+            var excecao = Assert.Throws<ValidationException>(() => _servicoIngrediente.Criar(_ingredienteParaTeste));
 
             Assert.Equal("Campo Quantidade deve ser maior ou igual a 1", excecao.Message);
         }
@@ -189,7 +189,7 @@ namespace Cod3rsGrowth.Teste
                 Quantidade = quantidade
             };
 
-            var excecao = Assert.Throws<ValidationException>(() => _servicoIngrediente.CriarIngrediente(_ingredienteParaTeste));
+            var excecao = Assert.Throws<ValidationException>(() => _servicoIngrediente.Criar(_ingredienteParaTeste));
 
             Assert.Equal("Campo Quantidade não preenchido!", excecao.Message);
         }
@@ -205,7 +205,7 @@ namespace Cod3rsGrowth.Teste
                 Quantidade = 4
             };
 
-            var ingredienteEditado = _servicoIngrediente.EditarIngrediente(_ingredienteParaTeste);
+            var ingredienteEditado = _servicoIngrediente.Editar(_ingredienteParaTeste);
 
             Assert.Equivalent(_ingredienteParaTeste, ingredienteEditado);
         }
@@ -225,7 +225,7 @@ namespace Cod3rsGrowth.Teste
                 Quantidade = 7
             };
 
-            var excecao = Assert.Throws<ValidationException>(() => _servicoIngrediente.EditarIngrediente(_ingredienteParaTeste));
+            var excecao = Assert.Throws<ValidationException>(() => _servicoIngrediente.Editar(_ingredienteParaTeste));
 
             Assert.Equal("Campo Nome deve conter apenas letras!", excecao.Message);
         }
@@ -244,7 +244,7 @@ namespace Cod3rsGrowth.Teste
                 Quantidade = 7
             };
 
-            var excecao = Assert.Throws<ValidationException>(() => _servicoIngrediente.EditarIngrediente(_ingredienteParaTeste));
+            var excecao = Assert.Throws<ValidationException>(() => _servicoIngrediente.Editar(_ingredienteParaTeste));
 
             Assert.Equal("Campo Nome não preenchido!", excecao.Message);
         }
@@ -259,9 +259,9 @@ namespace Cod3rsGrowth.Teste
                 Quantidade = -99
             };
 
-            var excecao = Assert.Throws<ValidationException>(() => _servicoIngrediente.EditarIngrediente(_ingredienteParaTeste));
+            var excecao = Assert.Throws<ValidationException>(() => _servicoIngrediente.Editar(_ingredienteParaTeste));
 
-            Assert.Equal("Campo Quantidade deve ser maior ou igual a 1", excecao.Message);
+            Assert.Equal("Campo Quantidade deve ser maior que -1", excecao.Message);
         }
 
         [Fact]
@@ -269,9 +269,9 @@ namespace Cod3rsGrowth.Teste
         {
             _ingredienteParaTeste = _listaMock.FirstOrDefault();
 
-            _servicoIngrediente.RemoverIngredientes(_ingredienteParaTeste.Id);
+            _servicoIngrediente.Remover(_ingredienteParaTeste.Id);
 
-            var excecao = Assert.Throws<Exception>(() => _servicoIngrediente.RemoverIngredientes(_ingredienteParaTeste.Id));
+            var excecao = Assert.Throws<Exception>(() => _servicoIngrediente.Remover(_ingredienteParaTeste.Id));
 
             Assert.Equal($"O objeto com id [{_ingredienteParaTeste.Id}] não foi encontrado", excecao.Message);
         }

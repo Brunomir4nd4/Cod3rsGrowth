@@ -1,8 +1,8 @@
 ﻿using FluentMigrator;
 
-namespace Cod3rsGrowth.Infra
+namespace Cod3rsGrowth.Dominio.Migradores
 {
-    [Migration(20240611131000)]
+    [Migration(20240624091100)]
     public class Migrador : Migration
     {
         public override void Up()
@@ -18,26 +18,35 @@ namespace Cod3rsGrowth.Infra
                 .WithColumn("Nome").AsString().NotNullable()
                 .WithColumn("Descricao").AsString().NotNullable()
                 .WithColumn("Valor").AsDecimal().NotNullable()
+                .WithColumn("ValidadeEmMeses").AsString().NotNullable()
                 .WithColumn("Imagem").AsString().NotNullable();
 
             Create.Table("Pocao")
                 .WithColumn("Id").AsInt32().PrimaryKey().Identity()
-                .WithColumn("IdReceita").AsInt32().NotNullable()
+                .WithColumn("IdReceita").AsInt32().ForeignKey().Nullable()
                 .WithColumn("Vencido").AsBoolean().NotNullable()
                 .WithColumn("DataDeFabricacao").AsDateTime().NotNullable();
 
             Create.Table("ReceitaIngrediente")
                 .WithColumn("Id").AsInt32().PrimaryKey().Identity()
-                .WithColumn("ReceitaId").AsInt32().NotNullable().ForeignKey("Receita", "Id")
-                .WithColumn("IngredienteId").AsInt32().NotNullable().ForeignKey("Ingrediente", "Id");
+                .WithColumn("IdReceita").AsInt32().ForeignKey().NotNullable()
+                .WithColumn("IdIngrediente").AsInt32().ForeignKey().NotNullable();
 
-            Create.ForeignKey("fk_Receita")
-                .FromTable("ReceitaIngrediente").ForeignColumn("ReceitaId")
-                .ToTable("Receita").PrimaryColumn("Id");
-
-            Create.ForeignKey("fk_Ingrediente")
-                .FromTable("ReceitaIngrediente").ForeignColumn("IngredienteId")
-                .ToTable("Ingrediente").PrimaryColumn("Id");
+            Create.ForeignKey("fk_IdReceita_Para_Pocao")
+            .FromTable("Pocao").ForeignColumn("IdReceita")
+            .ToTable("Receita").PrimaryColumn("Id")
+            .OnUpdate(System.Data.Rule.SetNull)
+            .OnUpdate(System.Data.Rule.Cascade);
+            
+            Create.ForeignKey("fk_IdReceita_Para_ReceitaIngrediente")
+            .FromTable("ReceitaIngrediente").ForeignColumn("IdReceita")
+            .ToTable("Receita").PrimaryColumn("Id")
+            .OnDeleteOrUpdate(System.Data.Rule.Cascade);
+            
+            Create.ForeignKey("fk_IdIngrediente_Para_ReceitaIngrediente")
+            .FromTable("ReceitaIngrediente").ForeignColumn("IdIngrediente")
+            .ToTable("Ingrediente").PrimaryColumn("Id")
+            .OnDeleteOrUpdate(System.Data.Rule.Cascade);
         }
 
         public override void Down()
@@ -45,7 +54,6 @@ namespace Cod3rsGrowth.Infra
             Delete.Table("Ingrediente");
             Delete.Table("Receita");
             Delete.Table("Pocao");
-            Delete.Table("Receita_Ingrediente");
         }
     }
 }

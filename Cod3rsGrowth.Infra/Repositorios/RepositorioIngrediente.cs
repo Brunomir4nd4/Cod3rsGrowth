@@ -1,7 +1,7 @@
-﻿using Cod3rsGrowth.Dominio.Interface;
-using Cod3rsGrowth.Dominio.Entidades;
+﻿using Cod3rsGrowth.Dominio.Entidades;
+using Cod3rsGrowth.Dominio.Interfaces;
+using Cod3rsGrowth.Infra.ConexaoBD;
 using LinqToDB;
-using Cod3rsGrowth.Infra.Interfaces;
 
 namespace Cod3rsGrowth.Infra.Repositorios
 {
@@ -16,8 +16,7 @@ namespace Cod3rsGrowth.Infra.Repositorios
 
         public List<Ingrediente> ObterTodos(FiltroIngrediente ingrediente)
         {
-            var query = Filtrar(ingrediente);
-            return query;
+            return Filtrar(ingrediente);
         }
 
         public Ingrediente ObterPorId(int idProcurado)
@@ -32,9 +31,9 @@ namespace Cod3rsGrowth.Infra.Repositorios
             return resultado;
         }
 
-        public void Criar(Ingrediente ingrediente)
+        public int Criar(Ingrediente ingrediente)
         {
-            _db.Insert(ingrediente);
+            return _db.InsertWithInt32Identity(ingrediente);
         }
 
         public Ingrediente Editar(Ingrediente ingredienteEditado)
@@ -59,13 +58,13 @@ namespace Cod3rsGrowth.Infra.Repositorios
         {
             IQueryable<Ingrediente> query = _db.ingrediente.AsQueryable();
 
-            if (ingrediente.Id != 0)
+            if (ingrediente.Id != null)
                 query = query.Where(r => r.Id == ingrediente.Id);
 
             if (!string.IsNullOrWhiteSpace(ingrediente.Nome))
-                query = query.Where(r => r.Nome == ingrediente.Nome);
+                query = query.Where(r => r.Nome.Contains(ingrediente.Nome) );
 
-            if (ingrediente.Quantidade != 0)
+            if (ingrediente.Quantidade != null)
                 query = query.Where(r => r.Quantidade == ingrediente.Quantidade);
 
             if (ingrediente.Naturalidade != null)

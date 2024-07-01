@@ -1,5 +1,5 @@
 ﻿using Cod3rsGrowth.Dominio.Entidades;
-using Cod3rsGrowth.Infra.Interfaces;
+using Cod3rsGrowth.Dominio.Interfaces;
 
 namespace Cod3rsGrowth.Servico.Servicos
 {
@@ -7,23 +7,35 @@ namespace Cod3rsGrowth.Servico.Servicos
     {
         private readonly IRepositorioPocao _repositorioPocao;
         private readonly IRepositorioReceita _repositorioReceita;
-        public ServicoPocao(IRepositorioPocao repositorioPocao, IRepositorioReceita repositorioReceita)
+        private ServicoIngrediente _servicoIngrediente;
+        private FiltroReceita _filtroReceita = new FiltroReceita();
+        public ServicoPocao(
+            IRepositorioPocao repositorioPocao, 
+            IRepositorioReceita repositorioReceita,
+            ServicoIngrediente servicoIngrediente
+            )
         {
             _repositorioPocao = repositorioPocao;
             _repositorioReceita = repositorioReceita;
+            _servicoIngrediente = servicoIngrediente;
         }
-        public List<Pocao> ObterTodos()
+
+        public List<FiltroPocao> ObterTodos(FiltroPocao filtroPocao)
         {
-            return _repositorioPocao.ObterTodos();
+            return _repositorioPocao.ObterTodos(filtroPocao);
         }
-        public Pocao ObterPorId(int id)
+
+        public FiltroPocao ObterPorId(int? id)
         {
             return _repositorioPocao.ObterPorId(id);
         }
-        public void CriarPocao(List<Ingrediente> ingredientesSelecionados)
+
+        public void Criar(List<Ingrediente> ingredientesSelecionados)
         {
-            int quantidadeMinimaDeIngrediente = 0;
-            List<Ingrediente> ingredientesInvalidos = ingredientesSelecionados.Where(ingrediente => ingrediente.Quantidade < quantidadeMinimaDeIngrediente).ToList();
+            const int quantidadeMinimaDeIngrediente = 0;
+            List<Ingrediente> ingredientesInvalidos = ingredientesSelecionados
+                .Where(i => i.Quantidade == quantidadeMinimaDeIngrediente)
+                .ToList();
 
             if (ingredientesInvalidos.Any())
             {
@@ -31,15 +43,24 @@ namespace Cod3rsGrowth.Servico.Servicos
                 throw new Exception(erros);
             }
 
-            List<Receita> receitasCadastradas = _repositorioReceita.ObterTodos(new FiltroReceita());
-            List<int> listaIdIngrediente = ingredientesSelecionados.Select(item => item.Id).ToList();
+            List<Receita> receitasCadastradas = _repositorioReceita.ObterTodos(_filtroReceita);
 
-            Receita Receita = receitasCadastradas.FirstOrDefault(receita => receita.ListaDeIdIngredientes.SequenceEqual(listaIdIngrediente))
+            var listaIdIngrediente = ingredientesSelecionados.Select(i => i.Id).ToList();
+
+            Receita receita = receitasCadastradas
+                .Where(r => r.ListaIdIngrediente.SequenceEqual(listaIdIngrediente))
+                .FirstOrDefault()
                 ?? throw new Exception("Impossível criar uma poção com os ingredientes selecionados!");
 
-            _repositorioPocao.Criar(Receita);
+            ingredientesSelecionados.ForEach(i => {
+                i.Quantidade--;
+                _servicoIngrediente.Editar(i);
+            });
+
+            _repositorioPocao.Criar(receita);
         }
-        public void RemoverPocao(int intPocaoSelecionada)
+
+        public void Remover(int? intPocaoSelecionada)
         {
             _repositorioPocao.Remover(intPocaoSelecionada);
         }

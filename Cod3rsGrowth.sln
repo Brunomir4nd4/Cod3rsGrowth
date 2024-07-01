@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cod3rsGrowth.Web", "Cod3rsG
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cod3rsGrowth.Teste", "Cod3rsGrowth.Teste\Cod3rsGrowth.Teste.csproj", "{564C69BB-0418-4628-B623-E61FDC5FDA41}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cod3rsGrowth.Servico", "Cod3rsGrowth.Servico\Cod3rsGrowth.Servico.csproj", "{B911D298-D5C4-4A1B-A963-A7ACD6F4F80B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cod3rsGrowth.Servico", "Cod3rsGrowth.Servico\Cod3rsGrowth.Servico.csproj", "{B911D298-D5C4-4A1B-A963-A7ACD6F4F80B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

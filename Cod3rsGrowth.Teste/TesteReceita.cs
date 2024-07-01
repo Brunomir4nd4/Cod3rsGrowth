@@ -1,4 +1,5 @@
 ﻿using Cod3rsGrowth.Dominio.Entidades;
+using Cod3rsGrowth.Dominio.Enums;
 using Cod3rsGrowth.Servico.Servicos;
 using Cod3rsGrowth.Teste.ConfiguracaoAmbienteTeste;
 using FluentValidation;
@@ -28,8 +29,40 @@ namespace Cod3rsGrowth.Teste
 
         public List<Receita> IniciarBancoMock()
         {
-            List<int> listaDeIdIngredientes1 = new List<int> { 0, 1, 2, 3 };
-            List<int> listaDeIdIngredientes2 = new List<int> { 0, 1, 2 };
+            List<Ingrediente> listaIngredientes = new List<Ingrediente>
+            {
+                new()
+                {
+                    Nome = "Pote com água",
+                    Naturalidade = Naturalidade.OverWorld,
+                    Quantidade = 5
+                },
+
+                new()
+                {
+                    Nome = "Fungo do Nether",
+                    Naturalidade = Naturalidade.Nether,
+                    Quantidade = 6
+                },
+
+                new()
+                {
+                    Nome = "Pó de blase",
+                    Naturalidade = Naturalidade.Nether,
+                    Quantidade = 3
+                },
+
+                new()
+                {
+                    Nome = "Melão dourado",
+                    Naturalidade = Naturalidade.OverWorld,
+                    Quantidade = 4
+                }
+            };
+
+            List<int> listaIdIngredientesParaCura = new List<int> { 0, 1, 2, 3 };
+            List<int> listaIdIngredientesParaForca = new List<int> { 0, 1, 2 };
+
             List<Receita> bancoMock = new List<Receita>()
             {
                 new()
@@ -39,7 +72,7 @@ namespace Cod3rsGrowth.Teste
                     Imagem = "caminho da imagem",
                     Valor = 20.00m,
                     ValidadeEmMeses = 4,
-                    ListaDeIdIngredientes = listaDeIdIngredientes1
+                    ListaIdIngrediente = listaIdIngredientesParaCura
                 },
 
                 new()
@@ -49,13 +82,13 @@ namespace Cod3rsGrowth.Teste
                     Imagem = "caminho da imagem",
                     Valor = 15.00m,
                     ValidadeEmMeses = 4,
-                    ListaDeIdIngredientes = listaDeIdIngredientes2
+                    ListaIdIngrediente = listaIdIngredientesParaForca
                 }
             };
 
             foreach (var receita in bancoMock)
             {
-                _servicoReceita.CriarReceita(receita);
+                _servicoReceita.Criar(receita);
             }
             return bancoMock;
         }
@@ -132,7 +165,7 @@ namespace Cod3rsGrowth.Teste
                 Valor = 20.22m
             };
 
-            var excecao = Assert.Throws<ValidationException>(() => _servicoReceita.CriarReceita(_receitaParaTeste));
+            var excecao = Assert.Throws<ValidationException>(() => _servicoReceita.Criar(_receitaParaTeste));
 
             Assert.Equal("Campo Nome deve conter apenas letras!", excecao.Message);
         }
@@ -151,7 +184,7 @@ namespace Cod3rsGrowth.Teste
                 Valor = 20.22m
             };
 
-            var excecao = Assert.Throws<ValidationException>(() => _servicoReceita.CriarReceita(_receitaParaTeste));
+            var excecao = Assert.Throws<ValidationException>(() => _servicoReceita.Criar(_receitaParaTeste));
 
             Assert.Equal("Campo Nome não preenchido!", excecao.Message);
         }
@@ -171,7 +204,7 @@ namespace Cod3rsGrowth.Teste
                 Valor = 20.22m
             };
 
-            var excecao = Assert.Throws<ValidationException>(() => _servicoReceita.CriarReceita(_receitaParaTeste));
+            var excecao = Assert.Throws<ValidationException>(() => _servicoReceita.Criar(_receitaParaTeste));
 
             Assert.Equal("Campo Descrição não preenchido!", excecao.Message);
         }
@@ -187,7 +220,7 @@ namespace Cod3rsGrowth.Teste
                 Valor = 20.22m
             };
 
-            var excecao = Assert.Throws<ValidationException>(() => _servicoReceita.CriarReceita(_receitaParaTeste));
+            var excecao = Assert.Throws<ValidationException>(() => _servicoReceita.Criar(_receitaParaTeste));
 
             Assert.Equal("Campo Descrição deve ter no máximo 500 caracters!", excecao.Message);
         }
@@ -205,7 +238,7 @@ namespace Cod3rsGrowth.Teste
                 Valor = valor
             };
 
-            var excecao = Assert.Throws<ValidationException>(() => _servicoReceita.CriarReceita(_receitaParaTeste));
+            var excecao = Assert.Throws<ValidationException>(() => _servicoReceita.Criar(_receitaParaTeste));
 
             Assert.Equal("Campo Valor não preenchido!", excecao.Message);
         }
@@ -221,7 +254,7 @@ namespace Cod3rsGrowth.Teste
                 Valor = -99
             };
 
-            var excecao = Assert.Throws<ValidationException>(() => _servicoReceita.CriarReceita(_receitaParaTeste));
+            var excecao = Assert.Throws<ValidationException>(() => _servicoReceita.Criar(_receitaParaTeste));
 
             Assert.Equal("Campo Valor deve ser maior que 0", excecao.Message);
         }
@@ -240,7 +273,7 @@ namespace Cod3rsGrowth.Teste
                 Valor = 99
             };
 
-            var receitaEditado = _servicoReceita.EditarReceita(_receitaParaTeste);
+            var receitaEditado = _servicoReceita.Editar(_receitaParaTeste);
 
             Assert.Equivalent(_receitaParaTeste, receitaEditado);
         }
@@ -261,7 +294,7 @@ namespace Cod3rsGrowth.Teste
                 Valor = 99
             };
 
-            var excecao = Assert.Throws<ValidationException>(() => _servicoReceita.EditarReceita(_receitaParaTeste));
+            var excecao = Assert.Throws<ValidationException>(() => _servicoReceita.Editar(_receitaParaTeste));
 
             Assert.Equal("Campo Nome deve conter apenas letras!", excecao.Message);
         }
@@ -281,7 +314,7 @@ namespace Cod3rsGrowth.Teste
                 Valor = 99
             };
 
-            var excecao = Assert.Throws<ValidationException>(() => _servicoReceita.EditarReceita(_receitaParaTeste));
+            var excecao = Assert.Throws<ValidationException>(() => _servicoReceita.Editar(_receitaParaTeste));
 
             Assert.Equal("Campo Nome não preenchido!", excecao.Message);
         }
@@ -301,7 +334,7 @@ namespace Cod3rsGrowth.Teste
                 Valor = 99
             };
 
-            var excecao = Assert.Throws<ValidationException>(() => _servicoReceita.EditarReceita(_receitaParaTeste));
+            var excecao = Assert.Throws<ValidationException>(() => _servicoReceita.Editar(_receitaParaTeste));
 
             Assert.Equal("Campo Descrição não preenchido!", excecao.Message);
         }
@@ -318,7 +351,7 @@ namespace Cod3rsGrowth.Teste
                 Valor = 20.22m
             };
 
-            var excecao = Assert.Throws<ValidationException>(() => _servicoReceita.EditarReceita(_receitaParaTeste));
+            var excecao = Assert.Throws<ValidationException>(() => _servicoReceita.Editar(_receitaParaTeste));
 
             Assert.Equal("Campo Descrição deve ter no máximo 500 caracters!", excecao.Message);
         }
@@ -335,7 +368,7 @@ namespace Cod3rsGrowth.Teste
                 Valor = 9,
             };
 
-            var excecao = Assert.Throws<ValidationException>(() => _servicoReceita.EditarReceita(_receitaParaTeste));
+            var excecao = Assert.Throws<ValidationException>(() => _servicoReceita.Editar(_receitaParaTeste));
 
             Assert.Equal("Campo Validade em meses deve ser maior ou igual a 1", excecao.Message);
         }
@@ -354,7 +387,7 @@ namespace Cod3rsGrowth.Teste
                 Valor = valor
             };
 
-            var excecao = Assert.Throws<ValidationException>(() => _servicoReceita.EditarReceita(_receitaParaTeste));
+            var excecao = Assert.Throws<ValidationException>(() => _servicoReceita.Editar(_receitaParaTeste));
 
             Assert.Equal("Campo Valor não preenchido!", excecao.Message);
         }
@@ -371,7 +404,7 @@ namespace Cod3rsGrowth.Teste
                 Valor = -99
             };
 
-            var excecao = Assert.Throws<ValidationException>(() => _servicoReceita.EditarReceita(_receitaParaTeste));
+            var excecao = Assert.Throws<ValidationException>(() => _servicoReceita.Editar(_receitaParaTeste));
 
             Assert.Equal("Campo Valor deve ser maior que 0", excecao.Message);
         }
@@ -381,9 +414,9 @@ namespace Cod3rsGrowth.Teste
         {
             _receitaParaTeste = _listaMock.FirstOrDefault();
 
-            _servicoReceita.RemoverReceita(_receitaParaTeste.Id);
+            _servicoReceita.Remover(_receitaParaTeste.Id);
 
-            var excecao = Assert.Throws<Exception>(() => _servicoReceita.RemoverReceita(_receitaParaTeste.Id));
+            var excecao = Assert.Throws<Exception>(() => _servicoReceita.Remover(_receitaParaTeste.Id));
 
             Assert.Equal($"O objeto com id [{_receitaParaTeste.Id}] não foi encontrado", excecao.Message);
         }
