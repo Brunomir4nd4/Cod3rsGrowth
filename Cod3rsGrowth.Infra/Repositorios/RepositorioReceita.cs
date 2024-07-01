@@ -1,6 +1,7 @@
 ﻿using Cod3rsGrowth.Dominio.Entidades;
-using Cod3rsGrowth.Dominio.Interface;
-using Cod3rsGrowth.Infra.Interfaces;
+using Cod3rsGrowth.Dominio.Interfaces;
+using Cod3rsGrowth.Infra.ConexaoBD;
+using Cod3rsGrowth.Servico.Servicos;
 using LinqToDB;
 
 namespace Cod3rsGrowth.Infra.Repositorios
@@ -8,16 +9,27 @@ namespace Cod3rsGrowth.Infra.Repositorios
     public class RepositorioReceita : IRepositorioReceita
     {
         private MeuContextoDeDados _db;
+        private ServicoReceitaIngrediente _servicoReceitaIngrediente;
 
-        public RepositorioReceita(MeuContextoDeDados db)
+        public RepositorioReceita(MeuContextoDeDados db, ServicoReceitaIngrediente servicoReceitaIngrediente)
         {
             _db = db;
+            _servicoReceitaIngrediente = servicoReceitaIngrediente;
         }
 
         public List<Receita> ObterTodos(FiltroReceita receita)
         {
-            var query = Filtrar(receita);
-            return query;
+            var receitasFiltradas = Filtrar(receita);
+            var listaReceitaIngrediente = _servicoReceitaIngrediente.ObterTodos();
+
+            receitasFiltradas.ForEach(receita =>
+            {
+                receita.ListaIdIngrediente = listaReceitaIngrediente
+                    .Where(ri => ri.IdReceita == receita.Id)
+                    .Select(ri => ri.IdIngredinete)
+                    .ToList();
+            });
+            return receitasFiltradas;
         }
 
         public Receita ObterPorId(int idProcurado)
@@ -28,14 +40,22 @@ namespace Cod3rsGrowth.Infra.Repositorios
 
             var resultado = query.FirstOrDefault()
                 ?? throw new Exception($"Id: [{idProcurado}] não foi encontrado no banco de dados");
+            
+            var listaReceitaIngrediente = _servicoReceitaIngrediente.ObterTodos();
+
+            resultado.ListaIdIngrediente = listaReceitaIngrediente
+                .Where(ri => ri.IdReceita == resultado.Id)
+                .Select(ri => ri.IdIngredinete)
+                .ToList();
 
             return resultado;
         }
 
-        public void Criar(Receita novaReceita)
+        public int Criar(Receita receita)
         {
-            _db.Insert(novaReceita);
+            return _db.InsertWithInt32Identity(receita);
         }
+
         public Receita Editar(Receita receitaEditada)
         {
             var receitaAtualizada = ObterPorId(receitaEditada.Id);
@@ -45,8 +65,14 @@ namespace Cod3rsGrowth.Infra.Repositorios
             receitaAtualizada.Valor = receitaEditada.Valor;
             receitaAtualizada.Imagem = receitaEditada.Imagem;
             receitaAtualizada.ValidadeEmMeses = receitaEditada.ValidadeEmMeses;
-            receitaAtualizada.ListaDeIdIngredientes = receitaEditada.ListaDeIdIngredientes;
+            receitaAtualizada.ListaIdIngrediente = receitaEditada.ListaIdIngrediente;
 
+            _db.receitaIngrediente
+                .Where(ri => ri.IdReceita == receitaEditada.Id)
+                .Delete();
+
+            _servicoReceitaIngrediente.Criar(receitaAtualizada.ListaIdIngrediente, receitaEditada.Id);
+            
             _db.Update(receitaAtualizada);
             return receitaAtualizada;
         }
@@ -62,19 +88,16 @@ namespace Cod3rsGrowth.Infra.Repositorios
         {
             IQueryable<Receita> query = _db.receita.AsQueryable();
 
-            if (receita.Id != 0)
+            if (receita.Id != null)
                 query = query.Where(r => r.Id == receita.Id);
 
             if (!string.IsNullOrWhiteSpace(receita.Nome))
-                query = query.Where(r => r.Nome == receita.Nome);
+                query = query.Where(r => r.Nome.Contains(receita.Nome));
 
-            if (!string.IsNullOrWhiteSpace(receita.Descricao))
-                query = query.Where(r => r.Descricao == receita.Descricao);
-
-            if (receita.Valor != 0)
+            if (receita.Valor != null)
                 query = query.Where(r => r.Valor == receita.Valor);
 
-            if (receita.ValidadeEmMeses != 0)
+            if (receita.ValidadeEmMeses != null)
                 query = query.Where(r => r.ValidadeEmMeses == receita.ValidadeEmMeses);
 
             return query.ToList();

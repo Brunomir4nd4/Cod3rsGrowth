@@ -1,36 +1,58 @@
+using Cod3rsGrowth.Dominio.Interfaces;
+using Cod3rsGrowth.Dominio.Migradores;
+using Cod3rsGrowth.Infra.ConexaoBD;
+using Cod3rsGrowth.Infra.Repositorios;
+using Cod3rsGrowth.Servico.Servicos;
+using Cod3rsGrowth.Servico.Validadores;
 using FluentMigrator.Runner;
-
+using LinqToDB;
+using LinqToDB.AspNet;
+using LinqToDB.AspNet.Logging;
 using Microsoft.Extensions.DependencyInjection;
-using Cod3rsGrowth.Infra;
 using System.Configuration;
-using Microsoft.Data.SqlClient;
 
 namespace Cod3rsGrowth.Forms
 {
     public static class Program
     {
+        private static string _chaveDeConexao = "contextoPadrao";
         [STAThread]
         static void Main()
         {
             ApplicationConfiguration.Initialize();
-            Application.Run(new Form1());
 
-            using (var serviceProvider = CreateServices())
-            using (var scope = serviceProvider.CreateScope())
+            using (var ServiceProvider = CreateServices())
+
+            using (var scope = ServiceProvider.CreateScope())
             {
                 UpdateDatabase(scope.ServiceProvider);
+                Application.Run(ServiceProvider.GetRequiredService<FormListagem>());
             }
         }
         private static ServiceProvider CreateServices()
         {
-            // SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["contextoPadrao"]);
-            string connectionString = ConfigurationManager.ConnectionStrings["contextoPadrao"].ToString();
+            string connectionString = ConfigurationManager.ConnectionStrings[_chaveDeConexao].ToString();
             return new ServiceCollection()
                 .AddFluentMigratorCore()
                 .ConfigureRunner(rb => rb
                     .AddSqlServer()
                     .WithGlobalConnectionString(connectionString)
                     .ScanIn(typeof(Migrador).Assembly).For.Migrations())
+                    .AddScoped<FormListagem>()
+                    .AddScoped<ServicoIngrediente>()
+                    .AddScoped<ServicoPocao>()
+                    .AddScoped<ServicoReceita>()
+                    .AddScoped<ServicoReceitaIngrediente>()
+                    .AddScoped<IngredienteValidator>()
+                    .AddScoped<ReceitaValidator>()
+                    .AddScoped<IRepositorioIngrediente, RepositorioIngrediente>()
+                    .AddScoped<IRepositorioPocao, RepositorioPocao>()
+                    .AddScoped<IRepositorioReceita, RepositorioReceita>()
+                    .AddScoped<IRepositorioReceitaIngrediente, RepositorioReceitaIngrediente>()
+                    .AddLinqToDBContext<MeuContextoDeDados>((provider, options)
+                        => options
+                            .UseSqlServer(ConfigurationManager.ConnectionStrings[_chaveDeConexao].ConnectionString)
+                            .UseDefaultLogging(provider))
                 .AddLogging(lb => lb.AddFluentMigratorConsole())
                 .BuildServiceProvider(false);
         }
@@ -40,5 +62,6 @@ namespace Cod3rsGrowth.Forms
 
             runner.MigrateUp();
         }
+ 
     }
 }

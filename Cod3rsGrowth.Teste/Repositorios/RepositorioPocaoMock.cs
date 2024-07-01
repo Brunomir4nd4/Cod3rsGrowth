@@ -1,38 +1,38 @@
 ﻿using Cod3rsGrowth.Dominio.Entidades;
-using Cod3rsGrowth.Infra.Interfaces;
+using Cod3rsGrowth.Dominio.Interfaces;
 using Cod3rsGrowth.Infra.Repositorios;
 
 namespace Cod3rsGrowth.Teste.Repositorios
 {
     public class RepositorioPocaoMock : IRepositorioPocao
     {
-        private List<Pocao> _listaPocao = ListaSingleton.getInstance.listaPocao;
+        private List<FiltroPocao> _listaPocao = ListaSingleton.getInstance.listaPocao;
         private int _novoId = 0;
-        public List<Pocao> ObterTodos()
+        public List<FiltroPocao> ObterTodos(FiltroPocao filtroPocao)
         {
             return _listaPocao;
         }
 
-        public Pocao ObterPorId(int idProcurado)
+        public FiltroPocao ObterPorId(int? idProcurado)
         {
-            return _listaPocao.Find(objeto => objeto.Id == idProcurado) 
+            return _listaPocao.Find(p => p.Id == idProcurado) 
                 ?? throw new Exception($"O objeto com id [{idProcurado}] não foi encontrado");
         }
 
         public void Criar(Receita novaReceita)
         {
-            Pocao pocao = new Pocao()
+            FiltroPocao pocao = new FiltroPocao()
             {
                 Id = _novoId,
                 IdReceita = novaReceita.Id,
                 Vencido = false,
-                DataDeFabricação = DateTime.Today
+                DataDeFabricacao = DateTime.Today
             };
             _novoId++;
             _listaPocao.Add(pocao);
         }
 
-        public void Remover(int idPocao)
+        public void Remover(int? idPocao)
         {
             var pocaoRemovidaDoBanco = ObterPorId(idPocao);
 

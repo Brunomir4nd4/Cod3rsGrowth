@@ -5,7 +5,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 using Cod3rsGrowth.Dominio.Enums;
 using LinqToDB;
-using static LinqToDB.DataProvider.SqlServer.SqlServerProviderAdapter;
 
 namespace Cod3rsGrowth.Teste
 {
@@ -14,9 +13,10 @@ namespace Cod3rsGrowth.Teste
         private ServicoPocao _servicoPocao;
         private ServicoIngrediente _servicoIngrediente;
         private ServicoReceita _servicoReceita;
-        private List<Pocao> _listaMock;
-        private List<Pocao> _listaDoBanco;
-        private Pocao _pocaoParaTeste;
+        private List<FiltroPocao> _listaMock;
+        private List<FiltroPocao> _listaDoBanco;
+        private FiltroPocao _pocaoParaTeste;
+        private FiltroPocao _filtroPocao;
         private Receita _receitaParaTeste;
         private FiltroIngrediente _ingredienteParaTeste;
         public TestePocao()
@@ -36,38 +36,8 @@ namespace Cod3rsGrowth.Teste
                 ?? throw new Exception($"Erro ao obter servico [{nameof(ServicoIngrediente)}]");
         }
 
-        public List<Pocao> IniciarBancoMock()
+        public List<FiltroPocao> IniciarBancoMock()
         {
-            List<int> listaDeIdIngredientes1 = new List<int> { 0, 1, 2, 3 };
-            List<int> listaDeIdIngredientes2 = new List<int> { 0, 1, 2 };
-            List<Receita> listaReceitaMock = new List<Receita>()
-            {
-                new()
-                {
-                    Nome = "receita de Cura",
-                    Descricao = "Deve curar",
-                    Imagem = "caminho da imagem",
-                    Valor = 20.00m,
-                    ValidadeEmMeses = 4,
-                    ListaDeIdIngredientes = listaDeIdIngredientes1
-                },
-
-                new()
-                {
-                    Nome = "receita de Força",
-                    Descricao = "Te da Força",
-                    Imagem = "caminho da imagem",
-                    Valor = 15.00m,
-                    ValidadeEmMeses = 4,
-                    ListaDeIdIngredientes = listaDeIdIngredientes2
-                }
-            };
-
-            foreach (var receita in listaReceitaMock)
-            {
-                _servicoReceita.CriarReceita(receita);
-            }
-
             List<Ingrediente> listaIngredientes = new List<Ingrediente>
             {
                 new()
@@ -100,17 +70,47 @@ namespace Cod3rsGrowth.Teste
             };
             foreach (var ingrediente in listaIngredientes)
             {
-                _servicoIngrediente.CriarIngrediente(ingrediente);
+                _servicoIngrediente.Criar(ingrediente);
             }
 
             int quantidadeDeIngredientes1 = 4, quantidadeDeIngredientes2 = 3;
             var listaIngredientesParaCura = listaIngredientes.Take(quantidadeDeIngredientes1).ToList();
             var listaIngredientesParaForca = listaIngredientes.Take(quantidadeDeIngredientes2).ToList();
+            List<int> listaIdIngredientesParaCura = new List<int> { 0, 1, 2, 3 };
+            List<int> listaIdIngredientesParaForca = new List<int> { 0, 1, 2 };
 
-            _servicoPocao.CriarPocao(listaIngredientesParaCura);
-            _servicoPocao.CriarPocao(listaIngredientesParaForca);
+            List<Receita> listaReceitaMock = new List<Receita>()
+            {
+                new()
+                {
+                    Nome = "receita de Cura",
+                    Descricao = "Deve curar",
+                    Imagem = "caminho da imagem",
+                    Valor = 20.00m,
+                    ValidadeEmMeses = 4,
+                    ListaIdIngrediente = listaIdIngredientesParaCura
+                },
 
-            List<Pocao> listaMock = _servicoPocao.ObterTodos();
+                new()
+                {
+                    Nome = "receita de Força",
+                    Descricao = "Te da Força",
+                    Imagem = "caminho da imagem",
+                    Valor = 15.00m,
+                    ValidadeEmMeses = 4,
+                    ListaIdIngrediente = listaIdIngredientesParaForca
+                }
+            };
+
+            foreach (var receita in listaReceitaMock)
+            {
+                _servicoReceita.Criar(receita);
+            }
+
+            _servicoPocao.Criar(listaIngredientesParaCura);
+            _servicoPocao.Criar(listaIngredientesParaForca);
+
+            List<FiltroPocao> listaMock = _servicoPocao.ObterTodos(_filtroPocao);
             return listaMock;
         }
 
@@ -118,14 +118,14 @@ namespace Cod3rsGrowth.Teste
         [Fact]
         public void ObterTodos_ComUmaListaValida_DeveRetornarUmaListaDoTipoPocao()
         {
-            var listaPocao = _servicoPocao.ObterTodos();
-            Assert.IsType<List<Pocao>>(listaPocao);
+            var listaPocao = _servicoPocao.ObterTodos(_filtroPocao);
+            Assert.IsType<List<FiltroPocao>>(listaPocao);
         }
 
         [Fact]
         public void ObterTodos_ComDadosDisponiveis_DeveSerEquivalenteAUmaListaDePocao()
         {
-            _listaDoBanco = _servicoPocao.ObterTodos();
+            _listaDoBanco = _servicoPocao.ObterTodos(_filtroPocao);
 
             Assert.Equivalent(_listaMock, _listaDoBanco);
         }
@@ -135,7 +135,7 @@ namespace Cod3rsGrowth.Teste
         public void ObterPorId_ComIdExistente_DeveRetornarPocaoEsperada()
         {
             //arrange
-            int idDeBusca = _listaMock.FirstOrDefault().Id;
+            var idDeBusca = _listaMock.FirstOrDefault().Id;
             var pocaoMock = _listaMock.FirstOrDefault();
 
             //act
@@ -155,7 +155,7 @@ namespace Cod3rsGrowth.Teste
             var pocaoDoBanco = _servicoPocao.ObterPorId(idProcurado);
 
             //assert
-            Assert.IsType<Pocao>(pocaoDoBanco);
+            Assert.IsType<FiltroPocao>(pocaoDoBanco);
         }
 
         [Fact]
@@ -174,16 +174,17 @@ namespace Cod3rsGrowth.Teste
         [Fact]
         public void ObterPorId_ComDadosValidos_DeveRetornarPocaoDesejada()
         {
-            int idDaReceitaDeCura = 0;
+            int idDaPocaoDeCura = 0;
 
-            _pocaoParaTeste = new Pocao()
+            _pocaoParaTeste = new FiltroPocao()
             {
-                IdReceita = idDaReceitaDeCura,
-                DataDeFabricação = DateTime.Today,
+                Id = idDaPocaoDeCura,
+                IdReceita = 0,
+                DataDeFabricacao = DateTime.Today,
                 Vencido = false
             };
 
-            var pocaoDoBanco = _servicoPocao.ObterPorId(idDaReceitaDeCura);
+            var pocaoDoBanco = _servicoPocao.ObterPorId(idDaPocaoDeCura);
 
             Assert.Equivalent(_pocaoParaTeste, pocaoDoBanco);
         }
@@ -194,7 +195,7 @@ namespace Cod3rsGrowth.Teste
             int quantidadeDeIngredientes = 2;
             List<Ingrediente> listaIngredientes = _servicoIngrediente.ObterTodos(_ingredienteParaTeste).Take(quantidadeDeIngredientes).ToList();
 
-            var excecao = Assert.Throws<Exception>(() => _servicoPocao.CriarPocao(listaIngredientes));
+            var excecao = Assert.Throws<Exception>(() => _servicoPocao.Criar(listaIngredientes));
 
             Assert.Equal("Impossível criar uma poção com os ingredientes selecionados!", excecao.Message);
         }
@@ -204,9 +205,9 @@ namespace Cod3rsGrowth.Teste
         {
             _pocaoParaTeste = _listaMock.FirstOrDefault();
 
-           _servicoPocao.RemoverPocao(_pocaoParaTeste.Id);
+           _servicoPocao.Remover(_pocaoParaTeste.Id);
 
-            var excecao = Assert.Throws<Exception>(() => _servicoPocao.RemoverPocao(_pocaoParaTeste.Id));
+            var excecao = Assert.Throws<Exception>(() => _servicoPocao.Remover(_pocaoParaTeste.Id));
 
             Assert.Equal($"O objeto com id [{_pocaoParaTeste.Id}] não foi encontrado", excecao.Message);
         }
