@@ -1,6 +1,4 @@
 ﻿using Cod3rsGrowth.Dominio.Entidades;
-using Cod3rsGrowth.Infra;
-using Cod3rsGrowth.Servico;
 using Cod3rsGrowth.Servico.Servicos;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,50 +8,52 @@ namespace Cod3rsGrowth.Web.Controllers
     [ApiController]
     public class IngredienteController : ControllerBase
     {
-        private readonly ServicoIngrediente _servicoIngrediente;
-        private ServiceProvider _serviceProvider;
-
-        public IngredienteController()
+        private ServicoIngrediente _servicoIngrediente;
+        private ILoggerFactory _logger;
+        public IngredienteController(ILoggerFactory logger)
         {
-            _serviceProvider = ObterServiceCollection().BuildServiceProvider();
-            _servicoIngrediente = _serviceProvider.GetRequiredService<ServicoIngrediente>();
+            CarregarServico();
+            _logger = logger;
         }
 
-        private IServiceCollection ObterServiceCollection()
+        private void CarregarServico()
         {
-            var colecaoDeServicos = new ServiceCollection();
-            ModuloInjetorServico.BindServices(colecaoDeServicos);
-            ModuloInjetorInfra.BindServices(colecaoDeServicos);
-            return colecaoDeServicos;
+            _servicoIngrediente = _serviceProvider.GetService<ServicoIngrediente>()
+                ?? throw new Exception($"Erro ao obter servico [{nameof(ServicoIngrediente)}]");
         }
-
 
         [HttpGet]
-        public async Task<ActionResult<List<Ingrediente>>> GetIngrediente()
+        public async Task<IActionResult> ObterTodos()
         {
-            if(_servicoIngrediente.ObterTodos(null) == null)
-            {
-                return NotFound();
-            }
-            return _servicoIngrediente.ObterTodos(null);
+            return Ok(_servicoIngrediente.ObterTodos(null));
         }
         
         [HttpGet("{id}")]
-        public async Task<ActionResult<Ingrediente>> GetIngrediente(int id)
+        public async Task<IActionResult> ObterPorId(int id)
         {
-            if(_servicoIngrediente.ObterTodos(null) == null)
-            {
-                return NotFound();
-            }
-            return _servicoIngrediente.ObterPorId(id);
+            return Ok(_servicoIngrediente.ObterPorId(id));
         }
 
         [HttpPost]
-        public async Task<ActionResult<Ingrediente>> PostIngrediente(Ingrediente ingrediente)
+        public async Task<IActionResult> Criar(Ingrediente ingrediente)
         {
             _servicoIngrediente.Criar(ingrediente);
 
-            return CreatedAtAction(nameof(GetIngrediente), new {id = ingrediente.Id }, ingrediente);
+            return CreatedAtAction(nameof(ObterPorId), new {id = ingrediente.Id }, ingrediente);
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> Editar(Ingrediente ingrediente)
+        {
+            return Ok(_servicoIngrediente.Editar(ingrediente));
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> Remover(int id)
+        {
+             _servicoIngrediente.Remover(id);
+
+            return NoContent();
         }
     }
 }

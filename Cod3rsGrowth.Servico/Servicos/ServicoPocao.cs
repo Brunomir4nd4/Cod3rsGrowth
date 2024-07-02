@@ -30,7 +30,7 @@ namespace Cod3rsGrowth.Servico.Servicos
             return _repositorioPocao.ObterPorId(id);
         }
 
-        public void Criar(List<Ingrediente> ingredientesSelecionados)
+        public int Criar(List<Ingrediente> ingredientesSelecionados)
         {
             const int quantidadeMinimaDeIngrediente = 0;
             List<Ingrediente> ingredientesInvalidos = ingredientesSelecionados
@@ -57,7 +57,7 @@ namespace Cod3rsGrowth.Servico.Servicos
                 _servicoIngrediente.Editar(i);
             });
 
-            _repositorioPocao.Criar(receita);
+            return _repositorioPocao.Criar(receita);
         }
 
         public void Remover(int? intPocaoSelecionada)

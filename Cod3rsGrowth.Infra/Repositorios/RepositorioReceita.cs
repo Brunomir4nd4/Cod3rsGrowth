@@ -87,17 +87,20 @@ namespace Cod3rsGrowth.Infra.Repositorios
         {
             IQueryable<Receita> query = _db.receita.AsQueryable();
 
-            if (receita.Id != null)
-                query = query.Where(r => r.Id == receita.Id);
+            if (receita != null)
+            {
+                if (receita.Id != null)
+                    query = query.Where(r => r.Id == receita.Id);
 
-            if (!string.IsNullOrWhiteSpace(receita.Nome))
-                query = query.Where(r => r.Nome.Contains(receita.Nome));
+                if (!string.IsNullOrWhiteSpace(receita.Nome))
+                    query = query.Where(r => r.Nome.Contains(receita.Nome));
 
-            if (receita.Valor != null)
-                query = query.Where(r => r.Valor == receita.Valor);
+                if (receita.Valor != null)
+                    query = query.Where(r => r.Valor == receita.Valor);
 
-            if (receita.ValidadeEmMeses != null)
-                query = query.Where(r => r.ValidadeEmMeses == receita.ValidadeEmMeses);
+                if (receita.ValidadeEmMeses != null)
+                    query = query.Where(r => r.ValidadeEmMeses == receita.ValidadeEmMeses);
+            }
 
             return query.ToList();
         }

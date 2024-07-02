@@ -19,7 +19,7 @@ namespace Cod3rsGrowth.Teste.Repositorios
                 ?? throw new Exception($"O objeto com id [{idProcurado}] não foi encontrado");
         }
 
-        public void Criar(Receita novaReceita)
+        public int Criar(Receita novaReceita)
         {
             FiltroPocao pocao = new FiltroPocao()
             {
@@ -30,6 +30,7 @@ namespace Cod3rsGrowth.Teste.Repositorios
             };
             _novoId++;
             _listaPocao.Add(pocao);
+            return (int)pocao.Id;
         }
 
         public void Remover(int? idPocao)
