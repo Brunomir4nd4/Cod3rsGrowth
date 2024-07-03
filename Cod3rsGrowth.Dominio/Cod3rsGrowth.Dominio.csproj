@@ -10,6 +10,11 @@
     <PackageReference Include="FluentMigrator" Version="5.2.0" />
     <PackageReference Include="FluentValidation" Version="11.9.1" />
     <PackageReference Include="linq2db" Version="5.4.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.20">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.20" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
     <PackageReference Include="Xunit.Microsoft.DependencyInjection" Version="7.0.10" />

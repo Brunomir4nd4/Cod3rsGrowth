@@ -6,7 +6,7 @@ namespace Cod3rsGrowth.Dominio.Interfaces
     {
         List<FiltroPocao> ObterTodos(FiltroPocao filtroPocao);
         FiltroPocao ObterPorId(int? id);
-        void Criar(Receita receita);
+        int Criar(Receita receita);
         void Remover(int? idPocao);
     }
 }

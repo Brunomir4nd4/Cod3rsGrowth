@@ -47,6 +47,7 @@ namespace Cod3rsGrowth.Infra.Repositorios
             _db.Update(ingredienteAtualizado);
             return ingredienteAtualizado;
         }
+
         public void Remover(int idIngrediente)
         {
             _db.ingrediente
@@ -58,17 +59,20 @@ namespace Cod3rsGrowth.Infra.Repositorios
         {
             IQueryable<Ingrediente> query = _db.ingrediente.AsQueryable();
 
-            if (ingrediente.Id != null)
-                query = query.Where(r => r.Id == ingrediente.Id);
+            if (ingrediente != null)
+            {
+                if (ingrediente.Id != null)
+                    query = query.Where(r => r.Id == ingrediente.Id);
 
-            if (!string.IsNullOrWhiteSpace(ingrediente.Nome))
-                query = query.Where(r => r.Nome.Contains(ingrediente.Nome) );
+                if (!string.IsNullOrWhiteSpace(ingrediente.Nome))
+                    query = query.Where(r => r.Nome.Contains(ingrediente.Nome) );
 
-            if (ingrediente.Quantidade != null)
-                query = query.Where(r => r.Quantidade == ingrediente.Quantidade);
+                if (ingrediente.Quantidade != null)
+                    query = query.Where(r => r.Quantidade == ingrediente.Quantidade);
 
-            if (ingrediente.Naturalidade != null)
-                query = query.Where(r => r.Naturalidade == ingrediente.Naturalidade);
+                if (ingrediente.Naturalidade != null)
+                    query = query.Where(r => r.Naturalidade == ingrediente.Naturalidade);
+            }
 
             return query.ToList();
         }

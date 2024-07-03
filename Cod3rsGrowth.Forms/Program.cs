@@ -1,67 +1,31 @@
-using Cod3rsGrowth.Dominio.Interfaces;
-using Cod3rsGrowth.Dominio.Migradores;
-using Cod3rsGrowth.Infra.ConexaoBD;
-using Cod3rsGrowth.Infra.Repositorios;
+using Cod3rsGrowth.Infra;
+using Cod3rsGrowth.Servico;
 using Cod3rsGrowth.Servico.Servicos;
-using Cod3rsGrowth.Servico.Validadores;
-using FluentMigrator.Runner;
-using LinqToDB;
-using LinqToDB.AspNet;
-using LinqToDB.AspNet.Logging;
 using Microsoft.Extensions.DependencyInjection;
-using System.Configuration;
 
 namespace Cod3rsGrowth.Forms
 {
     public static class Program
     {
-        private static string _chaveDeConexao = "contextoPadrao";
+        private static ServiceProvider? _serviceProvider;
         [STAThread]
+
         static void Main()
         {
+            var colecaoDeServicos = new ServiceCollection();
+            ModuloInjetorInfra.BindServices(colecaoDeServicos);
+            ModuloInjetorServico.BindServices(colecaoDeServicos);
+            _serviceProvider = colecaoDeServicos.BuildServiceProvider();
+
             ApplicationConfiguration.Initialize();
 
-            using (var ServiceProvider = CreateServices())
+            ModuloInjetorInfra.AtualizarTabelas(_serviceProvider);
 
-            using (var scope = ServiceProvider.CreateScope())
-            {
-                UpdateDatabase(scope.ServiceProvider);
-                Application.Run(ServiceProvider.GetRequiredService<FormListagem>());
-            }
+            Application.Run(new FormListagem(
+                _serviceProvider.GetRequiredService<ServicoIngrediente>(),
+                _serviceProvider.GetRequiredService<ServicoReceita>(),
+                _serviceProvider.GetRequiredService<ServicoPocao>())
+            );
         }
-        private static ServiceProvider CreateServices()
-        {
-            string connectionString = ConfigurationManager.ConnectionStrings[_chaveDeConexao].ToString();
-            return new ServiceCollection()
-                .AddFluentMigratorCore()
-                .ConfigureRunner(rb => rb
-                    .AddSqlServer()
-                    .WithGlobalConnectionString(connectionString)
-                    .ScanIn(typeof(Migrador).Assembly).For.Migrations())
-                    .AddScoped<FormListagem>()
-                    .AddScoped<ServicoIngrediente>()
-                    .AddScoped<ServicoPocao>()
-                    .AddScoped<ServicoReceita>()
-                    .AddScoped<ServicoReceitaIngrediente>()
-                    .AddScoped<IngredienteValidator>()
-                    .AddScoped<ReceitaValidator>()
-                    .AddScoped<IRepositorioIngrediente, RepositorioIngrediente>()
-                    .AddScoped<IRepositorioPocao, RepositorioPocao>()
-                    .AddScoped<IRepositorioReceita, RepositorioReceita>()
-                    .AddScoped<IRepositorioReceitaIngrediente, RepositorioReceitaIngrediente>()
-                    .AddLinqToDBContext<MeuContextoDeDados>((provider, options)
-                        => options
-                            .UseSqlServer(ConfigurationManager.ConnectionStrings[_chaveDeConexao].ConnectionString)
-                            .UseDefaultLogging(provider))
-                .AddLogging(lb => lb.AddFluentMigratorConsole())
-                .BuildServiceProvider(false);
-        }
-        private static void UpdateDatabase(IServiceProvider serviceProvider)
-        {
-            var runner = serviceProvider.GetRequiredService<IMigrationRunner>();
-
-            runner.MigrateUp();
-        }
- 
     }
 }
