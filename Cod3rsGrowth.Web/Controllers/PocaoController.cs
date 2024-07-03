@@ -20,19 +20,19 @@ namespace Cod3rsGrowth.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> ObterTodos()
+        public IActionResult ObterTodos()
         {
             return Ok(_servicoPocao.ObterTodos(null));
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> ObterPorId(int id)
+        public IActionResult ObterPorId(int id)
         {
             return Ok(_servicoPocao.ObterPorId(id));
         }
 
         [HttpPost]
-        public async Task<IActionResult> Criar(List<Ingrediente> ingredientes)
+        public IActionResult Criar(List<Ingrediente> ingredientes)
         {
             var idPocao = _servicoPocao.Criar(ingredientes);
 
@@ -40,7 +40,7 @@ namespace Cod3rsGrowth.Web.Controllers
         }
         
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Remover(int id)
+        public IActionResult Remover(int id)
         {
             _servicoPocao.Remover(id);
 

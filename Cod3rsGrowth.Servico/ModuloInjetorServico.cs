@@ -6,7 +6,7 @@ namespace Cod3rsGrowth.Servico
 {
     public class ModuloInjetorServico
     {
-        public static void BindServices(ServiceCollection servicos)
+        public static void BindServices(IServiceCollection servicos)
         {
             servicos.AddScoped<ServicoIngrediente>();
             servicos.AddScoped<ServicoReceita>();

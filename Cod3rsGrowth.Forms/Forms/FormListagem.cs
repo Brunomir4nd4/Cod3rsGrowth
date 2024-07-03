@@ -455,10 +455,15 @@ namespace Cod3rsGrowth.Forms
             try
             {
                 const string mascaraData = "  /  /";
-                if (!maskedTextBox_Data_Pocao.Text.IsNullOrEmpty() & maskedTextBox_Data_Pocao.Text != mascaraData)
+                if ( 
+                    maskedTextBox_Data_Inicial_Pocao.Text != mascaraData 
+                    & maskedTextBox_Data_Final_Pocao.Text != mascaraData
+                )
                 {
-                    filtroPocao.DataDeFabricacao = DateTime.Parse(maskedTextBox_Data_Pocao.Text);
-                    maskedTextBox_Data_Pocao.Text = "";
+                    filtroPocao.DataIncial = DateTime.Parse(maskedTextBox_Data_Inicial_Pocao.Text);
+                    filtroPocao.DataFinal = DateTime.Parse(maskedTextBox_Data_Final_Pocao.Text);
+                    maskedTextBox_Data_Inicial_Pocao.Text = "";
+                    maskedTextBox_Data_Final_Pocao.Text = "";
                 }
             }
             catch (Exception ex)

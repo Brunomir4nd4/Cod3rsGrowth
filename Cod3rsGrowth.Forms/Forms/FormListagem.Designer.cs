@@ -96,9 +96,11 @@
             button13 = new Button();
             button14 = new Button();
             panel4 = new Panel();
+            maskedTextBox_Data_Final_Pocao = new MaskedTextBox();
+            label16 = new Label();
             comboBox_Vencido_Pocao = new ComboBox();
             button_Filtrar_Pocao = new Button();
-            maskedTextBox_Data_Pocao = new MaskedTextBox();
+            maskedTextBox_Data_Inicial_Pocao = new MaskedTextBox();
             textBox_Id_Pocao = new TextBox();
             label13 = new Label();
             label15 = new Label();
@@ -381,10 +383,10 @@
             Receitas.Controls.Add(panel3);
             Receitas.Controls.Add(panel2);
             Receitas.Font = new Font("JetBrains Mono", 8.999999F, FontStyle.Regular, GraphicsUnit.Point);
-            Receitas.Location = new Point(4, 25);
+            Receitas.Location = new Point(4, 24);
             Receitas.Name = "Receitas";
             Receitas.Padding = new Padding(3);
-            Receitas.Size = new Size(854, 527);
+            Receitas.Size = new Size(854, 528);
             Receitas.TabIndex = 1;
             Receitas.Text = "Receitas";
             Receitas.UseVisualStyleBackColor = true;
@@ -401,7 +403,7 @@
             dataGridView_Receita.Location = new Point(3, 82);
             dataGridView_Receita.Name = "dataGridView_Receita";
             dataGridView_Receita.RowTemplate.Height = 25;
-            dataGridView_Receita.Size = new Size(848, 373);
+            dataGridView_Receita.Size = new Size(848, 372);
             dataGridView_Receita.TabIndex = 26;
             // 
             // dataGridViewTextBoxColumn7
@@ -447,7 +449,7 @@
             panel3.Controls.Add(button3);
             panel3.Controls.Add(button4);
             panel3.Dock = DockStyle.Bottom;
-            panel3.Location = new Point(3, 477);
+            panel3.Location = new Point(3, 478);
             panel3.Name = "panel3";
             panel3.Size = new Size(848, 47);
             panel3.TabIndex = 25;
@@ -669,7 +671,7 @@
             dataGridView_Pocao.Location = new Point(0, 79);
             dataGridView_Pocao.Name = "dataGridView_Pocao";
             dataGridView_Pocao.RowTemplate.Height = 25;
-            dataGridView_Pocao.Size = new Size(851, 375);
+            dataGridView_Pocao.Size = new Size(851, 373);
             dataGridView_Pocao.TabIndex = 27;
             // 
             // idDataGridViewTextBoxColumn
@@ -813,9 +815,11 @@
             // panel4
             // 
             panel4.BackColor = SystemColors.Window;
+            panel4.Controls.Add(maskedTextBox_Data_Final_Pocao);
+            panel4.Controls.Add(label16);
             panel4.Controls.Add(comboBox_Vencido_Pocao);
             panel4.Controls.Add(button_Filtrar_Pocao);
-            panel4.Controls.Add(maskedTextBox_Data_Pocao);
+            panel4.Controls.Add(maskedTextBox_Data_Inicial_Pocao);
             panel4.Controls.Add(textBox_Id_Pocao);
             panel4.Controls.Add(label13);
             panel4.Controls.Add(label15);
@@ -829,12 +833,33 @@
             panel4.Size = new Size(854, 73);
             panel4.TabIndex = 0;
             // 
+            // maskedTextBox_Data_Final_Pocao
+            // 
+            maskedTextBox_Data_Final_Pocao.Anchor = AnchorStyles.Top;
+            maskedTextBox_Data_Final_Pocao.Location = new Point(647, 47);
+            maskedTextBox_Data_Final_Pocao.Mask = "00/00/0000";
+            maskedTextBox_Data_Final_Pocao.Name = "maskedTextBox_Data_Final_Pocao";
+            maskedTextBox_Data_Final_Pocao.Size = new Size(81, 23);
+            maskedTextBox_Data_Final_Pocao.TabIndex = 34;
+            maskedTextBox_Data_Final_Pocao.ValidatingType = typeof(DateTime);
+            // 
+            // label16
+            // 
+            label16.Anchor = AnchorStyles.Top;
+            label16.AutoSize = true;
+            label16.Font = new Font("JetBrains Mono SemiBold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            label16.Location = new Point(537, 50);
+            label16.Name = "label16";
+            label16.Size = new Size(88, 17);
+            label16.TabIndex = 33;
+            label16.Text = "Data Final";
+            // 
             // comboBox_Vencido_Pocao
             // 
             comboBox_Vencido_Pocao.Anchor = AnchorStyles.Top;
             comboBox_Vencido_Pocao.FormattingEnabled = true;
             comboBox_Vencido_Pocao.Items.AddRange(new object[] { "Valido", "Vencido" });
-            comboBox_Vencido_Pocao.Location = new Point(585, 37);
+            comboBox_Vencido_Pocao.Location = new Point(430, 29);
             comboBox_Vencido_Pocao.Name = "comboBox_Vencido_Pocao";
             comboBox_Vencido_Pocao.Size = new Size(81, 24);
             comboBox_Vencido_Pocao.TabIndex = 18;
@@ -843,7 +868,7 @@
             // 
             button_Filtrar_Pocao.Anchor = AnchorStyles.Top;
             button_Filtrar_Pocao.Cursor = Cursors.Hand;
-            button_Filtrar_Pocao.Location = new Point(728, 37);
+            button_Filtrar_Pocao.Location = new Point(754, 28);
             button_Filtrar_Pocao.Name = "button_Filtrar_Pocao";
             button_Filtrar_Pocao.Size = new Size(75, 25);
             button_Filtrar_Pocao.TabIndex = 32;
@@ -851,20 +876,20 @@
             button_Filtrar_Pocao.UseVisualStyleBackColor = true;
             button_Filtrar_Pocao.Click += AoClicarBotaoFiltrarPocao;
             // 
-            // maskedTextBox_Data_Pocao
+            // maskedTextBox_Data_Inicial_Pocao
             // 
-            maskedTextBox_Data_Pocao.Anchor = AnchorStyles.Top;
-            maskedTextBox_Data_Pocao.Location = new Point(395, 37);
-            maskedTextBox_Data_Pocao.Mask = "00/00/0000";
-            maskedTextBox_Data_Pocao.Name = "maskedTextBox_Data_Pocao";
-            maskedTextBox_Data_Pocao.Size = new Size(81, 23);
-            maskedTextBox_Data_Pocao.TabIndex = 17;
-            maskedTextBox_Data_Pocao.ValidatingType = typeof(DateTime);
+            maskedTextBox_Data_Inicial_Pocao.Anchor = AnchorStyles.Top;
+            maskedTextBox_Data_Inicial_Pocao.Location = new Point(647, 12);
+            maskedTextBox_Data_Inicial_Pocao.Mask = "00/00/0000";
+            maskedTextBox_Data_Inicial_Pocao.Name = "maskedTextBox_Data_Inicial_Pocao";
+            maskedTextBox_Data_Inicial_Pocao.Size = new Size(81, 23);
+            maskedTextBox_Data_Inicial_Pocao.TabIndex = 17;
+            maskedTextBox_Data_Inicial_Pocao.ValidatingType = typeof(DateTime);
             // 
             // textBox_Id_Pocao
             // 
             textBox_Id_Pocao.Anchor = AnchorStyles.Top;
-            textBox_Id_Pocao.Location = new Point(59, 37);
+            textBox_Id_Pocao.Location = new Point(126, 31);
             textBox_Id_Pocao.Name = "textBox_Id_Pocao";
             textBox_Id_Pocao.PlaceholderText = "Id...";
             textBox_Id_Pocao.Size = new Size(81, 23);
@@ -876,7 +901,7 @@
             label13.Anchor = AnchorStyles.Top;
             label13.AutoSize = true;
             label13.Font = new Font("JetBrains Mono SemiBold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
-            label13.Location = new Point(515, 39);
+            label13.Location = new Point(360, 33);
             label13.Name = "label13";
             label13.Size = new Size(64, 17);
             label13.TabIndex = 16;
@@ -887,18 +912,18 @@
             label15.Anchor = AnchorStyles.Top;
             label15.AutoSize = true;
             label15.Font = new Font("JetBrains Mono SemiBold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
-            label15.Location = new Point(349, 39);
+            label15.Location = new Point(537, 15);
             label15.Name = "label15";
-            label15.Size = new Size(40, 17);
+            label15.Size = new Size(104, 17);
             label15.TabIndex = 15;
-            label15.Text = "Data";
+            label15.Text = "Data Inicial";
             // 
             // label14
             // 
             label14.Anchor = AnchorStyles.Top;
             label14.AutoSize = true;
             label14.Font = new Font("JetBrains Mono SemiBold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
-            label14.Location = new Point(184, 39);
+            label14.Location = new Point(218, 32);
             label14.Name = "label14";
             label14.Size = new Size(40, 17);
             label14.TabIndex = 27;
@@ -919,7 +944,7 @@
             // textBox_Nome_Pocao
             // 
             textBox_Nome_Pocao.Anchor = AnchorStyles.Top;
-            textBox_Nome_Pocao.Location = new Point(230, 37);
+            textBox_Nome_Pocao.Location = new Point(264, 30);
             textBox_Nome_Pocao.Name = "textBox_Nome_Pocao";
             textBox_Nome_Pocao.PlaceholderText = "Nome...";
             textBox_Nome_Pocao.Size = new Size(81, 23);
@@ -930,7 +955,7 @@
             label12.Anchor = AnchorStyles.Top;
             label12.AutoSize = true;
             label12.Font = new Font("JetBrains Mono SemiBold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
-            label12.Location = new Point(31, 39);
+            label12.Location = new Point(98, 33);
             label12.Name = "label12";
             label12.Size = new Size(24, 17);
             label12.TabIndex = 26;
@@ -1028,7 +1053,7 @@
         private Button button13;
         private Button button14;
         private ComboBox comboBox_Vencido_Pocao;
-        private MaskedTextBox maskedTextBox_Data_Pocao;
+        private MaskedTextBox maskedTextBox_Data_Inicial_Pocao;
         private Label label13;
         private Label label15;
         private TextBox textBox_Valor_Receita;
@@ -1068,5 +1093,7 @@
         private DataGridViewTextBoxColumn DataDeFabricacao;
         private DataGridViewCheckBoxColumn vencidoDataGridViewCheckBoxColumn;
         private BindingSource pocaoBindingSource1;
+        private MaskedTextBox maskedTextBox_Data_Final_Pocao;
+        private Label label16;
     }
 }

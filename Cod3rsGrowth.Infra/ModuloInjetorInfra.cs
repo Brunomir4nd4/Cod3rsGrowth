@@ -14,7 +14,7 @@ namespace Cod3rsGrowth.Infra
     public class ModuloInjetorInfra
     {
         private static string _chaveDeConexao = "contextoPadrao";
-        public static void BindServices(ServiceCollection servicos)
+        public static void BindServices(IServiceCollection servicos)
         {
             servicos.AddScoped<IRepositorioIngrediente, RepositorioIngrediente>();
             servicos.AddScoped<IRepositorioReceita, RepositorioReceita>();
