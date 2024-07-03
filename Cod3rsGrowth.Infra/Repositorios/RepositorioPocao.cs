@@ -31,7 +31,7 @@ namespace Cod3rsGrowth.Infra.Repositorios
             return resultado;
         }
 
-        public void Criar(Receita receita)
+        public int Criar(Receita receita)
         {
             Pocao pocao = new Pocao()
             {
@@ -39,7 +39,7 @@ namespace Cod3rsGrowth.Infra.Repositorios
                 Vencido = false,
                 DataDeFabricacao = DateTime.Today
             };
-            _db.Insert(pocao);
+            return _db.InsertWithInt32Identity(pocao);
         }
 
         public void Remover(int? idPocao)
@@ -53,17 +53,20 @@ namespace Cod3rsGrowth.Infra.Repositorios
         {
             IQueryable<FiltroPocao> query = ObterPocaoComNome().AsQueryable();
 
-            if (filtroPocao.Id != null)
-                query = query.Where(r => r.Id == filtroPocao.Id);
+            if (filtroPocao != null)
+            {
+                if (filtroPocao.Id != null)
+                    query = query.Where(r => r.Id == filtroPocao.Id);
 
-            if (!string.IsNullOrWhiteSpace(filtroPocao.Nome))
-                query = query.Where(p => p.Nome.Contains(filtroPocao.Nome));
+                if (!string.IsNullOrWhiteSpace(filtroPocao.Nome))
+                    query = query.Where(p => p.Nome.Contains(filtroPocao.Nome));
 
-            if (filtroPocao.DataDeFabricacao != null)
-                query = query.Where(r => r.DataDeFabricacao == filtroPocao.DataDeFabricacao);
+                if (filtroPocao.DataDeFabricacao != null)
+                    query = query.Where(r => r.DataDeFabricacao == filtroPocao.DataDeFabricacao);
 
-            if (filtroPocao.Vencido != null)
-                query = query.Where(r => r.Vencido == filtroPocao.Vencido);
+                if (filtroPocao.Vencido != null)
+                    query = query.Where(r => r.Vencido == filtroPocao.Vencido);
+            }
 
             return query.ToList();
         }

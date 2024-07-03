@@ -1,0 +1,50 @@
+﻿using Cod3rsGrowth.Dominio.Entidades;
+using Cod3rsGrowth.Servico.Servicos;
+using Microsoft.AspNetCore.Mvc;
+
+namespace Cod3rsGrowth.Web.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class PocaoController : ControllerBase
+    {
+        private ServicoPocao _servicoPocao;
+        public PocaoController() 
+        {
+            CarregarServico();
+        }
+        private void CarregarServico()
+        {
+            _servicoPocao = _serviceProvider.GetService<ServicoPocao>()
+                ?? throw new Exception($"Erro ao obter servico [{nameof(ServicoPocao)}]");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ObterTodos()
+        {
+            return Ok(_servicoPocao.ObterTodos(null));
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> ObterPorId(int id)
+        {
+            return Ok(_servicoPocao.ObterPorId(id));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Criar(List<Ingrediente> ingredientes)
+        {
+            var idPocao = _servicoPocao.Criar(ingredientes);
+
+            return Ok(_servicoPocao.ObterPorId(idPocao));
+        }
+        
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Remover(int id)
+        {
+            _servicoPocao.Remover(id);
+
+            return NoContent();
+        }
+    }
+}
