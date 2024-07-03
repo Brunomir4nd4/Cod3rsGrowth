@@ -465,6 +465,12 @@ namespace Cod3rsGrowth.Forms
                     maskedTextBox_Data_Inicial_Pocao.Text = "";
                     maskedTextBox_Data_Final_Pocao.Text = "";
                 }
+                else if (maskedTextBox_Data_Inicial_Pocao.Text != mascaraData)
+                {
+                    filtroPocao.DataIncial = DateTime.Parse(maskedTextBox_Data_Inicial_Pocao.Text);
+
+                    maskedTextBox_Data_Inicial_Pocao.Text = "";
+                }
             }
             catch (Exception ex)
             {
