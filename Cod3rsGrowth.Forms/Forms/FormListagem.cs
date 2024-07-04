@@ -103,9 +103,9 @@ namespace Cod3rsGrowth.Forms
         {
             try
             {
-                if (MenssagemDeAlertaModuloRemover(ObterNomeIngredienteSelecionado()) == DialogResult.Yes)
+                if (MenssagemDeAlertaModuloRemover(ObterNomeItemSelecionado(dataGridView_Ingrediente)) == DialogResult.Yes)
                 {
-                    _servicoIngrediente.Remover(ObterIdIngredienteSelecionado());
+                    _servicoIngrediente.Remover(ObterIdItemSelecionado(dataGridView_Ingrediente));
                     CarregarDadosIngrediente(_filtroIngrediente);
                     CarregarDadosReceita(_filtroReceita);
                     CarregarDadosPocao(_filtroPocao);
@@ -121,9 +121,9 @@ namespace Cod3rsGrowth.Forms
         {
             try
             {
-                if (MenssagemDeAlertaModuloRemover(ObterNomeReceitaSelecionada()) == DialogResult.Yes)
+                if (MenssagemDeAlertaModuloRemover(ObterNomeItemSelecionado(dataGridView_Receita)) == DialogResult.Yes)
                 {
-                    _servicoReceita.Remover(ObterIdReceitaSelecionada());
+                    _servicoReceita.Remover(ObterIdItemSelecionado(dataGridView_Receita));
                     CarregarDadosReceita(_filtroReceita);
                     CarregarDadosPocao(_filtroPocao);
                 }
@@ -138,9 +138,9 @@ namespace Cod3rsGrowth.Forms
         {
             try
             {
-                if (MenssagemDeAlertaModuloRemover(ObterNomePocaoSelecionada()) == DialogResult.Yes)
+                if (MenssagemDeAlertaModuloRemover(ObterNomeItemSelecionado(dataGridView_Pocao)) == DialogResult.Yes)
                 {
-                    _servicoPocao.Remover(ObterIdPocaoSelecionada());
+                    _servicoPocao.Remover(ObterIdItemSelecionado(dataGridView_Pocao));
                     CarregarDadosReceita(_filtroReceita);
                     CarregarDadosPocao(_filtroPocao);
                 }
@@ -506,56 +506,18 @@ namespace Cod3rsGrowth.Forms
                     );
         }
 
-        private int ObterIdIngredienteSelecionado()
+        private int ObterIdItemSelecionado(DataGridView dataGrid)
         {
-            return (int)dataGridView_Ingrediente
+            return (int)dataGrid
                         .CurrentCell
                         .OwningRow
                         .Cells[indexDaColunaId]
                         .Value;
         }
-        private string? ObterNomeIngredienteSelecionado()
+        private string? ObterNomeItemSelecionado(DataGridView dataGrid)
         {
-            return dataGridView_Ingrediente.CurrentCell != null
+            return dataGrid.CurrentCell != null
                     ? dataGridView_Ingrediente
-                        .CurrentCell
-                        .OwningRow
-                        .Cells[indexDaColunaNome]
-                        .Value
-                        .ToString()
-                    : throw new Exception("Você precissa selecionar uma linha para remover");
-        }
-        private int ObterIdReceitaSelecionada()
-        {
-            return (int)dataGridView_Ingrediente
-                        .CurrentCell
-                        .OwningRow
-                        .Cells[indexDaColunaId]
-                        .Value;
-        }
-        private string? ObterNomeReceitaSelecionada()
-        {
-            return dataGridView_Receita.CurrentCell != null
-                    ? dataGridView_Receita
-                        .CurrentCell
-                        .OwningRow
-                        .Cells[indexDaColunaNome]
-                        .Value
-                        .ToString()
-                    : throw new Exception("Você precissa selecionar uma linha para remover");
-        }
-        private int ObterIdPocaoSelecionada()
-        {
-            return (int)dataGridView_Pocao
-                        .CurrentCell
-                        .OwningRow
-                        .Cells[indexDaColunaId]
-                        .Value;
-        }
-        private string? ObterNomePocaoSelecionada()
-        {
-            return dataGridView_Pocao.CurrentCell != null
-                    ? dataGridView_Pocao
                         .CurrentCell
                         .OwningRow
                         .Cells[indexDaColunaNome]
