@@ -517,7 +517,7 @@ namespace Cod3rsGrowth.Forms
         private string? ObterNomeItemSelecionado(DataGridView dataGrid)
         {
             return dataGrid.CurrentCell != null
-                    ? dataGridView_Ingrediente
+                    ? dataGrid
                         .CurrentCell
                         .OwningRow
                         .Cells[indexDaColunaNome]
