@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             tabControl = new TabControl();
             Ingredientes = new TabPage();
             panel1 = new Panel();
@@ -40,13 +40,13 @@
             comboBox_Naturalidade_Ingrediente = new ComboBox();
             button_Filtrar_Ingrediente = new Button();
             textBox_Nome_Ingrediente = new TextBox();
-            label5 = new Label();
             textBox_Quantidade_Ingrediente = new TextBox();
+            textBox_Id_Ingrediente = new TextBox();
+            label5 = new Label();
             label4 = new Label();
             label3 = new Label();
             label2 = new Label();
             label1 = new Label();
-            textBox_Id_Ingrediente = new TextBox();
             dataGridView_Ingrediente = new DataGridView();
             dataGridViewTextBoxColumn3 = new DataGridViewTextBoxColumn();
             dataGridViewTextBoxColumn4 = new DataGridViewTextBoxColumn();
@@ -178,7 +178,8 @@
             // 
             button_Adicionar_Ingrediente.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             button_Adicionar_Ingrediente.Cursor = Cursors.Hand;
-            button_Adicionar_Ingrediente.Location = new Point(558, 8);
+            button_Adicionar_Ingrediente.Location = new Point(560, 8);
+            button_Adicionar_Ingrediente.Margin = new Padding(3, 3, 10, 3);
             button_Adicionar_Ingrediente.Name = "button_Adicionar_Ingrediente";
             button_Adicionar_Ingrediente.Size = new Size(75, 25);
             button_Adicionar_Ingrediente.TabIndex = 2;
@@ -190,7 +191,8 @@
             // 
             button_Remover_Ingrediente.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             button_Remover_Ingrediente.Cursor = Cursors.Hand;
-            button_Remover_Ingrediente.Location = new Point(720, 8);
+            button_Remover_Ingrediente.Location = new Point(736, 8);
+            button_Remover_Ingrediente.Margin = new Padding(3, 3, 30, 3);
             button_Remover_Ingrediente.Name = "button_Remover_Ingrediente";
             button_Remover_Ingrediente.Size = new Size(75, 25);
             button_Remover_Ingrediente.TabIndex = 1;
@@ -202,7 +204,8 @@
             // 
             button_Editar_Ingrediente.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             button_Editar_Ingrediente.Cursor = Cursors.Hand;
-            button_Editar_Ingrediente.Location = new Point(639, 8);
+            button_Editar_Ingrediente.Location = new Point(648, 8);
+            button_Editar_Ingrediente.Margin = new Padding(3, 3, 10, 3);
             button_Editar_Ingrediente.Name = "button_Editar_Ingrediente";
             button_Editar_Ingrediente.Size = new Size(75, 25);
             button_Editar_Ingrediente.TabIndex = 0;
@@ -216,9 +219,9 @@
             painel_de_filtragem.Controls.Add(comboBox_Naturalidade_Ingrediente);
             painel_de_filtragem.Controls.Add(button_Filtrar_Ingrediente);
             painel_de_filtragem.Controls.Add(textBox_Nome_Ingrediente);
+            painel_de_filtragem.Controls.Add(textBox_Quantidade_Ingrediente);
             painel_de_filtragem.Controls.Add(textBox_Id_Ingrediente);
             painel_de_filtragem.Controls.Add(label5);
-            painel_de_filtragem.Controls.Add(textBox_Quantidade_Ingrediente);
             painel_de_filtragem.Controls.Add(label4);
             painel_de_filtragem.Controls.Add(label3);
             painel_de_filtragem.Controls.Add(label2);
@@ -233,16 +236,18 @@
             // 
             comboBox_Naturalidade_Ingrediente.Anchor = AnchorStyles.Top;
             comboBox_Naturalidade_Ingrediente.FormattingEnabled = true;
-            comboBox_Naturalidade_Ingrediente.Location = new Point(574, 50);
+            comboBox_Naturalidade_Ingrediente.Location = new Point(496, 48);
+            comboBox_Naturalidade_Ingrediente.Margin = new Padding(20, 3, 3, 3);
             comboBox_Naturalidade_Ingrediente.Name = "comboBox_Naturalidade_Ingrediente";
-            comboBox_Naturalidade_Ingrediente.Size = new Size(104, 24);
+            comboBox_Naturalidade_Ingrediente.Size = new Size(178, 24);
             comboBox_Naturalidade_Ingrediente.TabIndex = 13;
             // 
             // button_Filtrar_Ingrediente
             // 
             button_Filtrar_Ingrediente.Anchor = AnchorStyles.Top;
             button_Filtrar_Ingrediente.Cursor = Cursors.Hand;
-            button_Filtrar_Ingrediente.Location = new Point(720, 49);
+            button_Filtrar_Ingrediente.Location = new Point(736, 47);
+            button_Filtrar_Ingrediente.Margin = new Padding(3, 3, 3, 50);
             button_Filtrar_Ingrediente.Name = "button_Filtrar_Ingrediente";
             button_Filtrar_Ingrediente.Size = new Size(75, 25);
             button_Filtrar_Ingrediente.TabIndex = 12;
@@ -253,38 +258,50 @@
             // textBox_Nome_Ingrediente
             // 
             textBox_Nome_Ingrediente.Anchor = AnchorStyles.Top;
-            textBox_Nome_Ingrediente.Location = new Point(289, 49);
+            textBox_Nome_Ingrediente.Location = new Point(175, 49);
             textBox_Nome_Ingrediente.Name = "textBox_Nome_Ingrediente";
             textBox_Nome_Ingrediente.PlaceholderText = "Nome...";
-            textBox_Nome_Ingrediente.Size = new Size(81, 23);
+            textBox_Nome_Ingrediente.Size = new Size(178, 23);
             textBox_Nome_Ingrediente.TabIndex = 10;
+            // 
+            // textBox_Quantidade_Ingrediente
+            // 
+            textBox_Quantidade_Ingrediente.Anchor = AnchorStyles.Top;
+            textBox_Quantidade_Ingrediente.Location = new Point(376, 50);
+            textBox_Quantidade_Ingrediente.Margin = new Padding(20, 3, 3, 3);
+            textBox_Quantidade_Ingrediente.Name = "textBox_Quantidade_Ingrediente";
+            textBox_Quantidade_Ingrediente.PlaceholderText = "Quantidade...";
+            textBox_Quantidade_Ingrediente.Size = new Size(97, 23);
+            textBox_Quantidade_Ingrediente.TabIndex = 7;
+            // 
+            // textBox_Id_Ingrediente
+            // 
+            textBox_Id_Ingrediente.Anchor = AnchorStyles.Top;
+            textBox_Id_Ingrediente.Location = new Point(55, 49);
+            textBox_Id_Ingrediente.Margin = new Padding(30, 3, 20, 20);
+            textBox_Id_Ingrediente.Name = "textBox_Id_Ingrediente";
+            textBox_Id_Ingrediente.PlaceholderText = "Id...";
+            textBox_Id_Ingrediente.Size = new Size(97, 23);
+            textBox_Id_Ingrediente.TabIndex = 0;
+            textBox_Id_Ingrediente.Tag = "";
             // 
             // label5
             // 
             label5.Anchor = AnchorStyles.Top;
             label5.AutoSize = true;
             label5.Font = new Font("JetBrains Mono SemiBold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
-            label5.Location = new Point(574, 30);
+            label5.Location = new Point(496, 25);
             label5.Name = "label5";
             label5.Size = new Size(104, 17);
             label5.TabIndex = 8;
             label5.Text = "Naturalidade";
-            // 
-            // textBox_Quantidade_Ingrediente
-            // 
-            textBox_Quantidade_Ingrediente.Anchor = AnchorStyles.Top;
-            textBox_Quantidade_Ingrediente.Location = new Point(439, 50);
-            textBox_Quantidade_Ingrediente.Name = "textBox_Quantidade_Ingrediente";
-            textBox_Quantidade_Ingrediente.PlaceholderText = "Quantidade...";
-            textBox_Quantidade_Ingrediente.Size = new Size(97, 23);
-            textBox_Quantidade_Ingrediente.TabIndex = 7;
             // 
             // label4
             // 
             label4.Anchor = AnchorStyles.Top;
             label4.AutoSize = true;
             label4.Font = new Font("JetBrains Mono SemiBold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
-            label4.Location = new Point(439, 30);
+            label4.Location = new Point(376, 29);
             label4.Name = "label4";
             label4.Size = new Size(88, 17);
             label4.TabIndex = 6;
@@ -295,7 +312,7 @@
             label3.Anchor = AnchorStyles.Top;
             label3.AutoSize = true;
             label3.Font = new Font("JetBrains Mono SemiBold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
-            label3.Location = new Point(310, 29);
+            label3.Location = new Point(175, 29);
             label3.Name = "label3";
             label3.Size = new Size(40, 17);
             label3.TabIndex = 4;
@@ -306,7 +323,7 @@
             label2.Anchor = AnchorStyles.Top;
             label2.AutoSize = true;
             label2.Font = new Font("JetBrains Mono SemiBold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
-            label2.Location = new Point(188, 29);
+            label2.Location = new Point(55, 30);
             label2.Name = "label2";
             label2.Size = new Size(24, 17);
             label2.TabIndex = 3;
@@ -323,16 +340,6 @@
             label1.TabIndex = 2;
             label1.Text = "Filtro";
             label1.TextAlign = ContentAlignment.TopCenter;
-            // 
-            // textBox_Id_Ingrediente
-            // 
-            textBox_Id_Ingrediente.Anchor = AnchorStyles.Top;
-            textBox_Id_Ingrediente.Location = new Point(159, 48);
-            textBox_Id_Ingrediente.Name = "textBox_Id_Ingrediente";
-            textBox_Id_Ingrediente.PlaceholderText = "Id...";
-            textBox_Id_Ingrediente.Size = new Size(81, 23);
-            textBox_Id_Ingrediente.TabIndex = 0;
-            textBox_Id_Ingrediente.Tag = "";
             // 
             // dataGridView_Ingrediente
             // 
@@ -403,7 +410,7 @@
             dataGridView_Receita.Location = new Point(3, 98);
             dataGridView_Receita.Name = "dataGridView_Receita";
             dataGridView_Receita.RowTemplate.Height = 25;
-            dataGridView_Receita.Size = new Size(848, 372);
+            dataGridView_Receita.Size = new Size(848, 370);
             dataGridView_Receita.TabIndex = 26;
             // 
             // dataGridViewTextBoxColumn7
@@ -458,7 +465,8 @@
             // 
             button_Adicionar_Receita.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             button_Adicionar_Receita.Cursor = Cursors.Hand;
-            button_Adicionar_Receita.Location = new Point(563, 11);
+            button_Adicionar_Receita.Location = new Point(560, 11);
+            button_Adicionar_Receita.Margin = new Padding(3, 3, 10, 3);
             button_Adicionar_Receita.Name = "button_Adicionar_Receita";
             button_Adicionar_Receita.Size = new Size(75, 25);
             button_Adicionar_Receita.TabIndex = 5;
@@ -470,7 +478,8 @@
             // 
             button_Remover_Receita.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             button_Remover_Receita.Cursor = Cursors.Hand;
-            button_Remover_Receita.Location = new Point(725, 11);
+            button_Remover_Receita.Location = new Point(736, 11);
+            button_Remover_Receita.Margin = new Padding(3, 3, 30, 3);
             button_Remover_Receita.Name = "button_Remover_Receita";
             button_Remover_Receita.Size = new Size(75, 25);
             button_Remover_Receita.TabIndex = 4;
@@ -482,7 +491,8 @@
             // 
             button_Editar_Receita.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             button_Editar_Receita.Cursor = Cursors.Hand;
-            button_Editar_Receita.Location = new Point(644, 11);
+            button_Editar_Receita.Location = new Point(648, 11);
+            button_Editar_Receita.Margin = new Padding(3, 3, 10, 3);
             button_Editar_Receita.Name = "button_Editar_Receita";
             button_Editar_Receita.Size = new Size(75, 25);
             button_Editar_Receita.TabIndex = 3;
@@ -544,19 +554,21 @@
             // textBox_Valor_Receita
             // 
             textBox_Valor_Receita.Anchor = AnchorStyles.Top;
-            textBox_Valor_Receita.Location = new Point(444, 45);
+            textBox_Valor_Receita.Location = new Point(358, 51);
+            textBox_Valor_Receita.Margin = new Padding(20, 3, 3, 3);
             textBox_Valor_Receita.Name = "textBox_Valor_Receita";
             textBox_Valor_Receita.PlaceholderText = "Valor...";
-            textBox_Valor_Receita.Size = new Size(81, 23);
+            textBox_Valor_Receita.Size = new Size(121, 23);
             textBox_Valor_Receita.TabIndex = 26;
             // 
             // textBox_Validade_Receita
             // 
             textBox_Validade_Receita.Anchor = AnchorStyles.Top;
-            textBox_Validade_Receita.Location = new Point(593, 45);
+            textBox_Validade_Receita.Location = new Point(502, 51);
+            textBox_Validade_Receita.Margin = new Padding(20, 3, 3, 3);
             textBox_Validade_Receita.Name = "textBox_Validade_Receita";
             textBox_Validade_Receita.PlaceholderText = "Validade...";
-            textBox_Validade_Receita.Size = new Size(81, 23);
+            textBox_Validade_Receita.Size = new Size(91, 23);
             textBox_Validade_Receita.TabIndex = 25;
             // 
             // label6
@@ -564,7 +576,7 @@
             label6.Anchor = AnchorStyles.Top;
             label6.AutoSize = true;
             label6.Font = new Font("JetBrains Mono SemiBold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
-            label6.Location = new Point(593, 25);
+            label6.Location = new Point(502, 31);
             label6.Name = "label6";
             label6.Size = new Size(72, 17);
             label6.TabIndex = 24;
@@ -575,7 +587,7 @@
             label7.Anchor = AnchorStyles.Top;
             label7.AutoSize = true;
             label7.Font = new Font("JetBrains Mono SemiBold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
-            label7.Location = new Point(460, 25);
+            label7.Location = new Point(358, 31);
             label7.Name = "label7";
             label7.Size = new Size(48, 17);
             label7.TabIndex = 23;
@@ -585,7 +597,7 @@
             // 
             button_Filtrar_Receita.Anchor = AnchorStyles.Top;
             button_Filtrar_Receita.Cursor = Cursors.Hand;
-            button_Filtrar_Receita.Location = new Point(746, 43);
+            button_Filtrar_Receita.Location = new Point(736, 49);
             button_Filtrar_Receita.Name = "button_Filtrar_Receita";
             button_Filtrar_Receita.Size = new Size(75, 25);
             button_Filtrar_Receita.TabIndex = 22;
@@ -596,7 +608,8 @@
             // textBox_Id_Receita
             // 
             textBox_Id_Receita.Anchor = AnchorStyles.Top;
-            textBox_Id_Receita.Location = new Point(144, 45);
+            textBox_Id_Receita.Location = new Point(53, 51);
+            textBox_Id_Receita.Margin = new Padding(40, 3, 3, 3);
             textBox_Id_Receita.Name = "textBox_Id_Receita";
             textBox_Id_Receita.PlaceholderText = "Id...";
             textBox_Id_Receita.Size = new Size(81, 23);
@@ -618,10 +631,11 @@
             // textBox_Nome_Receita
             // 
             textBox_Nome_Receita.Anchor = AnchorStyles.Top;
-            textBox_Nome_Receita.Location = new Point(287, 45);
+            textBox_Nome_Receita.Location = new Point(157, 51);
+            textBox_Nome_Receita.Margin = new Padding(20, 3, 3, 3);
             textBox_Nome_Receita.Name = "textBox_Nome_Receita";
             textBox_Nome_Receita.PlaceholderText = "Nome...";
-            textBox_Nome_Receita.Size = new Size(81, 23);
+            textBox_Nome_Receita.Size = new Size(178, 23);
             textBox_Nome_Receita.TabIndex = 21;
             // 
             // label9
@@ -629,7 +643,7 @@
             label9.Anchor = AnchorStyles.Top;
             label9.AutoSize = true;
             label9.Font = new Font("JetBrains Mono SemiBold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
-            label9.Location = new Point(174, 25);
+            label9.Location = new Point(53, 31);
             label9.Name = "label9";
             label9.Size = new Size(24, 17);
             label9.TabIndex = 16;
@@ -640,7 +654,7 @@
             label8.Anchor = AnchorStyles.Top;
             label8.AutoSize = true;
             label8.Font = new Font("JetBrains Mono SemiBold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
-            label8.Location = new Point(307, 25);
+            label8.Location = new Point(157, 31);
             label8.Name = "label8";
             label8.Size = new Size(40, 17);
             label8.TabIndex = 17;
@@ -671,7 +685,7 @@
             dataGridView_Pocao.Location = new Point(0, 95);
             dataGridView_Pocao.Name = "dataGridView_Pocao";
             dataGridView_Pocao.RowTemplate.Height = 25;
-            dataGridView_Pocao.Size = new Size(851, 377);
+            dataGridView_Pocao.Size = new Size(851, 375);
             dataGridView_Pocao.TabIndex = 27;
             // 
             // idDataGridViewTextBoxColumn
@@ -690,8 +704,8 @@
             // DataDeFabricacao
             // 
             DataDeFabricacao.DataPropertyName = "DataDeFabricacao";
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            DataDeFabricacao.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            DataDeFabricacao.DefaultCellStyle = dataGridViewCellStyle4;
             DataDeFabricacao.FillWeight = 150F;
             DataDeFabricacao.HeaderText = "Data De Fabricacao";
             DataDeFabricacao.Name = "DataDeFabricacao";
@@ -726,7 +740,7 @@
             // 
             button_Adicionar_Pocao.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             button_Adicionar_Pocao.Cursor = Cursors.Hand;
-            button_Adicionar_Pocao.Location = new Point(647, 13);
+            button_Adicionar_Pocao.Location = new Point(630, 13);
             button_Adicionar_Pocao.Name = "button_Adicionar_Pocao";
             button_Adicionar_Pocao.Size = new Size(75, 25);
             button_Adicionar_Pocao.TabIndex = 8;
@@ -739,6 +753,7 @@
             button_Remover_Pocao.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             button_Remover_Pocao.Cursor = Cursors.Hand;
             button_Remover_Pocao.Location = new Point(728, 13);
+            button_Remover_Pocao.Margin = new Padding(20, 3, 3, 3);
             button_Remover_Pocao.Name = "button_Remover_Pocao";
             button_Remover_Pocao.Size = new Size(75, 25);
             button_Remover_Pocao.TabIndex = 7;
@@ -836,10 +851,11 @@
             // maskedTextBox_Data_Final_Pocao
             // 
             maskedTextBox_Data_Final_Pocao.Anchor = AnchorStyles.Top;
-            maskedTextBox_Data_Final_Pocao.Location = new Point(588, 46);
+            maskedTextBox_Data_Final_Pocao.Location = new Point(576, 46);
+            maskedTextBox_Data_Final_Pocao.Margin = new Padding(20, 3, 3, 3);
             maskedTextBox_Data_Final_Pocao.Mask = "00/00/0000";
             maskedTextBox_Data_Final_Pocao.Name = "maskedTextBox_Data_Final_Pocao";
-            maskedTextBox_Data_Final_Pocao.Size = new Size(88, 23);
+            maskedTextBox_Data_Final_Pocao.Size = new Size(104, 23);
             maskedTextBox_Data_Final_Pocao.TabIndex = 34;
             maskedTextBox_Data_Final_Pocao.ValidatingType = typeof(DateTime);
             // 
@@ -848,7 +864,7 @@
             label16.Anchor = AnchorStyles.Top;
             label16.AutoSize = true;
             label16.Font = new Font("JetBrains Mono SemiBold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
-            label16.Location = new Point(588, 25);
+            label16.Location = new Point(576, 27);
             label16.Name = "label16";
             label16.Size = new Size(88, 17);
             label16.TabIndex = 33;
@@ -859,7 +875,8 @@
             comboBox_Vencido_Pocao.Anchor = AnchorStyles.Top;
             comboBox_Vencido_Pocao.FormattingEnabled = true;
             comboBox_Vencido_Pocao.Items.AddRange(new object[] { "Valido", "Vencido" });
-            comboBox_Vencido_Pocao.Location = new Point(316, 46);
+            comboBox_Vencido_Pocao.Location = new Point(345, 46);
+            comboBox_Vencido_Pocao.Margin = new Padding(20, 3, 3, 3);
             comboBox_Vencido_Pocao.Name = "comboBox_Vencido_Pocao";
             comboBox_Vencido_Pocao.Size = new Size(81, 24);
             comboBox_Vencido_Pocao.TabIndex = 18;
@@ -879,7 +896,8 @@
             // maskedTextBox_Data_Inicial_Pocao
             // 
             maskedTextBox_Data_Inicial_Pocao.Anchor = AnchorStyles.Top;
-            maskedTextBox_Data_Inicial_Pocao.Location = new Point(448, 46);
+            maskedTextBox_Data_Inicial_Pocao.Location = new Point(449, 47);
+            maskedTextBox_Data_Inicial_Pocao.Margin = new Padding(20, 3, 3, 3);
             maskedTextBox_Data_Inicial_Pocao.Mask = "00/00/0000";
             maskedTextBox_Data_Inicial_Pocao.Name = "maskedTextBox_Data_Inicial_Pocao";
             maskedTextBox_Data_Inicial_Pocao.Size = new Size(104, 23);
@@ -889,7 +907,8 @@
             // textBox_Id_Pocao
             // 
             textBox_Id_Pocao.Anchor = AnchorStyles.Top;
-            textBox_Id_Pocao.Location = new Point(66, 47);
+            textBox_Id_Pocao.Location = new Point(40, 47);
+            textBox_Id_Pocao.Margin = new Padding(40, 3, 3, 3);
             textBox_Id_Pocao.Name = "textBox_Id_Pocao";
             textBox_Id_Pocao.PlaceholderText = "Id...";
             textBox_Id_Pocao.Size = new Size(81, 23);
@@ -901,7 +920,7 @@
             label13.Anchor = AnchorStyles.Top;
             label13.AutoSize = true;
             label13.Font = new Font("JetBrains Mono SemiBold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
-            label13.Location = new Point(326, 26);
+            label13.Location = new Point(345, 30);
             label13.Name = "label13";
             label13.Size = new Size(64, 17);
             label13.TabIndex = 16;
@@ -912,7 +931,7 @@
             label15.Anchor = AnchorStyles.Top;
             label15.AutoSize = true;
             label15.Font = new Font("JetBrains Mono SemiBold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
-            label15.Location = new Point(448, 23);
+            label15.Location = new Point(449, 27);
             label15.Name = "label15";
             label15.Size = new Size(104, 17);
             label15.TabIndex = 15;
@@ -923,7 +942,7 @@
             label14.Anchor = AnchorStyles.Top;
             label14.AutoSize = true;
             label14.Font = new Font("JetBrains Mono SemiBold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
-            label14.Location = new Point(211, 29);
+            label14.Location = new Point(144, 29);
             label14.Name = "label14";
             label14.Size = new Size(40, 17);
             label14.TabIndex = 27;
@@ -944,10 +963,11 @@
             // textBox_Nome_Pocao
             // 
             textBox_Nome_Pocao.Anchor = AnchorStyles.Top;
-            textBox_Nome_Pocao.Location = new Point(192, 47);
+            textBox_Nome_Pocao.Location = new Point(144, 47);
+            textBox_Nome_Pocao.Margin = new Padding(20, 3, 3, 3);
             textBox_Nome_Pocao.Name = "textBox_Nome_Pocao";
             textBox_Nome_Pocao.PlaceholderText = "Nome...";
-            textBox_Nome_Pocao.Size = new Size(81, 23);
+            textBox_Nome_Pocao.Size = new Size(178, 23);
             textBox_Nome_Pocao.TabIndex = 31;
             // 
             // label12
@@ -955,7 +975,7 @@
             label12.Anchor = AnchorStyles.Top;
             label12.AutoSize = true;
             label12.Font = new Font("JetBrains Mono SemiBold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
-            label12.Location = new Point(93, 30);
+            label12.Location = new Point(40, 29);
             label12.Name = "label12";
             label12.Size = new Size(24, 17);
             label12.TabIndex = 26;

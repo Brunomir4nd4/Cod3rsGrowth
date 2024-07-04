@@ -195,7 +195,7 @@ namespace Cod3rsGrowth.Forms
             try
             {
                 var id = dataGridView_Ingrediente.CurrentCell != null
-                    ? (int) dataGridView_Ingrediente
+                    ? (int)dataGridView_Ingrediente
                         .CurrentCell
                         .OwningRow
                         .Cells[indexDaColunaId]
@@ -218,7 +218,7 @@ namespace Cod3rsGrowth.Forms
             try
             {
                 var id = dataGridView_Receita.CurrentCell != null
-                    ? (int) dataGridView_Receita
+                    ? (int)dataGridView_Receita
                         .CurrentCell
                         .OwningRow
                         .Cells[indexDaColunaId]
@@ -455,8 +455,8 @@ namespace Cod3rsGrowth.Forms
             try
             {
                 const string mascaraData = "  /  /";
-                if ( 
-                    maskedTextBox_Data_Inicial_Pocao.Text != mascaraData 
+                if (
+                    maskedTextBox_Data_Inicial_Pocao.Text != mascaraData
                     & maskedTextBox_Data_Final_Pocao.Text != mascaraData
                 )
                 {
