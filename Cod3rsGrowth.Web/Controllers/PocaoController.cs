@@ -36,7 +36,7 @@ namespace Cod3rsGrowth.Web.Controllers
         {
             var idPocao = _servicoPocao.Criar(ingredientes);
 
-            return Ok(_servicoPocao.ObterPorId(idPocao));
+            return Ok(CreatedAtAction(nameof(ObterPorId), new { id = idPocao }, _servicoPocao.ObterPorId(idPocao)));
         }
         
         [HttpDelete("{id}")]
