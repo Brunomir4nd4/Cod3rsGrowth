@@ -13,7 +13,7 @@ namespace Cod3rsGrowth.Dominio.Migradores
                 .WithColumn("Descricao").AsString().NotNullable()
                 .WithColumn("Valor").AsDecimal().NotNullable()
                 .WithColumn("ValidadeEmMeses").AsString().NotNullable()
-                .WithColumn("Imagem").AsString().NotNullable();
+                .WithColumn("Imagem").AsString().Nullable();
         }
         public override void Down()
         {

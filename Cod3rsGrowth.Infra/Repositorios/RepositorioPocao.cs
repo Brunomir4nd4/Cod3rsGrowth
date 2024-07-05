@@ -60,9 +60,13 @@ namespace Cod3rsGrowth.Infra.Repositorios
 
                 if (!string.IsNullOrWhiteSpace(filtroPocao.Nome))
                     query = query.Where(p => p.Nome.Contains(filtroPocao.Nome));
-
-                if (filtroPocao.DataDeFabricacao != null)
-                    query = query.Where(r => r.DataDeFabricacao == filtroPocao.DataDeFabricacao);
+                
+                if (filtroPocao.DataIncial != null & filtroPocao.DataFinal != null)
+                    query = query
+                        .Where(r => r.DataDeFabricacao >= filtroPocao.DataIncial & r.DataDeFabricacao <= filtroPocao.DataFinal);
+                
+                else if (filtroPocao.DataIncial != null)
+                    query = query.Where(r => r.DataDeFabricacao >= filtroPocao.DataIncial);
 
                 if (filtroPocao.Vencido != null)
                     query = query.Where(r => r.Vencido == filtroPocao.Vencido);
@@ -78,7 +82,7 @@ namespace Cod3rsGrowth.Infra.Repositorios
                         select new FiltroPocao { 
                             Id = pocao.Id, 
                             IdReceita = pocao.IdReceita, 
-                            Nome = receita.Nome, 
+                            Nome = receita.Nome,
                             DataDeFabricacao = pocao.DataDeFabricacao, 
                             Vencido = pocao.Vencido 
                         };

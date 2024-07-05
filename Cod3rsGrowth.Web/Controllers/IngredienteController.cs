@@ -23,35 +23,35 @@ namespace Cod3rsGrowth.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> ObterTodos()
+        public IActionResult ObterTodos()
         {
             return Ok(_servicoIngrediente.ObterTodos(null));
         }
-        
+
         [HttpGet("{id}")]
-        public async Task<IActionResult> ObterPorId(int id)
+        public IActionResult ObterPorId(int id)
         {
             return Ok(_servicoIngrediente.ObterPorId(id));
         }
 
         [HttpPost]
-        public async Task<IActionResult> Criar(Ingrediente ingrediente)
+        public IActionResult Criar(Ingrediente ingrediente)
         {
             _servicoIngrediente.Criar(ingrediente);
 
-            return CreatedAtAction(nameof(ObterPorId), new {id = ingrediente.Id }, ingrediente);
+            return CreatedAtAction(nameof(ObterPorId), new { id = ingrediente.Id }, ingrediente);
         }
 
         [HttpPut]
-        public async Task<IActionResult> Editar(Ingrediente ingrediente)
+        public IActionResult Editar(Ingrediente ingrediente)
         {
             return Ok(_servicoIngrediente.Editar(ingrediente));
         }
 
         [HttpDelete]
-        public async Task<IActionResult> Remover(int id)
+        public IActionResult Remover(int id)
         {
-             _servicoIngrediente.Remover(id);
+            _servicoIngrediente.Remover(id);
 
             return NoContent();
         }

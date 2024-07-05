@@ -1,5 +1,4 @@
-﻿
-using Cod3rsGrowth.Dominio.Entidades;
+﻿using Cod3rsGrowth.Dominio.Entidades;
 using Cod3rsGrowth.Servico.Servicos;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,19 +22,19 @@ namespace Cod3rsGrowth.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> ObterTodos()
+        public IActionResult ObterTodos()
         {
            return  Ok(_servicoReceita.ObterTodos(null));
         }
         
         [HttpGet("{id}")]
-        public async Task<IActionResult> ObterPorId(int id)
+        public IActionResult ObterPorId(int id)
         {
             return  Ok(_servicoReceita.ObterPorId(id));
         }
 
         [HttpPost]
-        public async Task<IActionResult> Criar(Receita receita)
+        public IActionResult Criar(Receita receita)
         {
             _servicoReceita.Criar(receita);
 
@@ -43,13 +42,13 @@ namespace Cod3rsGrowth.Web.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> Editar(Receita receita)
+        public IActionResult Editar(Receita receita)
         {
             return Ok(_servicoReceita.Editar(receita));
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Remover(int id)
+        public IActionResult Remover(int id)
         {
             _servicoReceita.Remover(id);
 

@@ -103,24 +103,9 @@ namespace Cod3rsGrowth.Forms
         {
             try
             {
-                var nomeObjetoSelecionado = dataGridView_Ingrediente.CurrentCell != null
-                    ? dataGridView_Ingrediente
-                        .CurrentCell
-                        .OwningRow
-                        .Cells[indexDaColunaNome]
-                        .Value
-                        .ToString()
-                    : throw new Exception("Você precissa selecionar uma linha para remover");
-
-                if (MenssagemDeAlertaModuloRemover(nomeObjetoSelecionado) == DialogResult.Yes)
+                if (MenssagemDeAlertaModuloRemover(ObterNomeItemSelecionado(dataGridView_Ingrediente)) == DialogResult.Yes)
                 {
-                    int id = (int)dataGridView_Ingrediente
-                        .CurrentCell
-                        .OwningRow
-                        .Cells[indexDaColunaId]
-                        .Value;
-
-                    _servicoIngrediente.Remover(id);
+                    _servicoIngrediente.Remover(ObterIdItemSelecionado(dataGridView_Ingrediente));
                     CarregarDadosIngrediente(_filtroIngrediente);
                     CarregarDadosReceita(_filtroReceita);
                     CarregarDadosPocao(_filtroPocao);
@@ -136,24 +121,9 @@ namespace Cod3rsGrowth.Forms
         {
             try
             {
-                var nomeObjetoSelecionado = dataGridView_Receita.CurrentCell != null
-                    ? dataGridView_Receita
-                        .CurrentCell
-                        .OwningRow
-                        .Cells[indexDaColunaNome]
-                        .Value
-                        .ToString()
-                    : throw new Exception("Você precissa selecionar uma linha para remover");
-
-                if (MenssagemDeAlertaModuloRemover(nomeObjetoSelecionado) == DialogResult.Yes)
+                if (MenssagemDeAlertaModuloRemover(ObterNomeItemSelecionado(dataGridView_Receita)) == DialogResult.Yes)
                 {
-                    int id = (int)dataGridView_Receita
-                        .CurrentCell
-                        .OwningRow
-                        .Cells[indexDaColunaId]
-                        .Value;
-
-                    _servicoReceita.Remover(id);
+                    _servicoReceita.Remover(ObterIdItemSelecionado(dataGridView_Receita));
                     CarregarDadosReceita(_filtroReceita);
                     CarregarDadosPocao(_filtroPocao);
                 }
@@ -168,19 +138,9 @@ namespace Cod3rsGrowth.Forms
         {
             try
             {
-                var nomeObjetoSelecionado = dataGridView_Pocao.CurrentCell != null
-                    ? dataGridView_Pocao
-                        .CurrentCell
-                        .OwningRow
-                        .Cells[indexDaColunaNome]
-                        .Value
-                        .ToString()
-                    : throw new Exception("Você precissa selecionar uma linha para remover");
-
-                if (MenssagemDeAlertaModuloRemover(nomeObjetoSelecionado) == DialogResult.Yes)
+                if (MenssagemDeAlertaModuloRemover(ObterNomeItemSelecionado(dataGridView_Pocao)) == DialogResult.Yes)
                 {
-                    int id = (int)dataGridView_Pocao.CurrentCell.OwningRow.Cells[indexDaColunaId].Value;
-                    _servicoPocao.Remover(id);
+                    _servicoPocao.Remover(ObterIdItemSelecionado(dataGridView_Pocao));
                     CarregarDadosReceita(_filtroReceita);
                     CarregarDadosPocao(_filtroPocao);
                 }
@@ -194,13 +154,7 @@ namespace Cod3rsGrowth.Forms
         {
             try
             {
-                var id = dataGridView_Ingrediente.CurrentCell != null
-                    ? (int) dataGridView_Ingrediente
-                        .CurrentCell
-                        .OwningRow
-                        .Cells[indexDaColunaId]
-                        .Value
-                    : throw new Exception("Você precissa selecionar uma linha para editar");
+                var id = ObterIdItemSelecionado(dataGridView_Ingrediente);
 
                 var formModificaIngrediente = new FormModificaIngrediente(_servicoIngrediente);
                 formModificaIngrediente.InserirValoresTextoParaEdicao(id);
@@ -217,14 +171,7 @@ namespace Cod3rsGrowth.Forms
         {
             try
             {
-                var id = dataGridView_Receita.CurrentCell != null
-                    ? (int) dataGridView_Receita
-                        .CurrentCell
-                        .OwningRow
-                        .Cells[indexDaColunaId]
-                        .Value
-                    : throw new Exception("Você precissa selecionar uma linha para editar");
-
+                var id = ObterIdItemSelecionado(dataGridView_Receita);
                 var formModificaReceita = new FormModificaReceita(_servicoReceita, _servicoIngrediente);
                 formModificaReceita.AddEventoClickEditar(id);
                 formModificaReceita.InserirValoresTextoParaEdicao(id);
@@ -455,10 +402,21 @@ namespace Cod3rsGrowth.Forms
             try
             {
                 const string mascaraData = "  /  /";
-                if (!maskedTextBox_Data_Pocao.Text.IsNullOrEmpty() & maskedTextBox_Data_Pocao.Text != mascaraData)
+                if (
+                    maskedTextBox_Data_Inicial_Pocao.Text != mascaraData
+                    & maskedTextBox_Data_Final_Pocao.Text != mascaraData
+                )
                 {
-                    filtroPocao.DataDeFabricacao = DateTime.Parse(maskedTextBox_Data_Pocao.Text);
-                    maskedTextBox_Data_Pocao.Text = "";
+                    filtroPocao.DataIncial = DateTime.Parse(maskedTextBox_Data_Inicial_Pocao.Text);
+                    filtroPocao.DataFinal = DateTime.Parse(maskedTextBox_Data_Final_Pocao.Text);
+                    maskedTextBox_Data_Inicial_Pocao.Text = "";
+                    maskedTextBox_Data_Final_Pocao.Text = "";
+                }
+                else if (maskedTextBox_Data_Inicial_Pocao.Text != mascaraData)
+                {
+                    filtroPocao.DataIncial = DateTime.Parse(maskedTextBox_Data_Inicial_Pocao.Text);
+
+                    maskedTextBox_Data_Inicial_Pocao.Text = "";
                 }
             }
             catch (Exception ex)
@@ -533,6 +491,26 @@ namespace Cod3rsGrowth.Forms
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error
                     );
+        }
+
+        private int ObterIdItemSelecionado(DataGridView dataGrid)
+        {
+            return (int)dataGrid
+                        .CurrentCell
+                        .OwningRow
+                        .Cells[indexDaColunaId]
+                        .Value;
+        }
+        private string? ObterNomeItemSelecionado(DataGridView dataGrid)
+        {
+            return dataGrid.CurrentCell != null
+                    ? dataGrid
+                        .CurrentCell
+                        .OwningRow
+                        .Cells[indexDaColunaNome]
+                        .Value
+                        .ToString()
+                    : throw new Exception("Você precissa selecionar uma linha para remover");
         }
     }
 }

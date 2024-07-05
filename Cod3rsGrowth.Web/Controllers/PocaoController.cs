@@ -20,27 +20,27 @@ namespace Cod3rsGrowth.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> ObterTodos()
+        public IActionResult ObterTodos()
         {
             return Ok(_servicoPocao.ObterTodos(null));
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> ObterPorId(int id)
+        public IActionResult ObterPorId(int id)
         {
             return Ok(_servicoPocao.ObterPorId(id));
         }
 
         [HttpPost]
-        public async Task<IActionResult> Criar(List<Ingrediente> ingredientes)
+        public IActionResult Criar(List<Ingrediente> ingredientes)
         {
             var idPocao = _servicoPocao.Criar(ingredientes);
 
-            return Ok(_servicoPocao.ObterPorId(idPocao));
+            return Ok(CreatedAtAction(nameof(ObterPorId), new { id = idPocao }, _servicoPocao.ObterPorId(idPocao)));
         }
         
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Remover(int id)
+        public IActionResult Remover(int id)
         {
             _servicoPocao.Remover(id);
 

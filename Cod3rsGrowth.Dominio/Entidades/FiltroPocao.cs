@@ -7,6 +7,8 @@ namespace Cod3rsGrowth.Dominio.Entidades
         public int? Id { get; set; }
         public string? Nome { get; set; }
         public DateTime? DataDeFabricacao { get; set; }
+        public DateTime? DataIncial { get; set; }
+        public DateTime? DataFinal { get; set; }
         public bool? Vencido { get; set; }
         public int? IdReceita {  get; set; }
     }
