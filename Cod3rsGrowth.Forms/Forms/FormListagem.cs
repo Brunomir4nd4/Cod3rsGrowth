@@ -154,13 +154,7 @@ namespace Cod3rsGrowth.Forms
         {
             try
             {
-                var id = dataGridView_Ingrediente.CurrentCell != null
-                    ? (int)dataGridView_Ingrediente
-                        .CurrentCell
-                        .OwningRow
-                        .Cells[indexDaColunaId]
-                        .Value
-                    : throw new Exception("Você precissa selecionar uma linha para editar");
+                var id = ObterIdItemSelecionado(dataGridView_Ingrediente);
 
                 var formModificaIngrediente = new FormModificaIngrediente(_servicoIngrediente);
                 formModificaIngrediente.InserirValoresTextoParaEdicao(id);
@@ -177,14 +171,7 @@ namespace Cod3rsGrowth.Forms
         {
             try
             {
-                var id = dataGridView_Receita.CurrentCell != null
-                    ? (int)dataGridView_Receita
-                        .CurrentCell
-                        .OwningRow
-                        .Cells[indexDaColunaId]
-                        .Value
-                    : throw new Exception("Você precissa selecionar uma linha para editar");
-
+                var id = ObterIdItemSelecionado(dataGridView_Receita);
                 var formModificaReceita = new FormModificaReceita(_servicoReceita, _servicoIngrediente);
                 formModificaReceita.AddEventoClickEditar(id);
                 formModificaReceita.InserirValoresTextoParaEdicao(id);
