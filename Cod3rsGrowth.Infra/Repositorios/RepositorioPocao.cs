@@ -18,10 +18,10 @@ namespace Cod3rsGrowth.Infra.Repositorios
         {
             return Filtrar(pocao);
         }
-        /*public List<FiltroPocao> ObterTodos()
+        public List<FiltroPocao> ObterTodos()
         {
-            return _db.pocao.ToList();
-        }*/
+            return ObterPocaoComNome();
+        }
 
         public FiltroPocao ObterPorId(int? idProcurado)
         {

@@ -23,6 +23,10 @@ namespace Cod3rsGrowth.Servico.Servicos
         {
             return _repositorioPocao.ObterTodos(filtroPocao);
         }
+        public List<FiltroPocao> ObterTodos()
+        {
+            return _repositorioPocao.ObterTodos();
+        }
 
         public FiltroPocao ObterPorId(int? id)
         {
