@@ -8,7 +8,6 @@ namespace Cod3rsGrowth.Servico.Servicos
         private readonly IRepositorioPocao _repositorioPocao;
         private readonly IRepositorioReceita _repositorioReceita;
         private ServicoIngrediente _servicoIngrediente;
-        private FiltroReceita _filtroReceita = new FiltroReceita();
         public ServicoPocao(
             IRepositorioPocao repositorioPocao, 
             IRepositorioReceita repositorioReceita,
@@ -20,7 +19,7 @@ namespace Cod3rsGrowth.Servico.Servicos
             _servicoIngrediente = servicoIngrediente;
         }
 
-        public List<FiltroPocao> ObterTodos(FiltroPocao filtroPocao)
+        public List<FiltroPocao> ObterTodos(FiltroPocao? filtroPocao)
         {
             return _repositorioPocao.ObterTodos(filtroPocao);
         }
@@ -43,7 +42,7 @@ namespace Cod3rsGrowth.Servico.Servicos
                 throw new Exception(erros);
             }
 
-            List<Receita> receitasCadastradas = _repositorioReceita.ObterTodos(_filtroReceita);
+            List<Receita> receitasCadastradas = _repositorioReceita.ObterTodos(null);
 
             var listaIdIngrediente = ingredientesSelecionados.Select(i => i.Id).ToList();
 

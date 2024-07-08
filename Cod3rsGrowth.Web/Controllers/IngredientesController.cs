@@ -6,14 +6,12 @@ namespace Cod3rsGrowth.Web.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class IngredienteController : ControllerBase
+    public class IngredientesController : ControllerBase
     {
         private ServicoIngrediente _servicoIngrediente;
-        private ILoggerFactory _logger;
-        public IngredienteController(ILoggerFactory logger)
+        public IngredientesController()
         {
             CarregarServico();
-            _logger = logger;
         }
 
         private void CarregarServico()
@@ -37,12 +35,12 @@ namespace Cod3rsGrowth.Web.Controllers
         [HttpPost]
         public IActionResult Criar(Ingrediente ingrediente)
         {
-            _servicoIngrediente.Criar(ingrediente);
+            int id = _servicoIngrediente.Criar(ingrediente);
 
-            return CreatedAtAction(nameof(ObterPorId), new { id = ingrediente.Id }, ingrediente);
+            return CreatedAtAction(nameof(ObterPorId), new { id = id }, ingrediente);
         }
 
-        [HttpPut]
+        [HttpPatch]
         public IActionResult Editar(Ingrediente ingrediente)
         {
             return Ok(_servicoIngrediente.Editar(ingrediente));

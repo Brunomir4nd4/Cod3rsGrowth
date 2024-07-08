@@ -6,11 +6,11 @@ namespace Cod3rsGrowth.Web.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ReceitaController : ControllerBase
+    public class ReceitasController : ControllerBase
     {
         private ServicoReceita _servicoReceita;
 
-        public ReceitaController()
+        public ReceitasController()
         {
             CarragarDados();
         }
@@ -36,12 +36,12 @@ namespace Cod3rsGrowth.Web.Controllers
         [HttpPost]
         public IActionResult Criar(Receita receita)
         {
-            _servicoReceita.Criar(receita);
+            int id = _servicoReceita.Criar(receita);
 
-            return CreatedAtAction(nameof(ObterPorId), new { Id = receita.Id}, receita);
+            return CreatedAtAction(nameof(ObterPorId), new { id = id }, receita);
         }
 
-        [HttpPut]
+        [HttpPatch]
         public IActionResult Editar(Receita receita)
         {
             return Ok(_servicoReceita.Editar(receita));

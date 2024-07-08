@@ -503,7 +503,7 @@ namespace Cod3rsGrowth.Forms
         }
         private string? ObterNomeItemSelecionado(DataGridView dataGrid)
         {
-            return dataGrid.CurrentCell != null
+            return dataGrid.CurrentCell is not null
                     ? dataGrid
                         .CurrentCell
                         .OwningRow

@@ -6,10 +6,10 @@ namespace Cod3rsGrowth.Web.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PocaoController : ControllerBase
+    public class PocoesController : ControllerBase
     {
         private ServicoPocao _servicoPocao;
-        public PocaoController() 
+        public PocoesController() 
         {
             CarregarServico();
         }
@@ -34,9 +34,9 @@ namespace Cod3rsGrowth.Web.Controllers
         [HttpPost]
         public IActionResult Criar(List<Ingrediente> ingredientes)
         {
-            var idPocao = _servicoPocao.Criar(ingredientes);
+            var id = _servicoPocao.Criar(ingredientes);
 
-            return Ok(CreatedAtAction(nameof(ObterPorId), new { id = idPocao }, _servicoPocao.ObterPorId(idPocao)));
+            return Ok(CreatedAtAction(nameof(ObterPorId), new { id = id }, _servicoPocao.ObterPorId(id)));
         }
         
         [HttpDelete("{id}")]

@@ -8,7 +8,6 @@ namespace Cod3rsGrowth.Forms
         private ServicoReceita _servicoReceita;
         private ServicoIngrediente _servicoIngrediente;
         private List<int> _LISTA_ID_INGREDIENTE = new List<int>();
-        private FiltroIngrediente _filtroIngrediente = new FiltroIngrediente();
         public FormModificaReceita(
             ServicoReceita servicoReceita,
             ServicoIngrediente servicoIngrediente
@@ -89,7 +88,7 @@ namespace Cod3rsGrowth.Forms
         {
             try
             {
-                dataGridView1.DataSource = _servicoIngrediente.ObterTodos(_filtroIngrediente);
+                dataGridView1.DataSource = _servicoIngrediente.ObterTodos();
                 InserirIngredientesDaReceitaAoCheckList(_LISTA_ID_INGREDIENTE);
             }
             catch (Exception ex)
@@ -114,7 +113,7 @@ namespace Cod3rsGrowth.Forms
                 {
                     var nome = row.Cells[indexNome].Value.ToString();
                     return _servicoIngrediente
-                        .ObterTodos(_filtroIngrediente)
+                        .ObterTodos()
                         .First(i => i.Nome == nome)
                         .Id;
                 })

@@ -16,7 +16,7 @@ namespace Cod3rsGrowth.Infra.Repositorios
             _repositorioReceitaIngrediente = repositorioReceitaIngrediente;
         }
 
-        public List<Receita> ObterTodos(FiltroReceita receita)
+        public List<Receita> ObterTodos(FiltroReceita? receita)
         {
             var receitasFiltradas = Filtrar(receita);
             var listaReceitaIngrediente = _repositorioReceitaIngrediente.ObterTodos();
@@ -29,6 +29,20 @@ namespace Cod3rsGrowth.Infra.Repositorios
                     .ToList();
             });
             return receitasFiltradas;
+        }
+        public List<Receita> ObterTodos()
+        {
+            var listaReceitas = _db.receita.ToList();
+            var listaReceitaIngrediente = _repositorioReceitaIngrediente.ObterTodos();
+
+            listaReceitas.ForEach(receita =>
+            {
+                receita.ListaIdIngrediente = listaReceitaIngrediente
+                    .Where(ri => ri.IdReceita == receita.Id)
+                    .Select(ri => ri.IdIngredinete)
+                    .ToList();
+            });
+            return listaReceitas;
         }
 
         public Receita ObterPorId(int idProcurado)
@@ -83,24 +97,23 @@ namespace Cod3rsGrowth.Infra.Repositorios
                 .Delete();
         }
 
-        public List<Receita> Filtrar(FiltroReceita receita)
+        public List<Receita> Filtrar(FiltroReceita? receita)
         {
             IQueryable<Receita> query = _db.receita.AsQueryable();
 
-            if (receita != null)
-            {
-                if (receita.Id != null)
-                    query = query.Where(r => r.Id == receita.Id);
+            if (receita is null) return query.ToList();
+             
+            if (receita.Id is not null)
+                query = query.Where(r => r.Id == receita.Id);
 
-                if (!string.IsNullOrWhiteSpace(receita.Nome))
-                    query = query.Where(r => r.Nome.Contains(receita.Nome));
+            if (!string.IsNullOrWhiteSpace(receita.Nome))
+                query = query.Where(r => r.Nome.Contains(receita.Nome));
 
-                if (receita.Valor != null)
-                    query = query.Where(r => r.Valor == receita.Valor);
+            if (receita.Valor is not null)
+                query = query.Where(r => r.Valor == receita.Valor);
 
-                if (receita.ValidadeEmMeses != null)
-                    query = query.Where(r => r.ValidadeEmMeses == receita.ValidadeEmMeses);
-            }
+            if (receita.ValidadeEmMeses is not null)
+                query = query.Where(r => r.ValidadeEmMeses == receita.ValidadeEmMeses);
 
             return query.ToList();
         }

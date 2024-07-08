@@ -14,14 +14,18 @@ namespace Cod3rsGrowth.Infra.Repositorios
             _db = db;
         }
 
-        public List<FiltroPocao> ObterTodos(FiltroPocao pocao)
+        public List<FiltroPocao> ObterTodos(FiltroPocao? pocao)
         {
             return Filtrar(pocao);
         }
+        /*public List<FiltroPocao> ObterTodos()
+        {
+            return _db.pocao.ToList();
+        }*/
 
         public FiltroPocao ObterPorId(int? idProcurado)
         {
-            var query = from p in ObterPocaoComNome()
+            var query = from p in ObterTodos(null)
                         where (p.Id == idProcurado)
                         select p;
 
@@ -49,28 +53,27 @@ namespace Cod3rsGrowth.Infra.Repositorios
                 .Delete();
         }
 
-        public List<FiltroPocao> Filtrar(FiltroPocao filtroPocao)
+        public List<FiltroPocao> Filtrar(FiltroPocao? filtroPocao)
         {
             IQueryable<FiltroPocao> query = ObterPocaoComNome().AsQueryable();
 
-            if (filtroPocao != null)
-            {
-                if (filtroPocao.Id != null)
-                    query = query.Where(r => r.Id == filtroPocao.Id);
+            if (filtroPocao is null) return query.ToList();
+             
+            if (filtroPocao.Id is not null)
+                query = query.Where(r => r.Id == filtroPocao.Id);
 
-                if (!string.IsNullOrWhiteSpace(filtroPocao.Nome))
-                    query = query.Where(p => p.Nome.Contains(filtroPocao.Nome));
+            if (!string.IsNullOrWhiteSpace(filtroPocao.Nome))
+                query = query.Where(p => p.Nome.Contains(filtroPocao.Nome));
                 
-                if (filtroPocao.DataIncial != null & filtroPocao.DataFinal != null)
-                    query = query
-                        .Where(r => r.DataDeFabricacao >= filtroPocao.DataIncial & r.DataDeFabricacao <= filtroPocao.DataFinal);
+            if (filtroPocao.DataIncial is not null & filtroPocao.DataFinal is not null)
+                query = query
+                    .Where(r => r.DataDeFabricacao >= filtroPocao.DataIncial & r.DataDeFabricacao <= filtroPocao.DataFinal);
                 
-                else if (filtroPocao.DataIncial != null)
-                    query = query.Where(r => r.DataDeFabricacao >= filtroPocao.DataIncial);
+            else if (filtroPocao.DataIncial is not null)
+                query = query.Where(r => r.DataDeFabricacao >= filtroPocao.DataIncial);
 
-                if (filtroPocao.Vencido != null)
-                    query = query.Where(r => r.Vencido == filtroPocao.Vencido);
-            }
+            if (filtroPocao.Vencido is not null)
+                query = query.Where(r => r.Vencido == filtroPocao.Vencido);
 
             return query.ToList();
         }

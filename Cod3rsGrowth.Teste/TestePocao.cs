@@ -16,13 +16,11 @@ namespace Cod3rsGrowth.Teste
         private List<FiltroPocao> _listaMock;
         private List<FiltroPocao> _listaDoBanco;
         private FiltroPocao _pocaoParaTeste;
-        private FiltroPocao _filtroPocao;
         private Receita _receitaParaTeste;
-        private FiltroIngrediente _ingredienteParaTeste;
         public TestePocao()
         {
             CarregarServico();
-            _servicoIngrediente.ObterTodos(_ingredienteParaTeste).Clear();
+            _servicoIngrediente.ObterTodos().Clear();
             _listaMock = IniciarBancoMock();
         }
 
@@ -110,7 +108,7 @@ namespace Cod3rsGrowth.Teste
             _servicoPocao.Criar(listaIngredientesParaCura);
             _servicoPocao.Criar(listaIngredientesParaForca);
 
-            List<FiltroPocao> listaMock = _servicoPocao.ObterTodos(_filtroPocao);
+            List<FiltroPocao> listaMock = _servicoPocao.ObterTodos();
             return listaMock;
         }
 
@@ -118,14 +116,14 @@ namespace Cod3rsGrowth.Teste
         [Fact]
         public void ObterTodos_ComUmaListaValida_DeveRetornarUmaListaDoTipoPocao()
         {
-            var listaPocao = _servicoPocao.ObterTodos(_filtroPocao);
+            var listaPocao = _servicoPocao.ObterTodos();
             Assert.IsType<List<FiltroPocao>>(listaPocao);
         }
 
         [Fact]
         public void ObterTodos_ComDadosDisponiveis_DeveSerEquivalenteAUmaListaDePocao()
         {
-            _listaDoBanco = _servicoPocao.ObterTodos(_filtroPocao);
+            _listaDoBanco = _servicoPocao.ObterTodos();
 
             Assert.Equivalent(_listaMock, _listaDoBanco);
         }
@@ -193,7 +191,7 @@ namespace Cod3rsGrowth.Teste
         public void CriarPocao_ComDadosInvalidos_DeveLancarExecaoEsperada()
         {
             int quantidadeDeIngredientes = 2;
-            List<Ingrediente> listaIngredientes = _servicoIngrediente.ObterTodos(_ingredienteParaTeste).Take(quantidadeDeIngredientes).ToList();
+            List<Ingrediente> listaIngredientes = _servicoIngrediente.ObterTodos().Take(quantidadeDeIngredientes).ToList();
 
             var excecao = Assert.Throws<Exception>(() => _servicoPocao.Criar(listaIngredientes));
 
