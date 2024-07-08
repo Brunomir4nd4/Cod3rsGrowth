@@ -24,7 +24,7 @@ namespace Cod3rsGrowth.Teste
 
         public List<Ingrediente> IniciarBancoMock()
         {
-            List<Ingrediente> listaMock = new List<Ingrediente>
+            List<Ingrediente> listaIngredientes = new List<Ingrediente>
             {
                 new()
                 {
@@ -54,12 +54,12 @@ namespace Cod3rsGrowth.Teste
                     Quantidade = 4
                 }
             };
-
-            foreach (var ingrediente in listaMock)
+            foreach (var ingrediente in listaIngredientes)
             {
                 _servicoIngrediente.Criar(ingrediente);
             }
-            return listaMock;
+
+            return listaIngredientes;
         }
 
         private void CarregarServico()

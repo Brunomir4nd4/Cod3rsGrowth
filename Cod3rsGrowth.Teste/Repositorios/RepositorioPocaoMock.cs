@@ -12,6 +12,10 @@ namespace Cod3rsGrowth.Teste.Repositorios
         {
             return _listaPocao;
         }
+        public List<FiltroPocao> ObterTodos()
+        {
+            return _listaPocao;
+        }
 
         public FiltroPocao ObterPorId(int? idProcurado)
         {

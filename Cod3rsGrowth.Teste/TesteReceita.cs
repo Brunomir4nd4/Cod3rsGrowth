@@ -9,7 +9,8 @@ namespace Cod3rsGrowth.Teste
 {
     public class TesteReceita : TesteBase
     {
-        private ServicoReceita _servicoReceita;
+        private ServicoReceita _servicoReceita; 
+        private ServicoIngrediente _servicoIngrediente;
         private List<Receita> _listaMock;
         private List<Receita> _listaDoBanco;
         private Receita _receitaParaTeste;
@@ -24,6 +25,8 @@ namespace Cod3rsGrowth.Teste
         {
             _servicoReceita = ServiceProvider.GetService<ServicoReceita>()
                 ?? throw new Exception($"Erro ao obter servico [{nameof(ServicoReceita)}]");
+            _servicoIngrediente = ServiceProvider.GetService<ServicoIngrediente>()
+                ?? throw new Exception($"Erro ao obter servico [{nameof(ServicoIngrediente)}]");
         }
 
         public List<Receita> IniciarBancoMock()
@@ -59,10 +62,15 @@ namespace Cod3rsGrowth.Teste
                 }
             };
 
+            foreach (var ingrediente in listaIngredientes)
+            {
+                _servicoIngrediente.Criar(ingrediente);
+            }
+
             List<int> listaIdIngredientesParaCura = new List<int> { 0, 1, 2, 3 };
             List<int> listaIdIngredientesParaForca = new List<int> { 0, 1, 2 };
 
-            List<Receita> bancoMock = new List<Receita>()
+            List<Receita> listaReceitaMock = new List<Receita>()
             {
                 new()
                 {
@@ -85,11 +93,12 @@ namespace Cod3rsGrowth.Teste
                 }
             };
 
-            foreach (var receita in bancoMock)
+            foreach (var receita in listaReceitaMock)
             {
                 _servicoReceita.Criar(receita);
             }
-            return bancoMock;
+
+            return listaReceitaMock;
         }
 
         //Obter todos

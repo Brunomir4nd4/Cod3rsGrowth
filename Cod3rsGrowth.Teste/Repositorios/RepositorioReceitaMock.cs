@@ -12,6 +12,10 @@ namespace Cod3rsGrowth.Teste.Repositorios
         {
             return _listaReceita;
         }
+        public List<Receita> ObterTodos()
+        {
+            return _listaReceita;
+        }
 
         public Receita ObterPorId(int idProcurado)
         {
