@@ -19,16 +19,16 @@ namespace Cod3rsGrowth.Servico.Servicos
             _servicoIngrediente = servicoIngrediente;
         }
 
-        public List<FiltroPocao> ObterTodos(FiltroPocao? filtroPocao)
+        public List<Pocao> ObterTodos(FiltroPocao? filtroPocao)
         {
             return _repositorioPocao.ObterTodos(filtroPocao);
         }
-        public List<FiltroPocao> ObterTodos()
+        public List<Pocao> ObterTodos()
         {
             return _repositorioPocao.ObterTodos();
         }
 
-        public FiltroPocao ObterPorId(int? id)
+        public Pocao ObterPorId(int? id)
         {
             return _repositorioPocao.ObterPorId(id);
         }

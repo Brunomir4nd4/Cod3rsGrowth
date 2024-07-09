@@ -48,6 +48,10 @@
             label2 = new Label();
             label1 = new Label();
             dataGridView_Ingrediente = new DataGridView();
+            dataGridViewTextBoxColumn3 = new DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn4 = new DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn5 = new DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn6 = new DataGridViewTextBoxColumn();
             ingredienteBindingSource1 = new BindingSource(components);
             Receitas = new TabPage();
             dataGridView_Receita = new DataGridView();
@@ -111,10 +115,6 @@
             fbCommand1 = new FirebirdSql.Data.FirebirdClient.FbCommand();
             fbCommand2 = new FirebirdSql.Data.FirebirdClient.FbCommand();
             fbCommand3 = new FirebirdSql.Data.FirebirdClient.FbCommand();
-            dataGridViewTextBoxColumn3 = new DataGridViewTextBoxColumn();
-            dataGridViewTextBoxColumn4 = new DataGridViewTextBoxColumn();
-            dataGridViewTextBoxColumn5 = new DataGridViewTextBoxColumn();
-            dataGridViewTextBoxColumn6 = new DataGridViewTextBoxColumn();
             tabControl.SuspendLayout();
             Ingredientes.SuspendLayout();
             panel1.SuspendLayout();
@@ -355,6 +355,33 @@
             dataGridView_Ingrediente.RowTemplate.Height = 25;
             dataGridView_Ingrediente.Size = new Size(848, 381);
             dataGridView_Ingrediente.TabIndex = 1;
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            dataGridViewTextBoxColumn3.AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+            dataGridViewTextBoxColumn3.DataPropertyName = "Id";
+            dataGridViewTextBoxColumn3.HeaderText = "Id";
+            dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            dataGridViewTextBoxColumn3.Width = 46;
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            dataGridViewTextBoxColumn4.DataPropertyName = "Nome";
+            dataGridViewTextBoxColumn4.HeaderText = "Nome";
+            dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            dataGridViewTextBoxColumn4.ToolTipText = "Nome";
+            // 
+            // dataGridViewTextBoxColumn5
+            // 
+            dataGridViewTextBoxColumn5.DataPropertyName = "Quantidade";
+            dataGridViewTextBoxColumn5.HeaderText = "Quantidade";
+            dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
+            // 
+            // dataGridViewTextBoxColumn6
+            // 
+            dataGridViewTextBoxColumn6.DataPropertyName = "Naturalidade";
+            dataGridViewTextBoxColumn6.HeaderText = "Naturalidade";
+            dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
             // 
             // ingredienteBindingSource1
             // 
@@ -643,9 +670,9 @@
             Poções.Controls.Add(panel5);
             Poções.Controls.Add(panel4);
             Poções.Font = new Font("JetBrains Mono", 8.999999F, FontStyle.Regular, GraphicsUnit.Point);
-            Poções.Location = new Point(4, 24);
+            Poções.Location = new Point(4, 25);
             Poções.Name = "Poções";
-            Poções.Size = new Size(854, 528);
+            Poções.Size = new Size(854, 527);
             Poções.TabIndex = 2;
             Poções.Text = "Poções";
             // 
@@ -661,7 +688,7 @@
             dataGridView_Pocao.Location = new Point(0, 95);
             dataGridView_Pocao.Name = "dataGridView_Pocao";
             dataGridView_Pocao.RowTemplate.Height = 25;
-            dataGridView_Pocao.Size = new Size(851, 375);
+            dataGridView_Pocao.Size = new Size(851, 374);
             dataGridView_Pocao.TabIndex = 27;
             // 
             // idDataGridViewTextBoxColumn
@@ -707,7 +734,7 @@
             panel5.Controls.Add(button13);
             panel5.Controls.Add(button14);
             panel5.Dock = DockStyle.Bottom;
-            panel5.Location = new Point(0, 481);
+            panel5.Location = new Point(0, 480);
             panel5.Name = "panel5";
             panel5.Size = new Size(854, 47);
             panel5.TabIndex = 26;
@@ -956,33 +983,6 @@
             label12.Size = new Size(24, 17);
             label12.TabIndex = 26;
             label12.Text = "Id";
-            // 
-            // dataGridViewTextBoxColumn3
-            // 
-            dataGridViewTextBoxColumn3.AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
-            dataGridViewTextBoxColumn3.DataPropertyName = "Id";
-            dataGridViewTextBoxColumn3.HeaderText = "Id";
-            dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            dataGridViewTextBoxColumn3.Width = 46;
-            // 
-            // dataGridViewTextBoxColumn4
-            // 
-            dataGridViewTextBoxColumn4.DataPropertyName = "Nome";
-            dataGridViewTextBoxColumn4.HeaderText = "Nome";
-            dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
-            dataGridViewTextBoxColumn4.ToolTipText = "Nome";
-            // 
-            // dataGridViewTextBoxColumn5
-            // 
-            dataGridViewTextBoxColumn5.DataPropertyName = "Quantidade";
-            dataGridViewTextBoxColumn5.HeaderText = "Quantidade";
-            dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
-            // 
-            // dataGridViewTextBoxColumn6
-            // 
-            dataGridViewTextBoxColumn6.DataPropertyName = "Naturalidade";
-            dataGridViewTextBoxColumn6.HeaderText = "Naturalidade";
-            dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
             // 
             // FormListagem
             // 

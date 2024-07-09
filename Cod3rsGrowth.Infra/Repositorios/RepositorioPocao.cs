@@ -14,16 +14,16 @@ namespace Cod3rsGrowth.Infra.Repositorios
             _db = db;
         }
 
-        public List<FiltroPocao> ObterTodos(FiltroPocao? pocao)
+        public List<Pocao> ObterTodos(FiltroPocao? pocao)
         {
             return Filtrar(pocao);
         }
-        public List<FiltroPocao> ObterTodos()
+        public List<Pocao> ObterTodos()
         {
-            return ObterPocaoComNome();
+            return _db.pocao.ToList();
         }
 
-        public FiltroPocao ObterPorId(int? idProcurado)
+        public Pocao ObterPorId(int? idProcurado)
         {
             var query = from p in ObterTodos(null)
                         where (p.Id == idProcurado)
@@ -53,10 +53,9 @@ namespace Cod3rsGrowth.Infra.Repositorios
                 .Delete();
         }
 
-        public List<FiltroPocao> Filtrar(FiltroPocao? filtroPocao)
+        public List<Pocao> Filtrar(FiltroPocao? filtroPocao)
         {
-            IQueryable<FiltroPocao> query = ObterPocaoComNome().AsQueryable();
-
+            IQueryable<Pocao> query = _db.pocao.AsQueryable();
             if (filtroPocao is null) return query.ToList();
              
             if (filtroPocao.Id is not null)
@@ -75,21 +74,6 @@ namespace Cod3rsGrowth.Infra.Repositorios
             if (filtroPocao.Vencido is not null)
                 query = query.Where(r => r.Vencido == filtroPocao.Vencido);
 
-            return query.ToList();
-        }
-
-        public List<FiltroPocao> ObterPocaoComNome()
-        {
-            var query = from pocao in _db.pocao
-                        join receita in _db.receita on pocao.IdReceita equals receita.Id
-                        select new FiltroPocao { 
-                            Id = pocao.Id, 
-                            IdReceita = pocao.IdReceita, 
-                            Nome = receita.Nome,
-                            DataDeFabricacao = pocao.DataDeFabricacao, 
-                            Vencido = pocao.Vencido 
-                        };
-            
             return query.ToList();
         }
     }

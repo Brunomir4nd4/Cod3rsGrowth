@@ -6,18 +6,18 @@ namespace Cod3rsGrowth.Teste.Repositorios
 {
     public class RepositorioPocaoMock : IRepositorioPocao
     {
-        private List<FiltroPocao> _listaPocao = ListaSingleton.getInstance.listaPocao;
+        private List<Pocao> _listaPocao = ListaSingleton.getInstance.listaPocao;
         private int _novoId = 0;
-        public List<FiltroPocao> ObterTodos(FiltroPocao filtroPocao)
+        public List<Pocao> ObterTodos(FiltroPocao filtroPocao)
         {
             return _listaPocao;
         }
-        public List<FiltroPocao> ObterTodos()
+        public List<Pocao> ObterTodos()
         {
             return _listaPocao;
         }
 
-        public FiltroPocao ObterPorId(int? idProcurado)
+        public Pocao ObterPorId(int? idProcurado)
         {
             return _listaPocao.Find(p => p.Id == idProcurado) 
                 ?? throw new Exception($"O objeto com id [{idProcurado}] não foi encontrado");
@@ -25,7 +25,7 @@ namespace Cod3rsGrowth.Teste.Repositorios
 
         public int Criar(Receita novaReceita)
         {
-            FiltroPocao pocao = new FiltroPocao()
+            Pocao pocao = new Pocao()
             {
                 Id = _novoId,
                 IdReceita = novaReceita.Id,

@@ -10,6 +10,5 @@ namespace Cod3rsGrowth.Dominio.Entidades
         public DateTime? DataIncial { get; set; }
         public DateTime? DataFinal { get; set; }
         public bool? Vencido { get; set; }
-        public int? IdReceita {  get; set; }
     }
 }

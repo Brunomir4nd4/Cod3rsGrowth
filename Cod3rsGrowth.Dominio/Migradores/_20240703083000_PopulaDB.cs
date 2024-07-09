@@ -28,15 +28,15 @@ namespace Cod3rsGrowth.Dominio.Migradores
             Insert.IntoTable("Receita").Row(new { Nome = "Poção de Salto", Descricao = "+½ bloco de salto", Valor = 11.0m, ValidadeEmMeses = 4 });
             Insert.IntoTable("Receita").Row(new { Nome = "Poção de Queda Lenta", Descricao = "Elimina dano de queda", Valor = 13.0m, ValidadeEmMeses = 2 });
 
-            Insert.IntoTable("Pocao").Row(new { IdReceita = 1, DataDeFabricacao = DateTime.Parse("21/01/2022"), Vencido = 1 });
-            Insert.IntoTable("Pocao").Row(new { IdReceita = 2, DataDeFabricacao = DateTime.Parse("27/08/2023"), Vencido = 1 });
-            Insert.IntoTable("Pocao").Row(new { IdReceita = 3, DataDeFabricacao = DateTime.Parse("02/05/2024"), Vencido = 0 });
-            Insert.IntoTable("Pocao").Row(new { IdReceita = 4, DataDeFabricacao = DateTime.Parse("24/05/2020"), Vencido = 1 });
-            Insert.IntoTable("Pocao").Row(new { IdReceita = 5, DataDeFabricacao = DateTime.Parse("29/04/2024"), Vencido = 0 });
-            Insert.IntoTable("Pocao").Row(new { IdReceita = 6, DataDeFabricacao = DateTime.Parse("11/04/2022"), Vencido = 1 });
-            Insert.IntoTable("Pocao").Row(new { IdReceita = 7, DataDeFabricacao = DateTime.Parse("02/06/2024"), Vencido = 0 });
-            Insert.IntoTable("Pocao").Row(new { IdReceita = 8, DataDeFabricacao = DateTime.Parse("29/06/2024"), Vencido = 0 });
-            Insert.IntoTable("Pocao").Row(new { IdReceita = 9, DataDeFabricacao = DateTime.Parse("10/05/2024"), Vencido = 0 });
+            Insert.IntoTable("Pocao").Row(new { IdReceita = 1, Nome = "Poção de Regeneração", DataDeFabricacao = DateTime.Parse("21/01/2022"), Vencido = 1 });
+            Insert.IntoTable("Pocao").Row(new { IdReceita = 2, Nome = "Poção de Cura", DataDeFabricacao = DateTime.Parse("27/08/2023"), Vencido = 1 });
+            Insert.IntoTable("Pocao").Row(new { IdReceita = 3, Nome = "Poção de Respirar embaixo d’água", DataDeFabricacao = DateTime.Parse("02/05/2024"), Vencido = 0 });
+            Insert.IntoTable("Pocao").Row(new { IdReceita = 4, Nome = "Poção de Visão noturna", DataDeFabricacao = DateTime.Parse("24/05/2020"), Vencido = 1 });
+            Insert.IntoTable("Pocao").Row(new { IdReceita = 5, Nome = "Poção de Força", DataDeFabricacao = DateTime.Parse("29/04/2024"), Vencido = 0 });
+            Insert.IntoTable("Pocao").Row(new { IdReceita = 6, Nome = "Poção de Resistência ao Fogo", DataDeFabricacao = DateTime.Parse("11/04/2022"), Vencido = 1 });
+            Insert.IntoTable("Pocao").Row(new { IdReceita = 7, Nome = "Poção de Agilidade", DataDeFabricacao = DateTime.Parse("02/06/2024"), Vencido = 0 });
+            Insert.IntoTable("Pocao").Row(new { IdReceita = 8, Nome = "Poção de Salto", DataDeFabricacao = DateTime.Parse("29/06/2024"), Vencido = 0 });
+            Insert.IntoTable("Pocao").Row(new { IdReceita = 9, Nome = "Poção de Queda Lenta", DataDeFabricacao = DateTime.Parse("10/05/2024"), Vencido = 0 });
 
             Insert.IntoTable("ReceitaIngrediente").Row(new { IdReceita = 1, IdIngrediente = 1 });
             Insert.IntoTable("ReceitaIngrediente").Row(new { IdReceita = 1, IdIngrediente = 2 });

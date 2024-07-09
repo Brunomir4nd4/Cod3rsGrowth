@@ -13,9 +13,9 @@ namespace Cod3rsGrowth.Teste
         private ServicoPocao _servicoPocao;
         private ServicoIngrediente _servicoIngrediente;
         private ServicoReceita _servicoReceita;
-        private List<FiltroPocao> _listaMock;
-        private List<FiltroPocao> _listaDoBanco;
-        private FiltroPocao _pocaoParaTeste;
+        private List<Pocao> _listaMock;
+        private List<Pocao> _listaDoBanco;
+        private Pocao _pocaoParaTeste;
         private Receita _receitaParaTeste;
         public TestePocao()
         {
@@ -34,7 +34,7 @@ namespace Cod3rsGrowth.Teste
                 ?? throw new Exception($"Erro ao obter servico [{nameof(ServicoIngrediente)}]");
         }
 
-        public List<FiltroPocao> IniciarBancoMock()
+        public List<Pocao> IniciarBancoMock()
         {
             List<Ingrediente> listaIngredientes = new List<Ingrediente>
             {
@@ -108,7 +108,7 @@ namespace Cod3rsGrowth.Teste
             _servicoPocao.Criar(listaIngredientesParaCura);
             _servicoPocao.Criar(listaIngredientesParaForca);
 
-            List<FiltroPocao> listaMock = _servicoPocao.ObterTodos();
+            List<Pocao> listaMock = _servicoPocao.ObterTodos();
             return listaMock;
         }
 
@@ -117,7 +117,7 @@ namespace Cod3rsGrowth.Teste
         public void ObterTodos_ComUmaListaValida_DeveRetornarUmaListaDoTipoPocao()
         {
             var listaPocao = _servicoPocao.ObterTodos();
-            Assert.IsType<List<FiltroPocao>>(listaPocao);
+            Assert.IsType<List<Pocao>>(listaPocao);
         }
 
         [Fact]
@@ -153,7 +153,7 @@ namespace Cod3rsGrowth.Teste
             var pocaoDoBanco = _servicoPocao.ObterPorId(idProcurado);
 
             //assert
-            Assert.IsType<FiltroPocao>(pocaoDoBanco);
+            Assert.IsType<Pocao>(pocaoDoBanco);
         }
 
         [Fact]
@@ -174,7 +174,7 @@ namespace Cod3rsGrowth.Teste
         {
             int idDaPocaoDeCura = 0;
 
-            _pocaoParaTeste = new FiltroPocao()
+            _pocaoParaTeste = new Pocao()
             {
                 Id = idDaPocaoDeCura,
                 IdReceita = 0,
