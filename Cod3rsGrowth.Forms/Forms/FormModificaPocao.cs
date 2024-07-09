@@ -7,7 +7,6 @@ namespace Cod3rsGrowth.Forms
     {
         private ServicoPocao _servicoPocao;
         private ServicoIngrediente _servicoIngrediente;
-        private FiltroIngrediente _filtroIngrediente = new FiltroIngrediente();
         public FormModificaPocao(ServicoPocao servicoPocao, ServicoIngrediente servicoIngrediente)
         {
             InitializeComponent();
@@ -48,7 +47,7 @@ namespace Cod3rsGrowth.Forms
         {
             try
             {
-                dataGridView1.DataSource = _servicoIngrediente.ObterTodos(_filtroIngrediente);
+                dataGridView1.DataSource = _servicoIngrediente.ObterTodos();
             }
             catch (Exception ex)
             {
@@ -79,7 +78,7 @@ namespace Cod3rsGrowth.Forms
                 {
                     var nome = row.Cells[indexNome].Value.ToString();
                     return _servicoIngrediente
-                        .ObterTodos(_filtroIngrediente)
+                        .ObterTodos()
                         .First(i => i.Nome == nome);
                 })
                 .ToList();

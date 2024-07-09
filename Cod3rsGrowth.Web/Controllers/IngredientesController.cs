@@ -1,0 +1,57 @@
+﻿using Cod3rsGrowth.Dominio.Entidades;
+using Cod3rsGrowth.Servico.Servicos;
+using Microsoft.AspNetCore.Mvc;
+
+namespace Cod3rsGrowth.Web.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class IngredientesController : ControllerBase
+    {
+        private ServicoIngrediente _servicoIngrediente;
+        public IngredientesController()
+        {
+            CarregarServico();
+        }
+
+        private void CarregarServico()
+        {
+            _servicoIngrediente = _serviceProvider.GetService<ServicoIngrediente>()
+                ?? throw new Exception($"Erro ao obter servico [{nameof(ServicoIngrediente)}]");
+        }
+
+        [HttpGet]
+        public IActionResult ObterTodos()
+        {
+            return Ok(_servicoIngrediente.ObterTodos(null));
+        }
+
+        [HttpGet("{id}")]
+        public IActionResult ObterPorId(int id)
+        {
+            return Ok(_servicoIngrediente.ObterPorId(id));
+        }
+
+        [HttpPost]
+        public IActionResult Criar(Ingrediente ingrediente)
+        {
+            int id = _servicoIngrediente.Criar(ingrediente);
+
+            return CreatedAtAction(nameof(ObterPorId), new { id = id }, ingrediente);
+        }
+
+        [HttpPatch]
+        public IActionResult Editar(Ingrediente ingrediente)
+        {
+            return Ok(_servicoIngrediente.Editar(ingrediente));
+        }
+
+        [HttpDelete]
+        public IActionResult Remover(int id)
+        {
+            _servicoIngrediente.Remover(id);
+
+            return NoContent();
+        }
+    }
+}

@@ -9,15 +9,15 @@ namespace Cod3rsGrowth.Teste
 {
     public class TesteReceita : TesteBase
     {
-        private ServicoReceita _servicoReceita;
+        private ServicoReceita _servicoReceita; 
+        private ServicoIngrediente _servicoIngrediente;
         private List<Receita> _listaMock;
         private List<Receita> _listaDoBanco;
         private Receita _receitaParaTeste;
-        private FiltroReceita _filtroReceitaParaTeste;
         public TesteReceita()
         {
             CarregarServico();
-            _servicoReceita.ObterTodos(_filtroReceitaParaTeste).Clear();
+            _servicoReceita.ObterTodos().Clear();
             _listaMock = IniciarBancoMock();
         }
 
@@ -25,6 +25,8 @@ namespace Cod3rsGrowth.Teste
         {
             _servicoReceita = ServiceProvider.GetService<ServicoReceita>()
                 ?? throw new Exception($"Erro ao obter servico [{nameof(ServicoReceita)}]");
+            _servicoIngrediente = ServiceProvider.GetService<ServicoIngrediente>()
+                ?? throw new Exception($"Erro ao obter servico [{nameof(ServicoIngrediente)}]");
         }
 
         public List<Receita> IniciarBancoMock()
@@ -60,10 +62,15 @@ namespace Cod3rsGrowth.Teste
                 }
             };
 
+            foreach (var ingrediente in listaIngredientes)
+            {
+                _servicoIngrediente.Criar(ingrediente);
+            }
+
             List<int> listaIdIngredientesParaCura = new List<int> { 0, 1, 2, 3 };
             List<int> listaIdIngredientesParaForca = new List<int> { 0, 1, 2 };
 
-            List<Receita> bancoMock = new List<Receita>()
+            List<Receita> listaReceitaMock = new List<Receita>()
             {
                 new()
                 {
@@ -86,25 +93,26 @@ namespace Cod3rsGrowth.Teste
                 }
             };
 
-            foreach (var receita in bancoMock)
+            foreach (var receita in listaReceitaMock)
             {
                 _servicoReceita.Criar(receita);
             }
-            return bancoMock;
+
+            return listaReceitaMock;
         }
 
         //Obter todos
         [Fact]
         public void ObterTodos_ComUmaListaValida_DeveRetornarUmaListaDoTipoReceita()
         {
-            var listaReceita = _servicoReceita.ObterTodos(_filtroReceitaParaTeste);
+            var listaReceita = _servicoReceita.ObterTodos();
             Assert.IsType<List<Receita>>(listaReceita);
         }
 
         [Fact]
         public void ObterTodos_ComDadosDisponiveis_DeveSerEquivalenteAUmaListaDeReceita()
         {
-            _listaDoBanco = _servicoReceita.ObterTodos(_filtroReceitaParaTeste);
+            _listaDoBanco = _servicoReceita.ObterTodos();
 
             Assert.Equivalent(_listaMock, _listaDoBanco);
         }

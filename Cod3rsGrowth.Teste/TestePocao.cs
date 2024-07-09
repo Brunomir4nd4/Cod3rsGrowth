@@ -13,16 +13,14 @@ namespace Cod3rsGrowth.Teste
         private ServicoPocao _servicoPocao;
         private ServicoIngrediente _servicoIngrediente;
         private ServicoReceita _servicoReceita;
-        private List<FiltroPocao> _listaMock;
-        private List<FiltroPocao> _listaDoBanco;
-        private FiltroPocao _pocaoParaTeste;
-        private FiltroPocao _filtroPocao;
+        private List<Pocao> _listaMock;
+        private List<Pocao> _listaDoBanco;
+        private Pocao _pocaoParaTeste;
         private Receita _receitaParaTeste;
-        private FiltroIngrediente _ingredienteParaTeste;
         public TestePocao()
         {
             CarregarServico();
-            _servicoIngrediente.ObterTodos(_ingredienteParaTeste).Clear();
+            _servicoIngrediente.ObterTodos().Clear();
             _listaMock = IniciarBancoMock();
         }
 
@@ -36,7 +34,7 @@ namespace Cod3rsGrowth.Teste
                 ?? throw new Exception($"Erro ao obter servico [{nameof(ServicoIngrediente)}]");
         }
 
-        public List<FiltroPocao> IniciarBancoMock()
+        public List<Pocao> IniciarBancoMock()
         {
             List<Ingrediente> listaIngredientes = new List<Ingrediente>
             {
@@ -110,7 +108,7 @@ namespace Cod3rsGrowth.Teste
             _servicoPocao.Criar(listaIngredientesParaCura);
             _servicoPocao.Criar(listaIngredientesParaForca);
 
-            List<FiltroPocao> listaMock = _servicoPocao.ObterTodos(_filtroPocao);
+            List<Pocao> listaMock = _servicoPocao.ObterTodos();
             return listaMock;
         }
 
@@ -118,14 +116,14 @@ namespace Cod3rsGrowth.Teste
         [Fact]
         public void ObterTodos_ComUmaListaValida_DeveRetornarUmaListaDoTipoPocao()
         {
-            var listaPocao = _servicoPocao.ObterTodos(_filtroPocao);
-            Assert.IsType<List<FiltroPocao>>(listaPocao);
+            var listaPocao = _servicoPocao.ObterTodos();
+            Assert.IsType<List<Pocao>>(listaPocao);
         }
 
         [Fact]
         public void ObterTodos_ComDadosDisponiveis_DeveSerEquivalenteAUmaListaDePocao()
         {
-            _listaDoBanco = _servicoPocao.ObterTodos(_filtroPocao);
+            _listaDoBanco = _servicoPocao.ObterTodos();
 
             Assert.Equivalent(_listaMock, _listaDoBanco);
         }
@@ -155,7 +153,7 @@ namespace Cod3rsGrowth.Teste
             var pocaoDoBanco = _servicoPocao.ObterPorId(idProcurado);
 
             //assert
-            Assert.IsType<FiltroPocao>(pocaoDoBanco);
+            Assert.IsType<Pocao>(pocaoDoBanco);
         }
 
         [Fact]
@@ -176,7 +174,7 @@ namespace Cod3rsGrowth.Teste
         {
             int idDaPocaoDeCura = 0;
 
-            _pocaoParaTeste = new FiltroPocao()
+            _pocaoParaTeste = new Pocao()
             {
                 Id = idDaPocaoDeCura,
                 IdReceita = 0,
@@ -193,7 +191,7 @@ namespace Cod3rsGrowth.Teste
         public void CriarPocao_ComDadosInvalidos_DeveLancarExecaoEsperada()
         {
             int quantidadeDeIngredientes = 2;
-            List<Ingrediente> listaIngredientes = _servicoIngrediente.ObterTodos(_ingredienteParaTeste).Take(quantidadeDeIngredientes).ToList();
+            List<Ingrediente> listaIngredientes = _servicoIngrediente.ObterTodos().Take(quantidadeDeIngredientes).ToList();
 
             var excecao = Assert.Throws<Exception>(() => _servicoPocao.Criar(listaIngredientes));
 

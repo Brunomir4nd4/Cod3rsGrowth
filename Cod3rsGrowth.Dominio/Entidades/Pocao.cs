@@ -9,6 +9,8 @@ namespace Cod3rsGrowth.Dominio.Entidades
         public int Id {  get; set; }
         [Column("IdReceita")]
         public int IdReceita { get; set; }
+        [Column("Nome")]
+        public string Nome { get; set; }
         [Column("DataDeFabricacao")]
         public DateTime DataDeFabricacao { get; set; }
         [Column("Vencido")]

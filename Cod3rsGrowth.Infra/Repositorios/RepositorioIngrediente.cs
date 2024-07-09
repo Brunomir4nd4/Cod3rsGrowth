@@ -14,9 +14,13 @@ namespace Cod3rsGrowth.Infra.Repositorios
             _db = db;
         }
 
-        public List<Ingrediente> ObterTodos(FiltroIngrediente ingrediente)
+        public List<Ingrediente> ObterTodos(FiltroIngrediente? ingrediente)
         {
             return Filtrar(ingrediente);
+        }
+        public List<Ingrediente> ObterTodos()
+        {
+            return _db.ingrediente.ToList();
         }
 
         public Ingrediente ObterPorId(int idProcurado)
@@ -47,6 +51,7 @@ namespace Cod3rsGrowth.Infra.Repositorios
             _db.Update(ingredienteAtualizado);
             return ingredienteAtualizado;
         }
+
         public void Remover(int idIngrediente)
         {
             _db.ingrediente
@@ -54,20 +59,22 @@ namespace Cod3rsGrowth.Infra.Repositorios
                 .Delete();
         }
 
-        public List<Ingrediente> Filtrar(FiltroIngrediente ingrediente)
+        public List<Ingrediente> Filtrar(FiltroIngrediente? ingrediente)
         {
             IQueryable<Ingrediente> query = _db.ingrediente.AsQueryable();
 
-            if (ingrediente.Id != null)
+            if (ingrediente is null) return query.ToList();
+            
+            if (ingrediente.Id is not null)
                 query = query.Where(r => r.Id == ingrediente.Id);
 
             if (!string.IsNullOrWhiteSpace(ingrediente.Nome))
                 query = query.Where(r => r.Nome.Contains(ingrediente.Nome) );
 
-            if (ingrediente.Quantidade != null)
+            if (ingrediente.Quantidade is not null)
                 query = query.Where(r => r.Quantidade == ingrediente.Quantidade);
 
-            if (ingrediente.Naturalidade != null)
+            if (ingrediente.Naturalidade is not null)
                 query = query.Where(r => r.Naturalidade == ingrediente.Naturalidade);
 
             return query.ToList();

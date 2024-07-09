@@ -14,18 +14,17 @@ namespace Cod3rsGrowth.Teste
         private List<Ingrediente> _listaMock;
         private List<Ingrediente> _listaDoBanco;
         private Ingrediente _ingredienteParaTeste;
-        private FiltroIngrediente _filtroIngredienteParaTeste;
 
         public TesteIngrediente()
         {
             CarregarServico();
-            _servicoIngrediente.ObterTodos(_filtroIngredienteParaTeste).Clear();
+            _servicoIngrediente.ObterTodos().Clear();
             _listaMock = IniciarBancoMock();
         }
 
         public List<Ingrediente> IniciarBancoMock()
         {
-            List<Ingrediente> listaMock = new List<Ingrediente>
+            List<Ingrediente> listaIngredientes = new List<Ingrediente>
             {
                 new()
                 {
@@ -55,12 +54,12 @@ namespace Cod3rsGrowth.Teste
                     Quantidade = 4
                 }
             };
-
-            foreach (var ingrediente in listaMock)
+            foreach (var ingrediente in listaIngredientes)
             {
                 _servicoIngrediente.Criar(ingrediente);
             }
-            return listaMock;
+
+            return listaIngredientes;
         }
 
         private void CarregarServico()
@@ -72,14 +71,14 @@ namespace Cod3rsGrowth.Teste
         [Fact]
         public void ObterTodos_ComDadosDisponiveis_DeveRetornarUmalistaDoTipoIngrediente()
         {
-            var listaIngrediente = _servicoIngrediente.ObterTodos(_filtroIngredienteParaTeste);
+            var listaIngrediente = _servicoIngrediente.ObterTodos();
             Assert.IsType<List<Ingrediente>>(listaIngrediente);
         }
 
         [Fact]
         public void ObterTodos_ComDadosDisponiveis_DeveSerEquivalenteAUmaListaDeIngrediente()
         {
-            _listaDoBanco = _servicoIngrediente.ObterTodos(_filtroIngredienteParaTeste);
+            _listaDoBanco = _servicoIngrediente.ObterTodos();
 
             Assert.Equivalent(_listaMock, _listaDoBanco);
         }

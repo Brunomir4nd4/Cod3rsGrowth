@@ -12,6 +12,10 @@ namespace Cod3rsGrowth.Teste.Repositorios
         {
             return _listaIngredientes;
         }
+        public List<Ingrediente> ObterTodos()
+        {
+            return _listaIngredientes;
+        }
 
         public Ingrediente ObterPorId(int idProcurado)
         {

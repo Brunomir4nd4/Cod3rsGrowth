@@ -34,8 +34,6 @@ namespace Cod3rsGrowth.Servico.Validadores
                 const int valorBaseParaQuantidadeEditada = -1;
                 RuleFor(p => p.Quantidade)
                 .Cascade(CascadeMode.Stop)
-                .NotEmpty()
-                .WithMessage("Campo Quantidade não preenchido!")
                 .GreaterThan(valorBaseParaQuantidadeEditada)
                 .WithMessage($"Campo Quantidade deve ser maior que {valorBaseParaQuantidadeEditada}");
             });

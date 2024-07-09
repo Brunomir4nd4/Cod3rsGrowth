@@ -1,4 +1,4 @@
-﻿using Cod3rsGrowth.Infra.ModuloDeInjecao;
+﻿using Cod3rsGrowth.Infra;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Cod3rsGrowth.Teste.ConfiguracaoAmbienteTeste
@@ -15,7 +15,6 @@ namespace Cod3rsGrowth.Teste.ConfiguracaoAmbienteTeste
         {
             var servicos = new ServiceCollection();
             ModuloDeInjecao.BindServices(servicos);
-            ModuloDeInjecaoInfra.BindServices(servicos);
             return servicos;
         }
 

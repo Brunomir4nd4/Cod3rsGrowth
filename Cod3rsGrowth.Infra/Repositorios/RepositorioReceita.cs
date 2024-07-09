@@ -1,7 +1,6 @@
 ﻿using Cod3rsGrowth.Dominio.Entidades;
 using Cod3rsGrowth.Dominio.Interfaces;
 using Cod3rsGrowth.Infra.ConexaoBD;
-using Cod3rsGrowth.Servico.Servicos;
 using LinqToDB;
 
 namespace Cod3rsGrowth.Infra.Repositorios
@@ -9,18 +8,18 @@ namespace Cod3rsGrowth.Infra.Repositorios
     public class RepositorioReceita : IRepositorioReceita
     {
         private MeuContextoDeDados _db;
-        private ServicoReceitaIngrediente _servicoReceitaIngrediente;
+        private IRepositorioReceitaIngrediente _repositorioReceitaIngrediente;
 
-        public RepositorioReceita(MeuContextoDeDados db, ServicoReceitaIngrediente servicoReceitaIngrediente)
+        public RepositorioReceita(MeuContextoDeDados db, IRepositorioReceitaIngrediente repositorioReceitaIngrediente)
         {
             _db = db;
-            _servicoReceitaIngrediente = servicoReceitaIngrediente;
+            _repositorioReceitaIngrediente = repositorioReceitaIngrediente;
         }
 
-        public List<Receita> ObterTodos(FiltroReceita receita)
+        public List<Receita> ObterTodos(FiltroReceita? receita)
         {
             var receitasFiltradas = Filtrar(receita);
-            var listaReceitaIngrediente = _servicoReceitaIngrediente.ObterTodos();
+            var listaReceitaIngrediente = _repositorioReceitaIngrediente.ObterTodos();
 
             receitasFiltradas.ForEach(receita =>
             {
@@ -32,6 +31,21 @@ namespace Cod3rsGrowth.Infra.Repositorios
             return receitasFiltradas;
         }
 
+        public List<Receita> ObterTodos()
+        {
+            var listaReceitas = _db.receita.ToList();
+            var listaReceitaIngrediente = _repositorioReceitaIngrediente.ObterTodos();
+
+            listaReceitas.ForEach(receita =>
+            {
+                receita.ListaIdIngrediente = listaReceitaIngrediente
+                    .Where(ri => ri.IdReceita == receita.Id)
+                    .Select(ri => ri.IdIngredinete)
+                    .ToList();
+            });
+            return listaReceitas;
+        }
+
         public Receita ObterPorId(int idProcurado)
         {
             var query = from p in _db.receita
@@ -41,7 +55,7 @@ namespace Cod3rsGrowth.Infra.Repositorios
             var resultado = query.FirstOrDefault()
                 ?? throw new Exception($"Id: [{idProcurado}] não foi encontrado no banco de dados");
             
-            var listaReceitaIngrediente = _servicoReceitaIngrediente.ObterTodos();
+            var listaReceitaIngrediente = _repositorioReceitaIngrediente.ObterTodos();
 
             resultado.ListaIdIngrediente = listaReceitaIngrediente
                 .Where(ri => ri.IdReceita == resultado.Id)
@@ -58,23 +72,26 @@ namespace Cod3rsGrowth.Infra.Repositorios
 
         public Receita Editar(Receita receitaEditada)
         {
-            var receitaAtualizada = ObterPorId(receitaEditada.Id);
+            var receita = ObterPorId(receitaEditada.Id);
 
-            receitaAtualizada.Nome = receitaEditada.Nome;
-            receitaAtualizada.Descricao = receitaEditada.Descricao;
-            receitaAtualizada.Valor = receitaEditada.Valor;
-            receitaAtualizada.Imagem = receitaEditada.Imagem;
-            receitaAtualizada.ValidadeEmMeses = receitaEditada.ValidadeEmMeses;
-            receitaAtualizada.ListaIdIngrediente = receitaEditada.ListaIdIngrediente;
+            var idIngredientesAnteriores = receita.ListaIdIngrediente;
+            var idIngredientesAtuais = receitaEditada.ListaIdIngrediente;
 
-            _db.receitaIngrediente
-                .Where(ri => ri.IdReceita == receitaEditada.Id)
-                .Delete();
+            List<int> idIngredientesParaRemover = idIngredientesAnteriores.Except(idIngredientesAtuais).ToList();
+            List<int> idIngredientesParaAdicionar = idIngredientesAtuais.Except(idIngredientesAnteriores).ToList();
 
-            _servicoReceitaIngrediente.Criar(receitaAtualizada.ListaIdIngrediente, receitaEditada.Id);
+            receita.Nome = receitaEditada.Nome;
+            receita.Descricao = receitaEditada.Descricao;
+            receita.Valor = receitaEditada.Valor;
+            receita.Imagem = receitaEditada.Imagem;
+            receita.ValidadeEmMeses = receitaEditada.ValidadeEmMeses;
+            receita.ListaIdIngrediente = receitaEditada.ListaIdIngrediente;
+
+            RemoverIds(idIngredientesParaRemover);
+            SalvarIds(idIngredientesParaAdicionar, receita.Id);
             
-            _db.Update(receitaAtualizada);
-            return receitaAtualizada;
+            _db.Update(receita);
+            return receita;
         }
 
         public void Remover(int idReceita)
@@ -84,23 +101,39 @@ namespace Cod3rsGrowth.Infra.Repositorios
                 .Delete();
         }
 
-        public List<Receita> Filtrar(FiltroReceita receita)
+        public List<Receita> Filtrar(FiltroReceita? receita)
         {
             IQueryable<Receita> query = _db.receita.AsQueryable();
 
-            if (receita.Id != null)
+            if (receita is null) return query.ToList();
+             
+            if (receita.Id is not null)
                 query = query.Where(r => r.Id == receita.Id);
 
             if (!string.IsNullOrWhiteSpace(receita.Nome))
                 query = query.Where(r => r.Nome.Contains(receita.Nome));
 
-            if (receita.Valor != null)
+            if (receita.Valor is not null)
                 query = query.Where(r => r.Valor == receita.Valor);
 
-            if (receita.ValidadeEmMeses != null)
+            if (receita.ValidadeEmMeses is not null)
                 query = query.Where(r => r.ValidadeEmMeses == receita.ValidadeEmMeses);
 
             return query.ToList();
+        }
+
+        private void RemoverIds(List<int> idIngredientesParaRemover)
+        {
+            idIngredientesParaRemover.ForEach(id =>
+            {
+                _db.receitaIngrediente
+                    .Where(ri => ri.IdIngredinete == id)
+                    .Delete();
+            });
+        }
+        private void SalvarIds(List<int> idIngredientesParaAdicionar, int idReceita)
+        {
+            _repositorioReceitaIngrediente.Criar(idIngredientesParaAdicionar, idReceita);
         }
     }
 }

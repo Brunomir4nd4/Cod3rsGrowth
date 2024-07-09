@@ -8,7 +8,7 @@ namespace Cod3rsGrowth.Teste.ConfiguracaoAmbienteTeste
 {
     public class ModuloDeInjecao
     {
-        public static void BindServices(ServiceCollection servicos)
+        public static void BindServices(IServiceCollection servicos)
         {
             servicos.AddScoped<ServicoPocao>();
             servicos.AddScoped<ServicoIngrediente>();

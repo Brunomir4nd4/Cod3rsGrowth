@@ -8,7 +8,6 @@ namespace Cod3rsGrowth.Servico.Servicos
         private readonly IRepositorioPocao _repositorioPocao;
         private readonly IRepositorioReceita _repositorioReceita;
         private ServicoIngrediente _servicoIngrediente;
-        private FiltroReceita _filtroReceita = new FiltroReceita();
         public ServicoPocao(
             IRepositorioPocao repositorioPocao, 
             IRepositorioReceita repositorioReceita,
@@ -20,17 +19,21 @@ namespace Cod3rsGrowth.Servico.Servicos
             _servicoIngrediente = servicoIngrediente;
         }
 
-        public List<FiltroPocao> ObterTodos(FiltroPocao filtroPocao)
+        public List<Pocao> ObterTodos(FiltroPocao? filtroPocao)
         {
             return _repositorioPocao.ObterTodos(filtroPocao);
         }
+        public List<Pocao> ObterTodos()
+        {
+            return _repositorioPocao.ObterTodos();
+        }
 
-        public FiltroPocao ObterPorId(int? id)
+        public Pocao ObterPorId(int? id)
         {
             return _repositorioPocao.ObterPorId(id);
         }
 
-        public void Criar(List<Ingrediente> ingredientesSelecionados)
+        public int Criar(List<Ingrediente> ingredientesSelecionados)
         {
             const int quantidadeMinimaDeIngrediente = 0;
             List<Ingrediente> ingredientesInvalidos = ingredientesSelecionados
@@ -43,7 +46,7 @@ namespace Cod3rsGrowth.Servico.Servicos
                 throw new Exception(erros);
             }
 
-            List<Receita> receitasCadastradas = _repositorioReceita.ObterTodos(_filtroReceita);
+            List<Receita> receitasCadastradas = _repositorioReceita.ObterTodos(null);
 
             var listaIdIngrediente = ingredientesSelecionados.Select(i => i.Id).ToList();
 
@@ -57,7 +60,7 @@ namespace Cod3rsGrowth.Servico.Servicos
                 _servicoIngrediente.Editar(i);
             });
 
-            _repositorioPocao.Criar(receita);
+            return _repositorioPocao.Criar(receita);
         }
 
         public void Remover(int? intPocaoSelecionada)

@@ -21,9 +21,13 @@ namespace Cod3rsGrowth.Servico.Servicos
             _servicoReceitaIngrediente = servicoReceitaIngrediente;
         }
 
-        public List<Receita> ObterTodos(FiltroReceita receita)
+        public List<Receita> ObterTodos(FiltroReceita? receita)
         {
             return _repositorioReceita.ObterTodos(receita);
+        }
+        public List<Receita> ObterTodos()
+        {
+            return _repositorioReceita.ObterTodos();
         }
 
         public Receita ObterPorId(int id)
@@ -31,7 +35,7 @@ namespace Cod3rsGrowth.Servico.Servicos
             return _repositorioReceita.ObterPorId(id);
         }
 
-        public void Criar(Receita receita)
+        public int Criar(Receita receita)
         {
             var validate = _validator.Validate(receita);
             if (!validate.IsValid)
@@ -40,9 +44,10 @@ namespace Cod3rsGrowth.Servico.Servicos
                 throw new ValidationException(erros);
             }
 
-            var idReceita = _repositorioReceita.Criar(receita);
+            var id = _repositorioReceita.Criar(receita);
 
-            _servicoReceitaIngrediente.Criar(receita.ListaIdIngrediente, idReceita);
+            _servicoReceitaIngrediente.Criar(receita.ListaIdIngrediente, id);
+            return id;
         }
 
         public Receita Editar(Receita receitaEditada)

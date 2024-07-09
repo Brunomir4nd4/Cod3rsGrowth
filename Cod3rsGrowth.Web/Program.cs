@@ -1,20 +1,26 @@
+
+using Cod3rsGrowth.Infra;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.ConfigureProblemDetailsModelState();
+
+ModuloInjetorInfra.BindServices(builder.Services);
+var serviceProvider = builder.Services.BuildServiceProvider();
+ModuloInjetorInfra.AtualizarTabelas(serviceProvider);
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseProblemDetailsExceptionHandler(app.Services.GetRequiredService<ILoggerFactory>());
 
 app.UseHttpsRedirection();
 
