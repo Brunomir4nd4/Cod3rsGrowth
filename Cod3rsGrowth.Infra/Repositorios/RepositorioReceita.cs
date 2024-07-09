@@ -30,6 +30,7 @@ namespace Cod3rsGrowth.Infra.Repositorios
             });
             return receitasFiltradas;
         }
+
         public List<Receita> ObterTodos()
         {
             var listaReceitas = _db.receita.ToList();
@@ -71,23 +72,26 @@ namespace Cod3rsGrowth.Infra.Repositorios
 
         public Receita Editar(Receita receitaEditada)
         {
-            var receitaAtualizada = ObterPorId(receitaEditada.Id);
+            var receita = ObterPorId(receitaEditada.Id);
 
-            receitaAtualizada.Nome = receitaEditada.Nome;
-            receitaAtualizada.Descricao = receitaEditada.Descricao;
-            receitaAtualizada.Valor = receitaEditada.Valor;
-            receitaAtualizada.Imagem = receitaEditada.Imagem;
-            receitaAtualizada.ValidadeEmMeses = receitaEditada.ValidadeEmMeses;
-            receitaAtualizada.ListaIdIngrediente = receitaEditada.ListaIdIngrediente;
+            var idIngredientesAnteriores = receita.ListaIdIngrediente;
+            var idIngredientesAtuais = receitaEditada.ListaIdIngrediente;
 
-            _db.receitaIngrediente
-                .Where(ri => ri.IdReceita == receitaEditada.Id)
-                .Delete();
+            List<int> idIngredientesParaRemover = idIngredientesAnteriores.Except(idIngredientesAtuais).ToList();
+            List<int> idIngredientesParaAdicionar = idIngredientesAtuais.Except(idIngredientesAnteriores).ToList();
 
-            _repositorioReceitaIngrediente.Criar(receitaAtualizada.ListaIdIngrediente, receitaEditada.Id);
+            receita.Nome = receitaEditada.Nome;
+            receita.Descricao = receitaEditada.Descricao;
+            receita.Valor = receitaEditada.Valor;
+            receita.Imagem = receitaEditada.Imagem;
+            receita.ValidadeEmMeses = receitaEditada.ValidadeEmMeses;
+            receita.ListaIdIngrediente = receitaEditada.ListaIdIngrediente;
+
+            RemoverIds(idIngredientesParaRemover);
+            SalvarIds(idIngredientesParaAdicionar, receita.Id);
             
-            _db.Update(receitaAtualizada);
-            return receitaAtualizada;
+            _db.Update(receita);
+            return receita;
         }
 
         public void Remover(int idReceita)
@@ -116,6 +120,20 @@ namespace Cod3rsGrowth.Infra.Repositorios
                 query = query.Where(r => r.ValidadeEmMeses == receita.ValidadeEmMeses);
 
             return query.ToList();
+        }
+
+        private void RemoverIds(List<int> idIngredientesParaRemover)
+        {
+            idIngredientesParaRemover.ForEach(id =>
+            {
+                _db.receitaIngrediente
+                    .Where(ri => ri.IdIngredinete == id)
+                    .Delete();
+            });
+        }
+        private void SalvarIds(List<int> idIngredientesParaAdicionar, int idReceita)
+        {
+            _repositorioReceitaIngrediente.Criar(idIngredientesParaAdicionar, idReceita);
         }
     }
 }

@@ -76,7 +76,7 @@ namespace Cod3rsGrowth.Forms
 
             _servicoReceita.Editar(receita);
             MessageBox.Show(
-                $"Receita atualizado com sucesso!",
+                $"Receita atualizada com sucesso!",
                 "SUCCESS!",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information
