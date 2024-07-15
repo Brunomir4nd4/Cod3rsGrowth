@@ -7,17 +7,22 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="App.config" />
-    <Content Remove="wwwroot\i18n\i18n.properties" />
+    <Compile Remove="wwwroot\Controller\**" />
+    <Compile Remove="wwwroot\i18n\**" />
+    <Content Remove="wwwroot\Controller\**" />
+    <Content Remove="wwwroot\i18n\**" />
+    <EmbeddedResource Remove="wwwroot\Controller\**" />
+    <EmbeddedResource Remove="wwwroot\i18n\**" />
+    <None Remove="wwwroot\Controller\**" />
+    <None Remove="wwwroot\i18n\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <_ContentIncludedByDefault Remove="wwwroot\i18n\i18n.properties" />
+    <Content Remove="App.config" />
   </ItemGroup>
 
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="wwwroot\i18n\i18n.properties" />
   </ItemGroup>
 
   <ItemGroup>
@@ -35,10 +40,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Cod3rsGrowth.Servico\Cod3rsGrowth.Servico.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="wwwroot\Controller\" />
   </ItemGroup>
 
 </Project>

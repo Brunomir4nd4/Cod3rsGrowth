@@ -13,10 +13,8 @@ sap.ui.define([
 
 		init() {
 			UIComponent.prototype.init.apply(this, arguments);
-		},
 
-		getContentDensityClass() {
-			return Device.support.touch ? "sapUiSizeCozy" : "sapUiSizeCompact";
+			this.getRouter().initialize();
 		}
 	});
 });

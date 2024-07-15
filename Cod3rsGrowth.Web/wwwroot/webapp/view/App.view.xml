@@ -1,13 +1,11 @@
 ﻿<mvc:View
     controllerName="coders-growth.controller.App"
     xmlns="sap.m"
-    xmlns:mvc="sap.ui.core.mvc">
-    <App id="app">
-        <Page>
-        <headerContent>
-            <Text text="{i18n>mensagemDeSaudacao}"/>
-            <Button id="cliqueEmMim" text="{i18n>textoDoBotaoCliqueEmMim}" press="onPress"/>
-        </headerContent>
-        </Page>
-    </App>
+    xmlns:mvc="sap.ui.core.mvc"
+    displayBlock="true">
+
+    <Shell>
+        <App id="app"/>
+    </Shell>
+
 </mvc:View>

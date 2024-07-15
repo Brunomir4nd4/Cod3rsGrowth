@@ -5,7 +5,7 @@ sap.ui.define([
 ], (Opa5, Press, PropertyStrictEquals) => {
 	"use strict";
 
-	const NOME_DO_VIEW = "coders-growth.view.App";
+	const NOME_DO_VIEW = "coders-growth.view.Home";
     const ID_DO_BOTAO = "cliqueEmMim";
 
 	Opa5.createPageObjects({
@@ -18,7 +18,7 @@ sap.ui.define([
 						id: ID_DO_BOTAO,
 						viewName: NOME_DO_VIEW,
 						actions: new Press(),
-						errorMessage: "Não foi posível clicar no botão"
+						errorMessage: "Não foi possível clicar no botão"
 					});
 				}
 			},
@@ -33,9 +33,9 @@ sap.ui.define([
 							value : "Fui clicado!"
 						}),
 						success : function (oButton) {
-							Opa5.assert.ok(true, "The button's text changed to: " + oButton.getText());
+							Opa5.assert.ok(true, "O texto do botão mudou para: " + oButton.getText());
 						},
-						errorMessage : "did not change the Button's text"
+						errorMessage : "Não foi possível trocar o texto do botão"
 					});
 				}
 			}
