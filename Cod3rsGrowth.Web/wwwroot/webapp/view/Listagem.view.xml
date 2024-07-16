@@ -1,0 +1,31 @@
+<mvc:View
+    controllerName="coders-growth.controller.Listagem"
+    xmlns="sap.m"
+    xmlns:mvc="sap.ui.core.mvc">
+
+    <Page title="{i18n>Listagem.Listagem}" class="sapUiResponsiveContentPadding">
+        <Table
+            id="tabelaIngrediente"
+            width="auto"
+            items="{
+                sorter: {
+                    path: 'nome'
+                }
+            }">
+
+            <headerToolbar>
+                <Toolbar>
+                    <Title id="tableHeader" text="Texto 1"/>
+                    <ToolbarSpacer />
+                    <SearchField
+                        id="searchField"
+                        tooltip="{i18n>Texto 2s}"
+                        search=".onSearch"
+                        width="auto">
+                    </SearchField>
+                </Toolbar>
+            </headerToolbar>
+        </Table>
+    </Page>
+
+</mvc:View>
