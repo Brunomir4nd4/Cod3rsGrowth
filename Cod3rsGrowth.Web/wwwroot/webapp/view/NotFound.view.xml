@@ -1,0 +1,13 @@
+<mvc:View
+   controllerName="coders-growth.controller.NotFound"
+   xmlns="sap.m"
+   xmlns:mvc="sap.ui.core.mvc">
+
+   <MessagePage
+      title="{i18n>NotFound.NaoEncontrado}"
+      text="{i18n>NotFound.DesculpeMasORecursoSolicitadoNaoEstaDisponivel}"
+      description="{i18n>NotFound.VerifiqueOURLETenteNovamente}"
+      showNavButton="true"
+      navButtonPress="onNavBack"/>
+
+</mvc:View>
