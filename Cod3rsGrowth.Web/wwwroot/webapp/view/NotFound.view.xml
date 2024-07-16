@@ -4,9 +4,9 @@
    xmlns:mvc="sap.ui.core.mvc">
 
    <MessagePage
-      title="{i18n>NotFound}"
-      text="{i18n>NotFound.text}"
-      description="{i18n>NotFound.description}"
+      title="{i18n>NotFound.NaoEncontrado}"
+      text="{i18n>NotFound.DesculpeMasORecursoSolicitadoNaoEstaDisponivel}"
+      description="{i18n>NotFound.VerifiqueOURLETenteNovamente}"
       showNavButton="true"
       navButtonPress="onNavBack"/>
 

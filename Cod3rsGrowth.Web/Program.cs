@@ -14,6 +14,12 @@ ModuloInjetorInfra.AtualizarTabelas(serviceProvider);
 
 var app = builder.Build();
 
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
+
 app.UseStaticFiles(new StaticFileOptions()
 {
     ServeUnknownFileTypes = true
