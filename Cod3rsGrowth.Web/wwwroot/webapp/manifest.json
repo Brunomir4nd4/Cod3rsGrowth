@@ -1,0 +1,91 @@
+{
+	"_version": "1.58.0",
+  	"sap.app": {
+		"id": "coders-growth",
+		"i18n": {
+			"bundleUrl": "i18n/i18n.properties",
+			"supportedLocales": [
+				""
+			],
+			"fallbackLocale": ""
+		},
+		"title": "",
+		"description": "",
+		"type": "application",
+		"applicationVersion": {
+      		"version": "1.0.0"
+		},
+		"dataSources": {
+			"invoiceRemote": {
+				"uri": "V2/Northwind/Northwind.svc/",
+				"type": "OData",
+				"settings": {
+					"odataVersion": "2.0"
+				}
+			}
+		}
+	},
+	"sap.ui": {
+		"technology": "UI5",
+		"deviceTypes": {
+			"desktop": true,
+			"tablet": true,
+			"phone": true
+		}
+	},
+	"sap.ui5": {
+		"contentDensities": {
+			"compact": true,
+			"cozy": true
+		},
+		"rootView": {
+			"viewName": "coders-growth.view.App",
+			"type": "XML",
+			"async": true,
+			"id": "app"
+      	},
+		"dependencies": {
+			"minUI5Version": "1.108.0",
+			"libs": {
+				"sap.ui.core": {},
+				"sap.m": {}
+			}
+		},
+		"models": {
+			"i18n": {
+				"type": "sap.ui.model.resource.ResourceModel",
+				"settings": {
+					"bundleName": "coders-growth.i18n.i18n",
+					"supportedLocales": [
+						""
+					],
+					"fallbackLocale": ""
+				}
+			}
+		},
+    	"routing": {
+			"config": {
+				"routerClass": "sap.m.routing.Router",
+				"type": "View",
+				"viewType": "XML",
+				"path": "coders-growth.view",
+				"controlId": "app",
+				"controlAggregation": "pages",
+				"transition": "slide",
+				"async": true
+			},
+			"routes": [{
+				"pattern": "",
+				"name": "appHome",
+				"target": "home"
+			}],
+			"targets": {
+				"home": {
+					"id": "home",
+					"name": "Home",
+					"level": 1
+				}
+			}
+    	}
+	}
+}

@@ -14,11 +14,13 @@ ModuloInjetorInfra.AtualizarTabelas(serviceProvider);
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
+app.UseStaticFiles(new StaticFileOptions()
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+    ServeUnknownFileTypes = true
+});
+
+
+app.UseDefaultFiles();
 
 app.UseProblemDetailsExceptionHandler(app.Services.GetRequiredService<ILoggerFactory>());
 

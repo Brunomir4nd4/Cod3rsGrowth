@@ -1,0 +1,12 @@
+<mvc:View
+    controllerName="coders-growth.controller.Home"
+    xmlns="sap.m"
+    xmlns:mvc="sap.ui.core.mvc">
+
+    <Page title="{i18n>tituloDaHomePage}" class="sapUiResponsiveContentPadding">
+        <content>
+            <Button id="cliqueEmMim" text="{i18n>textoDoBotaoCliqueEmMim}" press="onPress" class="sapUiTinyMarginEnd"/>
+        </content>
+    </Page>
+
+</mvc:View>
