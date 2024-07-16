@@ -14,7 +14,13 @@ ModuloInjetorInfra.AtualizarTabelas(serviceProvider);
 
 var app = builder.Build();
 
-app.UseStaticFiles();
+app.UseStaticFiles(new StaticFileOptions()
+{
+    ServeUnknownFileTypes = true
+});
+
+
+app.UseDefaultFiles();
 
 app.UseProblemDetailsExceptionHandler(app.Services.GetRequiredService<ILoggerFactory>());
 
