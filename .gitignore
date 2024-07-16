@@ -366,3 +366,5 @@ FodyWeavers.xsd
 App.config
 .vscode
 .vs
+package.json
+ui5.yaml
