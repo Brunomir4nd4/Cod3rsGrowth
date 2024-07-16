@@ -7,17 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="wwwroot\Controller\**" />
-    <Compile Remove="wwwroot\i18n\**" />
-    <Content Remove="wwwroot\Controller\**" />
-    <Content Remove="wwwroot\i18n\**" />
-    <EmbeddedResource Remove="wwwroot\Controller\**" />
-    <EmbeddedResource Remove="wwwroot\i18n\**" />
-    <None Remove="wwwroot\Controller\**" />
-    <None Remove="wwwroot\i18n\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Content Remove="App.config" />
   </ItemGroup>
 
