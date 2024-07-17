@@ -368,3 +368,6 @@ App.config
 .vs
 package.json
 ui5.yaml
+
+SideNavigation.view.xml
+SideNavigation.controller.js

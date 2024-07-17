@@ -21,9 +21,9 @@ namespace Cod3rsGrowth.Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult ObterTodos()
+        public IActionResult ObterTodos([FromQuery] FiltroIngrediente filtroIngrediente)
         {
-            return Ok(_servicoIngrediente.ObterTodos(null));
+            return Ok(_servicoIngrediente.ObterTodos(filtroIngrediente));
         }
 
         [HttpGet("{id}")]

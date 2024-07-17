@@ -7,11 +7,7 @@
         <Table
             id="tabelaIngrediente"
             width="auto"
-            items="{
-                sorter: {
-                    path: 'nome'
-                }
-            }">
+            items="{ path: 'ingrediente>/'}">
 
             <headerToolbar>
                 <Toolbar>
@@ -19,12 +15,39 @@
                     <ToolbarSpacer />
                     <SearchField
                         id="searchField"
-                        tooltip="{i18n>Texto 2s}"
+                        tooltip="{Texto 2}"
                         search=".onSearch"
                         width="auto">
                     </SearchField>
                 </Toolbar>
             </headerToolbar>
+
+            <columns>
+                <Column>
+                    <Text text="ID" />
+                </Column>
+                <Column>
+                    <Text text="Nome" />
+                </Column>
+                <Column>
+                    <Text text="Quantidade" />
+                </Column>
+                <Column>
+                    <Text text="Naturalidade" />
+                </Column>
+            </columns>
+
+            <items>
+                <ColumnListItem vAlign="Middle">
+                    <cells>
+                        <Text text="{ingrediente>id}" />
+                        <Text text="{ingrediente>nome}" />
+                        <Text text="{ingrediente>quantidade}" />
+                        <Text text="{ingrediente>naturalidade}" />
+                    </cells>
+                </ColumnListItem>
+            </items>
+
         </Table>
     </Page>
 
