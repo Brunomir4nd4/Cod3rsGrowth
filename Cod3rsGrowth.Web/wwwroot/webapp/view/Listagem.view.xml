@@ -18,10 +18,10 @@
                     <Input id="filtroQuantidade" type="Text" width="auto" liveChange="aoAlterarFiltrar" placeholder="Quantidade..."/>
                     <SegmentedButton class="sapUiTinyMargin" id="filtroNaturalidade" selectionChange="aoAlterarFiltrar">
                         <items>
-                            <SegmentedButtonItem text="Todos" />
-                            <SegmentedButtonItem text="OverWorld" />
-                            <SegmentedButtonItem text="Nether" />
-                            <SegmentedButtonItem text="TheEnd" />
+                            <SegmentedButtonItem text="Todos" id="botaoTodos" />
+                            <SegmentedButtonItem text="OverWorld" id="botaoOverWorld" />
+                            <SegmentedButtonItem text="Nether" id="botaoNether" />
+                            <SegmentedButtonItem text="TheEnd" id="botaoTheEnd" />
                         </items>
                     </SegmentedButton>
 
@@ -45,7 +45,7 @@
 
             <items>
                 <ColumnListItem vAlign="Middle">
-                    <cells>
+                    <cells id="celulasDaTabelaIngredientes">
                         <Text text="{ingrediente>id}" />
                         <Text text="{ingrediente>nome}" />
                         <Text text="{ingrediente>quantidade}" />

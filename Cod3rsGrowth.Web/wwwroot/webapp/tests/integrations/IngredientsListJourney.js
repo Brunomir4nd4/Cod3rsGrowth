@@ -1,21 +1,46 @@
 sap.ui.define([
 	"sap/ui/test/opaQunit",
-	"./pages/Worklist"
+	"coders-growth/tests/pages/IngredientsList"
 ], function (opaTest) {
-	"use strict";
+		"use strict";
 
-	const STRING_INPUT_BLAZE = "Blaze";
+		const NAME_SPACE = "coders-growth";
+		const STRING_INPUT_OLHO = "Olho";
 
-	QUnit.module("Posts");
+		QUnit.module("Posts");
 
-	opaTest("Should see the table with all posts", function (Given, When, Then) {
-		// Arrangements
-		Given.naPaginaDeListagemDosIngredientes.euInsiroBlazeNoInputNome(STRING_INPUT_BLAZE);
+		opaTest("Deveria aparecer os ingredientes cotendo Olho no nome", function (Given, When, Then) {
+			//Arrangements
+			Given.iStartMyUIComponent({
+				componentConfig: {
+					name: NAME_SPACE
+				}
+			});
 
-		// Assertions
-		Then.onTheWorklistPage.theTableShouldHavePagination().
-			and.theTitleShouldDisplayTheTotalAmountOfItems();
-	})
+			//Actions
+			When.naPaginaDeListagemDosIngredientes.aoInserirOlhoNoInputNome(STRING_INPUT_OLHO);
+
+			// Assertions
+			Then.naPaginaDeListagemDosIngredientes.aListaDeveConterItensComNomeOlho();
+			
+			// Cleanup
+			Then.iTeardownMyApp();
+		});
+
+		opaTest("Clicar no botão OverWorld deve apresentar somentes os itens do OverWorld", function (Given, When, Then) {
+			//Arrangements
+			Given.iStartMyUIComponent({
+				componentConfig: {
+					name: NAME_SPACE
+				}
+			});
+			
+			When.naPaginaDeListagemDosIngredientes.aoClicarNoBotaoOverWorld();
+
+			Then.naPaginaDeListagemDosIngredientes.aTabelaDeveConterItensDoOverWorld();
+
+			Then.iTeardownMyApp();
+		})
 
 	}
 );

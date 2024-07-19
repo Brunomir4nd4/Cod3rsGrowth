@@ -8,7 +8,7 @@ sap.ui.require([
     await Core.ready();
 
     sap.ui.require([
-		"coders-growth/tests/NavigationJourney"
+		"coders-growth/tests/integrations/IngredientsListJourney"
 	], () => {
 		QUnit.start();
 	});

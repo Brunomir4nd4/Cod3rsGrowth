@@ -12,7 +12,7 @@ sap.ui.define([
     const ID_INPUT_QUANTIDADE = "filtroQuantidade";
     const ID_INPUT_NATURALIDADE = "filtroNaturalidade";
     const FLAG_PARA_FILTROAGEM_NULA = "Todos";
- 
+    
     return BaseController.extend("coders-growth.controller.Listagem", {
         formatter: Formatter,
         onInit(){
@@ -36,11 +36,15 @@ sap.ui.define([
                 urlComFiltros += "Quantidade="+filtroQuantidade+"&";
 
             if (filtroNaturalidade != FLAG_PARA_FILTROAGEM_NULA)
-                urlComFiltros += "Naturalidade="+filtroNaturalidade+"&";
+                urlComFiltros += "Naturalidade="+filtroNaturalidade;
 
+            let listaDeIngredientes;
             fetch(urlComFiltros)
                 .then((res) => res.json())
-                .then((data) => this.getView().setModel(new JSONModel(data), NOME_DO_MODELO))
+                .then((data) => {
+                    listaDeIngredientes = data;
+                    this.getView().setModel(new JSONModel(data), NOME_DO_MODELO);
+                })
                 .catch((err) => console.error(err));
         }
     });
