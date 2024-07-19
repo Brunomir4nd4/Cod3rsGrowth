@@ -3,7 +3,7 @@
     xmlns="sap.m"
     xmlns:mvc="sap.ui.core.mvc">
 
-    <Page title="{i18n>Listagem.Listagem}" class="sapUiResponsiveContentPadding">
+    <Page title="{i18n>Listagem.Listagem}" class="sapUiResponsiveContentPadding" showHeader="false" >
         <Table
             id="tabelaIngrediente"
             width="auto"
@@ -11,14 +11,20 @@
 
             <headerToolbar>
                 <Toolbar>
-                    <Title id="tableHeader" text="Texto 1"/>
+                    <Title id="tableHeader" text="Ingredientes"/>
                     <ToolbarSpacer />
-                    <SearchField
-                        id="searchField"
-                        tooltip="{Texto 2}"
-                        search=".onSearch"
-                        width="auto">
-                    </SearchField>
+
+                    <Input id="filtroNome" type="Text" width="auto" liveChange="aoAlterarFiltrar" placeholder="Nome..."/>
+                    <Input id="filtroQuantidade" type="Text" width="auto" liveChange="aoAlterarFiltrar" placeholder="Quantidade..."/>
+                    <SegmentedButton class="sapUiTinyMargin" id="filtroNaturalidade" selectionChange="aoAlterarFiltrar">
+                        <items>
+                            <SegmentedButtonItem text="Todos" />
+                            <SegmentedButtonItem text="OverWorld" />
+                            <SegmentedButtonItem text="Nether" />
+                            <SegmentedButtonItem text="TheEnd" />
+                        </items>
+                    </SegmentedButton>
+
                 </Toolbar>
             </headerToolbar>
 
@@ -43,7 +49,10 @@
                         <Text text="{ingrediente>id}" />
                         <Text text="{ingrediente>nome}" />
                         <Text text="{ingrediente>quantidade}" />
-                        <Text text="{ingrediente>naturalidade}" />
+                        <Text text="{
+                            path: 'ingrediente>naturalidade',
+                            formatter: '.formatter.formatarEnum'
+                        }" />
                     </cells>
                 </ColumnListItem>
             </items>

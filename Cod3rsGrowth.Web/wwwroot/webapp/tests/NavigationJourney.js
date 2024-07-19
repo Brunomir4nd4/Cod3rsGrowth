@@ -3,13 +3,15 @@ sap.ui.require([
     "coders-growth/tests/pages/App"
 ], (opaTest) => {
 
+    const NAME_SPACE = "coders-growth";
+
     QUnit.module("Navigation");
 
     opaTest("Ao pressionar o botão", (Given, When, Then) => {
         //Arrangements
         Given.iStartMyUIComponent({
             componentConfig: {
-                name: "coders-growth"
+                name: NAME_SPACE
             }
         });
 

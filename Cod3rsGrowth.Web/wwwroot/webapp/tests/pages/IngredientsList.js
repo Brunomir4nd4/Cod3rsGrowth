@@ -1,24 +1,25 @@
 sap.ui.define([
 	"sap/ui/test/Opa5",
-	"sap/ui/test/actions/Press",
-    "sap/ui/test/matchers/PropertyStrictEquals"
-], (Opa5, Press, PropertyStrictEquals) => {
+	'sap/ui/test/actions/EnterText'
+], (Opa5, EnterText) => {
 	"use strict";
 
-	const NOME_DO_VIEW = "coders-growth.view.Home";
-    const ID_DO_BOTAO = "cliqueEmMim";
+	const NOME_DO_VIEW = "coders-growth.view.Listagem";
+    const ID_FILTRO_NOME = "filtroNome";
 
 	Opa5.createPageObjects({
 	
-		onTheAppPage: {
+		naPaginaDeListagemDosIngredientes: {
 
 			actions: {
-				euClicoNoBotao() {
+				euInsiroBlazeNoInputNome(stringDeBusca) {
 					return this.waitFor({
-						id: ID_DO_BOTAO,
+						id: ID_FILTRO_NOME,
 						viewName: NOME_DO_VIEW,
-						actions: new Press(),
-						errorMessage: "Não foi possível clicar no botão"
+						actions: new EnterText({
+							text: stringDeBusca
+						}),
+						errorMessage: "Campo Nome não encontrado."
 					});
 				}
 			},
