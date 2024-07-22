@@ -11,10 +11,11 @@ sap.ui.define([
 
 	const NOME_DO_VIEW = "coders-growth.view.Listagem";
     const ID_INPUT_NOME = "filtroNome";
+    const ID_INPUT_QUANTIDADE = "filtroQuantidade";
 	const ID_TABELA_INGREDIENTES = "tabelaIngrediente";
 	const ID_BOTAO_OVERWORLD = "botaoOverWorld";
 	const ID_BOTAO_NETHER = "botaoNether";
-	const ID_BOTAO_THEEND = "botaoTheEnde";
+	const ID_BOTAO_THEEND = "botaoTheEnd";
 	const ID_BOTAO_TODOS = "botaoTodos";
 
 	Opa5.createPageObjects({
@@ -40,6 +41,55 @@ sap.ui.define([
 						actions: new Press(),
 						errorMessage: "Botão OverWorld não encontrado."
 					});
+				},
+
+				aoClicarNoBotaoNether(){
+					return this.waitFor({
+						viewName: NOME_DO_VIEW,
+						id: ID_BOTAO_NETHER,
+						actions: new Press(),
+						errorMessage: "Botão Nether não encontrado."
+					});
+				},
+
+				aoClicarNoBotaoTheEnd() {
+					return this.waitFor({
+						viewName: NOME_DO_VIEW,
+						id: ID_BOTAO_THEEND,
+						actions: new Press(),
+						errorMessage: "Botão TheEnd não encontrado."
+					});
+				},
+
+				aoClicarNoBotaoTodos() {
+					return this.waitFor({
+						viewName: NOME_DO_VIEW,
+						id: ID_BOTAO_TODOS,
+						actions: new Press(),
+						errorMessage: "Botão Todos não encontrado."
+					});
+				},
+
+				aoInserirPoNoInputNome(stringDeBusca){
+					return this.waitFor({
+						viewName: NOME_DO_VIEW,
+						id: ID_INPUT_NOME,
+						actions: new EnterText({
+							text: stringDeBusca
+						}),
+						errorMessage: "Campo nome não encontrado."
+					})
+				},
+
+				aoInserir15NoInputQuantidade(stringDeBusca) {
+					return this.waitFor({
+						viewName: NOME_DO_VIEW,
+						id: ID_INPUT_QUANTIDADE,
+						actions: new EnterText({
+							text: stringDeBusca
+						}),
+						errorMessage: "Campo nome não encontrado."
+					})
 				}
 			},
 
@@ -67,29 +117,68 @@ sap.ui.define([
 						errorMessage: "A tabela não possui somente valores com Olho em seus nomes"
 					});
 				},
-				
-				aTabelaDeveConterItensDoOverWorld() {
-					const filtroDeInput = "OverWorld";
+
+				aTabelaDeveConterItensComNomePoEQuantidade15() {
+					const tamanhoEsperado = 2
 					return this.waitFor({
-						controlType: "sap.m.Table",
 						viewName: NOME_DO_VIEW,
 						id: ID_TABELA_INGREDIENTES,
-						matchers: (oTable) => { 
-							oTable.getItems().map((row) => {
-								const aCells = row.getCells();
-
-								//console.log(aCells[3].getText())
-								const result = aCells[3].getText().includes(filtroDeInput);
-
-								if (result)
-									return true;
-								return false;
-							})
-						},
+						matchers: new sap.ui.test.matchers.AggregationLengthEquals({
+							name: "items",
+							length: tamanhoEsperado
+						}),
 						success: function() {
-							Opa5.assert.ok(true, "A tabela possui somente valores do OverWolrd");
+							Opa5.assert.ok(true, `A tabela possui somente ${tamanhoEsperado} valores`);
 						},
-						errorMessage: "A tabela não possui somente valores do OverWolrd"
+						errorMessage: `A tabela não possui somente ${tamanhoEsperado} valores`
+					})
+				},
+				
+				aTabelaDeveConter7Itens() {
+					const tamanhoEsperado = 7;
+					return this.waitFor({
+						viewName: NOME_DO_VIEW,
+						id: ID_TABELA_INGREDIENTES,
+						matchers: new sap.ui.test.matchers.AggregationLengthEquals({
+							name: "items",
+							length: tamanhoEsperado
+						}),
+						success: function() {
+							Opa5.assert.ok(true, `A tabela possui somente ${tamanhoEsperado} valores`);
+						},
+						errorMessage: `A tabela não possui somente ${tamanhoEsperado} valores`
+					})
+				},
+
+				aTabelaDeveConter2Itens() {
+					const tamanhoEsperado = 2;
+					return this.waitFor({
+						viewName: NOME_DO_VIEW,
+						id: ID_TABELA_INGREDIENTES,
+						matchers: new sap.ui.test.matchers.AggregationLengthEquals({
+							name: "items",
+							length: tamanhoEsperado
+						}),
+						success: function() {
+							Opa5.assert.ok(true, `A tabela possui somente ${tamanhoEsperado} valores`);
+						},
+						errorMessage: `A tabela não possui somente ${tamanhoEsperado} valores`
+					})
+				},
+
+				aTabelaDeveConter1Item() {
+					const tamanhoEsperado = 1;
+					return this.waitFor({
+						viewName: NOME_DO_VIEW,
+						id: ID_TABELA_INGREDIENTES,
+						matchers: new sap.ui.test.matchers.AggregationLengthEquals({
+							name: "items",
+							length: tamanhoEsperado
+						}),
+						success: function() {
+							Opa5.assert.ok(true, `A tabela possui somente ${tamanhoEsperado} valores`);
+						},
+						errorMessage: `A tabela não possui somente ${tamanhoEsperado} valores`
 					})
 				}
 			}

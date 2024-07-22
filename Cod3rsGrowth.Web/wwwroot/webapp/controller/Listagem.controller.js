@@ -38,11 +38,9 @@ sap.ui.define([
             if (filtroNaturalidade != FLAG_PARA_FILTROAGEM_NULA)
                 urlComFiltros += "Naturalidade="+filtroNaturalidade;
 
-            let listaDeIngredientes;
             fetch(urlComFiltros)
                 .then((res) => res.json())
                 .then((data) => {
-                    listaDeIngredientes = data;
                     this.getView().setModel(new JSONModel(data), NOME_DO_MODELO);
                 })
                 .catch((err) => console.error(err));
