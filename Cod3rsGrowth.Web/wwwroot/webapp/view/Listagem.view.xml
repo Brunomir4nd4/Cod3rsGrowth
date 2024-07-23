@@ -11,17 +11,17 @@
 
             <headerToolbar>
                 <Toolbar>
-                    <Title id="tableHeader" text="Ingredientes"/>
+                    <Title id="tableHeader" text="{i18n>Lisatgem.Ingredientes}"/>
                     <ToolbarSpacer />
 
-                    <Input id="filtroNome" type="Text" width="auto" liveChange="aoAlterarFiltrar" placeholder="Nome..."/>
-                    <Input id="filtroQuantidade" type="Text" width="auto" liveChange="aoAlterarFiltrar" placeholder="Quantidade..."/>
+                    <Input id="filtroNome" type="Text" width="auto" liveChange="aoAlterarFiltrar" placeholder="{i18n>Listagem.Nome...}"/>
+                    <Input id="filtroQuantidade" type="Text" width="auto" liveChange="aoAlterarFiltrar" placeholder="{i18n>Listagem.Quantidade...}"/>
                     <SegmentedButton class="sapUiTinyMargin" id="filtroNaturalidade" selectionChange="aoAlterarFiltrar">
                         <items>
-                            <SegmentedButtonItem text="Todos" id="botaoTodos" />
-                            <SegmentedButtonItem text="OverWorld" id="botaoOverWorld" />
-                            <SegmentedButtonItem text="Nether" id="botaoNether" />
-                            <SegmentedButtonItem text="TheEnd" id="botaoTheEnd" />
+                            <SegmentedButtonItem text="{i18n>Listagem.Todos}" id="botaoTodos" />
+                            <SegmentedButtonItem text="{i18n>Listagem.OverWorld}" id="botaoOverWorld" />
+                            <SegmentedButtonItem text="{i18n>Listagem.Nether}" id="botaoNether" />
+                            <SegmentedButtonItem text="{i18n>Listagem.TheEnd}" id="botaoTheEnd" />
                         </items>
                     </SegmentedButton>
 
@@ -30,16 +30,16 @@
 
             <columns>
                 <Column>
-                    <Text text="ID" />
+                    <Text text="{i18n>Listagem.ID}" />
                 </Column>
                 <Column>
-                    <Text text="Nome" />
+                    <Text text="`{i18n>Listagem.Nome}" />
                 </Column>
                 <Column>
-                    <Text text="Quantidade" />
+                    <Text text="{i18n>Listagem.Quantidade}" />
                 </Column>
                 <Column>
-                    <Text text="Naturalidade" />
+                    <Text text="{i18n>Listagem.Naturalidade}" />
                 </Column>
             </columns>
 

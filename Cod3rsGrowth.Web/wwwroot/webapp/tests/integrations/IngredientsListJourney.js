@@ -39,7 +39,7 @@ sap.ui.define([
 			
 			When.naPaginaDeListagemDosIngredientes.aoClicarNoBotaoOverWorld();
 
-			Then.naPaginaDeListagemDosIngredientes.aTabelaDeveConter7Itens();
+			Then.naPaginaDeListagemDosIngredientes.aTabelaDeveConter7ItensDoOverWorld();
 
 		});
 
@@ -47,14 +47,14 @@ sap.ui.define([
 			
 			When.naPaginaDeListagemDosIngredientes.aoClicarNoBotaoNether();
 
-			Then.naPaginaDeListagemDosIngredientes.aTabelaDeveConter2Itens();
+			Then.naPaginaDeListagemDosIngredientes.aTabelaDeveConter2ItensDoNether();
 		});
 
 		opaTest("Clicar no botão TheEnd deve apresetar somente os itens do TheEnd", function (Given, When, Then) {
 			
 			When.naPaginaDeListagemDosIngredientes.aoClicarNoBotaoTheEnd();
 
-			Then.naPaginaDeListagemDosIngredientes.aTabelaDeveConter1Item();
+			Then.naPaginaDeListagemDosIngredientes.aTabelaDeveConter1ItemDoTheEnd();
 		});
 
 		opaTest("Deve apresentar os ingredientes contendo Pó no nome e com quantidade igual a 15", function (Given, When, Then) {

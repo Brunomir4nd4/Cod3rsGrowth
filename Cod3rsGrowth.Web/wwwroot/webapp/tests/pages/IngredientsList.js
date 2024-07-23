@@ -95,93 +95,149 @@ sap.ui.define([
 
 			assertions: {
 				aListaDeveConterItensComNomeOlho() {
-					const primeiroItem = 0;
-					const filtroDeInput = "Olho";
+					const stringEsperada = "Olho";
+					const tamanhoEsperado = 2;
+					const tagDasLinhas = "items";
 					return this.waitFor({
 						viewName: NOME_DO_VIEW,
 						id: ID_TABELA_INGREDIENTES,
-						matchers: (oTable) => {
-							const aCells = oTable.getItems()[primeiroItem].getCells();
+						matchers: new sap.ui.test.matchers.AggregationLengthEquals({
+							name: tagDasLinhas,
+							length: tamanhoEsperado
+						}),
+						success: function(oTable) {
+							const items = oTable.getItems();
 
-							const result = aCells.map((cell) => {
-								return cell.getText().includes(filtroDeInput);
-							})
-
-							if (result)
-								return true;
-							return false;
-						},
-						success: function() {
-							Opa5.assert.ok(true, "A tabela possui somente valores com Olho em seus nomes");
+							let result = items.every((item) => {
+								let itemDesejado = item.getBindingContext("ingrediente").getProperty("nome");
+								return itemDesejado.includes(stringEsperada);
+							});
+				
+							Opa5.assert.ok(result, "A tabela possui somente valores com Olho em seus nomes");
 						},
 						errorMessage: "A tabela não possui somente valores com Olho em seus nomes"
 					});
 				},
 
 				aTabelaDeveConterItensComNomePoEQuantidade15() {
-					const tamanhoEsperado = 2
+					const tamanhoEsperado = 1;
+					const tagDasLinhas = "items";
+					const stringEsperada = "Pó";
+					const quantidadeEsperada = 15;
 					return this.waitFor({
 						viewName: NOME_DO_VIEW,
 						id: ID_TABELA_INGREDIENTES,
 						matchers: new sap.ui.test.matchers.AggregationLengthEquals({
-							name: "items",
+							name: tagDasLinhas,
 							length: tamanhoEsperado
 						}),
-						success: function() {
-							Opa5.assert.ok(true, `A tabela possui somente ${tamanhoEsperado} valores`);
+						success: function(oTable) {
+							const items = oTable.getItems();
+
+							let result = items.every((item) => {
+								let nome = item.getBindingContext("ingrediente").getProperty("nome");
+								let quantidade = item.getBindingContext("ingrediente").getProperty("quantidade");
+								return nome.includes(stringEsperada) & quantidade === quantidadeEsperada;
+							});
+
+							Opa5.assert.ok(result, `A tabela possui somente ${tamanhoEsperado} valores`);
 						},
 						errorMessage: `A tabela não possui somente ${tamanhoEsperado} valores`
 					})
 				},
 				
-				aTabelaDeveConter7Itens() {
+				aTabelaDeveConter7ItensDoOverWorld() {
 					const tamanhoEsperado = 7;
+					const tagDasLinhas = "items";
+					const stringEsperada = "OverWorld";
 					return this.waitFor({
 						viewName: NOME_DO_VIEW,
 						id: ID_TABELA_INGREDIENTES,
 						matchers: new sap.ui.test.matchers.AggregationLengthEquals({
-							name: "items",
+							name: tagDasLinhas,
 							length: tamanhoEsperado
 						}),
-						success: function() {
-							Opa5.assert.ok(true, `A tabela possui somente ${tamanhoEsperado} valores`);
+						success: function(oTable) {
+							const items = oTable.getItems();
+
+							let result = items.every((item) => {
+								let naturalidade = item.getBindingContext("ingrediente").getProperty("naturalidade");
+								naturalidade = formatarEnum(naturalidade);
+								return naturalidade === stringEsperada;
+							});
+
+							Opa5.assert.ok(result, `A tabela possui somente ${tamanhoEsperado} valores do OverWorld`);
 						},
-						errorMessage: `A tabela não possui somente ${tamanhoEsperado} valores`
+						errorMessage: `A tabela não possui somente ${tamanhoEsperado} valores do OverWorld`
 					})
 				},
 
-				aTabelaDeveConter2Itens() {
+				aTabelaDeveConter2ItensDoNether() {
 					const tamanhoEsperado = 2;
+					const tagDasLinhas = "items";
+					const stringEsperada = "Nether";
 					return this.waitFor({
 						viewName: NOME_DO_VIEW,
 						id: ID_TABELA_INGREDIENTES,
 						matchers: new sap.ui.test.matchers.AggregationLengthEquals({
-							name: "items",
+							name: tagDasLinhas,
 							length: tamanhoEsperado
 						}),
-						success: function() {
-							Opa5.assert.ok(true, `A tabela possui somente ${tamanhoEsperado} valores`);
+						success: function(oTable) {
+							const items = oTable.getItems();
+
+							let result = items.every((item) => {
+								let naturalidade = item.getBindingContext("ingrediente").getProperty("naturalidade");
+								naturalidade = formatarEnum(naturalidade);
+								return naturalidade === stringEsperada;
+							});
+
+							Opa5.assert.ok(result, `A tabela possui somente ${tamanhoEsperado} valores do Nether`);
 						},
-						errorMessage: `A tabela não possui somente ${tamanhoEsperado} valores`
+						errorMessage: `A tabela não possui somente ${tamanhoEsperado} valores do Nether`
 					})
 				},
 
-				aTabelaDeveConter1Item() {
+				aTabelaDeveConter1ItemDoTheEnd() {
 					const tamanhoEsperado = 1;
+					const tagDasLinhas = "items";
+					const stringEsperada = "TheEnd";
 					return this.waitFor({
 						viewName: NOME_DO_VIEW,
 						id: ID_TABELA_INGREDIENTES,
 						matchers: new sap.ui.test.matchers.AggregationLengthEquals({
-							name: "items",
+							name: tagDasLinhas,
 							length: tamanhoEsperado
 						}),
-						success: function() {
-							Opa5.assert.ok(true, `A tabela possui somente ${tamanhoEsperado} valores`);
+						success: function(oTable) {
+							const items = oTable.getItems();
+
+							let result = items.every((item) => {
+								let naturalidade = item.getBindingContext("ingrediente").getProperty("naturalidade");
+								naturalidade = formatarEnum(naturalidade);
+								return naturalidade === stringEsperada;
+							});
+
+							Opa5.assert.ok(result, `A tabela possui somente ${tamanhoEsperado} valores do TheEnd`);
 						},
-						errorMessage: `A tabela não possui somente ${tamanhoEsperado} valores`
+						errorMessage: `A tabela não possui somente ${tamanhoEsperado} valores do TheEnd`
 					})
 				}
 			}
 		}
 	});
+
+	let formatarEnum = (valorInteiroDoEnum) => {
+
+		switch(valorInteiroDoEnum){
+			case 0:
+				return "OverWorld";
+			case 1:
+				return "Nether";
+			case 2:
+				return "TheEnd";
+			default:
+				return "Indefinido";
+		}
+	};
 });
