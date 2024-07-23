@@ -11,7 +11,7 @@
 
             <headerToolbar>
                 <Toolbar>
-                    <Title id="tableHeader" text="{i18n>Lisatgem.Ingredientes}"/>
+                    <Title id="tableHeader" text="{i18n>Listagem.Ingredientes}"/>
                     <ToolbarSpacer />
 
                     <Input id="filtroNome" type="Text" width="auto" liveChange="aoAlterarFiltrar" placeholder="{i18n>Listagem.Nome...}"/>
@@ -33,7 +33,7 @@
                     <Text text="{i18n>Listagem.ID}" />
                 </Column>
                 <Column>
-                    <Text text="`{i18n>Listagem.Nome}" />
+                    <Text text="{i18n>Listagem.Nome}" />
                 </Column>
                 <Column>
                     <Text text="{i18n>Listagem.Quantidade}" />
@@ -58,6 +58,8 @@
             </items>
 
         </Table>
-    </Page>
+            <Button type="Accept" text="Adicionar" press="aoClicarIrParaCadastro"/>
+
+        </Page>
 
 </mvc:View>
