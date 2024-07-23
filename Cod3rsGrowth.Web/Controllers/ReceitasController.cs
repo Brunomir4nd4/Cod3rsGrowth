@@ -22,9 +22,9 @@ namespace Cod3rsGrowth.Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult ObterTodos()
+        public IActionResult ObterTodos([FromQuery] FiltroReceita filtroReceita)
         {
-           return  Ok(_servicoReceita.ObterTodos(null));
+           return  Ok(_servicoReceita.ObterTodos(filtroReceita));
         }
         
         [HttpGet("{id}")]

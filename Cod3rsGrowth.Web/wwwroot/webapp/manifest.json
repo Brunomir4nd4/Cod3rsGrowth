@@ -79,13 +79,13 @@
 			},
 			"routes": [{
 				"pattern": "",
-				"name": "appHome",
-				"target": "home"
+				"name": "appListagem",
+				"target": "listagem"
 			}],
 			"targets": {
-				"home": {
-					"id": "home",
-					"name": "Home",
+				"listagem": {
+					"id": "listagem",
+					"name": "Listagem",
 					"level": 1
 				},
 				"notFound": {

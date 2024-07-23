@@ -25,7 +25,6 @@ app.UseStaticFiles(new StaticFileOptions()
     ServeUnknownFileTypes = true
 });
 
-
 app.UseDefaultFiles();
 
 app.UseProblemDetailsExceptionHandler(app.Services.GetRequiredService<ILoggerFactory>());

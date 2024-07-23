@@ -20,9 +20,9 @@ namespace Cod3rsGrowth.Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult ObterTodos()
+        public IActionResult ObterTodos([FromQuery] FiltroPocao filtroPocao)
         {
-            return Ok(_servicoPocao.ObterTodos(null));
+            return Ok(_servicoPocao.ObterTodos(filtroPocao));
         }
 
         [HttpGet("{id}")]

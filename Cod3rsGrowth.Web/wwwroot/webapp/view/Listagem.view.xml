@@ -1,0 +1,63 @@
+<mvc:View
+    controllerName="coders-growth.controller.Listagem"
+    xmlns="sap.m"
+    xmlns:mvc="sap.ui.core.mvc">
+
+    <Page title="{i18n>Listagem.Listagem}" class="sapUiResponsiveContentPadding" showHeader="false" >
+        <Table
+            id="tabelaIngrediente"
+            width="auto"
+            items="{ path: 'ingrediente>/'}">
+
+            <headerToolbar>
+                <Toolbar>
+                    <Title id="tableHeader" text="{i18n>Lisatgem.Ingredientes}"/>
+                    <ToolbarSpacer />
+
+                    <Input id="filtroNome" type="Text" width="auto" liveChange="aoAlterarFiltrar" placeholder="{i18n>Listagem.Nome...}"/>
+                    <Input id="filtroQuantidade" type="Text" width="auto" liveChange="aoAlterarFiltrar" placeholder="{i18n>Listagem.Quantidade...}"/>
+                    <SegmentedButton class="sapUiTinyMargin" id="filtroNaturalidade" selectionChange="aoAlterarFiltrar">
+                        <items>
+                            <SegmentedButtonItem text="{i18n>Listagem.Todos}" id="botaoTodos" />
+                            <SegmentedButtonItem text="{i18n>Listagem.OverWorld}" id="botaoOverWorld" />
+                            <SegmentedButtonItem text="{i18n>Listagem.Nether}" id="botaoNether" />
+                            <SegmentedButtonItem text="{i18n>Listagem.TheEnd}" id="botaoTheEnd" />
+                        </items>
+                    </SegmentedButton>
+
+                </Toolbar>
+            </headerToolbar>
+
+            <columns>
+                <Column>
+                    <Text text="{i18n>Listagem.ID}" />
+                </Column>
+                <Column>
+                    <Text text="`{i18n>Listagem.Nome}" />
+                </Column>
+                <Column>
+                    <Text text="{i18n>Listagem.Quantidade}" />
+                </Column>
+                <Column>
+                    <Text text="{i18n>Listagem.Naturalidade}" />
+                </Column>
+            </columns>
+
+            <items>
+                <ColumnListItem vAlign="Middle">
+                    <cells id="celulasDaTabelaIngredientes">
+                        <Text text="{ingrediente>id}" />
+                        <Text text="{ingrediente>nome}" />
+                        <Text text="{ingrediente>quantidade}" />
+                        <Text text="{
+                            path: 'ingrediente>naturalidade',
+                            formatter: '.formatter.formatarEnum'
+                        }" />
+                    </cells>
+                </ColumnListItem>
+            </items>
+
+        </Table>
+    </Page>
+
+</mvc:View>

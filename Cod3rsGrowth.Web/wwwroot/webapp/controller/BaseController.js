@@ -5,6 +5,8 @@ sap.ui.define([
 ], function(Controller, History, UIComponent) {
 	"use strict";
 
+	const CHAVE_DA_VIEW_HOME = "appListagem";
+
 	return Controller.extend("coders-growth.controller.BaseController", {
 
 		getRouter() {
@@ -20,7 +22,7 @@ sap.ui.define([
 			if (previousHash !== undefined) {
 				window.history.go(-1);
 			} else {
-				this.getRouter().navTo("appHome", {}, true /*no history*/);
+				this.getRouter().navTo(CHAVE_DA_VIEW_HOME, {}, true);
 			}
 		}
 
