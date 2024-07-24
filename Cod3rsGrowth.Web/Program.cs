@@ -1,5 +1,5 @@
-
 using Cod3rsGrowth.Infra;
+using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,6 +23,13 @@ if (app.Environment.IsDevelopment())
 app.UseStaticFiles(new StaticFileOptions()
 {
     ServeUnknownFileTypes = true
+});
+
+app.UseFileServer(new FileServerOptions
+{
+    FileProvider = new PhysicalFileProvider(
+           Path.Combine(builder.Environment.ContentRootPath, "wwwroot")),
+    EnableDirectoryBrowsing = true
 });
 
 app.UseDefaultFiles();

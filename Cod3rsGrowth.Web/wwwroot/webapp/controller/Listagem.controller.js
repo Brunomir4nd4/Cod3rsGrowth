@@ -1,7 +1,7 @@
 sap.ui.define([
     "coders-growth/controller/BaseController",
     "sap/ui/model/json/JSONModel",
-    "coders-growth/model/formatter",
+    "coders-growth/model/Formatter",
     "sap/ui/core/ElementRegistry"
  ], function (BaseController, JSONModel, Formatter, ElementRegistry) {
     "use strict";
@@ -25,13 +25,12 @@ sap.ui.define([
 
         aoAlterarFiltrar(){
             let urlComFiltros = "https://localhost:7224/api/Ingredientes?";
-            const filtronNome = this.oView.byId(ID_INPUT_NOME).getValue();
+            const filtroNome = this.oView.byId(ID_INPUT_NOME).getValue();
             const filtroQuantidade = this.oView.byId(ID_INPUT_QUANTIDADE).getValue();
-            const idDoItemSelecionado = this.oView.byId(ID_INPUT_NATURALIDADE).getSelectedItem();
-            const filtroNaturalidade = ElementRegistry.get(idDoItemSelecionado).getText();
+            const filtroNaturalidade = this.oView.byId(ID_INPUT_NATURALIDADE).getSelectedItem().getText();
 
-            if (filtronNome)
-                urlComFiltros += "Nome="+filtronNome+"&";
+            if (filtroNome)
+                urlComFiltros += "Nome="+filtroNome+"&";
             
             if (filtroQuantidade)
                 urlComFiltros += "Quantidade="+filtroQuantidade+"&";

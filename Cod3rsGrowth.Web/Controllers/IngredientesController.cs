@@ -1,4 +1,5 @@
 ﻿using Cod3rsGrowth.Dominio.Entidades;
+using Cod3rsGrowth.Dominio.Enums;
 using Cod3rsGrowth.Servico.Servicos;
 using Microsoft.AspNetCore.Mvc;
 
@@ -26,14 +27,14 @@ namespace Cod3rsGrowth.Web.Controllers
             return Ok(_servicoIngrediente.ObterTodos(filtroIngrediente));
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("id")]
         public IActionResult ObterPorId(int id)
         {
             return Ok(_servicoIngrediente.ObterPorId(id));
         }
 
         [HttpPost]
-        public IActionResult Criar(Ingrediente ingrediente)
+        public IActionResult Criar([FromQuery] Ingrediente ingrediente)
         {
             int id = _servicoIngrediente.Criar(ingrediente);
 
