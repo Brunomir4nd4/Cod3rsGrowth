@@ -46,7 +46,6 @@ sap.ui.define([
 			
 			When.naPaginaDeListagemDosIngredientes.aoClicarAbrirSelect();
 			When.naPaginaDeListagemDosIngredientes.aoClicarNoBotaoOverWorld();
-
 			Then.naPaginaDeListagemDosIngredientes.aTabelaDeveConterItensDoOverWorld();
 		});
 
@@ -80,63 +79,63 @@ sap.ui.define([
 			Then.iTeardownMyApp();
 		});
 
-		// opaTest("Deve trocar para view Cadastro de Ingredientes", function (Given, When, Then) {
-		// 	Given.iStartMyUIComponent({
-		// 		componentConfig: {
-		// 			name: NAME_SPACE
-		// 		}
-		// 	});
+		opaTest("Deve trocar para view Cadastro de Ingredientes", function (Given, When, Then) {
+			Given.iStartMyUIComponent({
+				componentConfig: {
+					name: NAME_SPACE
+				}
+			});
 
-        //     When.naPaginaDeListagemDosIngredientes.aoClicarNoBotaoDeAdiconar();
+            When.naPaginaDeListagemDosIngredientes.aoClicarNoBotaoDeAdiconar();
 
-        //     Then.naPaginaDeCadastroDeIngrediente.deveAbrirViewDeCadastro();
-        // });
+            Then.naPaginaDeCadastroDeIngrediente.deveAbrirViewDeCadastro();
+        });
 
-		// opaTest("Deve tentar criar um ingrediente com valores inválidos", function (Given, When, Then) {
+		opaTest("Deve tentar criar um ingrediente com valores inválidos", function (Given, When, Then) {
 
-        //     When.naPaginaDeCadastroDeIngrediente.aoInserirAbobor4NoInputNome(INPUT_ABOBOR4);
-        //     When.naPaginaDeCadastroDeIngrediente.aoInserirAbobor4NoInputQuantidade(INPUT_ABOBOR4);
-        //     When.naPaginaDeCadastroDeIngrediente.aoClicarNoBotaoSalvar();
+            When.naPaginaDeCadastroDeIngrediente.aoInserirAbobor4NoInputNome(INPUT_ABOBOR4);
+            When.naPaginaDeCadastroDeIngrediente.aoInserirAbobor4NoInputQuantidade(INPUT_ABOBOR4);
+            When.naPaginaDeCadastroDeIngrediente.aoClicarNoBotaoSalvar();
 
-        //     Then.naPaginaDeCadastroDeIngrediente.deveApresentarMenssagemDeErroEsperada();
-        // });
+            Then.naPaginaDeCadastroDeIngrediente.deveApresentarMenssagemDeErroEsperada();
+        });
 
-		// opaTest("Deve tentar criar um ingrediente com valor quantidade inválidos", function (Given, When, Then) {
+		opaTest("Deve tentar criar um ingrediente com valor quantidade inválidos", function (Given, When, Then) {
 
-        //     When.naPaginaDeCadastroDeIngrediente.aoInserirAboboraNoInputNome(INPUT_ABOBORA);
-        //     When.naPaginaDeCadastroDeIngrediente.aoInserirAboboraNoInputQuantidade(INPUT_ABOBORA);
-        //     When.naPaginaDeCadastroDeIngrediente.aoClicarNoBotaoSalvar();
+            When.naPaginaDeCadastroDeIngrediente.aoInserirAboboraNoInputNome(INPUT_ABOBORA);
+            When.naPaginaDeCadastroDeIngrediente.aoInserirAboboraNoInputQuantidade(INPUT_ABOBORA);
+            When.naPaginaDeCadastroDeIngrediente.aoClicarNoBotaoSalvar();
 
-        //     Then.naPaginaDeCadastroDeIngrediente.deveApresentarMenssagemDeErroEsperada();
-        // });
+            Then.naPaginaDeCadastroDeIngrediente.deveApresentarMenssagemDeErroEsperada();
+        });
 		
-		// opaTest("Criar Abobora como um ingrediente", function (Given, When, Then) {
+		opaTest("Criar Abobora como um ingrediente", function (Given, When, Then) {
 
-        //     When.naPaginaDeCadastroDeIngrediente.aoInserirAboboraNoInputNome(INPUT_ABOBORA);
-        //     When.naPaginaDeCadastroDeIngrediente.aoInserir5NoInputQuantidade(INPUT_5);
-        //     When.naPaginaDeCadastroDeIngrediente.aoClicarNoBotaoSalvar();
+            When.naPaginaDeCadastroDeIngrediente.aoInserirAboboraNoInputNome(INPUT_ABOBORA);
+            When.naPaginaDeCadastroDeIngrediente.aoInserir5NoInputQuantidade(INPUT_5);
+            When.naPaginaDeCadastroDeIngrediente.aoClicarNoBotaoSalvar();
 
-        //     Then.naPaginaDeCadastroDeIngrediente.deveApresentarMenssagemDeSecessoEsperada();
-        // });
+            Then.naPaginaDeCadastroDeIngrediente.deveApresentarMenssagemDeSecessoEsperada();
+        });
 
-		// opaTest("Criar Polvora como um ingrediente", function (Given, When, Then) {
+		opaTest("Criar Polvora como um ingrediente", function (Given, When, Then) {
 
-        //     When.naPaginaDeCadastroDeIngrediente.aoInserirAboboraNoInputNome(INPUT_POLVORA);
-        //     When.naPaginaDeCadastroDeIngrediente.aoInserir5NoInputQuantidade(INPUT_15);
-        //     When.naPaginaDeCadastroDeIngrediente.aoClicarNoBotaoSalvar();
+            When.naPaginaDeCadastroDeIngrediente.aoInserirAboboraNoInputNome(INPUT_POLVORA);
+            When.naPaginaDeCadastroDeIngrediente.aoInserir5NoInputQuantidade(INPUT_15);
+            When.naPaginaDeCadastroDeIngrediente.aoClicarNoBotaoSalvar();
 
-        //     Then.naPaginaDeCadastroDeIngrediente.deveApresentarMenssagemDeSecessoEsperada();
-        // });
+            Then.naPaginaDeCadastroDeIngrediente.deveApresentarMenssagemDeSecessoEsperada();
+        });
 
-		// opaTest("Criar Lagíma de Ghast como um ingrediente", function (Given, When, Then) {
+		opaTest("Criar Lagíma de Ghast como um ingrediente", function (Given, When, Then) {
 
-        //     When.naPaginaDeCadastroDeIngrediente.aoInserirAboboraNoInputNome(INPUT_LAGRIMA_DE_GHAST);
-        //     When.naPaginaDeCadastroDeIngrediente.aoInserir2NoInputQuantidade(INPUT_2);
-        //     When.naPaginaDeCadastroDeIngrediente.aoClicarAbrirSelect();
-        //     When.naPaginaDeCadastroDeIngrediente.aoSelecionarNaturalidadeNether();
-        //     When.naPaginaDeCadastroDeIngrediente.aoClicarNoBotaoSalvar();
+            When.naPaginaDeCadastroDeIngrediente.aoInserirAboboraNoInputNome(INPUT_LAGRIMA_DE_GHAST);
+            When.naPaginaDeCadastroDeIngrediente.aoInserir2NoInputQuantidade(INPUT_2);
+            When.naPaginaDeCadastroDeIngrediente.aoClicarAbrirSelect();
+            When.naPaginaDeCadastroDeIngrediente.aoSelecionarNaturalidadeNether();
+            When.naPaginaDeCadastroDeIngrediente.aoClicarNoBotaoSalvar();
 
-        //     Then.naPaginaDeCadastroDeIngrediente.deveApresentarMenssagemDeSecessoEsperada();
-        // });
+            Then.naPaginaDeCadastroDeIngrediente.deveApresentarMenssagemDeSecessoEsperada();
+        });
 	}
 );

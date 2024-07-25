@@ -168,8 +168,8 @@ sap.ui.define([
 					})
 				},
 				
-				aTabelaDeveConter7ItensDoOverWorld() {
-					const tamanhoEsperado = 15;
+				aTabelaDeveConterItensDoOverWorld() {
+					const tamanhoEsperado = 7;
 					const tagDasLinhas = "items";
 					const stringEsperada = "OverWorld";
 					return this.waitFor({
@@ -196,7 +196,7 @@ sap.ui.define([
 				},
 
 				aTabelaDeveConter2ItensDoNether() {
-					const tamanhoEsperado = 5;
+					const tamanhoEsperado = 2;
 					const tagDasLinhas = "items";
 					const stringEsperada = "Nether";
 					return this.waitFor({
@@ -222,7 +222,7 @@ sap.ui.define([
 				},
 
 				aTabelaDeveConter1ItemDoTheEnd() {
-					const tamanhoEsperado = 2;
+					const tamanhoEsperado = 1;
 					const tagDasLinhas = "items";
 					const stringEsperada = "TheEnd";
 					return this.waitFor({
