@@ -19,13 +19,13 @@
                     <Input id="filtroQuantidade" type="Text" width="auto" liveChange="aoAlterarFiltrar" placeholder="{i18n>Listagem.Quantidade...}"/>
                     <Select id="filtroNaturalidade" selectedKey="{Naturalidade}" change="aoAlterarFiltrar">
                         <items>
-                            <core:Item text="Todos" key="Todos"/>
-                            <core:Item text="OverWorld" key="OverWorld"/>
-                            <core:Item text="Nether" key="Nether"/>
-                            <core:Item text="TheEnd" key="TheEnd"/>
+                            <core:Item text="Todos" key="Todos" id="Todos"/>
+                            <core:Item text="OverWorld" key="OverWorld" id="OverWorld" />
+                            <core:Item text="Nether" key="Nether" id="Nether" />
+                            <core:Item text="TheEnd" key="TheEnd" id="TheEnd" />
                         </items>
                     </Select>
-                    <Button icon="sap-icon://add" press="aoClicarIrParaCadastro"/>
+                    <Button icon="sap-icon://add" press="aoClicarIrParaCadastro" id="botaoAdicionar" />
                 </Toolbar>
             </headerToolbar>
 
@@ -48,7 +48,7 @@
                         <Text text="{ingrediente>quantidade}" />
                         <Text text="{
                             path: 'ingrediente>naturalidade',
-                            formatter: '.formatter.formatarEnum'
+                            formatter: '.formatter.formatarValorInteiroDoEnum'
                         }" />
                     </cells>
                 </ColumnListItem>

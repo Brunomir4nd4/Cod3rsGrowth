@@ -27,10 +27,10 @@ app.UseStaticFiles(new StaticFileOptions()
 
 app.UseFileServer(new FileServerOptions
 {
-    FileProvider = new PhysicalFileProvider(
-           Path.Combine(builder.Environment.ContentRootPath, "wwwroot")),
-    EnableDirectoryBrowsing = true
-});
+     FileProvider = new PhysicalFileProvider(
+            Path.Combine(builder.Environment.ContentRootPath, "wwwroot")),
+     EnableDirectoryBrowsing = true
+ });
 
 app.UseDefaultFiles();
 

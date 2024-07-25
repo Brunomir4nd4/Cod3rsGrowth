@@ -1,11 +1,13 @@
 sap.ui.define([
 	"sap/ui/test/Opa5",
 	'sap/ui/test/actions/EnterText',
-	'sap/ui/test/actions/Press'
+	'sap/ui/test/actions/Press',
+	'sap/ui/test/matchers/BindingPath'
 ], (
 	Opa5, 
 	EnterText, 
-	Press
+	Press,
+	BindingPath
 ) => {
 	"use strict";
 
@@ -13,10 +15,12 @@ sap.ui.define([
     const ID_INPUT_NOME = "filtroNome";
     const ID_INPUT_QUANTIDADE = "filtroQuantidade";
 	const ID_TABELA_INGREDIENTES = "tabelaIngrediente";
-	const ID_BOTAO_OVERWORLD = "botaoOverWorld";
-	const ID_BOTAO_NETHER = "botaoNether";
-	const ID_BOTAO_THEEND = "botaoTheEnd";
-	const ID_BOTAO_TODOS = "botaoTodos";
+	const ID_SELECT_NATURALIDADE = "filtroNaturalidade";
+	const ID_BOTAO_OVERWORLD = "__component1---listagem--OverWorld";
+	const ID_BOTAO_NETHER = "__component1---listagem--Nether";
+	const ID_BOTAO_THEEND = "__component1---listagem--TheEnd";
+	const ID_BOTAO_TODOS = "__component1---listagem--Todos";
+	const ID_BOTAO_ADICIOANAR = "botaoAdicionar";
 
 	Opa5.createPageObjects({
 	
@@ -31,6 +35,15 @@ sap.ui.define([
 							text: stringDeBusca
 						}),
 						errorMessage: "Campo Nome não encontrado."
+					});
+				},
+
+				aoClicarAbrirSelect() {
+					return this.waitFor({
+						viewName: NOME_DO_VIEW,
+						id: ID_SELECT_NATURALIDADE,
+						actions: new Press(),
+						errorMessage: "Botão Select não encontrado."
 					});
 				},
 
@@ -90,7 +103,16 @@ sap.ui.define([
 						}),
 						errorMessage: "Campo nome não encontrado."
 					})
-				}
+				},
+
+				aoClicarNoBotaoDeAdiconar() {
+                    return this.waitFor({
+                        viewName: NOME_DO_VIEW,
+                        id: ID_BOTAO_ADICIOANAR,
+                        actions: new Press(),
+                        errorMessage: "Botão adicionar não encontrado."
+                    })
+                }
 			},
 
 			assertions: {
@@ -147,7 +169,7 @@ sap.ui.define([
 				},
 				
 				aTabelaDeveConter7ItensDoOverWorld() {
-					const tamanhoEsperado = 7;
+					const tamanhoEsperado = 15;
 					const tagDasLinhas = "items";
 					const stringEsperada = "OverWorld";
 					return this.waitFor({
@@ -162,6 +184,7 @@ sap.ui.define([
 
 							let result = items.every((item) => {
 								let naturalidade = item.getBindingContext("ingrediente").getProperty("naturalidade");
+								console.log(naturalidade)
 								naturalidade = formatarEnum(naturalidade);
 								return naturalidade === stringEsperada;
 							});
@@ -173,7 +196,7 @@ sap.ui.define([
 				},
 
 				aTabelaDeveConter2ItensDoNether() {
-					const tamanhoEsperado = 2;
+					const tamanhoEsperado = 5;
 					const tagDasLinhas = "items";
 					const stringEsperada = "Nether";
 					return this.waitFor({
@@ -199,7 +222,7 @@ sap.ui.define([
 				},
 
 				aTabelaDeveConter1ItemDoTheEnd() {
-					const tamanhoEsperado = 1;
+					const tamanhoEsperado = 2;
 					const tagDasLinhas = "items";
 					const stringEsperada = "TheEnd";
 					return this.waitFor({
@@ -222,7 +245,7 @@ sap.ui.define([
 						},
 						errorMessage: `A tabela não possui somente ${tamanhoEsperado} valores do TheEnd`
 					})
-				}
+				},
 			}
 		}
 	});

@@ -1,5 +1,6 @@
 <mvc:View
     controllerName="coders-growth.controller.CadastrarIngrediente"
+	id="CadastrarIngrediente"
     xmlns="sap.m"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns:l="sap.ui.layout"
@@ -15,11 +16,11 @@
         visible="false" />
 
     <MessageStrip
-        text="Error with default icon and close button:"
+        text="Falha: não foi possível criar o ingrediente."
         type="Error"
         showIcon="true"
         showCloseButton="true"
-        class="sapUiMediumMarginBottom"
+        class="sapUiTinyMargin"
         id="errorMessageStrip"
         visible="false" />
 
@@ -30,7 +31,7 @@
                     <Button icon="sap-icon://navigation-left-arrow" press="onNavBack" />
 					<Title id="Title1" text="Cadastro"/>
                     <ToolbarSpacer />
-                    <Button icon="sap-icon://save" press="aoClicarCriarIngrediente"  id="buttonSave" />
+                    <Button icon='sap-icon://save' press="aoClicarCriarIngrediente"  id="saveButton" />
 				</Toolbar>
 			</f:toolbar>
             <f:layout>
@@ -57,10 +58,10 @@
 						</Toolbar>
 					</f:toolbar>
                     <f:formElements>
-                        <f:FormElement label="Name/Quantidade" >
+                        <f:FormElement label="Nome/Quantidade" >
 							<f:fields class="sapUiSmallMarginTopBottom">
-								<Input value="{Name}" id="inputNome"/>
-								<Input value="{Quantidade}" id="inputQuantidade">
+								<Input value="{/inputNome}" id="inputNome" liveChange="aoAlterarValidarNome" />
+								<Input value="{/inputQuantidade}" id="inputQuantidade" liveChange="aoAlterarValidarQuantidade" >
 									<layoutData>
 										<l:GridData span="XL2 L1 M3 S4" />
 									</layoutData>
@@ -71,9 +72,9 @@
 							<f:fields>
 								<Select width="100%" id="inputNaturalidade" selectedKey="{Naturalidade}">
 									<items>
-										<core:Item text="OverWorld" key="OverWorld"/>
-										<core:Item text="Nether" key="Nether"/>
-										<core:Item text="TheEnd" key="TheEnd"/>
+										<core:Item text="OverWorld" key="OverWorld" id="OverWorld" />
+										<core:Item text="Nether" key="Nether" id="Nether" />
+										<core:Item text="TheEnd" key="TheEnd" id="TheEnd" />
 									</items>
 								</Select>
 							</f:fields>
