@@ -9,7 +9,8 @@
             id="tabelaIngrediente"
             width="auto"
             items="{ path: 'ingrediente>/'}"
-            mode="MultiSelect">
+            mode="MultiSelect"
+            alternateRowColors="true" >
 
             <headerToolbar>
                 <Toolbar>

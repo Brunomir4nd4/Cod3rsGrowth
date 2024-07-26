@@ -1,9 +1,8 @@
 sap.ui.define([
     "coders-growth/controller/BaseController",
     "sap/ui/model/json/JSONModel",
-    "coders-growth/model/Formatter",
-    "sap/ui/core/ElementRegistry"
- ], function (BaseController, JSONModel, Formatter, ElementRegistry) {
+    "coders-growth/model/Formatter"
+ ], function (BaseController, JSONModel, Formatter) {
     "use strict";
 
     const URL_DA_API = "https://localhost:7224/api/Ingredientes";
@@ -40,9 +39,7 @@ sap.ui.define([
 
             fetch(urlComFiltros)
                 .then((res) => res.json())
-                .then((data) => {
-                    this.getView().setModel(new JSONModel(data), NOME_DO_MODELO);
-                })
+                .then((data) => this.getView().setModel(new JSONModel(data), NOME_DO_MODELO))
                 .catch((err) => console.error(err));
         },
 

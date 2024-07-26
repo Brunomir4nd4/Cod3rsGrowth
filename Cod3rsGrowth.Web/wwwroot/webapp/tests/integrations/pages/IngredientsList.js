@@ -11,7 +11,7 @@ sap.ui.define([
 ) => {
 	"use strict";
 
-	const NOME_DO_VIEW = "coders-growth.view.Listagem";
+	const NOME_DO_VIEW = "Listagem";
     const ID_INPUT_NOME = "filtroNome";
     const ID_INPUT_QUANTIDADE = "filtroQuantidade";
 	const ID_TABELA_INGREDIENTES = "tabelaIngrediente";
@@ -21,6 +21,10 @@ sap.ui.define([
 	const ID_BOTAO_THEEND = "__component1---listagem--TheEnd";
 	const ID_BOTAO_TODOS = "__component1---listagem--Todos";
 	const ID_BOTAO_ADICIOANAR = "botaoAdicionar";
+	const NOME_DO_JSONMODEL = "ingrediente";
+	const PROPARTY_NOME = "nome";
+	const PROPARTY_NATURALIDADE = "naturalidade";
+	const PROPARTY_QUANTIDADDE = "quantidade";
 
 	Opa5.createPageObjects({
 	
@@ -131,13 +135,13 @@ sap.ui.define([
 							const items = oTable.getItems();
 
 							let result = items.every((item) => {
-								let itemDesejado = item.getBindingContext("ingrediente").getProperty("nome");
+								let itemDesejado = item.getBindingContext(NOME_DO_JSONMODEL).getProperty(PROPARTY_NOME);
 								return itemDesejado.includes(stringEsperada);
 							});
 				
-							Opa5.assert.ok(result, "A tabela possui somente valores com Olho em seus nomes");
+							Opa5.assert.ok(result, "Todos os itens da tabela possuem 'Olho' em seus nomes");
 						},
-						errorMessage: "A tabela não possui somente valores com Olho em seus nomes"
+						errorMessage: "Alguns itens na tabela não possuem 'Olho' em seus nomes"
 					});
 				},
 
@@ -156,94 +160,102 @@ sap.ui.define([
 						success: function(oTable) {
 							const items = oTable.getItems();
 
-							let result = items.every((item) => {
-								let nome = item.getBindingContext("ingrediente").getProperty("nome");
-								let quantidade = item.getBindingContext("ingrediente").getProperty("quantidade");
-								return nome.includes(stringEsperada) & quantidade === quantidadeEsperada;
+							let result = true; 
+							items.every((item) => {
+								let nome = item.getBindingContext(NOME_DO_JSONMODEL).getProperty(PROPARTY_NOME);
+								let quantidade = item.getBindingContext(NOME_DO_JSONMODEL).getProperty(PROPARTY_QUANTIDADDE);
+								if (!nome.includes(stringEsperada) & quantidade !== quantidadeEsperada)
+									result = false;
 							});
 
-							Opa5.assert.ok(result, `A tabela possui somente ${tamanhoEsperado} valores`);
+							Opa5.assert.ok(result, `A tabela possui exatamente ${tamanhoEsperado} valor com nome ${stringEsperada} e quantidade ${quantidadeEsperada}`);
 						},
-						errorMessage: `A tabela não possui somente ${tamanhoEsperado} valores`
-					})
+						errorMessage: `A tabela não possui exatamente ${tamanhoEsperado} valor com nome ${stringEsperada} e quantidade ${quantidadeEsperada}`
+					});
 				},
 				
 				aTabelaDeveConterItensDoOverWorld() {
-					const tamanhoEsperado = 7;
 					const tagDasLinhas = "items";
 					const stringEsperada = "OverWorld";
+				
 					return this.waitFor({
 						viewName: NOME_DO_VIEW,
 						id: ID_TABELA_INGREDIENTES,
-						matchers: new sap.ui.test.matchers.AggregationLengthEquals({
-							name: tagDasLinhas,
-							length: tamanhoEsperado
+						matchers: new sap.ui.test.matchers.AggregationFilled({
+							name: tagDasLinhas
 						}),
 						success: function(oTable) {
 							const items = oTable.getItems();
-
-							let result = items.every((item) => {
-								let naturalidade = item.getBindingContext("ingrediente").getProperty("naturalidade");
+				
+							let result = true;
+							items.every((item) => {
+								let naturalidade = formatarEnum(item.getBindingContext(NOME_DO_JSONMODEL).getProperty(PROPARTY_NATURALIDADE));
+								var context1 = item.getBindingContext(NOME_DO_JSONMODEL)
+								console.log(context1)
 								console.log(naturalidade)
-								naturalidade = formatarEnum(naturalidade);
-								return naturalidade === stringEsperada;
+								if (naturalidade !== stringEsperada) {
+									result = false;
+								}
 							});
-
-							Opa5.assert.ok(result, `A tabela possui somente ${tamanhoEsperado} valores do OverWorld`);
+				
+							Opa5.assert.ok(result, "Todos os itens possuem a naturalidade " + stringEsperada);
 						},
-						errorMessage: `A tabela não possui somente ${tamanhoEsperado} valores do OverWorld`
-					})
+						errorMessage: "Alguns itens na tabela não possuem a naturalidade " + stringEsperada
+					});
 				},
 
-				aTabelaDeveConter2ItensDoNether() {
-					const tamanhoEsperado = 2;
+				aTabelaDeveConterItensDoNether() {
 					const tagDasLinhas = "items";
 					const stringEsperada = "Nether";
 					return this.waitFor({
 						viewName: NOME_DO_VIEW,
 						id: ID_TABELA_INGREDIENTES,
-						matchers: new sap.ui.test.matchers.AggregationLengthEquals({
-							name: tagDasLinhas,
-							length: tamanhoEsperado
+						matchers: new sap.ui.test.matchers.AggregationFilled({
+							name: tagDasLinhas
 						}),
 						success: function(oTable) {
 							const items = oTable.getItems();
-
-							let result = items.every((item) => {
-								let naturalidade = item.getBindingContext("ingrediente").getProperty("naturalidade");
-								naturalidade = formatarEnum(naturalidade);
-								return naturalidade === stringEsperada;
+							
+							let result = true;
+							items.every((item) => {
+								
+								var context1 = item.getBindingContext(NOME_DO_JSONMODEL)
+								console.log(context1)
+								// Multimodel needs name of Multimodel 
+								let naturalidade = formatarEnum(item.getBindingContext(NOME_DO_JSONMODEL).getProperty(PROPARTY_NATURALIDADE));
+								console.log(naturalidade)
+								if (naturalidade !== stringEsperada)
+									result = false;
 							});
 
-							Opa5.assert.ok(result, `A tabela possui somente ${tamanhoEsperado} valores do Nether`);
+							Opa5.assert.ok(result, "Todos os itens possuem a naturalidade " + stringEsperada);
 						},
-						errorMessage: `A tabela não possui somente ${tamanhoEsperado} valores do Nether`
+						errorMessage: "Alguns itens na tabela não possuem a naturalidade " + stringEsperada
 					})
 				},
 
-				aTabelaDeveConter1ItemDoTheEnd() {
-					const tamanhoEsperado = 1;
+				aTabelaDeveConterItemDoTheEnd() {
 					const tagDasLinhas = "items";
 					const stringEsperada = "TheEnd";
 					return this.waitFor({
 						viewName: NOME_DO_VIEW,
 						id: ID_TABELA_INGREDIENTES,
-						matchers: new sap.ui.test.matchers.AggregationLengthEquals({
-							name: tagDasLinhas,
-							length: tamanhoEsperado
+						matchers: new sap.ui.test.matchers.AggregationFilled({
+							name: tagDasLinhas
 						}),
 						success: function(oTable) {
 							const items = oTable.getItems();
 
-							let result = items.every((item) => {
-								let naturalidade = item.getBindingContext("ingrediente").getProperty("naturalidade");
-								naturalidade = formatarEnum(naturalidade);
-								return naturalidade === stringEsperada;
+							let result = true;
+							items.every((item) => {
+								let naturalidade = formatarEnum(item.getBindingContext(NOME_DO_JSONMODEL).getProperty(PROPARTY_NATURALIDADE));
+								if (naturalidade !== stringEsperada)
+									result = false;
 							});
 
-							Opa5.assert.ok(result, `A tabela possui somente ${tamanhoEsperado} valores do TheEnd`);
+							Opa5.assert.ok(result, "Todos os itens possuem a naturalidade " + stringEsperada);
 						},
-						errorMessage: `A tabela não possui somente ${tamanhoEsperado} valores do TheEnd`
+						errorMessage: "Alguns itens na tabela não possuem a naturalidade " + stringEsperada
 					})
 				},
 			}

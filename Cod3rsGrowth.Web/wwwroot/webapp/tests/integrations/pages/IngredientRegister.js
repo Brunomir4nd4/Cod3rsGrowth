@@ -11,7 +11,7 @@ sap.ui.define([
     ) => {
 	"use strict";
 
-    const NOME_DA_VIEW = "coders-growth.view.CadastrarIngrediente";
+    const NOME_DA_VIEW = "CadastrarIngrediente";
     const ID_PROPERTY_TITLE = "Title1";
     const ID_INPUT_NOME = "inputNome";
     const ID_INPUT_QUANTIDADE = "inputQuantidade";
@@ -119,7 +119,6 @@ sap.ui.define([
                 },
             },
 
-
             assertions: {
                 deveAbrirViewDeCadastro() {
                     return this.waitFor({
@@ -130,7 +129,7 @@ sap.ui.define([
                             value: "Cadastro"
                         }),
                         success: function () {
-                            Opa5.assert.ok(true, "A view de cadastro foi aberta corretamente.");
+                            Opa5.assert.ok(true, "A view de cadastro foi aberta com sucesso.");
                         },
                         errorMessage: "A view de cadastro não foi aberta corretamente."
                     });
@@ -145,9 +144,9 @@ sap.ui.define([
                             value: true
                         }),
                         success: function () {
-                            Opa5.assert.ok(true, "A mensagem de erro está sendo exibida corretamente.");
+                            Opa5.assert.ok(true, "A mensagem de erro está sendo exibida conforme esperado.");
                         },
-                        errorMessage: "A mensagem de erro não está sendo exibida como esperado."
+                        errorMessage: "A mensagem de erro não está sendo exibida."
                     });
                 },
 
@@ -160,13 +159,12 @@ sap.ui.define([
                             value: true
                         }),
                         success: function () {
-                            Opa5.assert.ok(true, "A mensagem de secesso está sendo exibida corretamente.");
+                            Opa5.assert.ok(true, "A mensagem de sucesso está sendo exibida corretamente.");
                         },
-                        errorMessage: "A mensagem de secesso não está sendo exibida como esperado."
+                        errorMessage: "A mensagem de sucesso não está sendo exibida."
                     });
                 }
             }
-        
         }
     });
 })
