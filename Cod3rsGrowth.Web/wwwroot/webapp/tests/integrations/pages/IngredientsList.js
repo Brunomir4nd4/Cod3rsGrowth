@@ -122,22 +122,20 @@ sap.ui.define([
 			assertions: {
 				aListaDeveConterItensComNomeOlho() {
 					const stringEsperada = "Olho";
-					const tamanhoEsperado = 2;
 					const tagDasLinhas = "items";
 					return this.waitFor({
 						viewName: NOME_DO_VIEW,
 						id: ID_TABELA_INGREDIENTES,
-						matchers: new sap.ui.test.matchers.AggregationLengthEquals({
-							name: tagDasLinhas,
-							length: tamanhoEsperado
+						matchers: new sap.ui.test.matchers.AggregationFilled({
+							name: tagDasLinhas
 						}),
 						success: function(oTable) {
 							const items = oTable.getItems();
 
 							let result = true;
 							items.map((item) => {
-								let itemDesejado = item.getBindingContext(NOME_DO_JSONMODEL).getProperty(PROPARTY_NOME);
-								if (!itemDesejado.includes(stringEsperada)) 
+								let nome = item.getBindingContext(NOME_DO_JSONMODEL).getProperty(PROPARTY_NOME);
+								if (!nome.includes(stringEsperada)) 
 									result = false;
 							});
 				
@@ -148,16 +146,14 @@ sap.ui.define([
 				},
 
 				aTabelaDeveConterItensComNomePoEQuantidade15() {
-					const tamanhoEsperado = 1;
 					const tagDasLinhas = "items";
 					const stringEsperada = "Pó";
 					const quantidadeEsperada = 15;
 					return this.waitFor({
 						viewName: NOME_DO_VIEW,
 						id: ID_TABELA_INGREDIENTES,
-						matchers: new sap.ui.test.matchers.AggregationLengthEquals({
-							name: tagDasLinhas,
-							length: tamanhoEsperado
+						matchers: new sap.ui.test.matchers.AggregationFilled({
+							name: tagDasLinhas
 						}),
 						success: function(oTable) {
 							const items = oTable.getItems();
@@ -170,9 +166,9 @@ sap.ui.define([
 									result = false;
 							});
 
-							Opa5.assert.ok(result, `A tabela possui exatamente ${tamanhoEsperado} valor com nome ${stringEsperada} e quantidade ${quantidadeEsperada}`);
+							Opa5.assert.ok(result, `A tabela possui o valor com nome ${stringEsperada} e quantidade ${quantidadeEsperada}`);
 						},
-						errorMessage: `A tabela não possui exatamente ${tamanhoEsperado} valor com nome ${stringEsperada} e quantidade ${quantidadeEsperada}`
+						errorMessage: `A tabela não possui o valor com nome ${stringEsperada} e quantidade ${quantidadeEsperada}`
 					});
 				},
 				

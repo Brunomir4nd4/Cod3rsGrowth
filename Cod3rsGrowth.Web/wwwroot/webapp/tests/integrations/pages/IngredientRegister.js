@@ -19,7 +19,7 @@ sap.ui.define([
     const ID_MENSAGEM_SECESSO = "successMessageStrip";
     const ID_BOTAO_SALVAR = "saveButton";
     const ID_SELECT_NATURALIDADE = "inputNaturalidade";
-    const ID_BOTAO_NETHER = "__component2---cadastrarIngrediente--Nether";
+    const ID_BOTAO_NETHER = "__component2---cadastroIngrediente--Nether";
 
     Opa5.createPageObjects({
 

@@ -42,15 +42,10 @@ sap.ui.define([
         },
 
         _carregarDadosDaTabela(query, nomeDoModelo){
-            this._configurarModelo(query, nomeDoModelo);
-        },
-
-		_configurarModelo(query, nomeDoModelo){
             fetch(query)
                 .then((res) => res.json())
                 .then((data) => this.getView().setModel(new JSONModel(data), nomeDoModelo))
                 .catch((err) => console.error(err));
         },
-
     });
 });
