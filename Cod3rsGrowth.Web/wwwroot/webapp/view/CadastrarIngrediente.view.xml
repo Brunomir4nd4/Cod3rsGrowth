@@ -31,7 +31,7 @@
                     <Button icon="sap-icon://navigation-left-arrow" press="onNavBack" />
 					<Title id="Title1" text="Cadastro"/>
                     <ToolbarSpacer />
-                    <Button icon='sap-icon://save' press="aoClicarCriarIngrediente"  id="saveButton" />
+                    <Button icon='sap-icon://save' press="aoClicarCriarIngrediente"  id="saveButton" text="Salvar" />
 				</Toolbar>
 			</f:toolbar>
             <f:layout>
