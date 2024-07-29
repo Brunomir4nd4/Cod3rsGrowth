@@ -11,7 +11,7 @@ sap.ui.define([
     ) => {
 	"use strict";
 
-    const NOME_DA_VIEW = "CadastrarIngrediente";
+    const NOME_DA_VIEW = "CadastroIngrediente";
     const ID_PROPERTY_TITLE = "Title1";
     const ID_INPUT_NOME = "inputNome";
     const ID_INPUT_QUANTIDADE = "inputQuantidade";

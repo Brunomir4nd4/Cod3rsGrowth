@@ -84,9 +84,9 @@
 				"target": "listagem"
 				},
 				{
-					"pattern": "CadastrarIngrediente",
-					"name": "appCadastrarIngrediente",
-					"target": "cadastrarIngrediente"
+					"pattern": "CadastroIngrediente",
+					"name": "appCadastroIngrediente",
+					"target": "cadastroIngrediente"
 				}
 			],
 			"targets": {
@@ -94,9 +94,9 @@
 					"id": "listagem",
 					"name": "Listagem"
 				},
-				"cadastrarIngrediente": {
-					"id": "cadastrarIngrediente",
-					"name": "CadastrarIngrediente"
+				"cadastroIngrediente": {
+					"id": "cadastroIngrediente",
+					"name": "CadastroIngrediente"
 				},
 				"notFound": {
 				   "id": "notFound",

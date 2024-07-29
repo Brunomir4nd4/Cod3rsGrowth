@@ -134,9 +134,11 @@ sap.ui.define([
 						success: function(oTable) {
 							const items = oTable.getItems();
 
-							let result = items.every((item) => {
+							let result = true;
+							items.map((item) => {
 								let itemDesejado = item.getBindingContext(NOME_DO_JSONMODEL).getProperty(PROPARTY_NOME);
-								return itemDesejado.includes(stringEsperada);
+								if (!itemDesejado.includes(stringEsperada)) 
+									result = false;
 							});
 				
 							Opa5.assert.ok(result, "Todos os itens da tabela possuem 'Olho' em seus nomes");
@@ -161,7 +163,7 @@ sap.ui.define([
 							const items = oTable.getItems();
 
 							let result = true; 
-							items.every((item) => {
+							items.map((item) => {
 								let nome = item.getBindingContext(NOME_DO_JSONMODEL).getProperty(PROPARTY_NOME);
 								let quantidade = item.getBindingContext(NOME_DO_JSONMODEL).getProperty(PROPARTY_QUANTIDADDE);
 								if (!nome.includes(stringEsperada) & quantidade !== quantidadeEsperada)
@@ -188,7 +190,7 @@ sap.ui.define([
 							const items = oTable.getItems();
 				
 							let result = true;
-							items.every((item) => {
+							items.map((item) => {
 								let naturalidade = formatarEnum(item.getBindingContext(NOME_DO_JSONMODEL).getProperty(PROPARTY_NATURALIDADE));
 								if (naturalidade !== stringEsperada) {
 									result = false;
@@ -214,8 +216,7 @@ sap.ui.define([
 							const items = oTable.getItems();
 							
 							let result = true;
-							items.every((item) => {
-								
+							items.map((item) => {
 								let naturalidade = formatarEnum(item.getBindingContext(NOME_DO_JSONMODEL).getProperty(PROPARTY_NATURALIDADE));
 								if (naturalidade !== stringEsperada)
 									result = false;
@@ -240,7 +241,7 @@ sap.ui.define([
 							const items = oTable.getItems();
 
 							let result = true;
-							items.every((item) => {
+							items.map((item) => {
 								let naturalidade = formatarEnum(item.getBindingContext(NOME_DO_JSONMODEL).getProperty(PROPARTY_NATURALIDADE));
 								if (naturalidade !== stringEsperada)
 									result = false;

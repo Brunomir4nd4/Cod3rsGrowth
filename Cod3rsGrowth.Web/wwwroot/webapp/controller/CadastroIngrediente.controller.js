@@ -10,7 +10,7 @@ sap.ui.define([
     const ID_INPUT_QUANTIDADE = "inputQuantidade";
     const ID_INPUT_NATURALIDADE = "inputNaturalidade";
 
-    return BaseController.extend("coders-growth.controller.CadastrarIngrediente", {
+    return BaseController.extend("coders-growth.controller.CadastroIngrediente", {
         onInit(){
         },
 

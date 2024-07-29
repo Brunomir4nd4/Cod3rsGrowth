@@ -11,7 +11,7 @@ sap.ui.define([
     const ID_INPUT_QUANTIDADE = "filtroQuantidade";
     const ID_INPUT_NATURALIDADE = "filtroNaturalidade";
     const FLAG_PARA_FILTROAGEM_NULA = "Todos";
-    const CHAVE_VIEW_CADASTRAR_INGREDIENTE = "appCadastrarIngrediente";
+    const CHAVE_VIEW_CADASTRAR_INGREDIENTE = "appCadastroIngrediente";
     
     return BaseController.extend("coders-growth.controller.Listagem", {
         formatter: Formatter,
