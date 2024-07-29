@@ -190,9 +190,6 @@ sap.ui.define([
 							let result = true;
 							items.every((item) => {
 								let naturalidade = formatarEnum(item.getBindingContext(NOME_DO_JSONMODEL).getProperty(PROPARTY_NATURALIDADE));
-								var context1 = item.getBindingContext(NOME_DO_JSONMODEL)
-								console.log(context1)
-								console.log(naturalidade)
 								if (naturalidade !== stringEsperada) {
 									result = false;
 								}
@@ -219,11 +216,7 @@ sap.ui.define([
 							let result = true;
 							items.every((item) => {
 								
-								var context1 = item.getBindingContext(NOME_DO_JSONMODEL)
-								console.log(context1)
-								// Multimodel needs name of Multimodel 
 								let naturalidade = formatarEnum(item.getBindingContext(NOME_DO_JSONMODEL).getProperty(PROPARTY_NATURALIDADE));
-								console.log(naturalidade)
 								if (naturalidade !== stringEsperada)
 									result = false;
 							});
