@@ -5,7 +5,7 @@ sap.ui.define([
 ], function (BaseController, Formatter, Validators) {
     "use strict";
 
-    const URL_DA_API = "https://localhost:7224/api/Ingredientes";
+    const URL_API = "https://localhost:7224/api/Ingredientes";    
     const ID_INPUT_NOME = "inputNome";
     const ID_INPUT_QUANTIDADE = "inputQuantidade";
     const ID_INPUT_NATURALIDADE = "inputNaturalidade";
@@ -14,33 +14,51 @@ sap.ui.define([
         onInit(){
         },
 
-        aoAlterarValidarNome(){
-            const inputNome = this.oView.byId(ID_INPUT_NOME).getValue();
-
-            Validators.ValidarNome(this.getView().byId(ID_INPUT_NOME), inputNome);
+        aoAlterarNome(){
+            this._processarEvento(() =>{
+                const oInput = this.getView().byId(ID_INPUT_NOME);
+                Validators.ValidarNome(oInput, oInput.getValue());
+            });
         },
         
-        aoAlterarValidarQuantidade(){
-            const inputQuantidade = this.oView.byId(ID_INPUT_QUANTIDADE).getValue();
-
-            Validators.ValidarQuantidade(this.getView().byId(ID_INPUT_QUANTIDADE), inputQuantidade);
+        aoAlterarQuantidade(){
+            this._processarEvento(() => {
+                const oInput = this.getView().byId(ID_INPUT_QUANTIDADE);
+                Validators.ValidarQuantidade(oInput, oInput.getValue());
+            });
         },
 
         aoClicarCriarIngrediente(){
-            const inputNome = this.oView.byId(ID_INPUT_NOME).getValue();
-            const inputQuantidade = this.oView.byId(ID_INPUT_QUANTIDADE).getValue();
-            const inputNaturalidade = this.oView.byId(ID_INPUT_NATURALIDADE).getSelectedItem().getText();
-            
-            const Ingrediente = {
-                Nome: inputNome,
-                Quantidade: inputQuantidade,
-                Naturalidade: Formatter.formatarStringDoEnum(inputNaturalidade)
-            }
+            this._processarEvento(() => {
+                const inputNome = this.oView.byId(ID_INPUT_NOME).getValue();
+                const inputQuantidade = this.oView.byId(ID_INPUT_QUANTIDADE).getValue();
+                const inputNaturalidade = this.oView.byId(ID_INPUT_NATURALIDADE).getSelectedItem().getText();
+                
+                const oIngrediente = {
+                    Nome: inputNome,
+                    Quantidade: inputQuantidade,
+                    Naturalidade: Formatter.formatarStringDoEnum(inputNaturalidade)
+                }
+                this._criarIngrediente(URL_API, oIngrediente);
+            });
+        },
 
+        _carregarDadosDaTabela(query, nomeDoModelo){
+            this._configurarModelo(query, nomeDoModelo);
+        },
+
+		_configurarModelo(query, nomeDoModelo){
+            fetch(query)
+                .then((res) => res.json())
+                .then((data) => this.getView().setModel(new JSONModel(data), nomeDoModelo))
+                .catch((err) => console.error(err));
+        },
+
+        _criarIngrediente(urlApi, ingrediente) {
             let criadoComSucesso;
-            fetch(URL_DA_API, {
+            fetch(urlApi, {
                 method: "POST",
-                body: JSON.stringify(Ingrediente),
+                body: JSON.stringify(ingrediente),
                 headers: { "Content-type": "application/json; charset=UTF-8" }
             })
             .then(response => {
@@ -64,6 +82,6 @@ sap.ui.define([
                 this.getView().byId("errorMessageStrip").setVisible(true);
                 this.byId("successMessageStrip").setVisible(false);
             });
-        }
+        },
     }) 
 });

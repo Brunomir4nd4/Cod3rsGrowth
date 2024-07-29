@@ -2,10 +2,10 @@ sap.ui.define([
     "coders-growth/controller/BaseController",
     "sap/ui/model/json/JSONModel",
     "coders-growth/model/Formatter"
- ], function (BaseController, JSONModel, Formatter) {
+ ], function (BaseController,JSONModel, Formatter) {
     "use strict";
 
-    const URL_DA_API = "https://localhost:7224/api/Ingredientes";
+    const URL_API = "https://localhost:7224/api/Ingredientes";
     const NOME_DO_MODELO = 'ingrediente';
     const ID_INPUT_NOME = "filtroNome";
     const ID_INPUT_QUANTIDADE = "filtroQuantidade";
@@ -16,35 +16,41 @@ sap.ui.define([
     return BaseController.extend("coders-growth.controller.Listagem", {
         formatter: Formatter,
         onInit(){
-            fetch(URL_DA_API)
-                .then((res) => res.json())
-                .then((data) => this.getView().setModel(new JSONModel(data), NOME_DO_MODELO))
-                .catch((err) => console.error(err));
+            this._carregarDadosDaTabela(URL_API, NOME_DO_MODELO);
         },
 
         aoAlterarFiltrar(){
-            let urlComFiltros = "https://localhost:7224/api/Ingredientes?";
+            let query = URL_API + "?";
             const filtroNome = this.oView.byId(ID_INPUT_NOME).getValue();
             const filtroQuantidade = this.oView.byId(ID_INPUT_QUANTIDADE).getValue();
             const filtroNaturalidade = this.oView.byId(ID_INPUT_NATURALIDADE).getSelectedItem().getText();
 
             if (filtroNome)
-                urlComFiltros += "Nome="+filtroNome+"&";
+                query += "Nome="+filtroNome+"&";
             
             if (filtroQuantidade)
-                urlComFiltros += "Quantidade="+filtroQuantidade+"&";
+                query += "Quantidade="+filtroQuantidade+"&";
 
             if (filtroNaturalidade != FLAG_PARA_FILTROAGEM_NULA)
-                urlComFiltros += "Naturalidade="+filtroNaturalidade;
+                query += "Naturalidade="+filtroNaturalidade;
 
-            fetch(urlComFiltros)
-                .then((res) => res.json())
-                .then((data) => this.getView().setModel(new JSONModel(data), NOME_DO_MODELO))
-                .catch((err) => console.error(err));
+            this._carregarDadosDaTabela(query, NOME_DO_MODELO);
         },
 
         aoClicarIrParaCadastro() {
             this.getRouter().navTo(CHAVE_VIEW_CADASTRAR_INGREDIENTE, {}, true);
-        }
+        },
+
+        _carregarDadosDaTabela(query, nomeDoModelo){
+            this._configurarModelo(query, nomeDoModelo);
+        },
+
+		_configurarModelo(query, nomeDoModelo){
+            fetch(query)
+                .then((res) => res.json())
+                .then((data) => this.getView().setModel(new JSONModel(data), nomeDoModelo))
+                .catch((err) => console.error(err));
+        },
+
     });
 });

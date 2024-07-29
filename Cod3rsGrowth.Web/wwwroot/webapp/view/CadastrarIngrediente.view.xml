@@ -60,8 +60,8 @@
                     <f:formElements>
                         <f:FormElement label="Nome/Quantidade" >
 							<f:fields class="sapUiSmallMarginTopBottom">
-								<Input value="{/inputNome}" id="inputNome" liveChange="aoAlterarValidarNome" />
-								<Input value="{/inputQuantidade}" id="inputQuantidade" liveChange="aoAlterarValidarQuantidade" >
+								<Input value="{/inputNome}" id="inputNome" liveChange="aoAlterarNome" />
+								<Input value="{/inputQuantidade}" id="inputQuantidade" liveChange="aoAlterarQuantidade" >
 									<layoutData>
 										<l:GridData span="XL2 L1 M3 S4" />
 									</layoutData>
