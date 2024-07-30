@@ -15,21 +15,21 @@ sap.ui.define([
         },
 
         aoAlterarNome(){
-            this._processarEvento(() =>{
+            this._processarAcao(() =>{
                 const oInput = this.getView().byId(ID_INPUT_NOME);
                 Validators.ValidarNome(oInput, oInput.getValue());
             });
         },
         
         aoAlterarQuantidade(){
-            this._processarEvento(() => {
+            this._processarAcao(() => {
                 const oInput = this.getView().byId(ID_INPUT_QUANTIDADE);
                 Validators.ValidarQuantidade(oInput, oInput.getValue());
             });
         },
 
         aoClicarCriarIngrediente(){
-            this._processarEvento(() => {
+            this._processarAcao(() => {
                 const inputNome = this.oView.byId(ID_INPUT_NOME).getValue();
                 const inputQuantidade = this.oView.byId(ID_INPUT_QUANTIDADE).getValue();
                 const inputNaturalidade = this.oView.byId(ID_INPUT_NATURALIDADE).getSelectedItem().getText();
@@ -43,15 +43,8 @@ sap.ui.define([
             });
         },
 
-        _carregarDadosDaTabela(query, nomeDoModelo){
-            fetch(query)
-                .then((res) => res.json())
-                .then((data) => this.getView().setModel(new JSONModel(data), nomeDoModelo))
-                .catch((err) => console.error(err));
-        },
-
         _criarIngrediente(urlApi, ingrediente) {
-            let criadoComSucesso;
+            let criadoComSucesso = true;
             fetch(urlApi, {
                 method: "POST",
                 body: JSON.stringify(ingrediente),
@@ -61,9 +54,8 @@ sap.ui.define([
                 if (!response.ok) {
                     criadoComSucesso = false;
                     throw new Error('Erro ao fazer a requisição');
-                } else {
-                    criadoComSucesso = true;
                 }
+            
                 return response.json();
             })
             .then(json => {
@@ -74,9 +66,9 @@ sap.ui.define([
                 }
             })
             .catch(err => {
-                console.log(err);
                 this.getView().byId("errorMessageStrip").setVisible(true);
                 this.byId("successMessageStrip").setVisible(false);
+                MessageBox.error(err.message);
             });
         },
     }) 

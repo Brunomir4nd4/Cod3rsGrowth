@@ -14,7 +14,7 @@ sap.ui.define([
 		},
 
 		onNavBack() {
-			var history, previousHash;
+			let history, previousHash;
 
 			history = History.getInstance();
 			previousHash = history.getPreviousHash();
@@ -26,19 +26,14 @@ sap.ui.define([
 			}
 		},
 
-		_processarEvento: function (action) {
-            const tipoDaPromise = "catch",
-                tipoBuscado = "function";
-            try {
-                var promise = action();
-                if (promise && typeof (promise[tipoDaPromise]) == tipoBuscado) {
-                    promise.catch(error => MessageBox.error(error.message));
-                }
-            } catch (error) {
-                MessageBox.error(error.message);
-            }
-        },
-
+		_processarAcao(action) {
+			try {
+				const result = action();
+				return result;
+			} catch (error) {
+				MessageBox.error(error.message);
+			}
+		}
 	});
 });
     
