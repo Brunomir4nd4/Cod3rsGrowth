@@ -1,0 +1,87 @@
+<mvc:View
+    controllerName="coders-growth.controller.DetalhesIngrediente"
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:wt="ui5.walkthrough.control"
+	xmlns:semantic="sap.f.semantic"
+	xmlns:l="sap.ui.layout" >
+
+	<Page
+		title="{i18n>DetalhesIngrediente.Detalhes}"
+		showNavButton="true"
+		navButtonPress="onNavBack"
+		binding="{ingrediente>/}" >
+
+		<semantic:SemanticPage>
+			<semantic:titleHeading>
+				<Title text="{ingrediente>nome}" />
+			</semantic:titleHeading>
+			<semantic:headerContent>
+				<FlexBox
+					alignItems="Start"
+					justifyContent="SpaceBetween">
+					<Panel backgroundDesign="Transparent">
+						<ObjectAttribute 
+							title="{i18n>DetalhesIngrediente.ID}"
+							text="{ingrediente>id}" />
+						<ObjectAttribute
+							title="{i18n>DetalhesIngrediente.Nome}"
+							text="{ingrediente>nome}"/>
+						<ObjectAttribute
+							title="{i18n>DetalhesIngrediente.Naturalidade}"
+							text="{
+								path: 'ingrediente>naturalidade',
+								formatter: '.formatter.formatarValorInteiroDoEnum'
+							}" />
+					</Panel>
+					<Panel backgroundDesign="Transparent">
+						<ObjectNumber
+							id="objectHeader"
+							unit="{i18n>DetalhesIngrediente.Unidades}"
+							textAlign="End"
+							state="{
+								path: 'ingrediente>quantidade',
+								formatter: '.formatter.quantityState'}"
+							number="{ingrediente>quantidade}" >
+						</ObjectNumber>
+						<ProgressIndicator
+							width="300px"
+							percentValue="{ingrediente>quantidade}"
+							displayValue="{ingrediente>quantidade}"
+							showValue="true"
+							state="{
+								path: 'ingrediente>quantidade',
+								formatter: '.formatter.quantityState'}" />
+					</Panel>
+				</FlexBox>
+			</semantic:headerContent>
+			<semantic:content>
+			<l:VerticalLayout width="100%">
+				<Panel
+					backgroundDesign="Transparent"
+					headerText="{i18n>DetalhesIngrediente.Comentarios}">
+					<content>
+						<FeedInput post=".onPost"/>
+						<List
+							id="idCommentsList"
+							noDataText="{i18n>DetalhesIngrediente.SemComentarios}"
+							showSeparators="Inner"
+							items="{
+								path: 'productFeedback>/productComments',
+								sorter: {
+									path: 'date',
+									descending: true
+								}
+							}">
+							<FeedListItem
+								info="{productFeedback>type}"
+								text="{productFeedback>comment}"
+								timestamp="{productFeedback>date}"/>
+						</List>
+					</content>
+				</Panel>
+			</l:VerticalLayout>
+		</semantic:content>
+		</semantic:SemanticPage>
+	</Page>
+</mvc:View>

@@ -12,7 +12,9 @@ sap.ui.define([
     const ID_INPUT_NATURALIDADE = "filtroNaturalidade";
     const FLAG_PARA_FILTROAGEM_NULA = "Todos";
     const CHAVE_VIEW_CADASTRAR_INGREDIENTE = "appCadastroIngrediente";
+    const CHAVE_VIEW_DETALHES_INGREDIENTE = "appDetalhesIngrediente";
     const ROTA_LISTAGEM = "appListagem";
+    const PROPERTY_ID = "id";
     
     return BaseController.extend("coders-growth.controller.Listagem", {
         formatter: Formatter,
@@ -43,6 +45,14 @@ sap.ui.define([
 
         aoClicarIrParaCadastro() {
             this.getRouter().navTo(CHAVE_VIEW_CADASTRAR_INGREDIENTE, {}, true);
+        },
+
+        aoClicarIrParaDetalhes(oEvent) {
+            const oItem = oEvent.getSource();
+            const oRouter = this.getOwnerComponent().getRouter();
+            oRouter.navTo(CHAVE_VIEW_DETALHES_INGREDIENTE, {
+                id: window.encodeURIComponent(oItem.getBindingContext(NOME_DO_MODELO).getProperty(PROPERTY_ID))
+            });
         },
 
         aoCoincidirRota: function () {
