@@ -2,8 +2,7 @@ sap.ui.define([], function() {
     'use strict';
     
     return{
-
-        formatarEnum(valorInteiroDoEnum) {
+        formatarValorInteiroDoEnum(valorInteiroDoEnum) {
 
             switch(valorInteiroDoEnum){
                 case 0:
@@ -15,6 +14,19 @@ sap.ui.define([], function() {
                 default:
                     return "Indefinido";
             }
-        }
+        },
+
+        formatarStringDoEnum(valorDoEnum) {
+            switch(valorDoEnum){
+                case "OverWorld":
+                    return 0;
+                case "Nether":
+                    return 1;
+                case "TheEnd":
+                    return 2;
+                default:
+                    return "Indefinido";
+            }
+        },
     }
 });

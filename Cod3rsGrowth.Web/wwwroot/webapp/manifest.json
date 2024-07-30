@@ -77,16 +77,26 @@
             	},
 				"async": true
 			},
-			"routes": [{
+			"routes": [
+				{
 				"pattern": "",
 				"name": "appListagem",
 				"target": "listagem"
-			}],
+				},
+				{
+					"pattern": "CadastroIngrediente",
+					"name": "appCadastroIngrediente",
+					"target": "cadastroIngrediente"
+				}
+			],
 			"targets": {
 				"listagem": {
 					"id": "listagem",
-					"name": "Listagem",
-					"level": 1
+					"name": "Listagem"
+				},
+				"cadastroIngrediente": {
+					"id": "cadastroIngrediente",
+					"name": "CadastroIngrediente"
 				},
 				"notFound": {
 				   "id": "notFound",

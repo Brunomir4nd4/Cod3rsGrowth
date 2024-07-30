@@ -14,7 +14,7 @@ sap.ui.define([
 		},
 
 		onNavBack() {
-			var history, previousHash;
+			let history, previousHash;
 
 			history = History.getInstance();
 			previousHash = history.getPreviousHash();
@@ -24,8 +24,16 @@ sap.ui.define([
 			} else {
 				this.getRouter().navTo(CHAVE_DA_VIEW_HOME, {}, true);
 			}
-		}
+		},
 
+		_processarAcao(action) {
+			try {
+				const result = action();
+				return result;
+			} catch (error) {
+				MessageBox.error(error.message);
+			}
+		}
 	});
 });
     

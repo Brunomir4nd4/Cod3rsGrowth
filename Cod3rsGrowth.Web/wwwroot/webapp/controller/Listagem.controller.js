@@ -1,49 +1,64 @@
 sap.ui.define([
     "coders-growth/controller/BaseController",
     "sap/ui/model/json/JSONModel",
-    "coders-growth/model/formatter",
-    "sap/ui/core/ElementRegistry"
- ], function (BaseController, JSONModel, Formatter, ElementRegistry) {
+    "coders-growth/model/Formatter"
+ ], function (BaseController,JSONModel, Formatter) {
     "use strict";
 
-    const URL_DA_API = "https://localhost:7224/api/Ingredientes";
+    const URL_API = "https://localhost:7224/api/Ingredientes";
     const NOME_DO_MODELO = 'ingrediente';
     const ID_INPUT_NOME = "filtroNome";
     const ID_INPUT_QUANTIDADE = "filtroQuantidade";
     const ID_INPUT_NATURALIDADE = "filtroNaturalidade";
     const FLAG_PARA_FILTROAGEM_NULA = "Todos";
+    const CHAVE_VIEW_CADASTRAR_INGREDIENTE = "appCadastroIngrediente";
+    const ROTA_LISTAGEM = "appListagem";
     
     return BaseController.extend("coders-growth.controller.Listagem", {
         formatter: Formatter,
+
         onInit(){
-            fetch(URL_DA_API)
-                .then((res) => res.json())
-                .then((data) => this.getView().setModel(new JSONModel(data), NOME_DO_MODELO))
-                .catch((err) => console.error(err));
+            this.aoCoincidirRota();
         },
 
         aoAlterarFiltrar(){
-            let urlComFiltros = "https://localhost:7224/api/Ingredientes?";
-            const filtronNome = this.oView.byId(ID_INPUT_NOME).getValue();
-            const filtroQuantidade = this.oView.byId(ID_INPUT_QUANTIDADE).getValue();
-            const idDoItemSelecionado = this.oView.byId(ID_INPUT_NATURALIDADE).getSelectedItem();
-            const filtroNaturalidade = ElementRegistry.get(idDoItemSelecionado).getText();
+            let query = URL_API + "?";
 
-            if (filtronNome)
-                urlComFiltros += "Nome="+filtronNome+"&";
-            
-            if (filtroQuantidade)
-                urlComFiltros += "Quantidade="+filtroQuantidade+"&";
+            this._processarAcao(() => {
+                const filtroNome = this.oView.byId(ID_INPUT_NOME).getValue();
+                const filtroQuantidade = this.oView.byId(ID_INPUT_QUANTIDADE).getValue();
+                const filtroNaturalidade = this.oView.byId(ID_INPUT_NATURALIDADE).getSelectedItem().getText();
+    
+                if (filtroNome)
+                    query += "Nome="+filtroNome+"&";
+                
+                if (filtroQuantidade)
+                    query += "Quantidade="+filtroQuantidade+"&";
+    
+                if (filtroNaturalidade != FLAG_PARA_FILTROAGEM_NULA)
+                    query += "Naturalidade="+filtroNaturalidade;
+            });
+            this._carregarDados(query, NOME_DO_MODELO);
+        },
 
-            if (filtroNaturalidade != FLAG_PARA_FILTROAGEM_NULA)
-                urlComFiltros += "Naturalidade="+filtroNaturalidade;
+        aoClicarIrParaCadastro() {
+            this.getRouter().navTo(CHAVE_VIEW_CADASTRAR_INGREDIENTE, {}, true);
+        },
 
-            fetch(urlComFiltros)
+        aoCoincidirRota: function () {
+            this._processarAcao(() => {
+                const oRouter = this.getOwnerComponent().getRouter();
+                oRouter.getRoute(ROTA_LISTAGEM).attachPatternMatched(() => {
+                    this._carregarDados(URL_API, NOME_DO_MODELO);
+                }, this);
+            });
+        },
+
+        _carregarDados(query, nomeDoModelo){
+            fetch(query)
                 .then((res) => res.json())
-                .then((data) => {
-                    this.getView().setModel(new JSONModel(data), NOME_DO_MODELO);
-                })
-                .catch((err) => console.error(err));
-        }
+                .then((data) => this.getView().setModel(new JSONModel(data), nomeDoModelo))
+                .catch((err) => MessageBox.error(err.message));
+        },
     });
 });

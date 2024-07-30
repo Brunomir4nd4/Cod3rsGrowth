@@ -33,7 +33,7 @@ namespace Cod3rsGrowth.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult Criar(Ingrediente ingrediente)
+        public IActionResult Criar([FromBody] Ingrediente ingrediente)
         {
             int id = _servicoIngrediente.Criar(ingrediente);
 

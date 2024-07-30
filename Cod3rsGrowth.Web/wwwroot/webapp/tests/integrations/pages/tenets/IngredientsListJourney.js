@@ -1,26 +1,20 @@
 sap.ui.define([
 	"sap/ui/test/opaQunit",
-	"coders-growth/tests/pages/IngredientsList"
+	"coders-growth/tests/integrations/pages/IngredientsList"
 ], function (opaTest) {
 		"use strict";
 
-		const NAME_SPACE = "coders-growth";
-		const STRING_INPUT_OLHO = "Olho";
-		const STRING_INPUT_PÓ = "Pó";
-		const QUANTIDADE_INPUT_15 = 15;
+		const INPUT_OLHO = "Olho";
+		const INPUT_PÓ = "Pó";
+		const INPUT_15 = 15;
 
 		QUnit.module("Posts");
 
 		opaTest("Deve aparecer os ingredientes cotendo Olho no nome", function (Given, When, Then) {
-			//Arrangements
-			Given.iStartMyUIComponent({
-				componentConfig: {
-					name: NAME_SPACE
-				}
-			});
+			Given.iStartMyApp();
 
 			//Actions
-			When.naPaginaDeListagemDosIngredientes.aoInserirOlhoNoInputNome(STRING_INPUT_OLHO);
+			When.naPaginaDeListagemDosIngredientes.aoInserirOlhoNoInputNome(INPUT_OLHO);
 
 			// Assertions
 			Then.naPaginaDeListagemDosIngredientes.aListaDeveConterItensComNomeOlho();
@@ -30,38 +24,35 @@ sap.ui.define([
 		});
 
 		opaTest("Clicar no botão OverWorld deve apresentar somentes os itens do OverWorld", function (Given, When, Then) {
-			//Arrangements
-			Given.iStartMyUIComponent({
-				componentConfig: {
-					name: NAME_SPACE
-				}
-			});
-			
+			Given.iStartMyApp();
+
+			When.naPaginaDeListagemDosIngredientes.aoClicarAbrirSelect();
 			When.naPaginaDeListagemDosIngredientes.aoClicarNoBotaoOverWorld();
-
-			Then.naPaginaDeListagemDosIngredientes.aTabelaDeveConter7ItensDoOverWorld();
-
+			Then.naPaginaDeListagemDosIngredientes.aTabelaDeveConterItensDoOverWorld();
 		});
 
 		opaTest("Clicar no botão Nether deve apresetar somente os itens do Nether", function (Given, When, Then) {
 			
+			When.naPaginaDeListagemDosIngredientes.aoClicarAbrirSelect();
 			When.naPaginaDeListagemDosIngredientes.aoClicarNoBotaoNether();
 
-			Then.naPaginaDeListagemDosIngredientes.aTabelaDeveConter2ItensDoNether();
+			Then.naPaginaDeListagemDosIngredientes.aTabelaDeveConterItensDoNether();
 		});
 
 		opaTest("Clicar no botão TheEnd deve apresetar somente os itens do TheEnd", function (Given, When, Then) {
 			
+			When.naPaginaDeListagemDosIngredientes.aoClicarAbrirSelect();
 			When.naPaginaDeListagemDosIngredientes.aoClicarNoBotaoTheEnd();
 
-			Then.naPaginaDeListagemDosIngredientes.aTabelaDeveConter1ItemDoTheEnd();
+			Then.naPaginaDeListagemDosIngredientes.aTabelaDeveConterItemDoTheEnd();
 		});
 
 		opaTest("Deve apresentar os ingredientes contendo Pó no nome e com quantidade igual a 15", function (Given, When, Then) {
 			//Actions
+			When.naPaginaDeListagemDosIngredientes.aoClicarAbrirSelect();
 			When.naPaginaDeListagemDosIngredientes.aoClicarNoBotaoTodos();
-			When.naPaginaDeListagemDosIngredientes.aoInserirPoNoInputNome(STRING_INPUT_PÓ);
-			When.naPaginaDeListagemDosIngredientes.aoInserir15NoInputQuantidade(QUANTIDADE_INPUT_15);
+			When.naPaginaDeListagemDosIngredientes.aoInserirPoNoInputNome(INPUT_PÓ);
+			When.naPaginaDeListagemDosIngredientes.aoInserir15NoInputQuantidade(INPUT_15);
 
 			// Assertions
 			Then.naPaginaDeListagemDosIngredientes.aTabelaDeveConterItensComNomePoEQuantidade15();
@@ -69,6 +60,5 @@ sap.ui.define([
 			// Cleanup
 			Then.iTeardownMyApp();
 		});
-
 	}
 );
