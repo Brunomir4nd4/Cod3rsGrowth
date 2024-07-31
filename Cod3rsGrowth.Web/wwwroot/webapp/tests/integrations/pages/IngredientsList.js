@@ -11,7 +11,7 @@ sap.ui.define([
 ) => {
 	"use strict";
 
-	const NOME_DO_VIEW = "Listagem";
+	const NOME_DA_VIEW = "Listagem";
     const ID_INPUT_NOME = "filtroNome";
     const ID_INPUT_QUANTIDADE = "filtroQuantidade";
 	const ID_TABELA_INGREDIENTES = "tabelaIngrediente";
@@ -25,6 +25,7 @@ sap.ui.define([
 	const PROPARTY_NOME = "nome";
 	const PROPARTY_NATURALIDADE = "naturalidade";
 	const PROPARTY_QUANTIDADDE = "quantidade";
+	const PROPRIEDADE_TEXT = "text";
 
 	Opa5.createPageObjects({
 	
@@ -33,7 +34,7 @@ sap.ui.define([
 			actions: {
 				aoInserirOlhoNoInputNome(stringDeBusca) {
 					return this.waitFor({
-						viewName: NOME_DO_VIEW,
+						viewName: NOME_DA_VIEW,
 						id: ID_INPUT_NOME,
 						actions: new EnterText({
 							text: stringDeBusca
@@ -44,7 +45,7 @@ sap.ui.define([
 
 				aoClicarAbrirSelect() {
 					return this.waitFor({
-						viewName: NOME_DO_VIEW,
+						viewName: NOME_DA_VIEW,
 						id: ID_SELECT_NATURALIDADE,
 						actions: new Press(),
 						errorMessage: "Botão Select não encontrado."
@@ -53,7 +54,7 @@ sap.ui.define([
 
 				aoClicarNoBotaoOverWorld(){
 					return this.waitFor({
-						viewName: NOME_DO_VIEW,
+						viewName: NOME_DA_VIEW,
 						id: ID_BOTAO_OVERWORLD,
 						actions: new Press(),
 						errorMessage: "Botão OverWorld não encontrado."
@@ -62,7 +63,7 @@ sap.ui.define([
 
 				aoClicarNoBotaoNether(){
 					return this.waitFor({
-						viewName: NOME_DO_VIEW,
+						viewName: NOME_DA_VIEW,
 						id: ID_BOTAO_NETHER,
 						actions: new Press(),
 						errorMessage: "Botão Nether não encontrado."
@@ -71,7 +72,7 @@ sap.ui.define([
 
 				aoClicarNoBotaoTheEnd() {
 					return this.waitFor({
-						viewName: NOME_DO_VIEW,
+						viewName: NOME_DA_VIEW,
 						id: ID_BOTAO_THEEND,
 						actions: new Press(),
 						errorMessage: "Botão TheEnd não encontrado."
@@ -80,7 +81,7 @@ sap.ui.define([
 
 				aoClicarNoBotaoTodos() {
 					return this.waitFor({
-						viewName: NOME_DO_VIEW,
+						viewName: NOME_DA_VIEW,
 						id: ID_BOTAO_TODOS,
 						actions: new Press(),
 						errorMessage: "Botão Todos não encontrado."
@@ -89,7 +90,7 @@ sap.ui.define([
 
 				aoInserirPoNoInputNome(stringDeBusca){
 					return this.waitFor({
-						viewName: NOME_DO_VIEW,
+						viewName: NOME_DA_VIEW,
 						id: ID_INPUT_NOME,
 						actions: new EnterText({
 							text: stringDeBusca
@@ -100,7 +101,7 @@ sap.ui.define([
 
 				aoInserir15NoInputQuantidade(stringDeBusca) {
 					return this.waitFor({
-						viewName: NOME_DO_VIEW,
+						viewName: NOME_DA_VIEW,
 						id: ID_INPUT_QUANTIDADE,
 						actions: new EnterText({
 							text: stringDeBusca
@@ -111,12 +112,26 @@ sap.ui.define([
 
 				aoClicarNoBotaoDeAdiconar() {
                     return this.waitFor({
-                        viewName: NOME_DO_VIEW,
+                        viewName: NOME_DA_VIEW,
                         id: ID_BOTAO_ADICIOANAR,
                         actions: new Press(),
                         errorMessage: "Botão adicionar não encontrado."
                     })
-                }
+                },
+
+				aoClicarEmUmItemDaTabela(nomeEsperado) {
+					return this.waitFor({
+						controlType: "sap.m.Text",
+						matchers: [
+							new sap.ui.test.matchers.PropertyStrictEquals({
+								name: PROPRIEDADE_TEXT,
+								value: nomeEsperado
+							})
+						],
+						actions: new Press(),
+						errorMessage: "Item não encontrado com o nome esperado: " + nomeEsperado
+					});
+				}
 			},
 
 			assertions: {
@@ -124,7 +139,7 @@ sap.ui.define([
 					const stringEsperada = "Olho";
 					const tagDasLinhas = "items";
 					return this.waitFor({
-						viewName: NOME_DO_VIEW,
+						viewName: NOME_DA_VIEW,
 						id: ID_TABELA_INGREDIENTES,
 						matchers: new sap.ui.test.matchers.AggregationFilled({
 							name: tagDasLinhas
@@ -150,7 +165,7 @@ sap.ui.define([
 					const stringEsperada = "Pó";
 					const quantidadeEsperada = 15;
 					return this.waitFor({
-						viewName: NOME_DO_VIEW,
+						viewName: NOME_DA_VIEW,
 						id: ID_TABELA_INGREDIENTES,
 						matchers: new sap.ui.test.matchers.AggregationFilled({
 							name: tagDasLinhas
@@ -177,7 +192,7 @@ sap.ui.define([
 					const stringEsperada = "OverWorld";
 				
 					return this.waitFor({
-						viewName: NOME_DO_VIEW,
+						viewName: NOME_DA_VIEW,
 						id: ID_TABELA_INGREDIENTES,
 						matchers: new sap.ui.test.matchers.AggregationFilled({
 							name: tagDasLinhas
@@ -203,7 +218,7 @@ sap.ui.define([
 					const tagDasLinhas = "items";
 					const stringEsperada = "Nether";
 					return this.waitFor({
-						viewName: NOME_DO_VIEW,
+						viewName: NOME_DA_VIEW,
 						id: ID_TABELA_INGREDIENTES,
 						matchers: new sap.ui.test.matchers.AggregationFilled({
 							name: tagDasLinhas
@@ -228,7 +243,7 @@ sap.ui.define([
 					const tagDasLinhas = "items";
 					const stringEsperada = "TheEnd";
 					return this.waitFor({
-						viewName: NOME_DO_VIEW,
+						viewName: NOME_DA_VIEW,
 						id: ID_TABELA_INGREDIENTES,
 						matchers: new sap.ui.test.matchers.AggregationFilled({
 							name: tagDasLinhas

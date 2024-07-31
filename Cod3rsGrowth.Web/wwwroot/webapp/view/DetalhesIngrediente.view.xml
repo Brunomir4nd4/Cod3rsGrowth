@@ -10,11 +10,12 @@
 		title="{i18n>DetalhesIngrediente.Detalhes}"
 		showNavButton="true"
 		navButtonPress="onNavBack"
-		binding="{ingrediente>/}" >
+		binding="{ingrediente>/}"
+		id="paginaDeDetalhes" >
 
 		<semantic:SemanticPage>
 			<semantic:titleHeading>
-				<Title text="{ingrediente>nome}" />
+				<Title text="{ingrediente>nome}" id="tituloNomeDoIngrediente" />
 			</semantic:titleHeading>
 			<semantic:headerContent>
 				<FlexBox

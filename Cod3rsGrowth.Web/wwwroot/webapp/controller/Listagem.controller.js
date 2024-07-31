@@ -1,8 +1,9 @@
 sap.ui.define([
     "coders-growth/controller/BaseController",
     "sap/ui/model/json/JSONModel",
-    "coders-growth/model/Formatter"
- ], function (BaseController,JSONModel, Formatter) {
+    "coders-growth/model/Formatter",
+    "sap/m/MessageBox"
+ ], function (BaseController,JSONModel, Formatter, MessageBox) {
     "use strict";
 
     const URL_API = "https://localhost:7224/api/Ingredientes";

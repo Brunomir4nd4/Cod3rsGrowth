@@ -1,8 +1,9 @@
 sap.ui.define([
 	"sap/ui/core/mvc/Controller",
 	"sap/ui/core/routing/History",
-	"sap/ui/core/UIComponent"
-], function(Controller, History, UIComponent) {
+	"sap/ui/core/UIComponent",
+	"sap/m/MessageBox"
+], function(Controller, History, UIComponent, MessageBox) {
 	"use strict";
 
 	const CHAVE_DA_VIEW_HOME = "appListagem";
