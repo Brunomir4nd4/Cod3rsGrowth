@@ -27,6 +27,10 @@ sap.ui.define([
 			}
 		},
 
+		getModel : function (sName) {
+			return this.getView().getModel(sName);
+		},
+
 		_processarAcao(action) {
 			try {
 				const result = action();
