@@ -7,7 +7,7 @@ sap.ui.define([
     
     const NOME_ITEM_DA_TABELA_POLVORA = "Pólvora";
     const NOME_ITEM_DA_TABELA_MELANCIA_RELUZENTE = "Melancia Reluzente";
-    const NOME_ESPERADO = "Melancia Reluzente";
+    const VALOR_ESPERADO_MELANCIA_RELUZENTE = "Melancia Reluzente";
 
     QUnit.module("Posts");
 
@@ -26,6 +26,6 @@ sap.ui.define([
     
         When.naPaginaDeListagemDosIngredientes.aoClicarEmUmItemDaTabela(NOME_ITEM_DA_TABELA_MELANCIA_RELUZENTE);
     
-        Then.naPaginaDeDetalhesDoIngrediente.deveSerOIngredienteEsperado(NOME_ESPERADO);
+        Then.naPaginaDeDetalhesDoIngrediente.deveSerOIngredienteEsperado(VALOR_ESPERADO_MELANCIA_RELUZENTE);
     });
 });

@@ -1,12 +1,8 @@
 sap.ui.define([
 	"sap/ui/test/Opa5",
-	'sap/ui/test/actions/EnterText',
-	'sap/ui/test/actions/Press',
 	'sap/ui/test/matchers/PropertyStrictEquals'
 ], (
-        Opa5, 
-        EnterText, 
-        Press,
+        Opa5,
         PropertyStrictEquals
     ) => {
 	"use strict";

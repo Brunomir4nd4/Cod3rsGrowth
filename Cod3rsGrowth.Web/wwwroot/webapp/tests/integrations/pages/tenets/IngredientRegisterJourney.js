@@ -12,6 +12,8 @@ sap.ui.define([
 		const INPUT_15 = 15;
 		const INPUT_5 = 5;
 		const INPUT_2 = 2;
+        const VALOR_ESPERADO_CADASTRO = "Cadastro";
+        const VALOR_ESPERADO_TRUE = true;
 
         QUnit.module("Posts");
 
@@ -20,7 +22,7 @@ sap.ui.define([
 
             When.naPaginaDeListagemDosIngredientes.aoClicarNoBotaoDeAdiconar();
 
-            Then.naPaginaDeCadastroDeIngrediente.deveAbrirViewDeCadastro();
+            Then.naPaginaDeCadastroDeIngrediente.deveAbrirViewDeCadastro(VALOR_ESPERADO_CADASTRO);
         });
 
 		opaTest("Deve tentar criar um ingrediente com valores inválidos", function (Given, When, Then) {
@@ -29,7 +31,7 @@ sap.ui.define([
             When.naPaginaDeCadastroDeIngrediente.aoInserirAbobor4NoInputQuantidade(INPUT_ABOBOR4);
             When.naPaginaDeCadastroDeIngrediente.aoClicarNoBotaoSalvar();
 
-            Then.naPaginaDeCadastroDeIngrediente.deveApresentarMenssagemDeErroEsperada();
+            Then.naPaginaDeCadastroDeIngrediente.deveApresentarMenssagemDeErroEsperada(VALOR_ESPERADO_TRUE);
         });
 
 		opaTest("Deve tentar criar um ingrediente com valor quantidade inválidos", function (Given, When, Then) {

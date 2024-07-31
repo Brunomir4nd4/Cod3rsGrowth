@@ -1,13 +1,11 @@
 sap.ui.define([
 	"sap/ui/test/Opa5",
 	'sap/ui/test/actions/EnterText',
-	'sap/ui/test/actions/Press',
-	'sap/ui/test/matchers/BindingPath'
+	'sap/ui/test/actions/Press'
 ], (
 	Opa5, 
 	EnterText, 
-	Press,
-	BindingPath
+	Press
 ) => {
 	"use strict";
 
@@ -32,12 +30,12 @@ sap.ui.define([
 		naPaginaDeListagemDosIngredientes: {
 
 			actions: {
-				aoInserirOlhoNoInputNome(stringDeBusca) {
+				aoInserirOlhoNoInputNome(valorDeBusca) {
 					return this.waitFor({
 						viewName: NOME_DA_VIEW,
 						id: ID_INPUT_NOME,
 						actions: new EnterText({
-							text: stringDeBusca
+							text: valorDeBusca
 						}),
 						errorMessage: "Campo Nome não encontrado."
 					});
@@ -88,23 +86,23 @@ sap.ui.define([
 					});
 				},
 
-				aoInserirPoNoInputNome(stringDeBusca){
+				aoInserirPoNoInputNome(valorDeBusca){
 					return this.waitFor({
 						viewName: NOME_DA_VIEW,
 						id: ID_INPUT_NOME,
 						actions: new EnterText({
-							text: stringDeBusca
+							text: valorDeBusca
 						}),
 						errorMessage: "Campo nome não encontrado."
 					})
 				},
 
-				aoInserir15NoInputQuantidade(stringDeBusca) {
+				aoInserir15NoInputQuantidade(valorDeBusca) {
 					return this.waitFor({
 						viewName: NOME_DA_VIEW,
 						id: ID_INPUT_QUANTIDADE,
 						actions: new EnterText({
-							text: stringDeBusca
+							text: valorDeBusca
 						}),
 						errorMessage: "Campo nome não encontrado."
 					})
@@ -119,17 +117,17 @@ sap.ui.define([
                     })
                 },
 
-				aoClicarEmUmItemDaTabela(nomeEsperado) {
+				aoClicarEmUmItemDaTabela(valorEsperado) {
 					return this.waitFor({
 						controlType: "sap.m.Text",
 						matchers: [
 							new sap.ui.test.matchers.PropertyStrictEquals({
 								name: PROPRIEDADE_TEXT,
-								value: nomeEsperado
+								value: valorEsperado
 							})
 						],
 						actions: new Press(),
-						errorMessage: "Item não encontrado com o nome esperado: " + nomeEsperado
+						errorMessage: "Item não encontrado com o nome esperado: " + valorEsperado
 					});
 				}
 			},
