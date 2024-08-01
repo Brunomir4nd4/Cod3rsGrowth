@@ -87,6 +87,11 @@
 					"pattern": "CadastroIngrediente",
 					"name": "appCadastroIngrediente",
 					"target": "cadastroIngrediente"
+				},
+				{
+					"pattern": "DetalhesIngrediente/{id}",
+					"name": "appDetalhesIngrediente",
+					"target": "detalhesIngrediente"
 				}
 			],
 			"targets": {
@@ -97,6 +102,10 @@
 				"cadastroIngrediente": {
 					"id": "cadastroIngrediente",
 					"name": "CadastroIngrediente"
+				},
+				"detalhesIngrediente": {
+					"id": "detalhesIngrediente",
+					"name": "DetalhesIngrediente"
 				},
 				"notFound": {
 				   "id": "notFound",

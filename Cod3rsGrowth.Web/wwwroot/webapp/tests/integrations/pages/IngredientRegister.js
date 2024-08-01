@@ -20,6 +20,8 @@ sap.ui.define([
     const ID_BOTAO_SALVAR = "saveButton";
     const ID_SELECT_NATURALIDADE = "inputNaturalidade";
     const ID_BOTAO_NETHER = "__component2---cadastroIngrediente--Nether";
+    const PROPRIEDADE_TEXT = "text";
+    const PROPRIEDADE_VISIBLE = PROPRIEDADE_VISIBLE;
 
     Opa5.createPageObjects({
 
@@ -120,28 +122,28 @@ sap.ui.define([
             },
 
             assertions: {
-                deveAbrirViewDeCadastro() {
+                deveAbrirViewDeCadastro(valorEsperado) {
                     return this.waitFor({
                         viewName: NOME_DA_VIEW,
                         id: ID_PROPERTY_TITLE,
                         matchers: new PropertyStrictEquals({
-                            name: "text",
-                            value: "Cadastro"
+                            name: PROPRIEDADE_TEXT,
+                            value: valorEsperado
                         }),
                         success: function () {
-                            Opa5.assert.ok(true, "A view de cadastro foi aberta com sucesso.");
+                            Opa5.assert.ok(true, "A view de cadastro foi aberta corretamente com o valor esperado.");
                         },
-                        errorMessage: "A view de cadastro não foi aberta corretamente."
+                        errorMessage: "A view de cadastro não foi aberta corretamente com o valor esperado: " + valorEsperado
                     });
                 },
 
-                deveApresentarMenssagemDeErroEsperada() {
+                deveApresentarMenssagemDeErroEsperada(valorEsperado) {
                     return this.waitFor({
                         viewName: NOME_DA_VIEW,
                         id: ID_MENSAGEM_ERRO,
                         matchers: new PropertyStrictEquals({
-                            name: "visible",
-                            value: true
+                            name: PROPRIEDADE_VISIBLE,
+                            value: valorEsperado
                         }),
                         success: function () {
                             Opa5.assert.ok(true, "A mensagem de erro está sendo exibida conforme esperado.");
@@ -150,13 +152,13 @@ sap.ui.define([
                     });
                 },
 
-                deveApresentarMenssagemDeSecessoEsperada() {
+                deveApresentarMenssagemDeSecessoEsperada(valorEsperado) {
                     return this.waitFor({
                         viewName: NOME_DA_VIEW,
                         id: ID_MENSAGEM_SECESSO,
                         matchers: new PropertyStrictEquals({
-                            name: "visible",
-                            value: true
+                            name: PROPRIEDADE_VISIBLE,
+                            value: valorEsperado
                         }),
                         success: function () {
                             Opa5.assert.ok(true, "A mensagem de sucesso está sendo exibida corretamente.");
