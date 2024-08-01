@@ -9,6 +9,8 @@ sap.ui.define([
     const URL_API = "https://localhost:7224/api/Ingredientes/";
     const NOME_DO_MODELO = "ingrediente";
     const ROTA_DETALHES = "appDetalhesIngrediente";
+    const CHAVE_VIEW_CADASTRAR_INGREDIENTE = "appCadastroIngrediente";
+    const PROPERTY_ID = "id";
 
     return BaseController.extend("coders-growth.controller.DetalhesIngrediente", {
         formatter: Formatter,
@@ -22,6 +24,17 @@ sap.ui.define([
                 const oRouter = this.getOwnerComponent().getRouter();
                 oRouter.getRoute(ROTA_DETALHES).attachPatternMatched(this._obterPorId, this);
             });
+        },
+
+        aoClicarIrParaCadastro() {
+            this.getRouter().navTo(CHAVE_VIEW_CADASTRAR_INGREDIENTE, {}, true);
+        },
+
+        aoClicarIrParaCadastroParaEditar(oEvent) {
+            let oItem = oEvent.getSource();
+            this.getRouter().navTo(CHAVE_VIEW_CADASTRAR_INGREDIENTE, {
+                id: window.encodeURIComponent(oItem.getBindingContext(NOME_DO_MODELO).getProperty(PROPERTY_ID))
+            }, true);
         },
 
         _obterPorId(oEvent) {

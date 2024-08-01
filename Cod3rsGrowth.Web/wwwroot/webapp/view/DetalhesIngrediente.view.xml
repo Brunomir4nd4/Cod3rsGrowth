@@ -7,11 +7,19 @@
 	xmlns:l="sap.ui.layout" >
 
 	<Page
-		title="{i18n>DetalhesIngrediente.Detalhes}"
-		showNavButton="true"
-		navButtonPress="onNavBack"
 		binding="{ingrediente>/}"
-		id="paginaDeDetalhes" >
+		id="paginaDeDetalhes"
+		showHeader="false" >
+		<content>
+			<Toolbar>
+				<content>
+					<Button icon="sap-icon://navigation-left-arrow" press="onNavBack" />
+					<Title text="{i18n>DetalhesIngrediente.Detalhes}" level="H2" />
+					<ToolbarSpacer />
+					<Button icon="sap-icon://edit" text="Editar" press="aoClicarIrParaCadastroParaEditar" />
+				</content>
+			</Toolbar>
+		</content>
 
 		<semantic:SemanticPage>
 			<semantic:titleHeading>

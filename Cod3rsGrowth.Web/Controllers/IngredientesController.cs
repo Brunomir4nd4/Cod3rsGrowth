@@ -41,7 +41,7 @@ namespace Cod3rsGrowth.Web.Controllers
         }
 
         [HttpPatch]
-        public IActionResult Editar(Ingrediente ingrediente)
+        public IActionResult Editar([FromBody] Ingrediente ingrediente)
         {
             return Ok(_servicoIngrediente.Editar(ingrediente));
         }

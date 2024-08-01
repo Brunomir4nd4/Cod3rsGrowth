@@ -84,7 +84,7 @@
 				"target": "listagem"
 				},
 				{
-					"pattern": "CadastroIngrediente",
+					"pattern": "CadastroIngrediente/:id:",
 					"name": "appCadastroIngrediente",
 					"target": "cadastroIngrediente"
 				},
