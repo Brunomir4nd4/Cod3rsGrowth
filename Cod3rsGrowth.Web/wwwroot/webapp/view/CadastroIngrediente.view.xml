@@ -28,7 +28,7 @@
         <f:Form id="FormToolbar" editable="true" ariaLabelledBy="Title1" >
             <f:toolbar>
 				<Toolbar id="TB1">
-                    <Button icon="sap-icon://navigation-left-arrow" press="onNavBack" />
+                    <Button icon="sap-icon://navigation-left-arrow" press="onNavBack" id="botaoVoltarPagina" />
 					<Title id="Title1" text="Cadastro"/>
                     <ToolbarSpacer />
                     <Button icon='sap-icon://save' press="aoClicarCadastrarIngrediente"  id="saveButton" text="Salvar" />

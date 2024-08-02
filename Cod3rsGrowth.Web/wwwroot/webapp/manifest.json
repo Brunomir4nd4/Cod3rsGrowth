@@ -79,9 +79,9 @@
 			},
 			"routes": [
 				{
-				"pattern": "",
-				"name": "appListagem",
-				"target": "listagem"
+					"pattern": "",
+					"name": "appListagem",
+					"target": "listagem"
 				},
 				{
 					"pattern": "CadastroIngrediente/:id:",

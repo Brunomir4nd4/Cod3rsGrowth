@@ -22,7 +22,7 @@ sap.ui.define([
 	const NOME_DO_JSONMODEL = "ingrediente";
 	const PROPARTY_NOME = "nome";
 	const PROPARTY_NATURALIDADE = "naturalidade";
-	const PROPARTY_QUANTIDADDE = "quantidade";
+	const PROPARTY_QUANTIDADE = "quantidade";
 	const PROPRIEDADE_TEXT = "text";
 
 	Opa5.createPageObjects({
@@ -117,17 +117,17 @@ sap.ui.define([
                     })
                 },
 
-				aoClicarEmUmItemDaTabela(valorEsperado) {
+				aoClicarEmUmItemDaTabela(nomeDoItem) {
 					return this.waitFor({
 						controlType: "sap.m.Text",
 						matchers: [
 							new sap.ui.test.matchers.PropertyStrictEquals({
 								name: PROPRIEDADE_TEXT,
-								value: valorEsperado
+								value: nomeDoItem
 							})
 						],
 						actions: new Press(),
-						errorMessage: "Item não encontrado com o nome esperado: " + valorEsperado
+						errorMessage: "Item com o nome: " + nomeDoItem + "não encontrado"
 					});
 				}
 			},
@@ -174,7 +174,7 @@ sap.ui.define([
 							let result = true; 
 							items.map((item) => {
 								let nome = item.getBindingContext(NOME_DO_JSONMODEL).getProperty(PROPARTY_NOME);
-								let quantidade = item.getBindingContext(NOME_DO_JSONMODEL).getProperty(PROPARTY_QUANTIDADDE);
+								let quantidade = item.getBindingContext(NOME_DO_JSONMODEL).getProperty(PROPARTY_QUANTIDADE);
 								if (!nome.includes(stringEsperada) & quantidade !== quantidadeEsperada)
 									result = false;
 							});
@@ -261,6 +261,35 @@ sap.ui.define([
 						errorMessage: "Alguns itens na tabela não possuem a naturalidade " + stringEsperada
 					})
 				},
+
+				aTabelaDeveConterOItemEsperado(valorEsperado) {
+					const nomeItemEditado = "Perola do End"
+					const tagDasLinhas = "items";
+					return this.waitFor({
+						viewName: NOME_DA_VIEW,
+						id: ID_TABELA_INGREDIENTES,
+						matchers: new sap.ui.test.matchers.AggregationFilled({
+							name: tagDasLinhas
+						}),
+						success: function(oTable) {
+							const items = oTable.getItems();
+
+							let result = true;
+							items.map((item) => {
+								let nome = item.getBindingContext(NOME_DO_JSONMODEL).getProperty(PROPARTY_NOME);
+								let quantidade = item.getBindingContext(NOME_DO_JSONMODEL).getProperty(PROPARTY_QUANTIDADE);
+								if (nome === nomeItemEditado) {
+									if (quantidade !== valorEsperado)
+										result = false;
+									return;
+								}
+							});
+
+							Opa5.assert.ok(result, "O item foi atualizado com sucesso.");
+						},
+						errorMessage: "Item não foi atualizado."
+					})
+				}
 			}
 		}
 	});

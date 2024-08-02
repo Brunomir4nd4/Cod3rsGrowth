@@ -96,6 +96,12 @@ sap.ui.define([
         },
 
         _regatarParamentroUrl(oEvent){
+            var oRouter = sap.ui.core.UIComponent.getRouterFor(this); // Obtém o roteador associado ao controlador
+
+            var sRouteName = oRouter.getRoute(oEvent.getParameter("name"))._oConfig.name;
+
+            console.log(sRouteName)
+            console.log(oEvent)
             PARAMETRO_ID = oEvent.getParameter(ARGUMENTOS_DE_PARAMETRO).id;
         },
 

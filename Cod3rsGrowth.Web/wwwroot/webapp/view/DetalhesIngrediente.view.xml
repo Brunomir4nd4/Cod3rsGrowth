@@ -14,9 +14,9 @@
 			<Toolbar>
 				<content>
 					<Button icon="sap-icon://navigation-left-arrow" press="onNavBack" />
-					<Title text="{i18n>DetalhesIngrediente.Detalhes}" level="H2" />
+					<Title text="{i18n>DetalhesIngrediente.Detalhes}" level="H2" id="tituloDeDetalhes" />
 					<ToolbarSpacer />
-					<Button icon="sap-icon://edit" text="Editar" press="aoClicarIrParaCadastroParaEditar" />
+					<Button icon="sap-icon://edit" text="Editar" press="aoClicarIrParaCadastroParaEditar" id="botaoEditar" />
 				</content>
 			</Toolbar>
 		</content>

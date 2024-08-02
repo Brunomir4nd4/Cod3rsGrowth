@@ -19,9 +19,10 @@ sap.ui.define([
     const ID_MENSAGEM_SECESSO = "successMessageStrip";
     const ID_BOTAO_SALVAR = "saveButton";
     const ID_SELECT_NATURALIDADE = "inputNaturalidade";
-    const ID_BOTAO_NETHER = "__component2---cadastroIngrediente--Nether";
+    const ID_BOTAO_NETHER = "Nether";
+    const ID_BOTAO_VOLTAR_PAGINA = "botaoVoltarPagina";
     const PROPRIEDADE_TEXT = "text";
-    const PROPRIEDADE_VISIBLE = PROPRIEDADE_VISIBLE;
+    const PROPRIEDADE_VISIBLE = "visible";
 
     Opa5.createPageObjects({
 
@@ -119,6 +120,37 @@ sap.ui.define([
                         errorMessage: "Botão Nether não encontrada."
                     })
                 },
+
+                aoClicarNoBotaoDeVoltarPagina(){
+                    return this.waitFor({
+                        viewName: NOME_DA_VIEW,
+                        id: ID_BOTAO_VOLTAR_PAGINA,
+                        actions: new Press(),
+                        errorMessage: "Botão de voltar página não encontrado."
+                    })
+                },
+
+                aoInserirValorNoInputNome(input){
+                    return this.waitFor({
+                        viewName: NOME_DA_VIEW,
+                        id: ID_INPUT_QUANTIDADE,
+                        actions: new EnterText({
+                            text: input
+                        }),
+                        errorMessage: "Input nome não encontrada."
+                    })
+                },
+
+                aoInserirValorNoInputQuantidade(input){
+                    return this.waitFor({
+                        viewName: NOME_DA_VIEW,
+                        id: ID_INPUT_QUANTIDADE,
+                        actions: new EnterText({
+                            text: input
+                        }),
+                        errorMessage: "Input quantidade não encontrada."
+                    })
+                }
             },
 
             assertions: {
