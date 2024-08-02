@@ -13,6 +13,11 @@ sap.ui.define([
     const ROTA_CADASTRO = "appCadastroIngrediente";
     const REQUISICAO_POST = "POST";
     const REQUISICAO_PATCH = "PATCH";
+    const ARGUMENTOS_DE_PARAMETRO = "arguments";
+    const ID_MENSSAGE_STRIP_SECESSO = "successMessageStrip";
+    const ID_MENSSAGE_STRIP_ERRO = "errorMessageStrip";
+    const ID_BOTAO_SALVAR = "saveButton";
+    var PARAMETRO_ID;
 
     return BaseController.extend("coders-growth.controller.CadastroIngrediente", {
         onInit(){
@@ -22,59 +27,82 @@ sap.ui.define([
         aoCoincidirRota: function () {
             this._processarAcao(() => {
                 const oRouter = this.getOwnerComponent().getRouter();
-                oRouter.getRoute(ROTA_CADASTRO).attachPatternMatched(this._obterPorId, this);
+                oRouter.getRoute(ROTA_CADASTRO).attachPatternMatched((oEvent) => {
+                    this._limparResquisiosDeCadastro();
+                    this._regatarParamentroUrl(oEvent);
+                    this._obterPorId();
+                }, this);
             });
         },
 
         aoAlterarNome(){
+            const inputNome = this.getView().byId(ID_INPUT_NOME);       
             this._processarAcao(() =>{
-                const oInput = this.getView().byId(ID_INPUT_NOME);
-                Validators.ValidarNome(oInput, oInput.getValue());
+                Validators.ValidarNome(inputNome, inputNome.getValue());
             });
         },
         
         aoAlterarQuantidade(){
+            const inputQuantidade = this.getView().byId(ID_INPUT_QUANTIDADE);
             this._processarAcao(() => {
-                const oInput = this.getView().byId(ID_INPUT_QUANTIDADE);
-                Validators.ValidarQuantidade(oInput, oInput.getValue());
+                Validators.ValidarQuantidade(inputQuantidade, inputQuantidade.getValue());
             });
         },
 
-        aoClicarCriarIngrediente(){
-            const oRouter = this.getOwnerComponent().getRouter();
+        aoClicarCadastrarIngrediente(){
+            const nome = this.getView().byId(ID_INPUT_NOME).getValue();
+            const quantidade = this.getView().byId(ID_INPUT_QUANTIDADE).getValue();
+            const naturalidade = this.getView().byId(ID_INPUT_NATURALIDADE).getSelectedItem().getText();
 
-            oRouter.getRoute(ROTA_CADASTRO).attachPatternMatched(function(oEvent) {
-                const id = oEvent.getParameter("arguments").id;
-                const inputNome = this.oView.byId(ID_INPUT_NOME).getValue();
-                const inputQuantidade = this.oView.byId(ID_INPUT_QUANTIDADE).getValue();
-                const inputNaturalidade = this.oView.byId(ID_INPUT_NATURALIDADE).getSelectedItem().getText();
+            if (PARAMETRO_ID) {
+                const oIngrediente = {
+                    Id: PARAMETRO_ID,
+                    Nome: nome,
+                    Quantidade: quantidade,
+                    Naturalidade: Formatter.formatarStringDoEnum(naturalidade)
+                }
+                this._requistarApi(URL_API, oIngrediente, REQUISICAO_PATCH);
 
-                if (id) {
-                    console.log("ID recuperado da URI: " + id);
-                    const oIngrediente = {
-                        Id: id,
-                        Nome: inputNome,
-                        Quantidade: inputQuantidade,
-                        Naturalidade: Formatter.formatarStringDoEnum(inputNaturalidade)
-                    }
-                    this._requistarApi(URL_API, oIngrediente, REQUISICAO_PATCH);
+            } else {
+                const oIngrediente = {
+                    Nome: nome,
+                    Quantidade: quantidade,
+                    Naturalidade: Formatter.formatarStringDoEnum(naturalidade)
+                }
+                this._requistarApi(URL_API, oIngrediente, REQUISICAO_POST);
+            }
+        },
 
-                } else {
-                    console.log("Nenhum ID encontrado na URI.");
-                    const oIngrediente = {
-                        Nome: inputNome,
-                        Quantidade: inputQuantidade,
-                        Naturalidade: Formatter.formatarStringDoEnum(inputNaturalidade)
-                    }
-                    this._requistarApi(URL_API, oIngrediente, REQUISICAO_POST);
+        _limparResquisiosDeCadastro() {
+            const iconSave = "sap-icon://save";
+            const keyOverWorld = "0";
+            const SEM_VALORES = "";
+            const inputNome = this.getView().byId(ID_INPUT_NOME);
+            const inputQuantidade = this.getView().byId(ID_INPUT_QUANTIDADE);
+            const inputNaturalidade = this.getView().byId(ID_INPUT_NATURALIDADE);
+
+            this.getView().byId(ID_MENSSAGE_STRIP_SECESSO).setVisible(false);
+            this.getView().byId(ID_MENSSAGE_STRIP_ERRO).setVisible(false);
+            this.getView().byId(ID_BOTAO_SALVAR).setIcon(iconSave);
+            inputNome.setValueState(sap.ui.core.ValueState.None);
+            inputQuantidade.setValueState(sap.ui.core.ValueState.None);
+            inputNome.setValue(SEM_VALORES);
+            inputQuantidade.setValue(SEM_VALORES);
+            inputNaturalidade.getItems().map((item) => {
+                if (item.getKey() === keyOverWorld){
+                    inputNaturalidade.setSelectedItem(item);
                 }
             });
         },
 
-        _obterPorId(oEvent) {
-            let id = oEvent.getParameter("arguments").id;
-            if (id != undefined){
-                let query = URL_API + "/" + id;
+        _regatarParamentroUrl(oEvent){
+            PARAMETRO_ID = oEvent.getParameter(ARGUMENTOS_DE_PARAMETRO).id;
+        },
+
+        _obterPorId() {
+            const barraInvertida = "/";
+            if (PARAMETRO_ID){
+                let query = URL_API + barraInvertida + PARAMETRO_ID;
                 fetch(query)
                     .then(resp => resp.json())
                     .then(data => this._inserirDadosDeEdicao(data))
@@ -83,17 +111,19 @@ sap.ui.define([
         },
 
         _inserirDadosDeEdicao(ingrediente){
-            const idInputNome = "inputNome";
-            const idInputQuantidade = "inputQuantidade";
-            const idInputNaturalidade = "inputNaturalidade";
-
-            this.getView().byId(idInputNome).setValue(ingrediente.nome);
-            this.getView().byId(idInputQuantidade).setValue(ingrediente.quantidade);
-            this.getView().byId(idInputNaturalidade).setValue(ingrediente.naturalidade);
+            const oSelect = this.getView().byId(ID_INPUT_NATURALIDADE);
+            this.getView().byId(ID_INPUT_NOME).setValue(ingrediente.nome);
+            this.getView().byId(ID_INPUT_QUANTIDADE).setValue(ingrediente.quantidade);
+            oSelect.getItems().map((item) => {
+                if (item.getKey() == ingrediente.naturalidade){
+                    oSelect.setSelectedItem(item);
+                }
+            });
         },
         
         _requistarApi(urlApi, ingrediente, metodoDaRequisicao){
             let sucesso = true;
+            let iconComplete = "sap-icon://complete";
             fetch(urlApi, {
                 method: metodoDaRequisicao,
                 body: JSON.stringify(ingrediente),
@@ -102,22 +132,21 @@ sap.ui.define([
             .then(response => {
                 if (!response.ok) {
                     sucesso = false;
-                    throw new Error('Erro ao fazer a requisição');
+                    throw new Error();
                 }
-            
                 return response.json();
             })
             .then(json => {
                 console.log(json);
                 if (sucesso){
-                    this.getView().byId("successMessageStrip").setVisible(true);
-                    this.getView().byId("errorMessageStrip").setVisible(false);
+                    this.getView().byId(ID_BOTAO_SALVAR).setIcon(iconComplete);
+                    this.getView().byId(ID_MENSSAGE_STRIP_SECESSO).setVisible(true);
+                    this.getView().byId(ID_MENSSAGE_STRIP_ERRO).setVisible(false);
                 }
             })
             .catch(err => {
-                this.getView().byId("errorMessageStrip").setVisible(true);
-                this.byId("successMessageStrip").setVisible(false);
-                MessageBox.error(err.message);
+                this.getView().byId(ID_MENSSAGE_STRIP_ERRO).setVisible(true);
+                this.getView().byId(ID_MENSSAGE_STRIP_SECESSO).setVisible(false);
             });
         },
     }) 

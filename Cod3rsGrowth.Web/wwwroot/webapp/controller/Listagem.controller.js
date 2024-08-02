@@ -75,7 +75,8 @@ sap.ui.define([
         },
 
         _carregarImagens(nomeDoModelo) {
-            const imgSrc = sap.ui.require.toUrl("coders-growth/images/overworld_block.png");
+            const caminhoDoDiretorioImagems = "coders-growth/images/overworld_block.png";
+            const imgSrc = sap.ui.require.toUrl(caminhoDoDiretorioImagems);
         
             const oImgModel = new sap.ui.model.json.JSONModel({
                 imageSrc: imgSrc

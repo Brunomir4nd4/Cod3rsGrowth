@@ -7,7 +7,7 @@
 	xmlns:f="sap.ui.layout.form"
     xmlns:core="sap.ui.core">
     <MessageStrip
-        text="Ingrediente criado com sucesso."
+        text="Ingrediente cadastrado com sucesso."
         type="Success"
         showIcon="true"
         showCloseButton="true"
@@ -16,7 +16,7 @@
         visible="false" />
 
     <MessageStrip
-        text="Falha: não foi possível criar o ingrediente."
+        text="Falha: não foi possível cadastrado o ingrediente."
         type="Error"
         showIcon="true"
         showCloseButton="true"
@@ -31,7 +31,7 @@
                     <Button icon="sap-icon://navigation-left-arrow" press="onNavBack" />
 					<Title id="Title1" text="Cadastro"/>
                     <ToolbarSpacer />
-                    <Button icon='sap-icon://save' press="aoClicarCriarIngrediente"  id="saveButton" text="Salvar" />
+                    <Button icon='sap-icon://save' press="aoClicarCadastrarIngrediente"  id="saveButton" text="Salvar" />
 				</Toolbar>
 			</f:toolbar>
             <f:layout>
@@ -72,9 +72,9 @@
 							<f:fields>
 								<Select width="100%" id="inputNaturalidade" selectedKey="{Naturalidade}">
 									<items>
-										<core:Item text="OverWorld" key="OverWorld" id="OverWorld" />
-										<core:Item text="Nether" key="Nether" id="Nether" />
-										<core:Item text="TheEnd" key="TheEnd" id="TheEnd" />
+										<core:Item text="OverWorld" key="0" id="OverWorld" />
+										<core:Item text="Nether" key="1" id="Nether" />
+										<core:Item text="TheEnd" key="2" id="TheEnd" />
 									</items>
 								</Select>
 							</f:fields>
