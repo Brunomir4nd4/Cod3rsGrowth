@@ -2,7 +2,7 @@
     controllerName="coders-growth.controller.Listagem"
     xmlns="sap.m"
     xmlns:mvc="sap.ui.core.mvc"
-    xmlns:core="sap.ui.core">
+    xmlns:core="sap.ui.core" >
 
     <Page title="{i18n>Listagem.Listagem}" class="sapUiResponsiveContentPadding" binding="{img>/}" >
         <Table
@@ -31,11 +31,10 @@
             </headerToolbar>
 
             <columns>
-                <Column></Column>
                 <Column>
-                    <Text text="{i18n>Listagem.Nome}" />
+                    <Text text="{i18n>Listagem.NomeDoIngrediente}" />
                 </Column>
-                <Column>
+                <Column hAlign="End" >
                     <Text text="{i18n>Listagem.Quantidade}" />
                 </Column>
             </columns>
@@ -45,14 +44,32 @@
                     type="Navigation"
 					press="aoClicarIrParaDetalhes">
                     <cells id="celulasDaTabelaIngredientes">
-                        <Image src="{img>imageSrc}" width="60px" height="70px" />
-                        <ObjectIdentifier
-                            title="{ingrediente>nome}"
-                            text="{
-                                path: 'ingrediente>naturalidade',
-                                formatter: '.formatter.formatarValorInteiroDoEnum'
-                            }" />
-                        <Text text="{ingrediente>quantidade}" />
+                        <HBox>
+                            <Image
+                                src="{path: 'ingrediente>naturalidade', formatter: '.formatter.obterImagem'}"
+                                class="sapMUSTItemImage"
+                                width="60px"
+                                height="70px"
+                            />
+                            <VBox class="sapUiTinyMargin sapUiSmallMarginBegin">
+                                <ObjectIdentifier
+                                    class="sapUiTinyMarginBottom sapUiSmallMarginTop"
+                                    title="{ingrediente>nome}"
+                                    text="{
+                                        path: 'ingrediente>naturalidade',
+                                        formatter: '.formatter.formatarValorInteiroDoEnum'
+                                    }" 
+                                />
+                            </VBox>
+                        </HBox>
+                        <ObjectNumber
+							unit="{i18n>DetalhesIngrediente.Unidades}"
+							textAlign="End"
+							state="{
+								path: 'ingrediente>quantidade',
+								formatter: '.formatter.quantityState'}"
+							number="{ingrediente>quantidade}" >
+						</ObjectNumber>
                     </cells>
                 </ColumnListItem>
             </items>

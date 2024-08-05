@@ -21,7 +21,7 @@
 			</Toolbar>
 		</content>
 
-		<semantic:SemanticPage>
+		<semantic:SemanticPage toggleHeaderOnTitleClick="false" preserveHeaderStateOnScroll ="true" >
 			<semantic:titleHeading>
 				<Title text="{ingrediente>nome}" id="tituloNomeDoIngrediente" />
 			</semantic:titleHeading>

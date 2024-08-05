@@ -23,6 +23,7 @@ namespace Cod3rsGrowth.Web.Controllers
         [HttpGet]
         public IActionResult ObterTodos([FromQuery] FiltroIngrediente filtroIngrediente)
         {
+            throw new Exception("Abacate");
             return Ok(_servicoIngrediente.ObterTodos(filtroIngrediente));
         }
 

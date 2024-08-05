@@ -22,7 +22,7 @@ sap.ui.define([
         formatter: Formatter,
 
         onInit(){
-            this.aoCoincidirRota();
+            this._aoCoincidirRota();
         },
 
         aoAlterarFiltrar(){
@@ -57,7 +57,7 @@ sap.ui.define([
             });
         },
 
-        aoCoincidirRota: function () {
+        _aoCoincidirRota: function () {
             this._processarAcao(() => {
                 const oRouter = this.getOwnerComponent().getRouter();
                 oRouter.getRoute(ROTA_LISTAGEM).attachPatternMatched(() => {
@@ -68,10 +68,52 @@ sap.ui.define([
         },
 
         _carregarDados(query, nomeDoModelo){
+            let sucesso = true;
             fetch(query)
-                .then((res) => res.json())
-                .then((data) => this.getView().setModel(new JSONModel(data), nomeDoModelo))
-                .catch((err) => MessageBox.error(err.message));
+                .then(response => {
+                    if (!response.ok) 
+                        sucesso = false;
+                    
+                    return response.json();
+                })
+                .then((data) => {
+                    if  (!sucesso) {
+                        throw {
+                            rfc: data,
+                            error: new Error()
+                        }
+                    }
+                        
+                    this.getView().setModel(new JSONModel(data), nomeDoModelo)   
+                })
+                .catch((err) => {
+                    // Em andamento....
+                    console.log(err.rfc)
+                    const mensagemErroPrincipal = err.rfc.Extensions.Erros.join(', ');
+                    const mensagemErroCompleta = `${err.rfc.Title}\nStatus: ${err.rfc.Status}\n${err.rfc.Detail}\nErros: `;
+                    console.log(mensagemErroCompleta)
+                    MessageBox.error(mensagemErroPrincipal, {
+                        actions: [MessageBox.Action.OK, MessageBox.Action.CLOSE, MessageBox.Action.DETAILS],
+                        onClose: function(sAction) {
+                            if (sAction === MessageBox.Action.DETAILS) {
+                                const dialog = new Dialog({
+                                    title: 'Detalhes do Erro',
+                                    content: new Text({ text: mensagemErroCompleta }),
+                                    beginButton: new Button({
+                                        text: 'Fechar',
+                                        press: function () {
+                                            dialog.close();
+                                        }
+                                    }),
+                                    afterClose: function() {
+                                        dialog.destroy();
+                                    }
+                                });
+                                dialog.open();
+                            }
+                        }
+                    });
+                });
         },
 
         _carregarImagens(nomeDoModelo) {

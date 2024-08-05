@@ -64,6 +64,12 @@ sap.ui.define([
                 this._requistarApi(URL_API, oIngrediente, REQUISICAO_PATCH);
 
             } else {
+                const inputNome = this.getView().byId(ID_INPUT_NOME);
+                const inputQuantidade = this.getView().byId(ID_INPUT_QUANTIDADE);
+                this._processarAcao(() =>{
+                    Validators.ValidarNome(inputNome, inputNome.getValue());
+                    Validators.ValidarQuantidade(inputQuantidade, inputQuantidade.getValue());
+                });
                 const oIngrediente = {
                     Nome: nome,
                     Quantidade: quantidade,
@@ -96,12 +102,6 @@ sap.ui.define([
         },
 
         _regatarParamentroUrl(oEvent){
-            var oRouter = sap.ui.core.UIComponent.getRouterFor(this); // Obtém o roteador associado ao controlador
-
-            var sRouteName = oRouter.getRoute(oEvent.getParameter("name"))._oConfig.name;
-
-            console.log(sRouteName)
-            console.log(oEvent)
             PARAMETRO_ID = oEvent.getParameter(ARGUMENTOS_DE_PARAMETRO).id;
         },
 
