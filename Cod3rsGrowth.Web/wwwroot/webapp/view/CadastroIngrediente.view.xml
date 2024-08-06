@@ -70,11 +70,9 @@
 						</f:FormElement>
 						<f:FormElement label="Naturalidade">
 							<f:fields>
-								<Select width="100%" id="inputNaturalidade" selectedKey="{Naturalidade}" required="true" >
+								<Select width="100%" id="inputNaturalidade" selectedKey="{Naturalidade}" required="true" items="{enum>/descricao}" >
 									<items>
-										<core:Item text="OverWorld" key="0" id="OverWorld" />
-										<core:Item text="Nether" key="1" id="Nether" />
-										<core:Item text="TheEnd" key="2" id="TheEnd" />
+										<core:Item key="{path: 'enum>text'}" text="{path: 'enum>text'}" />
 									</items>
 								</Select>
 							</f:fields>
