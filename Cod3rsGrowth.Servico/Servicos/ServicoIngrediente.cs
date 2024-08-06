@@ -2,6 +2,7 @@
 using Cod3rsGrowth.Dominio.Interfaces;
 using Cod3rsGrowth.Servico.Validadores;
 using FluentValidation;
+using System.ComponentModel;
 
 namespace Cod3rsGrowth.Servico.Servicos
 {
@@ -61,6 +62,20 @@ namespace Cod3rsGrowth.Servico.Servicos
         public void Remover(int idIngredienteSelecionado)
         {
             _repositorioIngrediente.Remover(idIngredienteSelecionado);
+        }
+
+        public T ObterAtributoDoTipo<T>(Enum valorEnum) where T : System.Attribute
+        {
+            var type = valorEnum.GetType();
+            var memInfo = type.GetMember(valorEnum.ToString());
+            var attributes = memInfo[0].GetCustomAttributes(typeof(T), false);
+            return (attributes.Length > 0) ? (T)attributes[0] : null;
+        }
+        
+        public string ObterDescricao(Enum valorEnum)
+        {
+            var atributoDescricao = ObterAtributoDoTipo<DescriptionAttribute>(valorEnum);
+            return atributoDescricao?.Description;
         }
     }
 }

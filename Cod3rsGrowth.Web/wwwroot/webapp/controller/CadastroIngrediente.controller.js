@@ -21,10 +21,55 @@ sap.ui.define([
 
     return BaseController.extend("coders-growth.controller.CadastroIngrediente", {
         onInit(){
-            this.aoCoincidirRota();
+            this._aoCoincidirRota();
         },
 
-        aoCoincidirRota: function () {
+        aoAlterarNome(){
+            this._processarAcao(() =>{
+                const inputNome = this.getView().byId(ID_INPUT_NOME);       
+                Validators.ValidarNome(inputNome, inputNome.getValue());
+            });
+        },
+        
+        aoAlterarQuantidade(){
+            this._processarAcao(() => {
+                const inputQuantidade = this.getView().byId(ID_INPUT_QUANTIDADE);
+                Validators.ValidarQuantidade(inputQuantidade, inputQuantidade.getValue());
+            });
+        },
+
+        aoClicarCadastrarIngrediente(){
+            this._processarAcao(() =>{
+                const inputNome = this.getView().byId(ID_INPUT_NOME);
+                const inputQuantidade = this.getView().byId(ID_INPUT_QUANTIDADE);
+                const naturalidade = this.getView().byId(ID_INPUT_NATURALIDADE).getSelectedItem().getText();
+                const nome = inputNome.getValue();
+                const quantidade = inputQuantidade.getValue();
+                const ehValido = Validators.ValidarIngrediente(inputNome, inputQuantidade);
+                const visivel = true;
+                const naoVisivel = false;    
+
+                if (ehValido) {
+                    const oIngrediente = {
+                        Nome: nome,
+                        Quantidade: quantidade,
+                        Naturalidade: Formatter.formatarStringDoEnum(naturalidade)
+                    };
+                
+                    if (PARAMETRO_ID !== undefined) {
+                        oIngrediente.Id = PARAMETRO_ID;
+                        this._requistarApi(URL_API, oIngrediente, REQUISICAO_PATCH);
+                    } else {
+                        this._requistarApi(URL_API, oIngrediente, REQUISICAO_POST);
+                    }
+                } else {
+                    this.getView().byId(ID_MENSSAGE_STRIP_ERRO).setVisible(visivel);
+                    this.getView().byId(ID_MENSSAGE_STRIP_SECESSO).setVisible(naoVisivel);
+                }
+            });
+        },
+
+        _aoCoincidirRota() {
             this._processarAcao(() => {
                 const oRouter = this.getOwnerComponent().getRouter();
                 oRouter.getRoute(ROTA_CADASTRO).attachPatternMatched((oEvent) => {
@@ -35,125 +80,97 @@ sap.ui.define([
             });
         },
 
-        aoAlterarNome(){
-            const inputNome = this.getView().byId(ID_INPUT_NOME);       
-            this._processarAcao(() =>{
-                Validators.ValidarNome(inputNome, inputNome.getValue());
-            });
-        },
-        
-        aoAlterarQuantidade(){
-            const inputQuantidade = this.getView().byId(ID_INPUT_QUANTIDADE);
+        _limparResquisiosDeCadastro() {
             this._processarAcao(() => {
-                Validators.ValidarQuantidade(inputQuantidade, inputQuantidade.getValue());
-            });
-        },
-
-        aoClicarCadastrarIngrediente(){
-            const nome = this.getView().byId(ID_INPUT_NOME).getValue();
-            const quantidade = this.getView().byId(ID_INPUT_QUANTIDADE).getValue();
-            const naturalidade = this.getView().byId(ID_INPUT_NATURALIDADE).getSelectedItem().getText();
-
-            if (PARAMETRO_ID) {
-                const oIngrediente = {
-                    Id: PARAMETRO_ID,
-                    Nome: nome,
-                    Quantidade: quantidade,
-                    Naturalidade: Formatter.formatarStringDoEnum(naturalidade)
-                }
-                this._requistarApi(URL_API, oIngrediente, REQUISICAO_PATCH);
-
-            } else {
+                const iconSave = "sap-icon://save";
+                const keyOverWorld = "0";
+                const SEM_VALORES = "";
                 const inputNome = this.getView().byId(ID_INPUT_NOME);
                 const inputQuantidade = this.getView().byId(ID_INPUT_QUANTIDADE);
-                this._processarAcao(() =>{
-                    Validators.ValidarNome(inputNome, inputNome.getValue());
-                    Validators.ValidarQuantidade(inputQuantidade, inputQuantidade.getValue());
+                const inputNaturalidade = this.getView().byId(ID_INPUT_NATURALIDADE);
+                const naoVisivel = false;
+    
+                this.getView().byId(ID_MENSSAGE_STRIP_SECESSO).setVisible(naoVisivel);
+                this.getView().byId(ID_MENSSAGE_STRIP_ERRO).setVisible(naoVisivel);
+                this.getView().byId(ID_BOTAO_SALVAR).setIcon(iconSave);
+                inputNome.setValueState(sap.ui.core.ValueState.None);
+                inputQuantidade.setValueState(sap.ui.core.ValueState.None);
+                inputNome.setValue(SEM_VALORES);
+                inputQuantidade.setValue(SEM_VALORES);
+                inputNaturalidade.getItems().map((item) => {
+                    if (item.getKey() === keyOverWorld){
+                        inputNaturalidade.setSelectedItem(item);
+                    }
                 });
-                const oIngrediente = {
-                    Nome: nome,
-                    Quantidade: quantidade,
-                    Naturalidade: Formatter.formatarStringDoEnum(naturalidade)
-                }
-                this._requistarApi(URL_API, oIngrediente, REQUISICAO_POST);
-            }
-        },
-
-        _limparResquisiosDeCadastro() {
-            const iconSave = "sap-icon://save";
-            const keyOverWorld = "0";
-            const SEM_VALORES = "";
-            const inputNome = this.getView().byId(ID_INPUT_NOME);
-            const inputQuantidade = this.getView().byId(ID_INPUT_QUANTIDADE);
-            const inputNaturalidade = this.getView().byId(ID_INPUT_NATURALIDADE);
-
-            this.getView().byId(ID_MENSSAGE_STRIP_SECESSO).setVisible(false);
-            this.getView().byId(ID_MENSSAGE_STRIP_ERRO).setVisible(false);
-            this.getView().byId(ID_BOTAO_SALVAR).setIcon(iconSave);
-            inputNome.setValueState(sap.ui.core.ValueState.None);
-            inputQuantidade.setValueState(sap.ui.core.ValueState.None);
-            inputNome.setValue(SEM_VALORES);
-            inputQuantidade.setValue(SEM_VALORES);
-            inputNaturalidade.getItems().map((item) => {
-                if (item.getKey() === keyOverWorld){
-                    inputNaturalidade.setSelectedItem(item);
-                }
-            });
+            })
         },
 
         _regatarParamentroUrl(oEvent){
-            PARAMETRO_ID = oEvent.getParameter(ARGUMENTOS_DE_PARAMETRO).id;
+            this._processarAcao(() => {
+                PARAMETRO_ID = oEvent.getParameter(ARGUMENTOS_DE_PARAMETRO).id;
+            })
         },
 
         _obterPorId() {
-            const barraInvertida = "/";
-            if (PARAMETRO_ID){
-                let query = URL_API + barraInvertida + PARAMETRO_ID;
-                fetch(query)
-                    .then(resp => resp.json())
-                    .then(data => this._inserirDadosDeEdicao(data))
-                    .catch((err) => MessageBox.error(err.message));
-            }
+            this._processarAcao(() => {
+                let sucesso = true;
+                if (PARAMETRO_ID){
+                    let query = URL_API + "/" + PARAMETRO_ID;
+                    fetch(query)
+                        .then(resp => {
+                            if (!resp.ok)
+                                sucesso = false;
+                            return resp.json();
+                        })
+                        .then(data => {
+                            sucesso ? this._inserirDadosDeEdicao(data)
+                            : this._erroNaRequisicaoDaApi(data);
+                        })
+                        .catch((err) => MessageBox.error(err.message));
+                }
+            })
         },
 
         _inserirDadosDeEdicao(ingrediente){
-            const oSelect = this.getView().byId(ID_INPUT_NATURALIDADE);
-            this.getView().byId(ID_INPUT_NOME).setValue(ingrediente.nome);
-            this.getView().byId(ID_INPUT_QUANTIDADE).setValue(ingrediente.quantidade);
-            oSelect.getItems().map((item) => {
-                if (item.getKey() == ingrediente.naturalidade){
-                    oSelect.setSelectedItem(item);
-                }
-            });
+            this._processarAcao(() => {
+                const oSelect = this.getView().byId(ID_INPUT_NATURALIDADE);
+                this.getView().byId(ID_INPUT_NOME).setValue(ingrediente.nome);
+                this.getView().byId(ID_INPUT_QUANTIDADE).setValue(ingrediente.quantidade);
+                oSelect.getItems().map((item) => {
+                    if (item.getKey() == ingrediente.naturalidade){
+                        oSelect.setSelectedItem(item);
+                    }
+                });
+            })
         },
         
         _requistarApi(urlApi, ingrediente, metodoDaRequisicao){
-            let sucesso = true;
-            let iconComplete = "sap-icon://complete";
-            fetch(urlApi, {
-                method: metodoDaRequisicao,
-                body: JSON.stringify(ingrediente),
-                headers: { "Content-type": "application/json; charset=UTF-8" }
+            this._processarAcao(() => {
+                let sucesso = true;
+                const iconComplete = "sap-icon://complete";
+                const visivel = true;
+                const naoVisivel = false;
+                fetch(urlApi, {
+                    method: metodoDaRequisicao,
+                    body: JSON.stringify(ingrediente),
+                    headers: { "Content-type": "application/json; charset=UTF-8" }
+                })
+                .then(response => {
+                    if (!response.ok) 
+                        sucesso = false;
+                    return response.json();
+                })
+                .then(json => {
+                    console.log(json);
+                    if (sucesso){
+                        this.getView().byId(ID_BOTAO_SALVAR).setIcon(iconComplete);
+                        this.getView().byId(ID_MENSSAGE_STRIP_SECESSO).setVisible(visivel);
+                        this.getView().byId(ID_MENSSAGE_STRIP_ERRO).setVisible(naoVisivel);
+                    } else 
+                        this._erroNaRequisicaoDaApi(data);
+                })
+                .catch(err => MessageBox.error(err.message));
             })
-            .then(response => {
-                if (!response.ok) {
-                    sucesso = false;
-                    throw new Error();
-                }
-                return response.json();
-            })
-            .then(json => {
-                console.log(json);
-                if (sucesso){
-                    this.getView().byId(ID_BOTAO_SALVAR).setIcon(iconComplete);
-                    this.getView().byId(ID_MENSSAGE_STRIP_SECESSO).setVisible(true);
-                    this.getView().byId(ID_MENSSAGE_STRIP_ERRO).setVisible(false);
-                }
-            })
-            .catch(err => {
-                this.getView().byId(ID_MENSSAGE_STRIP_ERRO).setVisible(true);
-                this.getView().byId(ID_MENSSAGE_STRIP_SECESSO).setVisible(false);
-            });
         },
     }) 
 });

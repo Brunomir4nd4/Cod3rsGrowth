@@ -59,7 +59,7 @@
 					</f:toolbar>
                     <f:formElements>
                         <f:FormElement label="Nome/Quantidade" >
-							<f:fields class="sapUiSmallMarginTopBottom">
+							<f:fields>
 								<Input value="{/inputNome}" id="inputNome" liveChange="aoAlterarNome" required="true" />
 								<Input value="{/inputQuantidade}" id="inputQuantidade" liveChange="aoAlterarQuantidade" >
 									<layoutData>
@@ -70,7 +70,7 @@
 						</f:FormElement>
 						<f:FormElement label="Naturalidade">
 							<f:fields>
-								<Select width="100%" id="inputNaturalidade" selectedKey="{Naturalidade}">
+								<Select width="100%" id="inputNaturalidade" selectedKey="{Naturalidade}" required="true" >
 									<items>
 										<core:Item text="OverWorld" key="0" id="OverWorld" />
 										<core:Item text="Nether" key="1" id="Nether" />

@@ -8,7 +8,7 @@ sap.ui.define([
 
     const URL_API = "https://localhost:7224/api/Ingredientes";
     const NOME_DO_MODELO = "ingrediente";
-    const NOME_DO_MODELO_IMG = "img";
+    const NOME_DO_MODELO_ENUM = "enum";
     const ID_INPUT_NOME = "filtroNome";
     const ID_INPUT_QUANTIDADE = "filtroQuantidade";
     const ID_INPUT_NATURALIDADE = "filtroNaturalidade";
@@ -26,9 +26,8 @@ sap.ui.define([
         },
 
         aoAlterarFiltrar(){
-            let query = URL_API + "?";
-
             this._processarAcao(() => {
+                let query = URL_API + "?";
                 const filtroNome = this.oView.byId(ID_INPUT_NOME).getValue();
                 const filtroQuantidade = this.oView.byId(ID_INPUT_QUANTIDADE).getValue();
                 const filtroNaturalidade = this.oView.byId(ID_INPUT_NATURALIDADE).getSelectedItem().getText();
@@ -41,28 +40,33 @@ sap.ui.define([
     
                 if (filtroNaturalidade != FLAG_PARA_FILTROAGEM_NULA)
                     query += "Naturalidade="+filtroNaturalidade;
+
+                this._carregarDados(query, NOME_DO_MODELO);
             });
-            this._carregarDados(query, NOME_DO_MODELO);
         },
 
         aoClicarIrParaCadastro() {
-            this.getRouter().navTo(CHAVE_VIEW_CADASTRAR_INGREDIENTE, {}, true);
+            this._processarAcao(() => {
+                this.getRouter().navTo(CHAVE_VIEW_CADASTRAR_INGREDIENTE, {}, true);
+            })
         },
 
         aoClicarIrParaDetalhes(oEvent) {
-            const oItem = oEvent.getSource();
-            const oRouter = this.getOwnerComponent().getRouter();
-            oRouter.navTo(CHAVE_VIEW_DETALHES_INGREDIENTE, {
-                id: window.encodeURIComponent(oItem.getBindingContext(NOME_DO_MODELO).getProperty(PROPERTY_ID))
-            });
+            this._processarAcao(() => {
+                const oItem = oEvent.getSource();
+                const oRouter = this.getOwnerComponent().getRouter();
+                oRouter.navTo(CHAVE_VIEW_DETALHES_INGREDIENTE, {
+                    id: window.encodeURIComponent(oItem.getBindingContext(NOME_DO_MODELO).getProperty(PROPERTY_ID))
+                });
+            })
         },
 
-        _aoCoincidirRota: function () {
+        _aoCoincidirRota() {
             this._processarAcao(() => {
                 const oRouter = this.getOwnerComponent().getRouter();
                 oRouter.getRoute(ROTA_LISTAGEM).attachPatternMatched(() => {
                     this._carregarDados(URL_API, NOME_DO_MODELO);
-                    this._carregarImagens(NOME_DO_MODELO_IMG);
+                    this._carregarEnum(URL_API, NOME_DO_MODELO_ENUM);
                 }, this);
             });
         },
@@ -73,58 +77,33 @@ sap.ui.define([
                 .then(response => {
                     if (!response.ok) 
                         sucesso = false;
-                    
                     return response.json();
                 })
                 .then((data) => {
-                    if  (!sucesso) {
-                        throw {
-                            rfc: data,
-                            error: new Error()
-                        }
-                    }
-                        
-                    this.getView().setModel(new JSONModel(data), nomeDoModelo)   
+                    sucesso ? this.getView().setModel(new JSONModel(data), nomeDoModelo)
+                    : this._erroNaRequisicaoDaApi(data);
                 })
-                .catch((err) => {
-                    // Em andamento....
-                    console.log(err.rfc)
-                    const mensagemErroPrincipal = err.rfc.Extensions.Erros.join(', ');
-                    const mensagemErroCompleta = `${err.rfc.Title}\nStatus: ${err.rfc.Status}\n${err.rfc.Detail}\nErros: `;
-                    console.log(mensagemErroCompleta)
-                    MessageBox.error(mensagemErroPrincipal, {
-                        actions: [MessageBox.Action.OK, MessageBox.Action.CLOSE, MessageBox.Action.DETAILS],
-                        onClose: function(sAction) {
-                            if (sAction === MessageBox.Action.DETAILS) {
-                                const dialog = new Dialog({
-                                    title: 'Detalhes do Erro',
-                                    content: new Text({ text: mensagemErroCompleta }),
-                                    beginButton: new Button({
-                                        text: 'Fechar',
-                                        press: function () {
-                                            dialog.close();
-                                        }
-                                    }),
-                                    afterClose: function() {
-                                        dialog.destroy();
-                                    }
-                                });
-                                dialog.open();
-                            }
-                        }
-                    });
-                });
+                .catch((err) => MessageBox.error(err.message));
         },
 
-        _carregarImagens(nomeDoModelo) {
-            const caminhoDoDiretorioImagems = "coders-growth/images/overworld_block.png";
-            const imgSrc = sap.ui.require.toUrl(caminhoDoDiretorioImagems);
-        
-            const oImgModel = new sap.ui.model.json.JSONModel({
-                imageSrc: imgSrc
-            });
-
-            this.getView().setModel(oImgModel, nomeDoModelo);
-        }
+        _carregarEnum(query, nomeDoModelo) {
+            query += "/enum";
+            let sucesso = true;
+            fetch(query)
+                .then(response => {
+                    if (!response.ok) 
+                        sucesso = false;
+                    return response.json();
+                })
+                .then((data) => {
+                    sucesso ? this.getView().setModel(new JSONModel({
+                        descricao: data.map(function(item) {
+                            return { text: item };
+                        })
+                    }), nomeDoModelo) 
+                    : this._erroNaRequisicaoDaApi(data);
+                })
+                .catch((err) => MessageBox.error(err.message));
+        },
     });
 });

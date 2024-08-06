@@ -17,35 +17,49 @@ sap.ui.define([
         formatter: Formatter,
         
         onInit(){
-            this.aoCoincidirRota();
+            this._aoCoincidirRota();
         },
 
-        aoCoincidirRota: function () {
+        aoClicarIrParaCadastro() {
+            this._processarAcao(() => {
+                this.getRouter().navTo(CHAVE_VIEW_CADASTRAR_INGREDIENTE, {}, true);
+            })
+        },
+
+        aoClicarIrParaCadastroParaEditar(oEvent) {
+            this._processarAcao(() => {
+                const oItem = oEvent.getSource();
+                this.getRouter().navTo(CHAVE_VIEW_CADASTRAR_INGREDIENTE, {
+                    id: window.encodeURIComponent(oItem.getBindingContext(NOME_DO_MODELO).getProperty(PROPERTY_ID))
+                }, true);
+            })
+        },
+
+        _aoCoincidirRota() {
             this._processarAcao(() => {
                 const oRouter = this.getOwnerComponent().getRouter();
                 oRouter.getRoute(ROTA_DETALHES).attachPatternMatched(this._obterPorId, this);
             });
         },
 
-        aoClicarIrParaCadastro() {
-            this.getRouter().navTo(CHAVE_VIEW_CADASTRAR_INGREDIENTE, {}, true);
-        },
-
-        aoClicarIrParaCadastroParaEditar(oEvent) {
-            const oItem = oEvent.getSource();
-            this.getRouter().navTo(CHAVE_VIEW_CADASTRAR_INGREDIENTE, {
-                id: window.encodeURIComponent(oItem.getBindingContext(NOME_DO_MODELO).getProperty(PROPERTY_ID))
-            }, true);
-        },
-
         _obterPorId(oEvent) {
-            const id = oEvent.getParameter(ARGUMENTOS_DE_PARAMETRO).id;
-            const barraInvertida = "/";
-            const query = URL_API + barraInvertida + id;
-            fetch(query)
-                .then(resp => resp.json())
-                .then(data => this.getView().setModel(new JSONModel(data), NOME_DO_MODELO))
-                .catch((err) => MessageBox.error(err.message));
+            this._processarAcao(() => {
+                const id = oEvent.getParameter(ARGUMENTOS_DE_PARAMETRO).id;
+                const barraInvertida = "/";
+                const query = URL_API + barraInvertida + id;
+                let sucesso = true;
+                fetch(query)
+                    .then(resp => {
+                        if (!resp.ok) 
+                            sucesso = false;
+                        return resp.json();
+                    })
+                    .then(data => {
+                        sucesso ? this.getView().setModel(new JSONModel(data), NOME_DO_MODELO) 
+                        : this._erroNaRequisicaoDaApi(data);
+                    })
+                    .catch((err) => MessageBox.error(err.message));
+            })
         },
     })
 });

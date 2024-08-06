@@ -18,12 +18,9 @@
                     <ToolbarSpacer />
                     <Input id="filtroNome" type="Text" width="auto" liveChange="aoAlterarFiltrar" placeholder="{i18n>Listagem.Nome...}"/>
                     <Input id="filtroQuantidade" type="Text" width="auto" liveChange="aoAlterarFiltrar" placeholder="{i18n>Listagem.Quantidade...}"/>
-                    <Select id="filtroNaturalidade" selectedKey="{Naturalidade}" change="aoAlterarFiltrar">
+                    <Select id="filtroNaturalidade" change="aoAlterarFiltrar" items="{enum>/descricao}">
                         <items>
-                            <core:Item text="Todos" key="Todos" id="Todos"/>
-                            <core:Item text="OverWorld" key="OverWorld" id="OverWorld" />
-                            <core:Item text="Nether" key="Nether" id="Nether" />
-                            <core:Item text="TheEnd" key="TheEnd" id="TheEnd" />
+                            <core:Item key="{path: 'enum>text'}" text="{path: 'enum>text'}" />
                         </items>
                     </Select>
                     <Button icon="sap-icon://add" press="aoClicarIrParaCadastro" id="botaoAdicionar" text="Adicionar" />
@@ -43,7 +40,7 @@
                 <ColumnListItem 
                     type="Navigation"
 					press="aoClicarIrParaDetalhes">
-                    <cells id="celulasDaTabelaIngredientes">
+                    <cells>
                         <HBox>
                             <Image
                                 src="{path: 'ingrediente>naturalidade', formatter: '.formatter.obterImagem'}"
