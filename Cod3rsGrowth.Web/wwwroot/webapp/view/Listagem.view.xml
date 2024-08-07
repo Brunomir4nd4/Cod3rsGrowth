@@ -10,7 +10,10 @@
             width="auto"
             items="{ path: 'ingrediente>/'}"
             mode="MultiSelect"
-            alternateRowColors="true" >
+            alternateRowColors="true"
+            growing="true"
+            growingScrollToLoad="true"
+        >
 
             <headerToolbar>
                 <Toolbar>
