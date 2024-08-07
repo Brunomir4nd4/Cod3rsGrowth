@@ -16,7 +16,7 @@ sap.ui.define([
     const CHAVE_VIEW_CADASTRAR_INGREDIENTE = "appCadastroIngrediente";
     const CHAVE_VIEW_DETALHES_INGREDIENTE = "appDetalhesIngrediente";
     const ROTA_LISTAGEM = "appListagem";
-    const PROPERTY_ID = "id";
+    const PROPRIEDADE_ID = "id";
     
     return BaseController.extend("coders-growth.controller.Listagem", {
         formatter: Formatter,
@@ -56,7 +56,7 @@ sap.ui.define([
                 const oItem = oEvent.getSource();
                 const oRouter = this.getOwnerComponent().getRouter();
                 oRouter.navTo(CHAVE_VIEW_DETALHES_INGREDIENTE, {
-                    id: window.encodeURIComponent(oItem.getBindingContext(NOME_DO_MODELO).getProperty(PROPERTY_ID))
+                    id: window.encodeURIComponent(oItem.getBindingContext(NOME_DO_MODELO).getProperty(PROPRIEDADE_ID))
                 });
             })
         },

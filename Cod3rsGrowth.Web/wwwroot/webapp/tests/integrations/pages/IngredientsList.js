@@ -14,15 +14,15 @@ sap.ui.define([
     const ID_INPUT_QUANTIDADE = "filtroQuantidade";
 	const ID_TABELA_INGREDIENTES = "tabelaIngrediente";
 	const ID_SELECT_NATURALIDADE = "filtroNaturalidade";
+	const ID_BOTAO_ADICIOANAR = "botaoAdicionar";
 	const CAMPO_SELECT_OVERWORLD = "OverWorld";
 	const CAMPO_SELECT_NETHER = "Nether";
 	const CAMPO_SELECT_THE_END = "TheEnd";
 	const CAMPO_SELECT_TODOS = "Todos";
-	const ID_BOTAO_ADICIOANAR = "botaoAdicionar";
 	const NOME_DO_JSONMODEL = "ingrediente";
-	const PROPARTY_NOME = "nome";
-	const PROPARTY_NATURALIDADE = "naturalidade";
-	const PROPARTY_QUANTIDADE = "quantidade";
+	const PROPRIEDADE_NOME = "nome";
+	const PROPRIEDADE_NATURALIDADE = "naturalidade";
+	const PROPRIEDADE_QUANTIDADE = "quantidade";
 	const PROPRIEDADE_TEXT = "text";
 	const PROPRIEDADE_KEY = "key";
 
@@ -168,7 +168,7 @@ sap.ui.define([
 
 							let result = true;
 							items.map((item) => {
-								let nome = item.getBindingContext(NOME_DO_JSONMODEL).getProperty(PROPARTY_NOME);
+								let nome = item.getBindingContext(NOME_DO_JSONMODEL).getProperty(PROPRIEDADE_NOME);
 								if (!nome.includes(stringEsperada)) 
 									result = false;
 							});
@@ -194,8 +194,8 @@ sap.ui.define([
 
 							let result = true; 
 							items.map((item) => {
-								let nome = item.getBindingContext(NOME_DO_JSONMODEL).getProperty(PROPARTY_NOME);
-								let quantidade = item.getBindingContext(NOME_DO_JSONMODEL).getProperty(PROPARTY_QUANTIDADE);
+								let nome = item.getBindingContext(NOME_DO_JSONMODEL).getProperty(PROPRIEDADE_NOME);
+								let quantidade = item.getBindingContext(NOME_DO_JSONMODEL).getProperty(PROPRIEDADE_QUANTIDADE);
 								if (!nome.includes(stringEsperada) & quantidade !== quantidadeEsperada)
 									result = false;
 							});
@@ -221,7 +221,7 @@ sap.ui.define([
 				
 							let result = true;
 							items.map((item) => {
-								let naturalidade = formatarEnum(item.getBindingContext(NOME_DO_JSONMODEL).getProperty(PROPARTY_NATURALIDADE));
+								let naturalidade = formatarEnum(item.getBindingContext(NOME_DO_JSONMODEL).getProperty(PROPRIEDADE_NATURALIDADE));
 								if (naturalidade !== stringEsperada) {
 									result = false;
 								}
@@ -247,7 +247,7 @@ sap.ui.define([
 							
 							let result = true;
 							items.map((item) => {
-								let naturalidade = formatarEnum(item.getBindingContext(NOME_DO_JSONMODEL).getProperty(PROPARTY_NATURALIDADE));
+								let naturalidade = formatarEnum(item.getBindingContext(NOME_DO_JSONMODEL).getProperty(PROPRIEDADE_NATURALIDADE));
 								if (naturalidade !== stringEsperada)
 									result = false;
 							});
@@ -272,7 +272,7 @@ sap.ui.define([
 
 							let result = true;
 							items.map((item) => {
-								let naturalidade = formatarEnum(item.getBindingContext(NOME_DO_JSONMODEL).getProperty(PROPARTY_NATURALIDADE));
+								let naturalidade = formatarEnum(item.getBindingContext(NOME_DO_JSONMODEL).getProperty(PROPRIEDADE_NATURALIDADE));
 								if (naturalidade !== stringEsperada)
 									result = false;
 							});

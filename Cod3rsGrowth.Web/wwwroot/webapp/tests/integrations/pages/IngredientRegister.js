@@ -12,15 +12,15 @@ sap.ui.define([
 	"use strict";
 
     const NOME_DA_VIEW = "CadastroIngrediente";
-    const ID_PROPERTY_TITLE = "Title1";
+    const ID_PROPRIEDADE_TITLE = "Title1";
     const ID_INPUT_NOME = "inputNome";
     const ID_INPUT_QUANTIDADE = "inputQuantidade";
     const ID_MENSAGEM_ERRO = "errorMessageStrip";
     const ID_MENSAGEM_SECESSO = "successMessageStrip";
     const ID_BOTAO_SALVAR = "saveButton";
     const ID_SELECT_NATURALIDADE = "inputNaturalidade";
-    const CAMPO_SELECT_NETHER = "Nether";
     const ID_BOTAO_VOLTAR_PAGINA = "botaoVoltarPagina";
+    const CAMPO_SELECT_NETHER = "Nether";
     const PROPRIEDADE_TEXT = "text";
     const PROPRIEDADE_VISIBLE = "visible";
     const PROPRIEDADE_KEY = "key";
@@ -163,7 +163,7 @@ sap.ui.define([
                 deveAbrirViewDeCadastro(valorEsperado) {
                     return this.waitFor({
                         viewName: NOME_DA_VIEW,
-                        id: ID_PROPERTY_TITLE,
+                        id: ID_PROPRIEDADE_TITLE,
                         matchers: new PropertyStrictEquals({
                             name: PROPRIEDADE_TEXT,
                             value: valorEsperado

@@ -10,7 +10,7 @@ sap.ui.define([
     const NOME_DO_MODELO = "ingrediente";
     const ROTA_DETALHES = "appDetalhesIngrediente";
     const CHAVE_VIEW_CADASTRAR_INGREDIENTE = "appCadastroIngrediente";
-    const PROPERTY_ID = "id";
+    const PRORIEDADE_ID = "id";
     const ARGUMENTOS_DE_PARAMETRO = "arguments";
 
     return BaseController.extend("coders-growth.controller.DetalhesIngrediente", {
@@ -30,7 +30,7 @@ sap.ui.define([
             this._processarAcao(() => {
                 const oItem = oEvent.getSource();
                 this.getRouter().navTo(CHAVE_VIEW_CADASTRAR_INGREDIENTE, {
-                    id: window.encodeURIComponent(oItem.getBindingContext(NOME_DO_MODELO).getProperty(PROPERTY_ID))
+                    id: window.encodeURIComponent(oItem.getBindingContext(NOME_DO_MODELO).getProperty(PRORIEDADE_ID))
                 }, true);
             })
         },

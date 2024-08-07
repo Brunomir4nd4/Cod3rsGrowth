@@ -13,9 +13,9 @@ sap.ui.define([
     const ID_TITULO = "tituloDeDetalhes";
     const ID_TITULO_NOME = "tituloNomeDoIngrediente";
     const ID_BOTAO_EDITAR = "botaoEditar";
+    const ID_BOTAO_VOLTAR_PAGINA = "botaoVoltarPagina";
     const PROPRIEDADE_TEXT = "text"
     const VALOR_TITULO_PAGE = "Detalhes";
-    const ID_BOTAO_VOLTAR_PAGINA = "botaoVoltarPagina";
 
     Opa5.createPageObjects({
 

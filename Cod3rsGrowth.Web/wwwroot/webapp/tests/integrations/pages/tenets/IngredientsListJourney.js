@@ -5,7 +5,7 @@ sap.ui.define([
 		"use strict";
 
 		const INPUT_OLHO = "Olho";
-		const INPUT_PÓ = "Pó";
+		const INPUT_PO = "Pó";
 		const INPUT_15 = 15;
 
 		QUnit.module("Listagem");
@@ -51,7 +51,7 @@ sap.ui.define([
 			//Actions
 			When.naPaginaDeListagemDosIngredientes.aoClicarAbrirSelect();
 			When.naPaginaDeListagemDosIngredientes.aoClicarNoBotaoTodos();
-			When.naPaginaDeListagemDosIngredientes.aoInserirPoNoInputNome(INPUT_PÓ);
+			When.naPaginaDeListagemDosIngredientes.aoInserirPoNoInputNome(INPUT_PO);
 			When.naPaginaDeListagemDosIngredientes.aoInserir15NoInputQuantidade(INPUT_15);
 
 			// Assertions
