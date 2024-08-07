@@ -8,7 +8,7 @@ sap.ui.define([
 		const INPUT_PÓ = "Pó";
 		const INPUT_15 = 15;
 
-		QUnit.module("Posts");
+		QUnit.module("Listagem");
 
 		opaTest("Deve aparecer os ingredientes cotendo Olho no nome", function (Given, When, Then) {
 			Given.iStartMyApp();

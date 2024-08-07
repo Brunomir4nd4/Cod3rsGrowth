@@ -14,16 +14,17 @@ sap.ui.define([
     const ID_INPUT_QUANTIDADE = "filtroQuantidade";
 	const ID_TABELA_INGREDIENTES = "tabelaIngrediente";
 	const ID_SELECT_NATURALIDADE = "filtroNaturalidade";
-	const ID_BOTAO_OVERWORLD = "__component1---listagem--OverWorld";
-	const ID_BOTAO_NETHER = "__component1---listagem--Nether";
-	const ID_BOTAO_THEEND = "__component1---listagem--TheEnd";
-	const ID_BOTAO_TODOS = "__component1---listagem--Todos";
+	const CAMPO_SELECT_OVERWORLD = "OverWorld";
+	const CAMPO_SELECT_NETHER = "Nether";
+	const CAMPO_SELECT_THE_END = "TheEnd";
+	const CAMPO_SELECT_TODOS = "Todos";
 	const ID_BOTAO_ADICIOANAR = "botaoAdicionar";
 	const NOME_DO_JSONMODEL = "ingrediente";
 	const PROPARTY_NOME = "nome";
 	const PROPARTY_NATURALIDADE = "naturalidade";
 	const PROPARTY_QUANTIDADE = "quantidade";
 	const PROPRIEDADE_TEXT = "text";
+	const PROPRIEDADE_KEY = "key";
 
 	Opa5.createPageObjects({
 	
@@ -52,8 +53,13 @@ sap.ui.define([
 
 				aoClicarNoBotaoOverWorld(){
 					return this.waitFor({
-						viewName: NOME_DA_VIEW,
-						id: ID_BOTAO_OVERWORLD,
+						controlType: "sap.ui.core.Item",
+						matchers: [
+							new sap.ui.test.matchers.PropertyStrictEquals({
+								name: PROPRIEDADE_KEY,
+								value: CAMPO_SELECT_OVERWORLD
+							})
+						],
 						actions: new Press(),
 						errorMessage: "Botão OverWorld não encontrado."
 					});
@@ -61,8 +67,13 @@ sap.ui.define([
 
 				aoClicarNoBotaoNether(){
 					return this.waitFor({
-						viewName: NOME_DA_VIEW,
-						id: ID_BOTAO_NETHER,
+						controlType: "sap.ui.core.Item",
+						matchers: [
+							new sap.ui.test.matchers.PropertyStrictEquals({
+								name: PROPRIEDADE_KEY,
+								value: CAMPO_SELECT_NETHER
+							})
+						],
 						actions: new Press(),
 						errorMessage: "Botão Nether não encontrado."
 					});
@@ -70,8 +81,13 @@ sap.ui.define([
 
 				aoClicarNoBotaoTheEnd() {
 					return this.waitFor({
-						viewName: NOME_DA_VIEW,
-						id: ID_BOTAO_THEEND,
+						controlType: "sap.ui.core.Item",
+						matchers: [
+							new sap.ui.test.matchers.PropertyStrictEquals({
+								name: PROPRIEDADE_KEY,
+								value: CAMPO_SELECT_THE_END
+							})
+						],
 						actions: new Press(),
 						errorMessage: "Botão TheEnd não encontrado."
 					});
@@ -79,8 +95,13 @@ sap.ui.define([
 
 				aoClicarNoBotaoTodos() {
 					return this.waitFor({
-						viewName: NOME_DA_VIEW,
-						id: ID_BOTAO_TODOS,
+						controlType: "sap.ui.core.Item",
+						matchers: [
+							new sap.ui.test.matchers.PropertyStrictEquals({
+								name: PROPRIEDADE_KEY,
+								value: CAMPO_SELECT_TODOS
+							})
+						],
 						actions: new Press(),
 						errorMessage: "Botão Todos não encontrado."
 					});
@@ -259,35 +280,6 @@ sap.ui.define([
 							Opa5.assert.ok(result, "Todos os itens possuem a naturalidade " + stringEsperada);
 						},
 						errorMessage: "Alguns itens na tabela não possuem a naturalidade " + stringEsperada
-					})
-				},
-
-				aTabelaDeveConterOItemEsperado(valorEsperado) {
-					const nomeItemEditado = "Perola do End"
-					const tagDasLinhas = "items";
-					return this.waitFor({
-						viewName: NOME_DA_VIEW,
-						id: ID_TABELA_INGREDIENTES,
-						matchers: new sap.ui.test.matchers.AggregationFilled({
-							name: tagDasLinhas
-						}),
-						success: function(oTable) {
-							const items = oTable.getItems();
-
-							let result = true;
-							items.map((item) => {
-								let nome = item.getBindingContext(NOME_DO_JSONMODEL).getProperty(PROPARTY_NOME);
-								let quantidade = item.getBindingContext(NOME_DO_JSONMODEL).getProperty(PROPARTY_QUANTIDADE);
-								if (nome === nomeItemEditado) {
-									if (quantidade !== valorEsperado)
-										result = false;
-									return;
-								}
-							});
-
-							Opa5.assert.ok(result, "O item foi atualizado com sucesso.");
-						},
-						errorMessage: "Item não foi atualizado."
 					})
 				}
 			}

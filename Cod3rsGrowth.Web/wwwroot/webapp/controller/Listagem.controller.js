@@ -89,6 +89,8 @@ sap.ui.define([
         _carregarEnum(query, nomeDoModelo) {
             query += "/enum";
             let sucesso = true;
+            const campoTodos = "Todos";
+            const oSelect = this.getView().byId(ID_INPUT_NATURALIDADE);
             fetch(query)
                 .then(response => {
                     if (!response.ok) 
@@ -96,14 +98,18 @@ sap.ui.define([
                     return response.json();
                 })
                 .then((data) => {
+                    const camposDoSelect = data;
+                    camposDoSelect.push(campoTodos);
+
                     sucesso ? this.getView().setModel(new JSONModel({
-                        descricao: data.map(function(item) {
+                        descricao: camposDoSelect.map(function(item) {
                             return { text: item };
                         })
                     }), nomeDoModelo) 
                     : this._erroNaRequisicaoDaApi(data);
                 })
                 .catch((err) => MessageBox.error(err.message));
+            oSelect.setSelectedKey(campoTodos);
         },
     });
 });

@@ -15,6 +15,7 @@ sap.ui.define([
     const ID_BOTAO_EDITAR = "botaoEditar";
     const PROPRIEDADE_TEXT = "text"
     const VALOR_TITULO_PAGE = "Detalhes";
+    const ID_BOTAO_VOLTAR_PAGINA = "botaoVoltarPagina";
 
     Opa5.createPageObjects({
 
@@ -27,6 +28,15 @@ sap.ui.define([
                         id: ID_BOTAO_EDITAR,
                         actions: new Press(),
                         errorMessage: "Botão Editar não encontrado"
+                    })
+                },
+
+                aoClicarNoBotaoDeVoltarPagina(){
+                    return this.waitFor({
+                        viewName: NOME_DA_VIEW,
+                        id: ID_BOTAO_VOLTAR_PAGINA,
+                        actions: new Press(),
+                        errorMessage: "Botão de voltar página não encontrado."
                     })
                 }
             },

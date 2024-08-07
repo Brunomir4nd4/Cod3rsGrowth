@@ -19,13 +19,14 @@ sap.ui.define([
     const ID_MENSAGEM_SECESSO = "successMessageStrip";
     const ID_BOTAO_SALVAR = "saveButton";
     const ID_SELECT_NATURALIDADE = "inputNaturalidade";
-    const ID_BOTAO_NETHER = "Nether";
+    const CAMPO_SELECT_NETHER = "Nether";
     const ID_BOTAO_VOLTAR_PAGINA = "botaoVoltarPagina";
     const PROPRIEDADE_TEXT = "text";
     const PROPRIEDADE_VISIBLE = "visible";
+    const PROPRIEDADE_KEY = "key";
 
     Opa5.createPageObjects({
-
+        
         naPaginaDeCadastroDeIngrediente: {
             actions: {
                 aoInserirAbobor4NoInputNome(stringDeInput){
@@ -114,8 +115,13 @@ sap.ui.define([
 
                 aoSelecionarNaturalidadeNether() {
                     return this.waitFor({
-                        viewName: NOME_DA_VIEW,
-                        id: ID_BOTAO_NETHER,
+                        controlType: "sap.ui.core.Item",
+						matchers: [
+							new sap.ui.test.matchers.PropertyStrictEquals({
+								name: PROPRIEDADE_KEY,
+								value: CAMPO_SELECT_NETHER
+							})
+						],
                         actions: new Press(),
                         errorMessage: "Botão Nether não encontrada."
                     })

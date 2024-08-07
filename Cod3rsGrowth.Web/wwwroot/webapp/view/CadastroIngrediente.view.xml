@@ -25,61 +25,56 @@
         visible="false" />
 
     <VBox class="sapUiSmallMargin">
-        <f:Form id="FormToolbar" editable="true" ariaLabelledBy="Title1" >
-            <f:toolbar>
-				<Toolbar id="TB1">
-                    <Button icon="sap-icon://navigation-left-arrow" press="onNavBack" id="botaoVoltarPagina" />
-					<Title id="Title1" text="Cadastro"/>
-                    <ToolbarSpacer />
-                    <Button icon='sap-icon://save' press="aoClicarCadastrarIngrediente"  id="saveButton" text="Salvar" />
-				</Toolbar>
-			</f:toolbar>
-            <f:layout>
-				<f:ResponsiveGridLayout
-					labelSpanXL="4"
-					labelSpanL="3"
-					labelSpanM="4"
-					labelSpanS="12"
-					adjustLabelSpan="false"
-					emptySpanXL="0"
-					emptySpanL="4"
-					emptySpanM="0"
-					emptySpanS="0"
-					columnsXL="2"
-					columnsL="1"
-					columnsM="1"
-					singleContainerFullSize="false" />
-			</f:layout>
-            <f:formContainers >
-                <f:FormContainer>
-                    <f:toolbar>
-						<Toolbar>
-							<Title id="Title2" text="Cadastro de Ingredientes"/>
-						</Toolbar>
-					</f:toolbar>
-                    <f:formElements>
-                        <f:FormElement label="Nome/Quantidade" >
-							<f:fields>
-								<Input value="{/inputNome}" id="inputNome" liveChange="aoAlterarNome" required="true" />
-								<Input value="{/inputQuantidade}" id="inputQuantidade" liveChange="aoAlterarQuantidade" >
-									<layoutData>
-										<l:GridData span="XL2 L1 M3 S4" />
-									</layoutData>
-								</Input>
-							</f:fields>
-						</f:FormElement>
-						<f:FormElement label="Naturalidade">
-							<f:fields>
-								<Select width="100%" id="inputNaturalidade" selectedKey="{Naturalidade}" required="true" items="{enum>/descricao}" >
-									<items>
-										<core:Item key="{path: 'enum>text'}" text="{path: 'enum>text'}" />
-									</items>
-								</Select>
-							</f:fields>
-						</f:FormElement>
-                    </f:formElements>
-                </f:FormContainer>
-			</f:formContainers>
-		</f:Form>
-    </VBox>
+			<f:Form id="FormToolbar" editable="true" ariaLabelledBy="Title1" >
+				<f:toolbar>
+					<Toolbar id="TB1">
+						<Button icon="sap-icon://navigation-left-arrow" press="onNavBack" id="botaoVoltarPagina" />
+						<Title id="Title1" text="Cadastro"/>
+						<ToolbarSpacer />
+						<Button icon='sap-icon://save' press="aoClicarCadastrarIngrediente"  id="saveButton" text="Salvar" />
+					</Toolbar>
+				</f:toolbar>
+				<f:layout>
+					<f:ResponsiveGridLayout
+						labelSpanXL="4"
+						labelSpanL="3"
+						labelSpanM="4"
+						labelSpanS="12"
+						adjustLabelSpan="false"
+						emptySpanXL="0"
+						emptySpanL="4"
+						emptySpanM="0"
+						emptySpanS="0"
+						columnsXL="2"
+						columnsL="1"
+						columnsM="1"
+						singleContainerFullSize="false" />
+				</f:layout>
+				<f:formContainers >
+					<f:FormContainer>
+						<f:formElements>
+							<f:FormElement label="Nome/Quantidade" >
+								<f:fields>
+									<Input value="{/inputNome}" id="inputNome" liveChange="aoAlterarNome" required="true" />
+									<Input value="{/inputQuantidade}" id="inputQuantidade" liveChange="aoAlterarQuantidade" >
+										<layoutData>
+											<l:GridData span="XL2 L1 M3 S4" />
+										</layoutData>
+									</Input>
+								</f:fields>
+							</f:FormElement>
+							<f:FormElement label="Naturalidade">
+								<f:fields>
+									<Select width="100%" id="inputNaturalidade" selectedKey="{Naturalidade}" required="true" items="{enum>/descricao}" >
+										<items>
+											<core:Item key="{path: 'enum>text'}" text="{path: 'enum>text'}" />
+										</items>
+									</Select>
+								</f:fields>
+							</f:FormElement>
+						</f:formElements>
+					</f:FormContainer>
+				</f:formContainers>
+			</f:Form>
+	</VBox>
 </mvc:View>

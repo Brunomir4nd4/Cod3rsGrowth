@@ -2,8 +2,9 @@ sap.ui.define([
     "coders-growth/controller/BaseController",
     "coders-growth/model/Formatter",
     "coders-growth/model/Validators",
-    "sap/m/MessageBox"
-], function (BaseController, Formatter, Validators, MessageBox) {
+    "sap/m/MessageBox",
+    "sap/ui/model/json/JSONModel",
+], function (BaseController, Formatter, Validators, MessageBox, JSONModel) {
     "use strict";
 
     const URL_API = "https://localhost:7224/api/Ingredientes";    
@@ -17,6 +18,7 @@ sap.ui.define([
     const ID_MENSSAGE_STRIP_SECESSO = "successMessageStrip";
     const ID_MENSSAGE_STRIP_ERRO = "errorMessageStrip";
     const ID_BOTAO_SALVAR = "saveButton";
+    const NOME_DO_MODELO_ENUM = "enum";
     var PARAMETRO_ID;
 
     return BaseController.extend("coders-growth.controller.CadastroIngrediente", {
@@ -75,7 +77,8 @@ sap.ui.define([
                 oRouter.getRoute(ROTA_CADASTRO).attachPatternMatched((oEvent) => {
                     this._limparResquisiosDeCadastro();
                     this._regatarParamentroUrl(oEvent);
-                    this._obterPorId();
+                    this._obterPorId(URL_API);
+                    this._carregarEnum(URL_API, NOME_DO_MODELO_ENUM);
                 }, this);
             });
         },
@@ -111,11 +114,11 @@ sap.ui.define([
             })
         },
 
-        _obterPorId() {
+        _obterPorId(urlApi) {
             this._processarAcao(() => {
                 let sucesso = true;
                 if (PARAMETRO_ID){
-                    let query = URL_API + "/" + PARAMETRO_ID;
+                    let query = urlApi + "/" + PARAMETRO_ID;
                     fetch(query)
                         .then(resp => {
                             if (!resp.ok)
@@ -171,6 +174,26 @@ sap.ui.define([
                 })
                 .catch(err => MessageBox.error(err.message));
             })
+        },
+
+        _carregarEnum(query, nomeDoModelo) {
+            query += "/enum";
+            let sucesso = true;
+            fetch(query)
+                .then(response => {
+                    if (!response.ok) 
+                        sucesso = false;
+                    return response.json();
+                })
+                .then((data) => {
+                    sucesso ? this.getView().setModel(new JSONModel({
+                        descricao: data.map(function(item) {
+                            return { text: item };
+                        })
+                    }), nomeDoModelo) 
+                    : this._erroNaRequisicaoDaApi(data);
+                })
+                .catch((err) => MessageBox.error(err.message));
         },
     }) 
 });

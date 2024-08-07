@@ -13,7 +13,7 @@
 		<content>
 			<Toolbar>
 				<content>
-					<Button icon="sap-icon://navigation-left-arrow" press="onNavBack" />
+					<Button icon="sap-icon://navigation-left-arrow" press="onNavBack" id="botaoVoltarPagina" />
 					<Title text="{i18n>DetalhesIngrediente.Detalhes}" level="H2" id="tituloDeDetalhes" />
 					<ToolbarSpacer />
 					<Button icon="sap-icon://edit" text="Editar" press="aoClicarIrParaCadastroParaEditar" id="botaoEditar" />

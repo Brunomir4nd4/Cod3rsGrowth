@@ -19,16 +19,17 @@ sap.ui.define([
 		},
 
 		onNavBack() {
-			let history, previousHash;
+			// let history, previousHash;
 
-			history = History.getInstance();
-			previousHash = history.getPreviousHash();
+			// history = History.getInstance();
+			// previousHash = history.getPreviousHash();
 
-			if (previousHash !== undefined) {
-				window.history.go(-1);
-			} else {
-				this.getRouter().navTo(CHAVE_DA_VIEW_HOME, {}, true);
-			}
+			// if (previousHash !== undefined) {
+			// 	window.history.go(-1);
+			// } else {
+			// 	this.getRouter().navTo(CHAVE_DA_VIEW_HOME, {}, true);
+			// }
+			this.getRouter().navTo(CHAVE_DA_VIEW_HOME, {}, true);
 		},
 		
 		_processarAcao(action) {

@@ -2,10 +2,11 @@ sap.ui.define([
 ], function() {
     'use strict';
 
-    var ehValido = true;
+    var ehValido;
     return{
 
         ValidarIngrediente(inputNome, inputQuantidade) {
+            ehValido = true;
             this.ValidarQuantidade(inputQuantidade);
             this.ValidarNome(inputNome);
 
