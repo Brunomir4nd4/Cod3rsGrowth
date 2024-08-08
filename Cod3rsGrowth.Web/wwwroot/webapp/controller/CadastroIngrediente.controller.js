@@ -77,8 +77,8 @@ sap.ui.define([
                 oRouter.getRoute(ROTA_CADASTRO).attachPatternMatched((oEvent) => {
                     this._limparResquisiosDeCadastro();
                     this._regatarParamentroUrl(oEvent);
-                    this._obterPorId(URL_API);
                     this._carregarEnum(URL_API, NOME_DO_MODELO_ENUM);
+                    this._obterPorId(URL_API);
                 }, this);
             });
         },
@@ -140,7 +140,7 @@ sap.ui.define([
                 this.getView().byId(ID_INPUT_NOME).setValue(ingrediente.nome);
                 this.getView().byId(ID_INPUT_QUANTIDADE).setValue(ingrediente.quantidade);
                 oSelect.getItems().map((item) => {
-                    if (item.getKey() == ingrediente.naturalidade){
+                    if (item.getKey() == Formatter.formatarValorInteiroDoEnum(ingrediente.naturalidade)){
                         oSelect.setSelectedItem(item);
                     }
                 });
