@@ -86,7 +86,7 @@ sap.ui.define([
         _limparResquisiosDeCadastro() {
             this._processarAcao(() => {
                 const iconSave = "sap-icon://save";
-                const keyOverWorld = "0";
+                const keyOverWorld = "OverWorld";
                 const SEM_VALORES = "";
                 const inputNome = this.getView().byId(ID_INPUT_NOME);
                 const inputQuantidade = this.getView().byId(ID_INPUT_QUANTIDADE);
