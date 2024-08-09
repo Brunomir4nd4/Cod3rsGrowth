@@ -13,7 +13,7 @@ sap.ui.define([
     const PRORIEDADE_ID = "id";
     const ARGUMENTOS_DE_PARAMETRO = "arguments";
 
-    return BaseController.extend("coders-growth.controller.DetalhesIngrediente", {
+    return BaseController.extend("coders-growth.ingrediente.DetalhesIngrediente", {
         formatter: Formatter,
         
         onInit(){

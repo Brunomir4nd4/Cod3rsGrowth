@@ -1,5 +1,5 @@
 <mvc:View
-    controllerName="coders-growth.controller.DetalhesIngrediente"
+    controllerName="coders-growth.ingrediente.DetalhesIngrediente"
 	xmlns="sap.m"
 	xmlns:mvc="sap.ui.core.mvc"
 	xmlns:wt="ui5.walkthrough.control"

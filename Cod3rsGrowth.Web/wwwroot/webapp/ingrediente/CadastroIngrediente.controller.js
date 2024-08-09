@@ -21,7 +21,7 @@ sap.ui.define([
     const NOME_DO_MODELO_ENUM = "enum";
     var PARAMETRO_ID;
 
-    return BaseController.extend("coders-growth.controller.CadastroIngrediente", {
+    return BaseController.extend("coders-growth.ingrediente.CadastroIngrediente", {
         onInit(){
             this._aoCoincidirRota();
         },
@@ -77,7 +77,7 @@ sap.ui.define([
                 oRouter.getRoute(ROTA_CADASTRO).attachPatternMatched((oEvent) => {
                     this._limparResquisiosDeCadastro();
                     this._regatarParamentroUrl(oEvent);
-                    this._carregarEnum(URL_API, NOME_DO_MODELO_ENUM);
+                    this._carregarEnumNaturalidade(URL_API, NOME_DO_MODELO_ENUM);
                     this._obterPorId(URL_API);
                 }, this);
             });
@@ -176,8 +176,8 @@ sap.ui.define([
             })
         },
 
-        _carregarEnum(query, nomeDoModelo) {
-            query += "/enum";
+        _carregarEnumNaturalidade(query, nomeDoModelo) {
+            query += "/naturalidade";
             let sucesso = true;
             fetch(query)
                 .then(response => {

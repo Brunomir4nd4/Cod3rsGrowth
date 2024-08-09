@@ -1,5 +1,5 @@
 <mvc:View
-    controllerName="coders-growth.controller.CadastroIngrediente"
+    controllerName="coders-growth.ingrediente.CadastroIngrediente"
 	id="CadastroIngrediente"
     xmlns="sap.m"
     xmlns:mvc="sap.ui.core.mvc"
@@ -17,7 +17,7 @@
         visible="false" />
 
     <MessageStrip
-        text="Falha: não foi possível cadastrado o ingrediente."
+        text="Falha: não foi possível cadastrar o ingrediente."
         type="Error"
         showIcon="true"
         showCloseButton="true"

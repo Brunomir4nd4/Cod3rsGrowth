@@ -33,7 +33,7 @@ namespace Cod3rsGrowth.Web.Controllers
             return Ok(_servicoIngrediente.ObterPorId(id));
         }
 
-        [HttpGet("enum")]
+        [HttpGet("naturalidade")]
         public IActionResult ObterEnum()
         {
             var naturalidadeValues = Enum.GetNames(typeof(Naturalidade)).ToList();

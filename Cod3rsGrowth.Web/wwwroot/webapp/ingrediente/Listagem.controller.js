@@ -18,7 +18,7 @@ sap.ui.define([
     const ROTA_LISTAGEM = "appListagem";
     const PROPRIEDADE_ID = "id";
     
-    return BaseController.extend("coders-growth.controller.Listagem", {
+    return BaseController.extend("coders-growth.ingrediente.Listagem", {
         formatter: Formatter,
 
         onInit(){
@@ -66,7 +66,7 @@ sap.ui.define([
                 const oRouter = this.getOwnerComponent().getRouter();
                 oRouter.getRoute(ROTA_LISTAGEM).attachPatternMatched(() => {
                     this._carregarDados(URL_API, NOME_DO_MODELO);
-                    this._carregarEnum(URL_API, NOME_DO_MODELO_ENUM);
+                    this._carregarEnumNaturalidade(URL_API, NOME_DO_MODELO_ENUM);
                 }, this);
             });
         },
@@ -86,8 +86,8 @@ sap.ui.define([
                 .catch((err) => MessageBox.error(err.message));
         },
 
-        _carregarEnum(query, nomeDoModelo) {
-            query += "/enum";
+        _carregarEnumNaturalidade(query, nomeDoModelo) {
+            query += "/naturalidade";
             let sucesso = true;
             const campoTodos = "Todos";
             const oSelect = this.getView().byId(ID_INPUT_NATURALIDADE);
