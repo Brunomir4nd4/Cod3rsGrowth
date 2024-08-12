@@ -1,7 +1,7 @@
 sap.ui.define([
 	"sap/ui/test/opaQunit",
-	"coders-growth/tests/integrations/pages/IngredientRegister",
-    "coders-growth/tests/integrations/pages/IngredientDetails"
+	"coders-growth/tests/integrations/pages/ingrediente/IngredientRegister",
+    "coders-growth/tests/integrations/pages/ingrediente/IngredientDetails"
 ], function (opaTest) {
 		"use strict";
 		
@@ -14,7 +14,7 @@ sap.ui.define([
 		const INPUT_2 = 2;
         const VALOR_ESPERADO_TRUE = true;
         const VALOR_INPUT_34 = 34;
-        const NOME_DO_ITEM = "Perola do End";
+        const NOME_DO_ITEM = "Pérola do End";
         const NAME_SPACE = "coders-growth";
         const HASH_DE_CADASTRO = "CadastroIngrediente";
 

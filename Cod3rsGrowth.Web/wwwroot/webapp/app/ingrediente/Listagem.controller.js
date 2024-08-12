@@ -1,7 +1,7 @@
 sap.ui.define([
-    "coders-growth/controller/BaseController",
+    "coders-growth/app/common/BaseController",
     "sap/ui/model/json/JSONModel",
-    "coders-growth/model/Formatter",
+    "coders-growth/app/model/Formatter",
     "sap/m/MessageBox"
  ], function (BaseController,JSONModel, Formatter, MessageBox) {
     "use strict";
@@ -18,7 +18,7 @@ sap.ui.define([
     const ROTA_LISTAGEM = "appListagem";
     const PROPRIEDADE_ID = "id";
     
-    return BaseController.extend("coders-growth.ingrediente.Listagem", {
+    return BaseController.extend("coders-growth.app.ingrediente.Listagem", {
         formatter: Formatter,
 
         onInit(){

@@ -1,4 +1,5 @@
 using Cod3rsGrowth.Infra;
+using Cod3rsGrowth.Web.Controllers;
 using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,9 +9,16 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.ConfigureProblemDetailsModelState();
 
-ModuloInjetorInfra.BindServices(builder.Services);
-var serviceProvider = builder.Services.BuildServiceProvider();
-ModuloInjetorInfra.AtualizarTabelas(serviceProvider);
+string _chaveDeConexaoContextoPadrao = "contextoPadrao";
+string _chaveDeConexaoTestes = "testes";
+var comando = args.FirstOrDefault();
+
+var conectionString = comando is "--teste"
+    ? builder.Configuration.GetConnectionString(_chaveDeConexaoTestes)
+    : builder.Configuration.GetConnectionString(_chaveDeConexaoContextoPadrao);
+
+var controllerBase = new ControllerBase();
+controllerBase.DefinirColesaoDeServico(conectionString);
 
 var app = builder.Build();
 

@@ -58,7 +58,7 @@
 			}
 		},
 		"rootView": {
-			"viewName": "coders-growth.App",
+			"viewName": "coders-growth.app.App",
 			"type": "XML",
 			"async": true,
 			"id": "app"
@@ -97,19 +97,19 @@
 			"targets": {
 				"listagem": {
 					"id": "listagem",
-					"name": "ingrediente.Listagem"
+					"name": "app.ingrediente.Listagem"
 				},
 				"cadastroIngrediente": {
 					"id": "cadastroIngrediente",
-					"name": "ingrediente.CadastroIngrediente"
+					"name": "app.ingrediente.CadastroIngrediente"
 				},
 				"detalhesIngrediente": {
 					"id": "detalhesIngrediente",
-					"name": "ingrediente.DetalhesIngrediente"
+					"name": "app.ingrediente.DetalhesIngrediente"
 				},
 				"notFound": {
 				   "id": "notFound",
-				   "name": "NotFound",
+				   "name": "app.notFound.NotFound",
 				   "transition": "show"
 				}
 			}

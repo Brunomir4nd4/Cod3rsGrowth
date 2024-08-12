@@ -3,7 +3,7 @@ sap.ui.define([
 ], (Controller) => {
     "use strict";
 
-    return Controller.extend("coders-growth.controller.App", {
+    return Controller.extend("coders-growth.app.App", {
         onInit(){}
     });
 });

@@ -1,5 +1,5 @@
 <mvc:View
-    controllerName="coders-growth.ingrediente.CadastroIngrediente"
+    controllerName="coders-growth.app.ingrediente.CadastroIngrediente"
 	id="CadastroIngrediente"
     xmlns="sap.m"
     xmlns:mvc="sap.ui.core.mvc"
@@ -29,23 +29,23 @@
 		<content>
 			<Toolbar >
 				<Button icon="sap-icon://navigation-left-arrow" press="onNavBack" id="botaoVoltarPagina" />
-				<Title id="Title1" text="Cadastro"/>
+				<Title id="Title1" text="{i18n>Cadastro.Cadastro}"/>
 				<ToolbarSpacer />
-				<Button icon='sap-icon://save' press="aoClicarCadastrarIngrediente"  id="saveButton" text="Salvar" />
+				<Button icon='sap-icon://save' press="aoClicarCadastrarIngrediente"  id="saveButton" text="{i18n>Cadastro.Salvar}" />
 			</Toolbar>
 			<semantic:SemanticPage toggleHeaderOnTitleClick="false" preserveHeaderStateOnScroll ="true" >
 				<semantic:headerContent>
 						<FlexBox alignItems="Start" >
 							<VBox width="50%" class="sapUiMediumMarginBegin" >
-								<Label text="Nome" required="true" />
+								<Label text="{i18n>Cadastro.Nome}" required="true" />
 								<Input id="inputNome" liveChange="aoAlterarNome" required="true" />
 							</VBox>
 							<VBox width="50%" class="sapUiMediumMarginBegin" >
-								<Label text="Quantidade" required="true" />
+								<Label text="{i18n>Cadastro.Quantidade}" required="true" />
 								<Input id="inputQuantidade" liveChange="aoAlterarQuantidade" />
 							</VBox>
 							<VBox width="50%" class="sapUiMediumMarginBegin" >
-								<Label text="Naturalidade" required="true" />
+								<Label text="{i18n>Cadastro.Naturalidade}" required="true" />
 								<Select id="inputNaturalidade" items="{enum>/descricao}" width="100%" >
 									<items>
 										<core:Item key="{path: 'enum>text'}" text="{path: 'enum>text'}" />

@@ -1,5 +1,6 @@
 ﻿using Cod3rsGrowth.Dominio.Entidades;
 using Cod3rsGrowth.Dominio.Enums;
+using Cod3rsGrowth.Servico;
 using Cod3rsGrowth.Servico.Servicos;
 using Microsoft.AspNetCore.Mvc;
 
@@ -36,8 +37,7 @@ namespace Cod3rsGrowth.Web.Controllers
         [HttpGet("naturalidade")]
         public IActionResult ObterEnum()
         {
-            var naturalidadeValues = Enum.GetNames(typeof(Naturalidade)).ToList();
-            return Ok(naturalidadeValues);
+            return Ok(DetalhesEnum.ObterDescricaoEnum());
         }
 
         [HttpPost]

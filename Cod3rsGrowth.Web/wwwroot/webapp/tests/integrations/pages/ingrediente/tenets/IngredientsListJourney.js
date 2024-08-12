@@ -1,6 +1,6 @@
 sap.ui.define([
 	"sap/ui/test/opaQunit",
-	"coders-growth/tests/integrations/pages/IngredientsList"
+	"coders-growth/tests/integrations/pages/ingrediente/IngredientsList"
 ], function (opaTest) {
 		"use strict";
 

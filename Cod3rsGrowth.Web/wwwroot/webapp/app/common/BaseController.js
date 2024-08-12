@@ -8,7 +8,7 @@ sap.ui.define([
 
 	const CHAVE_DA_VIEW_HOME = "appListagem";
 
-	return Controller.extend("coders-growth.controller.BaseController", {
+	return Controller.extend("coders-growth.app.common.BaseController", {
 
 		getRouter() {
 			return UIComponent.getRouterFor(this);

@@ -2,7 +2,6 @@
 using Cod3rsGrowth.Dominio.Interfaces;
 using Cod3rsGrowth.Servico.Validadores;
 using FluentValidation;
-using System.ComponentModel;
 
 namespace Cod3rsGrowth.Servico.Servicos
 {
@@ -62,6 +61,6 @@ namespace Cod3rsGrowth.Servico.Servicos
         public void Remover(int idIngredienteSelecionado)
         {
             _repositorioIngrediente.Remover(idIngredienteSelecionado);
-        }
+        } 
     }
 }

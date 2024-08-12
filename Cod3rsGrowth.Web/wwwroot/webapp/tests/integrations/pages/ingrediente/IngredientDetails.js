@@ -9,7 +9,7 @@ sap.ui.define([
     ) => {
 	"use strict";
     
-    const NOME_DA_VIEW = "DetalhesIngrediente";
+    const NOME_DA_VIEW = "ingrediente.DetalhesIngrediente";
     const ID_TITULO = "tituloDeDetalhes";
     const ID_TITULO_NOME = "tituloNomeDoIngrediente";
     const ID_BOTAO_EDITAR = "botaoEditar";

@@ -29,12 +29,13 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "httpsTestesOPA": {
+    "httpsTestes": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,
       "launchUrl": "tests/opaTests.qunit.html",
-      "applicationUrl": "https://localhost:8080;http://localhost:5171",
+      "applicationUrl": "https://localhost:7224",
+      "commandLineArgs": "--teste",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

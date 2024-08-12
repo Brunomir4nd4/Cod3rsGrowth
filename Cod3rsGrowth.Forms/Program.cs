@@ -8,12 +8,13 @@ namespace Cod3rsGrowth.Forms
     public static class Program
     {
         private static ServiceProvider? _serviceProvider;
+        private static string _conectionString = System.Configuration.ConfigurationManager.ConnectionStrings["contextoPadrao"].ConnectionString;
         [STAThread]
 
         static void Main()
         {
             var colecaoDeServicos = new ServiceCollection();
-            ModuloInjetorInfra.BindServices(colecaoDeServicos);
+            ModuloInjetorInfra.BindServices(colecaoDeServicos, _conectionString);
             ModuloInjetorServico.BindServices(colecaoDeServicos);
             _serviceProvider = colecaoDeServicos.BuildServiceProvider();
 

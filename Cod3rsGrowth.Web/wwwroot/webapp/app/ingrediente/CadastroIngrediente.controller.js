@@ -1,7 +1,7 @@
 sap.ui.define([
-    "coders-growth/controller/BaseController",
-    "coders-growth/model/Formatter",
-    "coders-growth/model/Validators",
+    "coders-growth/app/common/BaseController",
+    "coders-growth/app/model/Formatter",
+    "coders-growth/app/model/Validators",
     "sap/m/MessageBox",
     "sap/ui/model/json/JSONModel",
 ], function (BaseController, Formatter, Validators, MessageBox, JSONModel) {
@@ -21,7 +21,7 @@ sap.ui.define([
     const NOME_DO_MODELO_ENUM = "enum";
     var PARAMETRO_ID;
 
-    return BaseController.extend("coders-growth.ingrediente.CadastroIngrediente", {
+    return BaseController.extend("coders-growth.app.ingrediente.CadastroIngrediente", {
         onInit(){
             this._aoCoincidirRota();
         },

@@ -1,7 +1,7 @@
 sap.ui.define([
-    "coders-growth/controller/BaseController",
+    "coders-growth/app/common/BaseController",
     "sap/ui/model/json/JSONModel",
-    "coders-growth/model/Formatter",
+    "coders-growth/app/model/Formatter",
     "sap/m/MessageBox"
 ], function(BaseController, JSONModel, Formatter, MessageBox) {
     'use strict';
@@ -13,7 +13,7 @@ sap.ui.define([
     const PRORIEDADE_ID = "id";
     const ARGUMENTOS_DE_PARAMETRO = "arguments";
 
-    return BaseController.extend("coders-growth.ingrediente.DetalhesIngrediente", {
+    return BaseController.extend("coders-growth.app.ingrediente.DetalhesIngrediente", {
         formatter: Formatter,
         
         onInit(){

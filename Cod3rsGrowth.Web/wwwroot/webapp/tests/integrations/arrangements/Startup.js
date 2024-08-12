@@ -6,15 +6,7 @@ sap.ui.define([
 
 	const NAME_SPACE = "coders-growth";
 
-    return Opa5.extend("coders-growth.tests.Startup", {
-		/**
-		 * Initializes mock server, then starts the app component
-		 * @param {object} oOptionsParameter An object that contains the configuration for starting up the app
-		 * @param {int} oOptionsParameter.delay A custom delay to start the app with
-		 * @param {string} [oOptionsParameter.hash] The in app hash can also be passed separately for better readability in tests
-		 * @param {boolean} [oOptionsParameter.autoWait=true] Automatically wait for pending requests while the application is starting up.
-		 */
-
+    return Opa5.extend("coders-growth.tests.itegrations.arrangements.Startup", {
         iStartMyApp : function (oOptionsParameter) {
 			var oOptions = oOptionsParameter || {};
 
@@ -33,6 +25,5 @@ sap.ui.define([
 		_clearSharedData: function () {
 			ODataModel.mSharedData = { server: {}, service: {}, meta: {} };
 		}
-
     })
 })

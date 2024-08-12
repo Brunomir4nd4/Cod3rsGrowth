@@ -18,7 +18,7 @@ sap.ui.define([
             const mensagemErroNomeVazio = "Nome não informado.";
             const mensagemErroNomeComNumeroOuCaractersEspeciais = "Nome deve possuir apenas letras.";
             
-            if (oInput.getValue() === ""){
+            if (!oInput.getValue()){
                 oInput.setValueState(sap.ui.core.ValueState.Error);
                 oInput.setValueStateText(mensagemErroNomeVazio);
                 ehValido = false;
@@ -39,12 +39,12 @@ sap.ui.define([
             const menssagemErroQuantidadeVazia = "Quantidade não informada.";
             const mensagemErroQuantidadeComLetrasOuCaractersEspeciais = "Quantidade deve conter apenas números.";
             
-            if (oInput.getValue() === ""){
+            if (!oInput.getValue()){
                 oInput.setValueState(sap.ui.core.ValueState.Error);
 			    oInput.setValueStateText(menssagemErroQuantidadeVazia);
                 ehValido = false;
             }
-            else if (!regexNumeros.test(oInput.getValue()) | regexCaracters.test(oInput.getValue())){
+            else if (!regexNumeros.test(oInput.getValue()) || regexCaracters.test(oInput.getValue())){
                 oInput.setValueState(sap.ui.core.ValueState.Error);
 			    oInput.setValueStateText(mensagemErroQuantidadeComLetrasOuCaractersEspeciais);
                 ehValido = false;
