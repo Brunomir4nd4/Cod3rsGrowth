@@ -8,7 +8,6 @@ sap.ui.define([
     const NAME_SPACE = "coders-growth";
     const HASH_DE_DETALHES = "DetalhesIngrediente/4";
     const NOME_ITEM_DA_TABELA_MELANCIA_RELUZENTE = "Melancia Reluzente";
-    const VALOR_ESPERADO_MELANCIA_RELUZENTE = "Melancia Reluzente";
 
     QUnit.module("Detalhes");
 
@@ -20,14 +19,28 @@ sap.ui.define([
             hash: HASH_DE_DETALHES
         });
     
-        Then.naPaginaDeDetalhesDoIngrediente.deveAbrirViewDeDetalhes();
+        Then.naPaginaDeDetalhesDoIngrediente.deveEstarNaViewDeDetalhes();
     });
 
     opaTest("Deve verificar se o título da página corresponde ao ingrediente esperado", function (Given, When, Then) {
         When.naPaginaDeDetalhesDoIngrediente.aoClicarNoBotaoDeVoltarPagina();
         When.naPaginaDeListagemDosIngredientes.aoClicarEmUmItemDaTabela(NOME_ITEM_DA_TABELA_MELANCIA_RELUZENTE);
     
-        Then.naPaginaDeDetalhesDoIngrediente.deveSerOIngredienteEsperado(VALOR_ESPERADO_MELANCIA_RELUZENTE);
-        Then.iTeardownMyApp();
+        Then.naPaginaDeDetalhesDoIngrediente.deveSerOIngredienteEsperado(NOME_ITEM_DA_TABELA_MELANCIA_RELUZENTE);
     });
+    
+    opaTest("Testa o botao de cancelar no ato da remoção", function (Given, When, Then) {
+        When.naPaginaDeDetalhesDoIngrediente.aoClicarNoBotaoDeRemover();
+        When.naPaginaDeDetalhesDoIngrediente.aoClicarNoBotaoCancelarDoMessageBox();
+
+        Then.naPaginaDeDetalhesDoIngrediente.deveEstarNaViewDeDetalhes();
+    })
+    
+    opaTest("Deve remover um ingrediente da lista", function (Given, When, Then) {
+        When.naPaginaDeDetalhesDoIngrediente.aoClicarNoBotaoDeRemover();
+        When.naPaginaDeDetalhesDoIngrediente.aoClicarNoBotaoYesDoMessageBox();
+
+        Then.naPaginaDeListagemDosIngredientes.verificaSeOIngredienteFoiRemovido(NOME_ITEM_DA_TABELA_MELANCIA_RELUZENTE);
+        Then.iTeardownMyApp();
+    })
 });

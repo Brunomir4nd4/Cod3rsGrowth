@@ -10,6 +10,7 @@
 		binding="{ingrediente>/}"
 		id="paginaDeDetalhes"
 		showHeader="false" >
+
 		<content>
 			<Toolbar>
 				<content>
@@ -17,6 +18,7 @@
 					<Title text="{i18n>DetalhesIngrediente.Detalhes}" level="H2" id="tituloDeDetalhes" />
 					<ToolbarSpacer />
 					<Button icon="sap-icon://edit" text="Editar" press="aoClicarIrParaCadastroParaEditar" id="botaoEditar" />
+					<Button icon="sap-icon://delete" press="aoClicarremover" id="botaoRemover" />
 				</content>
 			</Toolbar>
 		</content>

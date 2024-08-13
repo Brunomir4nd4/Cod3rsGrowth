@@ -25,6 +25,7 @@ sap.ui.define([
 	const PROPRIEDADE_QUANTIDADE = "quantidade";
 	const PROPRIEDADE_TEXT = "text";
 	const PROPRIEDADE_KEY = "key";
+	const ID_DA_TABELA = "tabelaIngrediente";
 
 	Opa5.createPageObjects({
 	
@@ -281,7 +282,29 @@ sap.ui.define([
 						},
 						errorMessage: "Alguns itens na tabela não possuem a naturalidade " + stringEsperada
 					})
-				}
+				},
+
+                verificaSeOIngredienteFoiRemovido(nomeEsperado) {
+                    return this.waitFor({
+						viewName: NOME_DA_VIEW,
+						id: ID_DA_TABELA,
+                        matchers: (oTable) => {
+							const items = oTable.getItems();
+
+							items.map((item) => {
+								let nome = item.getBindingContext(NOME_DO_JSONMODEL).getProperty(PROPRIEDADE_NOME);
+								if (nome === nomeEsperado)
+									return false;
+							});
+							
+							return true;
+						},
+                        success: () => {
+                            Opa5.assert.ok(true, "O Ingrediente não está na listagem.");
+                        },
+                        errorMessage: "O Ingrediente está na listagem."
+                    })
+                }
 			}
 		}
 	});

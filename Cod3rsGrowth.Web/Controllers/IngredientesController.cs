@@ -55,7 +55,7 @@ namespace Cod3rsGrowth.Web.Controllers
         }
 
         [HttpDelete]
-        public IActionResult Remover(int id)
+        public IActionResult Remover([FromBody] int id)
         {
             _servicoIngrediente.Remover(id);
 
