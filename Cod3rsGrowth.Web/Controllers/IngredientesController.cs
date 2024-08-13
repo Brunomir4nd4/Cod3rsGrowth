@@ -1,4 +1,6 @@
 ﻿using Cod3rsGrowth.Dominio.Entidades;
+using Cod3rsGrowth.Dominio.Enums;
+using Cod3rsGrowth.Servico;
 using Cod3rsGrowth.Servico.Servicos;
 using Microsoft.AspNetCore.Mvc;
 
@@ -32,6 +34,12 @@ namespace Cod3rsGrowth.Web.Controllers
             return Ok(_servicoIngrediente.ObterPorId(id));
         }
 
+        [HttpGet("naturalidade")]
+        public IActionResult ObterEnum()
+        {
+            return Ok(DetalhesEnum.ObterDescricaoEnum());
+        }
+
         [HttpPost]
         public IActionResult Criar([FromBody] Ingrediente ingrediente)
         {
@@ -41,7 +49,7 @@ namespace Cod3rsGrowth.Web.Controllers
         }
 
         [HttpPatch]
-        public IActionResult Editar(Ingrediente ingrediente)
+        public IActionResult Editar([FromBody] Ingrediente ingrediente)
         {
             return Ok(_servicoIngrediente.Editar(ingrediente));
         }

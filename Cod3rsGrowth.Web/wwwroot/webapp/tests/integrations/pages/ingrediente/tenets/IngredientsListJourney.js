@@ -1,14 +1,14 @@
 sap.ui.define([
 	"sap/ui/test/opaQunit",
-	"coders-growth/tests/integrations/pages/IngredientsList"
+	"coders-growth/tests/integrations/pages/ingrediente/IngredientsList"
 ], function (opaTest) {
 		"use strict";
 
 		const INPUT_OLHO = "Olho";
-		const INPUT_PÓ = "Pó";
+		const INPUT_PO = "Pó";
 		const INPUT_15 = 15;
 
-		QUnit.module("Posts");
+		QUnit.module("Listagem");
 
 		opaTest("Deve aparecer os ingredientes cotendo Olho no nome", function (Given, When, Then) {
 			Given.iStartMyApp();
@@ -51,7 +51,7 @@ sap.ui.define([
 			//Actions
 			When.naPaginaDeListagemDosIngredientes.aoClicarAbrirSelect();
 			When.naPaginaDeListagemDosIngredientes.aoClicarNoBotaoTodos();
-			When.naPaginaDeListagemDosIngredientes.aoInserirPoNoInputNome(INPUT_PÓ);
+			When.naPaginaDeListagemDosIngredientes.aoInserirPoNoInputNome(INPUT_PO);
 			When.naPaginaDeListagemDosIngredientes.aoInserir15NoInputQuantidade(INPUT_15);
 
 			// Assertions

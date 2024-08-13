@@ -4,25 +4,17 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Cod3rsGrowth.Web.Controllers
 {
-    public class ControllerBase : Controller, IDisposable
+    public class ControllerBase : Controller
     {
-        protected ServiceProvider _serviceProvider;
-
-        public ControllerBase() 
-        {
-            _serviceProvider = ObterServiceCollection().BuildServiceProvider();
-        }
-        private IServiceCollection ObterServiceCollection()
+        protected static ServiceProvider _serviceProvider;
+        public ControllerBase() {}
+        public void DefinirColesaoDeServico(string conectionString)
         {
             var colecaoDeServicos = new ServiceCollection();
             ModuloInjetorServico.BindServices(colecaoDeServicos);
-            ModuloInjetorInfra.BindServices(colecaoDeServicos);
-            return colecaoDeServicos;
-        }
-
-        public virtual void Dispose()
-        {
-            _serviceProvider.Dispose();
+            ModuloInjetorInfra.BindServices(colecaoDeServicos, conectionString);
+            _serviceProvider = colecaoDeServicos.BuildServiceProvider();
+            ModuloInjetorInfra.AtualizarTabelas(_serviceProvider);
         }
     }
 }

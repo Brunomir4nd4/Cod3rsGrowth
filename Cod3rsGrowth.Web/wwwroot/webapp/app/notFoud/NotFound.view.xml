@@ -1,5 +1,5 @@
 <mvc:View
-   controllerName="coders-growth.controller.NotFound"
+   controllerName="coders-growth.app.ingrediente.notFound.NotFound"
    xmlns="sap.m"
    xmlns:mvc="sap.ui.core.mvc">
 
