@@ -165,12 +165,11 @@ sap.ui.define([
                 })
                 .then(json => {
                     console.log(json);
-                    if (sucesso){
-                        this.getView().byId(ID_BOTAO_SALVAR).setIcon(iconComplete);
-                        this.getView().byId(ID_MENSSAGE_STRIP_SECESSO).setVisible(visivel);
-                        this.getView().byId(ID_MENSSAGE_STRIP_ERRO).setVisible(naoVisivel);
-                    } else 
-                        this._erroNaRequisicaoDaApi(data);
+                    sucesso ? (
+                        this.getView().byId(ID_BOTAO_SALVAR).setIcon(iconComplete),
+                        this.getView().byId(ID_MENSSAGE_STRIP_SECESSO).setVisible(visivel),
+                        this.getView().byId(ID_MENSSAGE_STRIP_ERRO).setVisible(naoVisivel)
+                    ) : this._erroNaRequisicaoDaApi(data);
                 })
                 .catch(err => MessageBox.error(err.message));
             })

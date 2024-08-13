@@ -16,6 +16,8 @@ sap.ui.define([
     const ID_BOTAO_VOLTAR_PAGINA = "botaoVoltarPagina";
     const PROPRIEDADE_TEXT = "text"
     const VALOR_TITULO_PAGE = "Detalhes";
+    const ID_BOTAO_REMOVER = "botaoRemover";
+    const ID_BOTAO_CANCELAR = "__mbox-btn-1";
 
     Opa5.createPageObjects({
 
@@ -38,14 +40,54 @@ sap.ui.define([
                         actions: new Press(),
                         errorMessage: "Botão de voltar página não encontrado."
                     })
+                },
+
+                aoClicarNoBotaoDeRemover() {
+                    return this.waitFor({
+                        viewName: NOME_DA_VIEW,
+                        id: ID_BOTAO_REMOVER,
+                        actions: new Press(),
+                        errorMessage: "Botão de remover não encontrado."
+                    })
+                },
+
+                aoClicarNoBotaoCancelarDoMessageBox() {
+                    return this.waitFor({
+                        viewName: NOME_DA_VIEW,
+                        searchOpenDialogs: true,
+                        controlType: "sap.m.Button",
+                        success: function (aButtons) {
+                            return aButtons.filter(function (oButton) {
+                                if(oButton.getText() == "Não") {
+                                    oButton.firePress();
+                                }
+                            });
+                        },
+                        errorMessage: "Botão de CANCELAR não encontrado."
+                    })
+                },
+
+                aoClicarNoBotaoYesDoMessageBox() {
+                    return this.waitFor({
+                        viewName: NOME_DA_VIEW,
+                        searchOpenDialogs: true,
+                        controlType: "sap.m.Button",
+                        success: function (aButtons) {
+                            return aButtons.filter(function (oButton) {
+                                if(oButton.getText() == "Sim") {
+                                    oButton.firePress();
+                                }
+                            });
+                        },
+                        errorMessage: "Botão de YES não encontrado."
+                    })
                 }
             },
 
             assertions: {
-                deveAbrirViewDeDetalhes() {
+                deveEstarNaViewDeDetalhes() {
                     return this.waitFor({
-                        viewName: NOME_DA_VIEW,
-                        id: ID_TITULO,
+                        controlType: "sap.m.Title",
                         matchers: new PropertyStrictEquals({
                             name: PROPRIEDADE_TEXT,
                             value: VALOR_TITULO_PAGE
