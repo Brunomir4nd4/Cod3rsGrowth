@@ -2,8 +2,9 @@ sap.ui.define([
 	"sap/ui/core/mvc/Controller",
 	"sap/ui/core/routing/History",
 	"sap/ui/core/UIComponent",
-	"sap/m/MessageBox"
-], function(Controller, History, UIComponent, MessageBox) {
+	"sap/m/MessageBox",
+    "sap/ui/core/BusyIndicator"
+], function(Controller, History, UIComponent, MessageBox, BusyIndicator) {
 	"use strict";
 
 	const CHAVE_DA_VIEW_HOME = "appListagem";
@@ -53,7 +54,15 @@ sap.ui.define([
                 styleClass: "sapUiResponsivePadding--header sapUiResponsivePadding--content sapUiResponsivePadding--footer",
                 dependentOn: this.getView()
             }); 
-        }
+        },
+
+        _hideBusyIndicator : function() {
+			BusyIndicator.hide();
+		},
+
+		_showBusyIndicator : function () {
+			BusyIndicator.show(0);
+		},
 	});
 });
     

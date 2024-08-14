@@ -1,0 +1,28 @@
+<core:FragmentDefinition
+   xmlns="sap.m"
+   xmlns:core="sap.ui.core"
+   xmlns:tnt="sap.tnt">
+   
+	<VBox renderType="Bare" alignItems="Start" height="100%">
+		<Toolbar width="100%" id="tituloNavegacaoLateral" >
+			<Text text="Lisategem dos itens filho"/>
+		</Toolbar>
+		<tnt:SideNavigation id="sideNavigation" selectedKey="{i18n>SideNavedation.Receita}">
+			<tnt:NavigationList>
+
+				<tnt:NavigationListItem 
+					key="{i18n>SideNavedation.Receita}" 
+					text="{i18n>SideNavedation.Receita}" 
+					icon="sap-icon://form"
+					select="aoSelecionarApresentarListagemReceita" />
+
+				<tnt:NavigationListItem 
+					key="{i18n>SideNavedation.Pocao}"
+					text="{i18n>SideNavedation.Pocao}" 
+					icon="sap-icon://measuring-point"
+					select="aoSelecionarApresentarListagemPocao" />
+					
+			</tnt:NavigationList>
+		</tnt:SideNavigation>
+	</VBox>
+</core:FragmentDefinition>

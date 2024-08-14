@@ -1,71 +1,175 @@
-<mvc:View
+<mvc:View xmlns:tnt="sap.tnt"
     controllerName="coders-growth.app.ingrediente.DetalhesIngrediente"
-	xmlns="sap.m"
-	xmlns:mvc="sap.ui.core.mvc"
-	xmlns:wt="ui5.walkthrough.control"
-	xmlns:semantic="sap.f.semantic"
-	xmlns:l="sap.ui.layout" >
+    xmlns="sap.m"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:semantic="sap.f.semantic"
+    xmlns:core="sap.ui.core" >
 
-	<Page
-		binding="{ingrediente>/}"
-		id="paginaDeDetalhes"
-		showHeader="false" >
-
-		<content>
-			<Toolbar>
-				<content>
-					<Button icon="sap-icon://navigation-left-arrow" press="onNavBack" id="botaoVoltarPagina" />
-					<Title text="{i18n>DetalhesIngrediente.Detalhes}" level="H2" id="tituloDeDetalhes" />
-					<ToolbarSpacer />
-					<Button icon="sap-icon://edit" text="Editar" press="aoClicarIrParaCadastroParaEditar" id="botaoEditar" />
-					<Button icon="sap-icon://delete" press="aoClicarremover" id="botaoRemover" />
-				</content>
-			</Toolbar>
-		</content>
-
-		<semantic:SemanticPage toggleHeaderOnTitleClick="false" preserveHeaderStateOnScroll ="true" >
-			<semantic:titleHeading>
-				<Title text="{ingrediente>nome}" id="tituloNomeDoIngrediente" />
-			</semantic:titleHeading>
-			<semantic:headerContent>
-				<FlexBox
-					alignItems="Start"
-					justifyContent="SpaceBetween">
-					<Panel backgroundDesign="Transparent">
-						<ObjectAttribute 
-							title="{i18n>DetalhesIngrediente.ID}"
-							text="{ingrediente>id}" />
-						<ObjectAttribute
-							title="{i18n>DetalhesIngrediente.Nome}"
-							text="{ingrediente>nome}"/>
-						<ObjectAttribute
-							title="{i18n>DetalhesIngrediente.Naturalidade}"
-							text="{
-								path: 'ingrediente>naturalidade',
-								formatter: '.formatter.formatarValorInteiroDoEnum'
-							}" />
-					</Panel>
-					<Panel backgroundDesign="Transparent">
-						<ObjectNumber
-							id="objectHeader"
-							unit="{i18n>DetalhesIngrediente.Unidades}"
-							textAlign="End"
-							state="{
-								path: 'ingrediente>quantidade',
-								formatter: '.formatter.quantityState'}"
-							number="{ingrediente>quantidade}" >
-						</ObjectNumber>
-						<ProgressIndicator
-							width="300px"
-							percentValue="{ingrediente>quantidade}"
-							displayValue="{ingrediente>quantidade}"
-							showValue="true"
-							state="{
-								path: 'ingrediente>quantidade',
-								formatter: '.formatter.quantityState'}" />
-					</Panel>
-				</FlexBox>
-			</semantic:headerContent>
-		</semantic:SemanticPage>
-	</Page>
+    <Page
+	binding="{ingrediente>/}"
+	id="paginaDeDetalhes"
+	showHeader="false"
+	class="sapUiSmallMargin" >
+	
+		<Panel >
+            <HBox direction="Column" >
+				<Toolbar>
+					<content>
+						<Button icon="sap-icon://menu2" press="aoCicarEsconderExpandirNavegacaoLateral" id="botaoTresPontinhos" />
+						<Button icon="sap-icon://navigation-left-arrow" press="onNavBack" id="botaoVoltarPagina" />
+						<Title text="{i18n>DetalhesIngrediente.Detalhes}" level="H2" id="tituloDeDetalhes" />
+						<ToolbarSpacer />
+						<Button icon="sap-icon://edit" text="Editar" press="aoClicarIrParaCadastroParaEditar" id="botaoEditar" />
+						<Button icon="sap-icon://delete" press="aoClicarremover" id="botaoRemover" />
+					</content>
+				</Toolbar>
+                <VBox direction="Row" >
+					<VBox id="panelNavegacaoLateral" />
+					<VBox width="100%">
+						<semantic:SemanticPage toggleHeaderOnTitleClick="false" headerPinnable="false" showFooter="true" >
+							<semantic:titleHeading>
+								<Title text="{ingrediente>nome}" id="tituloNomeDoIngrediente" />
+							</semantic:titleHeading>
+							<semantic:headerContent>
+								<FlexBox
+									alignItems="Start"
+									justifyContent="SpaceBetween">
+									<Panel backgroundDesign="Transparent">
+										<ObjectAttribute 
+											title="{i18n>DetalhesIngrediente.ID}"
+											text="{ingrediente>id}" />
+										<ObjectAttribute
+											title="{i18n>DetalhesIngrediente.Nome}"
+											text="{ingrediente>nome}"/>
+										<ObjectAttribute
+											title="{i18n>DetalhesIngrediente.Naturalidade}"
+											text="{
+												path: 'ingrediente>naturalidade',
+												formatter: '.formatter.formatarValorInteiroDoEnum'
+											}" />
+									</Panel>
+									<Panel>
+										<ObjectNumber
+											id="objectHeader"
+											unit="{i18n>DetalhesIngrediente.Unidades}"
+											textAlign="End"
+											state="{
+												path: 'ingrediente>quantidade',
+												formatter: '.formatter.quantityState'}"
+											number="{ingrediente>quantidade}" >
+										</ObjectNumber>
+										<ProgressIndicator
+											width="300px"
+											percentValue="{ingrediente>quantidade}"
+											displayValue="{ingrediente>quantidade}"
+											showValue="true"
+											state="{
+												path: 'ingrediente>quantidade',
+												formatter: '.formatter.quantityState'}" />
+									</Panel>
+								</FlexBox>
+							</semantic:headerContent>
+				
+							<semantic:content>
+								<HBox>
+									<VBox direction="Column" width="100%" visible="true">
+										<VBox visible="true">
+											<Table
+												id="tabelaReceita"
+												inset="false"
+												items="{/ProductCollection}"
+												class="sapFSemanticPageAlignContent"
+												width="auto" >
+						
+												<headerToolbar>
+													<Toolbar>
+														<Title id="tituloTabelaReceita" text="{i18n>Listagem.Ingredientes}"/>
+														<ToolbarSpacer />
+														<SearchField 
+															width="20%" 
+															search=".onFilterInvoices"/>
+													</Toolbar>
+												</headerToolbar>                
+								
+												<columns>
+													<Column>
+														<Text text="Name"/>
+													</Column>
+													<Column minScreenWidth="Tablet" demandPopin="true">
+														<Text text="Category"/>
+													</Column>
+													<Column minScreenWidth="Tablet" demandPopin="true">
+														<Text text="SupplierName"/>
+													</Column>
+												</columns>
+								
+												<items>
+													<ColumnListItem vAlign="Middle">
+														<cells>
+															<ObjectIdentifier title="{Name}" text="{ProductId}"/>
+															<Text text="{Category}"/>
+															<Text text="{SupplierName}"/>
+														</cells>
+													</ColumnListItem>
+												</items>
+											</Table>
+										</VBox>
+									</VBox>
+	
+									<VBox direction="Column" width="100%" visible="false">
+										<VBox visible="true">
+											<Table
+												id="tabelaPocao"
+												inset="false"
+												items="{/ProductCollection}"
+												class="sapFSemanticPageAlignContent"
+												width="auto" >
+						
+												<headerToolbar>
+													<Toolbar>
+														<Title id="tituloTabelaPocao" text="{i18n>Listagem.Ingredientes}"/>
+														<ToolbarSpacer />
+														<SearchField 
+															width="20%" 
+															search=".onFilterInvoices"/>
+													</Toolbar>
+												</headerToolbar>                
+								
+												<columns>
+													<Column>
+														<Text text="Name"/>
+													</Column>
+													<Column minScreenWidth="Tablet" demandPopin="true">
+														<Text text="Category"/>
+													</Column>
+													<Column minScreenWidth="Tablet" demandPopin="true">
+														<Text text="SupplierName"/>
+													</Column>
+												</columns>
+								
+												<items>
+													<ColumnListItem vAlign="Middle">
+														<cells>
+															<ObjectIdentifier title="{Name}" text="{ProductId}"/>
+															<Text text="{Category}"/>
+															<Text text="{SupplierName}"/>
+														</cells>
+													</ColumnListItem>
+												</items>
+											</Table>
+										</VBox>
+									</VBox>
+								</HBox>
+							</semantic:content>
+							<semantic:footerCustomActions>
+								<Button press="aoClicarIrParaCadastro" id="botaoRemoverFilho" text="Remover" />
+								<Button press="aoClicarIrParaCadastro" id="botaoEditarFilho" text="Editar" class="sapUiSmallMarginBeginEnd" />
+								<Button press="aoClicarIrParaCadastro" id="botaoAdicionarFilho" text="Adicionar" />
+							</semantic:footerCustomActions>
+						</semantic:SemanticPage>
+					</VBox>
+				</VBox>
+            </HBox>
+		</Panel>
+    </Page>
 </mvc:View>

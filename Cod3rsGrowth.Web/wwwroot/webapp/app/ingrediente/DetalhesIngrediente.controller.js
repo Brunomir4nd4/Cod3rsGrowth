@@ -21,6 +21,7 @@ sap.ui.define([
         
         onInit(){
             this._aoCoincidirRota();
+            this._carregarNavegacaoLateral()
         },
 
         aoClicarIrParaCadastro() {
@@ -40,10 +41,9 @@ sap.ui.define([
 
         aoClicarremover(){
             const oRouter = this.getOwnerComponent().getRouter();
-            let sucesso = true;
             MessageBox.warning("Deseja remover esse item?\nVocê não poderá retomar essa ação.", {
-                actions: [ sap.m.MessageBox.Action.YES,
-                    sap.m.MessageBox.Action.NO ],
+                actions: [ sap.m.MessageBox.Action.NO,
+                    sap.m.MessageBox.Action.YES ],
                 onClose: function (sAction) {
                     if (sAction === "YES") {
                         fetch(URL_API, {
@@ -64,6 +64,34 @@ sap.ui.define([
             });
         },
 
+        aoCicarEsconderExpandirNavegacaoLateral() {
+			const oSideNavigation = this.byId("sideNavigation"),
+				bExpanded = oSideNavigation.getExpanded();
+
+            bExpanded ? this.getView().byId("tituloNavegacaoLateral").setVisible(false)
+            : this.getView().byId("tituloNavegacaoLateral").setVisible(true);
+            
+			oSideNavigation.setExpanded(!bExpanded);
+		},
+
+        aoSelecionarApresentarListagemReceita(){
+            console.log("Fui acionado pelo evento select")
+        },
+
+        aoSelecionarApresentarListagemPocao(){
+            console.log("Fui acionado pelo evento select")
+        },
+
+        _carregarNavegacaoLateral: function() {
+            var oView = this.getView();
+            var oFragment = sap.ui.xmlfragment(oView.getId(), "coders-growth.app.ingrediente.fragments.SideNavegation", this);
+            oView.addDependent(oFragment);
+            
+            var oVBox = oView.byId("panelNavegacaoLateral");
+            oVBox.removeAllItems();
+            oVBox.addItem(oFragment);
+        },
+
         _aoCoincidirRota() {
             this._processarAcao(() => {
                 const oRouter = this.getOwnerComponent().getRouter();
@@ -73,21 +101,23 @@ sap.ui.define([
 
         _obterPorId(oEvent) {
             this._processarAcao(() => {
+                this._showBusyIndicator();
                 PARAMETRO_ID = oEvent.getParameter(ARGUMENTOS_DE_PARAMETRO).id;
                 const barraInvertida = "/";
                 const query = URL_API + barraInvertida + PARAMETRO_ID;
                 let sucesso = true;
                 fetch(query)
-                    .then(resp => {
-                        if (!resp.ok) 
-                            sucesso = false;
-                        return resp.json();
-                    })
-                    .then(data => {
-                        sucesso ? this.getView().setModel(new JSONModel(data), NOME_DO_MODELO) 
-                        : this._erroNaRequisicaoDaApi(data);
-                    })
-                    .catch((err) => MessageBox.error(err.message));
+                .then(resp => {
+                    if (!resp.ok) 
+                        sucesso = false;
+                    return resp.json();
+                })
+                .then(data => {
+                    sucesso ? this.getView().setModel(new JSONModel(data), NOME_DO_MODELO) 
+                    : this._erroNaRequisicaoDaApi(data);
+                })
+                .catch((err) => MessageBox.error(err.message))
+                .finally(() => this._hideBusyIndicator());
             })
         },
     })
