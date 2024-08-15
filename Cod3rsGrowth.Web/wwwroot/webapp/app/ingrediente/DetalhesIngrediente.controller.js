@@ -6,14 +6,20 @@ sap.ui.define([
 ], function(BaseController, JSONModel, Formatter, MessageBox) {
     'use strict';
 
-    const URL_API = "https://localhost:7224/api/Ingredientes";
-    const NOME_DO_MODELO = "ingrediente";
+    const URL_API_INGREDIENTE = "https://localhost:7224/api/Ingredientes";
+    const URL_API_POCAO = "https://localhost:7224/api/Pocoes";
+    const URL_API_RECEITA = "https://localhost:7224/api/Receitas";
+    const NOME_DO_MODELO_INGREDIENTE = "ingrediente";
+    const NOME_DO_MODELO_RECEITA = "receita";
+    const NOME_DO_MODELO_POCAO = "pocao";
     const ROTA_DETALHES = "appDetalhesIngrediente";
     const CHAVE_VIEW_CADASTRAR_INGREDIENTE = "appCadastroIngrediente";
-    const PRORIEDADE_ID = "id";
+    const PROPRIEDADE_ID = "id";
     const ARGUMENTOS_DE_PARAMETRO = "arguments";
     const METODO_DE_REQUISICAO_DELETE = "DELETE";
     const CHAVE_DA_VIEW_HOME = "appListagem";
+    const ID_SELECT_FILHOS = "selectItensFilho";
+    let RECEITAS_ASSOCIADAS = [];
     var PARAMETRO_ID;
 
     return BaseController.extend("coders-growth.app.ingrediente.DetalhesIngrediente", {
@@ -21,7 +27,6 @@ sap.ui.define([
         
         onInit(){
             this._aoCoincidirRota();
-            this._carregarNavegacaoLateral()
         },
 
         aoClicarIrParaCadastro() {
@@ -34,7 +39,7 @@ sap.ui.define([
             this._processarAcao(() => {
                 const oItem = oEvent.getSource();
                 this.getRouter().navTo(CHAVE_VIEW_CADASTRAR_INGREDIENTE, {
-                    id: window.encodeURIComponent(oItem.getBindingContext(NOME_DO_MODELO).getProperty(PRORIEDADE_ID))
+                    id: window.encodeURIComponent(oItem.getBindingContext(NOME_DO_MODELO_INGREDIENTE).getProperty(PROPRIEDADE_ID))
                 }, true);
             })
         },
@@ -46,7 +51,7 @@ sap.ui.define([
                     sap.m.MessageBox.Action.YES ],
                 onClose: function (sAction) {
                     if (sAction === "YES") {
-                        fetch(URL_API, {
+                        fetch(URL_API_INGREDIENTE, {
                             method: METODO_DE_REQUISICAO_DELETE,
                             body: JSON.stringify(PARAMETRO_ID),
                             headers: { "Content-type": "application/json; charset=UTF-8" }
@@ -64,38 +69,26 @@ sap.ui.define([
             });
         },
 
-        aoCicarEsconderExpandirNavegacaoLateral() {
-			const oSideNavigation = this.byId("sideNavigation"),
-				bExpanded = oSideNavigation.getExpanded();
+        aoClicarApresentarListagemFilhoRequerido(){
+            const itemFilho = this.oView.byId(ID_SELECT_FILHOS).getSelectedItem().getText();
 
-            bExpanded ? this.getView().byId("tituloNavegacaoLateral").setVisible(false)
-            : this.getView().byId("tituloNavegacaoLateral").setVisible(true);
-            
-			oSideNavigation.setExpanded(!bExpanded);
-		},
-
-        aoSelecionarApresentarListagemReceita(){
-            console.log("Fui acionado pelo evento select")
-        },
-
-        aoSelecionarApresentarListagemPocao(){
-            console.log("Fui acionado pelo evento select")
-        },
-
-        _carregarNavegacaoLateral: function() {
-            var oView = this.getView();
-            var oFragment = sap.ui.xmlfragment(oView.getId(), "coders-growth.app.ingrediente.fragments.SideNavegation", this);
-            oView.addDependent(oFragment);
-            
-            var oVBox = oView.byId("panelNavegacaoLateral");
-            oVBox.removeAllItems();
-            oVBox.addItem(oFragment);
+            if (itemFilho === "Poção") {
+                this.getView().byId("VBoxTabelaPocao").setVisible(true);
+                this.getView().byId("VBoxTabelaReceita").setVisible(false);
+            } else {
+                this.getView().byId("VBoxTabelaPocao").setVisible(false);
+                this.getView().byId("VBoxTabelaReceita").setVisible(true);   
+            }
         },
 
         _aoCoincidirRota() {
             this._processarAcao(() => {
                 const oRouter = this.getOwnerComponent().getRouter();
-                oRouter.getRoute(ROTA_DETALHES).attachPatternMatched(this._obterPorId, this);
+                oRouter.getRoute(ROTA_DETALHES).attachPatternMatched((oEvent) => {
+                    this._obterPorId(oEvent);
+                    this._carregarDadosFilhos(URL_API_RECEITA, NOME_DO_MODELO_RECEITA);
+                    this._carregarDadosFilhos(URL_API_POCAO, NOME_DO_MODELO_POCAO);
+                }, this);
             });
         },
 
@@ -104,7 +97,7 @@ sap.ui.define([
                 this._showBusyIndicator();
                 PARAMETRO_ID = oEvent.getParameter(ARGUMENTOS_DE_PARAMETRO).id;
                 const barraInvertida = "/";
-                const query = URL_API + barraInvertida + PARAMETRO_ID;
+                const query = URL_API_INGREDIENTE + barraInvertida + PARAMETRO_ID;
                 let sucesso = true;
                 fetch(query)
                 .then(resp => {
@@ -113,12 +106,62 @@ sap.ui.define([
                     return resp.json();
                 })
                 .then(data => {
-                    sucesso ? this.getView().setModel(new JSONModel(data), NOME_DO_MODELO) 
+                    sucesso ? this.getView().setModel(new JSONModel(data), NOME_DO_MODELO_INGREDIENTE) 
                     : this._erroNaRequisicaoDaApi(data);
                 })
                 .catch((err) => MessageBox.error(err.message))
                 .finally(() => this._hideBusyIndicator());
             })
         },
+
+        _carregarDadosFilhos(urlApi, nomeDoModelo) {
+            this._showBusyIndicator();
+            let sucesso = true;
+
+            fetch(urlApi)
+            .then((res) => {
+                if (!res.ok)   
+                    sucesso = false;
+                return res.json();
+            })
+            .then((data) => {
+                if (sucesso){
+                    if (urlApi.includes("Receitas")){
+                        this.getView().setModel(new JSONModel(this._obterReceitasAssociadas(data)), nomeDoModelo)
+                    }
+                    else {
+                        this.getView().setModel(new JSONModel(this._obterPocoesAssociadas(data, RECEITAS_ASSOCIADAS)), nomeDoModelo)
+                    }
+                } else {
+                    this._erroNaRequisicaoDaApi(data);
+                }
+            })
+            .catch((err) => MessageBox.error(err.message))
+            .finally(() => this._hideBusyIndicator());
+        },
+
+        _obterReceitasAssociadas(receitas) {
+            RECEITAS_ASSOCIADAS = [];
+            receitas.filter((receita) => {
+                if (receita.listaIdIngrediente.includes(parseInt(PARAMETRO_ID)))
+                    RECEITAS_ASSOCIADAS.push(receita);
+            });
+
+            return RECEITAS_ASSOCIADAS;
+        },
+
+        _obterPocoesAssociadas(pocoes, receitasAssociadas) {
+            let pocoesAssociadas = [];
+            pocoes.map((pocao) => {
+                receitasAssociadas.map(receita => {
+                    if (pocao.idReceita === receita.id) 
+                        pocoesAssociadas.push(pocao);
+                });
+            });
+            console.log(receitasAssociadas)
+            console.log(pocoesAssociadas)
+
+            return pocoesAssociadas;
+        }
     })
 });
