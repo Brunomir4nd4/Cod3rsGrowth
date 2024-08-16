@@ -19,8 +19,8 @@ sap.ui.define([
     const METODO_DE_REQUISICAO_DELETE = "DELETE";
     const CHAVE_DA_VIEW_HOME = "appListagem";
     const ID_SELECT_FILHOS = "selectItensFilho";
-    let RECEITAS_ASSOCIADAS = [];
     var PARAMETRO_ID;
+    var RECEITAS_ASSOCIADAS = [];
 
     return BaseController.extend("coders-growth.app.ingrediente.DetalhesIngrediente", {
         formatter: Formatter,
@@ -72,7 +72,7 @@ sap.ui.define([
         aoClicarApresentarListagemFilhoRequerido(){
             const itemFilho = this.oView.byId(ID_SELECT_FILHOS).getSelectedItem().getText();
 
-            if (itemFilho === "Poção") {
+            if (itemFilho === "Poções") {
                 this.getView().byId("VBoxTabelaPocao").setVisible(true);
                 this.getView().byId("VBoxTabelaReceita").setVisible(false);
             } else {
@@ -81,17 +81,28 @@ sap.ui.define([
             }
         },
 
+        aoProcurarFiltrarTabela(oEvent) {
+            const query = URL_API_RECEITA + "?Nome=" + oEvent.mParameters.query;
+            this._carregarDadosFilho(query, NOME_DO_MODELO_RECEITA);
+        },
+
         _aoCoincidirRota() {
             this._processarAcao(() => {
                 const oRouter = this.getOwnerComponent().getRouter();
                 oRouter.getRoute(ROTA_DETALHES).attachPatternMatched((oEvent) => {
+                    this._limparResquicios();
                     this._obterPorId(oEvent);
-                    this._carregarDadosFilhos(URL_API_RECEITA, NOME_DO_MODELO_RECEITA);
-                    this._carregarDadosFilhos(URL_API_POCAO, NOME_DO_MODELO_POCAO);
+                    this._carregarDadosFilho(URL_API_RECEITA, NOME_DO_MODELO_RECEITA);
                 }, this);
             });
         },
 
+        _limparResquicios(){
+            this.getView().byId("filtroNome").setValue("");
+            this.getView().byId("selectItensFilho").setSelectedKey("Receitas");
+            this.aoClicarApresentarListagemFilhoRequerido();
+        },
+ 
         _obterPorId(oEvent) {
             this._processarAcao(() => {
                 this._showBusyIndicator();
@@ -114,7 +125,7 @@ sap.ui.define([
             })
         },
 
-        _carregarDadosFilhos(urlApi, nomeDoModelo) {
+        _carregarDadosFilho(urlApi, nomeDoModelo) {
             this._showBusyIndicator();
             let sucesso = true;
 
@@ -127,10 +138,13 @@ sap.ui.define([
             .then((data) => {
                 if (sucesso){
                     if (urlApi.includes("Receitas")){
-                        this.getView().setModel(new JSONModel(this._obterReceitasAssociadas(data)), nomeDoModelo)
+                        RECEITAS_ASSOCIADAS = this._obterReceitasAssociadas(data);
+                        this.getView().setModel(new JSONModel(RECEITAS_ASSOCIADAS), nomeDoModelo)
+                        this._carregarDadosFilho(URL_API_POCAO, NOME_DO_MODELO_POCAO);
                     }
                     else {
-                        this.getView().setModel(new JSONModel(this._obterPocoesAssociadas(data, RECEITAS_ASSOCIADAS)), nomeDoModelo)
+                        const pocoesAssociadas = this._obterPocoesAssociadas(data, RECEITAS_ASSOCIADAS);
+                        this.getView().setModel(new JSONModel(pocoesAssociadas), nomeDoModelo)
                     }
                 } else {
                     this._erroNaRequisicaoDaApi(data);
@@ -141,25 +155,24 @@ sap.ui.define([
         },
 
         _obterReceitasAssociadas(receitas) {
-            RECEITAS_ASSOCIADAS = [];
+            let receitasAssociadas = [];
             receitas.filter((receita) => {
                 if (receita.listaIdIngrediente.includes(parseInt(PARAMETRO_ID)))
-                    RECEITAS_ASSOCIADAS.push(receita);
+                    receitasAssociadas.push(receita);
             });
 
-            return RECEITAS_ASSOCIADAS;
+            return receitasAssociadas;
         },
 
         _obterPocoesAssociadas(pocoes, receitasAssociadas) {
             let pocoesAssociadas = [];
+            
             pocoes.map((pocao) => {
                 receitasAssociadas.map(receita => {
                     if (pocao.idReceita === receita.id) 
                         pocoesAssociadas.push(pocao);
                 });
             });
-            console.log(receitasAssociadas)
-            console.log(pocoesAssociadas)
 
             return pocoesAssociadas;
         }

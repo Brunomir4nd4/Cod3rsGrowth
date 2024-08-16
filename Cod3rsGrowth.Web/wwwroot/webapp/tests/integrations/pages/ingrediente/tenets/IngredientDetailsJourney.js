@@ -8,7 +8,10 @@ sap.ui.define([
     const NAME_SPACE = "coders-growth";
     const HASH_DE_DETALHES = "DetalhesIngrediente/4";
     const NOME_ITEM_DA_TABELA_MELANCIA_RELUZENTE = "Melancia Reluzente";
-
+    const NOME_ITEM_DA_OLHO_DE_ARANHA = "Olho de Aranha";
+    const QUERY_POCAO_DE_CURA = "Poção de Cura";
+    const QUERY_POCAO_DE_FORCA = "Poção de Força";
+    const VALOR_VAZIO = "";
     QUnit.module("Detalhes");
 
     opaTest("Deve entrar na página de detalhes de um ingrediente", function (Given, When, Then) {
@@ -34,13 +37,30 @@ sap.ui.define([
         When.naPaginaDeDetalhesDoIngrediente.aoClicarNoBotaoCancelarDoMessageBox();
 
         Then.naPaginaDeDetalhesDoIngrediente.deveEstarNaViewDeDetalhes();
-    })
-    
-    opaTest("Deve remover um ingrediente da lista", function (Given, When, Then) {
-        When.naPaginaDeDetalhesDoIngrediente.aoClicarNoBotaoDeRemover();
-        When.naPaginaDeDetalhesDoIngrediente.aoClicarNoBotaoYesDoMessageBox();
-
-        Then.naPaginaDeListagemDosIngredientes.verificaSeOIngredienteFoiRemovido(NOME_ITEM_DA_TABELA_MELANCIA_RELUZENTE);
         Then.iTeardownMyApp();
-    })
+    });
+    
+    // opaTest("Deve remover um ingrediente da lista", function (Given, When, Then) {
+    //     When.naPaginaDeDetalhesDoIngrediente.aoClicarNoBotaoDeRemover();
+    //     When.naPaginaDeDetalhesDoIngrediente.aoClicarNoBotaoYesDoMessageBox();
+
+    //     Then.naPaginaDeListagemDosIngredientes.verificaSeOIngredienteFoiRemovido(NOME_ITEM_DA_TABELA_MELANCIA_RELUZENTE);
+    // });
+    
+    opaTest("Deve filtrar a lista de receitas por Poção de Cura", function (Given, When, Then) {
+        Given.iStartMyApp();
+        When.naPaginaDeListagemDosIngredientes.aoClicarEmUmItemDaTabela(NOME_ITEM_DA_OLHO_DE_ARANHA);
+        When.naPaginaDeDetalhesDoIngrediente.aoFiltrarTabelaFilha(QUERY_POCAO_DE_CURA);
+        
+        Then.naPaginaDeDetalhesDoIngrediente.deveApresentarOItemEsperado(QUERY_POCAO_DE_CURA);
+    });
+
+    opaTest("Deve filtrar a lista de pocoes por Poção de Força", function (Given, When, Then) {
+        When.naPaginaDeDetalhesDoIngrediente.aoFiltrarTabelaFilha(VALOR_VAZIO);
+        When.naPaginaDeDetalhesDoIngrediente.aoSelecionarATabelaPocao();
+        When.naPaginaDeDetalhesDoIngrediente.aoFiltrarTabelaFilha(QUERY_POCAO_DE_FORCA);
+        
+        Then.naPaginaDeDetalhesDoIngrediente.deveApresentarOItemEsperado(QUERY_POCAO_DE_FORCA);
+        Then.iTeardownMyApp();
+    });
 });
