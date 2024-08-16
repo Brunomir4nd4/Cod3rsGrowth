@@ -71,8 +71,8 @@ sap.ui.define([
 
         aoClicarApresentarListagemFilhoRequerido(){
             const itemFilho = this.oView.byId(ID_SELECT_FILHOS).getSelectedItem().getText();
-
-            if (itemFilho === "Poções") {
+            const itemDoSelect = "Poções";
+            if (itemFilho === itemDoSelect) {
                 this.getView().byId("VBoxTabelaPocao").setVisible(true);
                 this.getView().byId("VBoxTabelaReceita").setVisible(false);
             } else {

@@ -65,7 +65,7 @@
 											<Text text="{i18n>DetalhesIngrediente.Nome}"/>
 										</Column>
 										<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
-											<Text text="{i18n>DetalhesIngrediente.ValidadeEmMeses}"/>
+											<Text text="{i18n>DetalhesIngrediente.Validade}"/>
 										</Column>
 										<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
 											<Text text="{i18n>DetalhesIngrediente.Valor}"/>
@@ -109,12 +109,11 @@
 														path: 'pocao>dataDeFabricacao',
 														formatter: '.formatter.formatarData'
 													}" />
-												<ObjectNumber
-													unit="{
+												<ObjectStatus
+													text="{
 														path: 'pocao>vencido',
 														formatter: '.formatter.formatarTextoValidade'
 													}"
-													textAlign="End"
 													state="{
 														path: 'pocao>vencido',
 														formatter: '.formatter.formatarValidade'
