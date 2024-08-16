@@ -1,6 +1,8 @@
 sap.ui.define([
-    "sap/ui/core/library"
-], function(coreLibrary) {
+    "sap/ui/core/library",
+    "sap/ui/core/format/DateFormat",
+    "sap/ui/core/format/NumberFormat"
+], function(coreLibrary, DateFormat, NumberFormat) {
     'use strict';
 
     var ValueState = coreLibrary.ValueState;
@@ -53,6 +55,30 @@ sap.ui.define([
             else {
                 return sap.ui.require.toUrl("coders-growth/images/the_end_block.png");
             }
-        }
+        },
+
+        formatarValidade: function(valido) {
+            return valido ? ValueState.Error : ValueState.Success; 
+        },
+
+        formatarTextoValidade: function(valido) {
+            return valido ? "Sim" : "Não";
+        },
+
+        formatarData(data) {
+            const oDateFormat = DateFormat.getDateInstance({
+                pattern: "dd/MM/YYYY"
+            });
+            const sFormattedDate = oDateFormat.format(new Date(data));
+            return sFormattedDate;
+        },
+
+        formatarValorDaMoeda: function (value) {
+            const oNumberFormat = NumberFormat.getCurrencyInstance({
+                currencyCode: false
+            });
+
+            return oNumberFormat.format(value, "R$");
+        },
     }
 });

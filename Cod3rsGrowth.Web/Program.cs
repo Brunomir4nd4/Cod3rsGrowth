@@ -17,9 +17,6 @@ var conectionString = comando is "--teste"
     ? builder.Configuration.GetConnectionString(_chaveDeConexaoTestes)
     : builder.Configuration.GetConnectionString(_chaveDeConexaoContextoPadrao);
 
-var controllerBase = new ControllerBase();
-controllerBase.DefinirColesaoDeServico(conectionString);
-
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())

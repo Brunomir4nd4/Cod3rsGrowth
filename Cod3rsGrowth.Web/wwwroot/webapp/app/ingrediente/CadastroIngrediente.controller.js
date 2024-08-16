@@ -41,7 +41,7 @@ sap.ui.define([
         },
 
         aoClicarCadastrarIngrediente(){
-            this._processarAcao(() =>{
+            this._processarAcao(() => {
                 const inputNome = this.getView().byId(ID_INPUT_NOME);
                 const inputQuantidade = this.getView().byId(ID_INPUT_QUANTIDADE);
                 const naturalidade = this.getView().byId(ID_INPUT_NATURALIDADE).getSelectedItem().getText();
@@ -116,6 +116,7 @@ sap.ui.define([
 
         _obterPorId(urlApi) {
             this._processarAcao(() => {
+                this._showBusyIndicator();
                 let sucesso = true;
                 if (PARAMETRO_ID){
                     let query = urlApi + "/" + PARAMETRO_ID;
@@ -129,7 +130,8 @@ sap.ui.define([
                             sucesso ? this._inserirDadosDeEdicao(data)
                             : this._erroNaRequisicaoDaApi(data);
                         })
-                        .catch((err) => MessageBox.error(err.message));
+                        .catch((err) => MessageBox.error(err.message))
+                        .finally(() => this._hideBusyIndicator());
                 }
             })
         },
@@ -149,6 +151,7 @@ sap.ui.define([
         
         _requistarApi(urlApi, ingrediente, metodoDaRequisicao){
             this._processarAcao(() => {
+                this._showBusyIndicator();
                 let sucesso = true;
                 const iconComplete = "sap-icon://complete";
                 const visivel = true;
@@ -171,11 +174,13 @@ sap.ui.define([
                         this.getView().byId(ID_MENSSAGE_STRIP_ERRO).setVisible(naoVisivel)
                     ) : this._erroNaRequisicaoDaApi(data);
                 })
-                .catch(err => MessageBox.error(err.message));
+                .catch(err => MessageBox.error(err.message))
+                .finally(() => this._hideBusyIndicator());
             })
         },
 
         _carregarEnumNaturalidade(query, nomeDoModelo) {
+            this._showBusyIndicator();
             query += "/naturalidade";
             let sucesso = true;
             fetch(query)
@@ -192,7 +197,8 @@ sap.ui.define([
                     }), nomeDoModelo) 
                     : this._erroNaRequisicaoDaApi(data);
                 })
-                .catch((err) => MessageBox.error(err.message));
+                .catch((err) => MessageBox.error(err.message))
+                .finally(() => this._hideBusyIndicator());
         },
     }) 
 });

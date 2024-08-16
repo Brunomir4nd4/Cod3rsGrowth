@@ -1,23 +1,25 @@
 sap.ui.define([
 	"sap/ui/test/Opa5",
 	'sap/ui/test/matchers/PropertyStrictEquals',
-    'sap/ui/test/actions/Press'
+    'sap/ui/test/actions/Press',
+    'sap/ui/test/actions/EnterText',
 ], (
         Opa5,
         PropertyStrictEquals,
-        Press
+        Press,
+        EnterText
     ) => {
 	"use strict";
     
     const NOME_DA_VIEW = "ingrediente.DetalhesIngrediente";
-    const ID_TITULO = "tituloDeDetalhes";
     const ID_TITULO_NOME = "tituloNomeDoIngrediente";
     const ID_BOTAO_EDITAR = "botaoEditar";
     const ID_BOTAO_VOLTAR_PAGINA = "botaoVoltarPagina";
     const PROPRIEDADE_TEXT = "text"
     const VALOR_TITULO_PAGE = "Detalhes";
     const ID_BOTAO_REMOVER = "botaoRemover";
-    const ID_BOTAO_CANCELAR = "__mbox-btn-1";
+    const ID_FILTRO = "filtroNome";
+    const ID_SELECT = "selectItensFilho";
 
     Opa5.createPageObjects({
 
@@ -81,6 +83,39 @@ sap.ui.define([
                         },
                         errorMessage: "Botão de YES não encontrado."
                     })
+                },
+
+                aoFiltrarTabelaFilha(query) {
+                    return this.waitFor({
+                        viewName: NOME_DA_VIEW,
+                        id: ID_FILTRO,
+                        actions: new EnterText({
+                            text: query
+                        }),
+                        errorMessage: "Não foi possível encontrar o input de filtro"
+                    })
+                },
+
+                aoSelecionarATabelaPocao(){
+                    return this.waitFor({
+                        viewName: NOME_DA_VIEW,
+                        id: ID_SELECT,
+                        actions: new Press(),
+                        success: function () {
+                            return this.waitFor({
+                                controlType: "sap.ui.core.Item",
+                                matchers: [
+                                    new sap.ui.test.matchers.PropertyStrictEquals({
+                                        name: "key",
+                                        value: "Poções"
+                                    })
+                                ],
+                                actions: new Press(),
+                                errorMessage: "Botão Pocao não encontrado."
+                            })
+                        },
+                        errorMessage: "Não foi possível encontrar o select"
+                    })
                 }
             },
 
@@ -112,6 +147,20 @@ sap.ui.define([
                         },
                         errorMessage: "O texto não corresponde ao esperado: " + nomeEsperado
                     });
+                },
+
+                deveApresentarOItemEsperado(nomeEsperado) {
+                    return this.waitFor({
+                        controlType: "sap.m.Text",
+                        matchers: new PropertyStrictEquals({
+                            name: PROPRIEDADE_TEXT,
+                            value: nomeEsperado
+                        }),
+                        success: function () {
+                            Opa5.assert.ok(true, "O texto corresponde ao esperado.");
+                        },
+                        errorMessage: "O texto não corresponde ao esperado: " + nomeEsperado 
+                    })
                 }
             }
         }

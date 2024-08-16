@@ -2,7 +2,7 @@ sap.ui.define([
     "coders-growth/app/common/BaseController",
     "sap/ui/model/json/JSONModel",
     "coders-growth/app/model/Formatter",
-    "sap/m/MessageBox"
+    "sap/m/MessageBox",
  ], function (BaseController,JSONModel, Formatter, MessageBox) {
     "use strict";
 
@@ -72,18 +72,20 @@ sap.ui.define([
         },
 
         _carregarDados(query, nomeDoModelo){
+            this._showBusyIndicator();
             let sucesso = true;
             fetch(query)
-                .then(response => {
-                    if (!response.ok) 
-                        sucesso = false;
-                    return response.json();
-                })
-                .then((data) => {
-                    sucesso ? this.getView().setModel(new JSONModel(data), nomeDoModelo)
+            .then(response => {
+                if (!response.ok) 
+                    sucesso = false;
+                return response.json();
+            })
+            .then((data) => {
+                sucesso ? this.getView().setModel(new JSONModel(data), nomeDoModelo)
                     : this._erroNaRequisicaoDaApi(data);
-                })
-                .catch((err) => MessageBox.error(err.message));
+            })
+            .catch((err) => MessageBox.error(err.message))
+            .finally(() => this._hideBusyIndicator());
         },
 
         _carregarEnumNaturalidade(query, nomeDoModelo) {
@@ -92,23 +94,24 @@ sap.ui.define([
             const campoTodos = "Todos";
             const oSelect = this.getView().byId(ID_INPUT_NATURALIDADE);
             fetch(query)
-                .then(response => {
-                    if (!response.ok) 
-                        sucesso = false;
-                    return response.json();
-                })
-                .then((data) => {
-                    const camposDoSelect = data;
-                    camposDoSelect.push(campoTodos);
+            .then(response => {
+                if (!response.ok) 
+                    sucesso = false;
+                return response.json();
+            })
+            .then((data) => {
+                const camposDoSelect = data;
+                camposDoSelect.push(campoTodos);
 
-                    sucesso ? this.getView().setModel(new JSONModel({
-                        descricao: camposDoSelect.map(function(item) {
-                            return { text: item };
-                        })
-                    }), nomeDoModelo) 
-                    : this._erroNaRequisicaoDaApi(data);
-                })
-                .catch((err) => MessageBox.error(err.message));
+                sucesso ? this.getView().setModel(new JSONModel({
+                    descricao: camposDoSelect.map(function(item) {
+                        return { text: item };
+                    })
+                }), nomeDoModelo) 
+                : this._erroNaRequisicaoDaApi(data);
+            })
+            .catch((err) => MessageBox.error(err.message))
+            .finally(() => this._hideBusyIndicator());
             oSelect.setSelectedKey(campoTodos);
         },
     });
