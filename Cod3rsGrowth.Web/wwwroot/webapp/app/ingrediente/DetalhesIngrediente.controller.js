@@ -86,6 +86,19 @@ sap.ui.define([
             this._carregarDadosFilho(query, NOME_DO_MODELO_RECEITA);
         },
 
+        async aoClicarAbrirModalCadastroFilho() {
+            // create dialog lazily
+            this.oDialog ??= await this.loadFragment({
+                name: "coders-growth.app.ingrediente.fragments.DialogoCadastroReceita"
+            });
+        
+            this.oDialog.open();
+        },
+
+        aoClicarFecharDialogo() {
+            this.oDialog.close();
+        },
+
         _aoCoincidirRota() {
             this._processarAcao(() => {
                 const oRouter = this.getOwnerComponent().getRouter();

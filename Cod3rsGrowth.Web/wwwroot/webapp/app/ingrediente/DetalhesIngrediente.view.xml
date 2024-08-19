@@ -125,9 +125,21 @@
 							</VBox>
 							<VBox alignItems="End">
 								<Toolbar class="footerToolbar" style="Clear" design="Transparent">
-									<Button press="aoClicarIrParaCadastro" id="botaoRemoverFilho" text="{i18n>DetalhesIngrediente.Remover}" />
-									<Button press="aoClicarIrParaCadastro" id="botaoEditarFilho" text="{i18n>DetalhesIngrediente.Editar}" class="sapUiSmallMarginBeginEnd" />
-									<Button press="aoClicarIrParaCadastro" id="botaoAdicionarFilho" text="{i18n>DetalhesIngrediente.Adicionar}" />
+									<Button 
+										press="aoClicarIrParaCadastro" 
+										id="botaoRemoverFilho" 
+										text="{i18n>DetalhesIngrediente.Remover}" />
+
+									<Button 
+										press="aoClicarIrParaCadastro" 
+										id="botaoEditarFilho" 
+										text="{i18n>DetalhesIngrediente.Editar}" 
+										class="sapUiSmallMarginBeginEnd" />
+
+									<Button 
+										press="aoClicarAbrirModalCadastroFilho" 
+										id="botaoAdicionarFilho" 
+										text="{i18n>DetalhesIngrediente.Adicionar}" />
 								</Toolbar>
 							</VBox>
 						</HBox>
