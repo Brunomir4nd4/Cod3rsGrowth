@@ -3,8 +3,9 @@ sap.ui.define([
 	"sap/ui/core/routing/History",
 	"sap/ui/core/UIComponent",
 	"sap/m/MessageBox",
-    "sap/ui/core/BusyIndicator"
-], function(Controller, History, UIComponent, MessageBox, BusyIndicator) {
+    "sap/ui/core/BusyIndicator",
+	"sap/ui/model/json/JSONModel",
+], function(Controller, History, UIComponent, MessageBox, BusyIndicator, JSONModel) {
 	"use strict";
 
 	const CHAVE_DA_VIEW_HOME = "appListagem";
@@ -63,6 +64,24 @@ sap.ui.define([
 		_showBusyIndicator : function () {
 			BusyIndicator.show(0);
 		},
+
+		_carregarDadosIngrediente(query, nomeDoModelo, oView){
+            this._showBusyIndicator();
+            let sucesso = true;
+            fetch(query)
+            .then(response => {
+                if (!response.ok) 
+                    sucesso = false;
+                return response.json();
+            })
+            .then((data) => {
+                sucesso ? oView.setModel(new JSONModel(data), nomeDoModelo)
+                    : this._erroNaRequisicaoDaApi(data);
+            })
+            .catch((err) => MessageBox.error(err.message))
+            .finally(() => this._hideBusyIndicator());
+        },
+
 	});
 });
     

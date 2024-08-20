@@ -65,27 +65,10 @@ sap.ui.define([
             this._processarAcao(() => {
                 const oRouter = this.getOwnerComponent().getRouter();
                 oRouter.getRoute(ROTA_LISTAGEM).attachPatternMatched(() => {
-                    this._carregarDados(URL_API, NOME_DO_MODELO);
+                    this._carregarDadosIngrediente(URL_API, NOME_DO_MODELO, this.getView());
                     this._carregarEnumNaturalidade(URL_API, NOME_DO_MODELO_ENUM);
                 }, this);
             });
-        },
-
-        _carregarDados(query, nomeDoModelo){
-            this._showBusyIndicator();
-            let sucesso = true;
-            fetch(query)
-            .then(response => {
-                if (!response.ok) 
-                    sucesso = false;
-                return response.json();
-            })
-            .then((data) => {
-                sucesso ? this.getView().setModel(new JSONModel(data), nomeDoModelo)
-                    : this._erroNaRequisicaoDaApi(data);
-            })
-            .catch((err) => MessageBox.error(err.message))
-            .finally(() => this._hideBusyIndicator());
         },
 
         _carregarEnumNaturalidade(query, nomeDoModelo) {

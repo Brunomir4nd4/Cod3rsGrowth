@@ -10,6 +10,7 @@ sap.ui.define([
     const URL_API_POCAO = "https://localhost:7224/api/Pocoes";
     const URL_API_RECEITA = "https://localhost:7224/api/Receitas";
     const NOME_DO_MODELO_INGREDIENTE = "ingrediente";
+    const NOME_DO_MODELO_INGREDIENTES = "ingredientes";
     const NOME_DO_MODELO_RECEITA = "receita";
     const NOME_DO_MODELO_POCAO = "pocao";
     const ROTA_DETALHES = "appDetalhesIngrediente";
@@ -35,11 +36,11 @@ sap.ui.define([
             })
         },
 
-        aoClicarIrParaCadastroParaEditar(oEvent) {
+        aoClicarIrParaEditar(oEvent) {
             this._processarAcao(() => {
                 const oItem = oEvent.getSource();
                 this.getRouter().navTo(CHAVE_VIEW_CADASTRAR_INGREDIENTE, {
-                    id: window.encodeURIComponent(oItem.getBindingContext(NOME_DO_MODELO_INGREDIENTE).getProperty(PROPRIEDADE_ID))
+                    id: window.encodeURIComponent(oItem.getBindingContext(NOME_DO_MODELO_INGREDIENTES).getProperty(PROPRIEDADE_ID))
                 }, true);
             })
         },
@@ -87,16 +88,102 @@ sap.ui.define([
         },
 
         async aoClicarAbrirModalCadastroFilho() {
-            // create dialog lazily
-            this.oDialog ??= await this.loadFragment({
-                name: "coders-growth.app.ingrediente.fragments.DialogoCadastroReceita"
-            });
+            const itemFilho = this.getView().byId("selectItensFilho").getSelectedItem().getText();
+
+            itemFilho === "Receitas" ? (
+                this.oDialog ??= await this.loadFragment({
+                    name: "coders-growth.app.ingrediente.fragments.DialogoCadastroReceita"
+                })
+            ) : (
+                this.oDialog ??= await this.loadFragment({
+                    name: "coders-growth.app.ingrediente.fragments.DialogoCadastroPocao"
+                })
+            )
         
             this.oDialog.open();
         },
 
         aoClicarFecharDialogo() {
             this.oDialog.close();
+        },
+
+        aoClicarSalvarAlteracoes() {
+            const itemFilho = this.getView().byId("selectItensFilho").getSelectedItem().getText();
+
+            itemFilho === "Receitas" ? this._definirReceita() : this._definirPocao(); 
+        },
+
+        _definirPocao() {
+            const table = this.getView().byId("tabelaIngrediente1");
+            const selectedItems = table.getSelectedItems();
+            const ingredientesSelecionados = [];
+        
+            selectedItems.forEach(item => {
+                const cells = item.getCells();
+                const ingrediente = {
+                    nome: cells[0].getTitle(),
+                    naturalidade: cells[1].getText(),
+                    quantidade: parseInt(cells[2].getNumber())
+                };
+                ingredientesSelecionados.push(ingrediente);
+            });            
+            console.log(ingredientesSelecionados)
+            this._cadastrarItemFilho(URL_API_POCAO, ingredientesSelecionados);
+        },
+
+        _definirReceita() {
+            const nome = this.getView().byId("inputNomeReceita").getValue();
+            const descricao = this.getView().byId("inputDescricaoReceita").getValue();
+            const valor =  parseFloat(this.getView().byId("inputValorReceita").getValue());
+            const validade = parseInt(this.getView().byId("inputValidadeReceita").getValue());
+
+            const table = this.getView().byId("tabelaIngrediente2");
+            const selectedItems = table.getSelectedItems();
+            const ingredientesSelecionados = [];
+        
+            selectedItems.forEach(item => {
+                const id = item.getBindingContext("ingredientes").getProperty("id");
+                ingredientesSelecionados.push(id);
+            });  
+        
+            const receita = {
+                nome: nome,
+                descricao: descricao,
+                valor: valor,
+                validadeEmMeses: validade,
+                listaIdIngrediente: ingredientesSelecionados,
+                imagem: "string",
+            }
+            
+            this._cadastrarItemFilho(URL_API_RECEITA, receita);
+        },
+
+        _cadastrarItemFilho(url, item) {
+            this._showBusyIndicator();
+            let sucesso = true;
+            const visivel = true;
+            const naoVisivel = false;
+            fetch(url, {
+                method: "POST",
+                body: JSON.stringify(item),
+                headers: { "Content-type": "application/json; charset=UTF-8" }
+            })
+            .then(response => {
+                if (!response.ok) 
+                    sucesso = false;
+                return response.json();
+            })
+            .then(json => {
+                console.log(json);
+                sucesso ? (
+                    // this.getView().byId(ID_MENSSAGE_STRIP_SECESSO).setVisible(visivel),
+                    // this.getView().byId(ID_MENSSAGE_STRIP_ERRO).setVisible(naoVisivel),
+                    this.oDialog.close()
+                ) : this._erroNaRequisicaoDaApi(json);
+            })
+            .catch(err => MessageBox.error(err.message))
+            .finally(() => this._hideBusyIndicator());
+            
         },
 
         _aoCoincidirRota() {
@@ -106,6 +193,7 @@ sap.ui.define([
                     this._limparResquicios();
                     this._obterPorId(oEvent);
                     this._carregarDadosFilho(URL_API_RECEITA, NOME_DO_MODELO_RECEITA);
+                    this._carregarDadosIngrediente(URL_API_INGREDIENTE, NOME_DO_MODELO_INGREDIENTES, this.getView());
                 }, this);
             });
         },
@@ -188,6 +276,6 @@ sap.ui.define([
             });
 
             return pocoesAssociadas;
-        }
+        },
     })
 });

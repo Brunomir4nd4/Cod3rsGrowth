@@ -40,7 +40,7 @@ namespace Cod3rsGrowth.Web.Controllers
         }
         
         [HttpDelete("{id}")]
-        public IActionResult Remover(int id)
+        public IActionResult Remover([FromBody] int id)
         {
             _servicoPocao.Remover(id);
 

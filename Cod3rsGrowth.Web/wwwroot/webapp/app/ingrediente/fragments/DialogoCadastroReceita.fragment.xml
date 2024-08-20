@@ -2,25 +2,79 @@
 		xmlns="sap.m"
 		xmlns:core="sap.ui.core">
    <Dialog
-      title="Hello">
+      title="Cadastar Receita">
       <content>
          <VBox class="sapUiMediumMargin">
             <VBox>
-               <Label text="Nome" required="true"/>
-               <Input placeholder="Nome..."/>
+               <Label text="{i18n>Listagem.NomeDoIngrediente}" required="true"/>
+               <Input placeholder="{i18n>Listagem.Nome...}" id="inputNomeReceita" />
             </VBox>
             <VBox class="sapUiSmallMarginTop">
-               <Label text="Validade" required="true"/>
-               <Input placeholder="Validade..."/>
+               <Label text="{i18n>Listagem.Validade}" required="true"/>
+               <Input placeholder="{i18n>Listagem.Validade...}" id="inputValidadeReceita" />
             </VBox>
             <VBox class="sapUiSmallMarginTop">
-               <Label text="Valor" required="true"/>
-               <Input placeholder="Valor..."/>
+               <Label text="{i18n>Listagem.Valor}" required="true"/>
+               <Input placeholder="{i18n>Listagem.Valor...}" id="inputValorReceita" />
             </VBox>
-         </VBox>
+            <VBox class="sapUiSmallMarginTop">
+               <Label text="{i18n>Listagem.Descrição}" required="true"/>
+               <Input placeholder="{i18n>Listagem.Descrição...}" id="inputDescricaoReceita" />
+            </VBox>
+            </VBox>
+               <Table
+                  id="tabelaIngrediente2"
+                  width="auto"
+                  items="{ path: 'ingredientes>/'}"
+                  alternateRowColors="true"
+                  growing="true"
+                  growingScrollToLoad="true"
+                  mode="MultiSelect" >
+
+                  <headerToolbar>
+                     <Toolbar>
+                        <Title text="{i18n>Listagem.Ingredientes}"/>
+                        <ToolbarSpacer />
+                        <SearchField width="20%" search="aoProcurarFiltrarTabela" id="filtroNomeCadastro" />
+                     </Toolbar>
+                  </headerToolbar>
+
+                  <columns>
+                     <Column>
+                        <Text text="{i18n>Listagem.NomeDoIngrediente}" />
+                     </Column>
+                     <Column hAlign="Center">
+                        <Text text="{i18n>Listagem.Naturalidade}" />
+                     </Column>
+                     <Column hAlign="End" >
+                        <Text text="{i18n>Listagem.Quantidade}" />
+                     </Column>
+                  </columns>
+
+                  <items>
+                     <ColumnListItem>
+                        <cells>
+                           <Text text="{ingredientes>nome}"/>
+                           <Text text="{
+                              path: 'ingredientes>naturalidade',
+                              formatter: '.formatter.formatarValorInteiroDoEnum'
+                           }" />
+                           <ObjectNumber
+                              unit="{i18n>DetalhesIngrediente.Unidades}"
+                              textAlign="End"
+                              state="{
+                                 path: 'ingredientes>quantidade',
+                                 formatter: '.formatter.quantityState'}"
+                              number="{ingredientes>quantidade}" />
+                        </cells>
+                     </ColumnListItem>
+                  </items>
+            </Table>
       </content>
+      
       <buttons>
-         <Button text="Cancelar" press="aoClicarFecharDialogo"/>
+         <Button text="Salvar" press="aoClicarSalvarAlteracoes" id="botaoSalvarAlteracao" />
+         <Button text="Cancelar" press="aoClicarFecharDialogo" id="botaoCancelar" />
       </buttons>
    </Dialog>
 </core:FragmentDefinition>
