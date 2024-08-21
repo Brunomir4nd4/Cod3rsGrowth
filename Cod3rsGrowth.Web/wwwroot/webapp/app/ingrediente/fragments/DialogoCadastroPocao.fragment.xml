@@ -18,7 +18,7 @@
                   <Toolbar>
                      <Title text="{i18n>Listagem.Ingredientes}"/>
                      <ToolbarSpacer />
-                     <SearchField width="20%" search="aoProcurarFiltrarTabela" id="filtroNomeCadastro" />
+                     <SearchField width="20%" search="aoProcurarFiltrarTabela" id="filtroNomePocao" />
                   </Toolbar>
                </headerToolbar>
 

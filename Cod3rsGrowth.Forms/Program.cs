@@ -14,7 +14,7 @@ namespace Cod3rsGrowth.Forms
         static void Main()
         {
             var colecaoDeServicos = new ServiceCollection();
-            ModuloInjetorInfra.BindServices(colecaoDeServicos, _conectionString);
+            ModuloInjetorInfra.BindServices(colecaoDeServicos);
             ModuloInjetorServico.BindServices(colecaoDeServicos);
             _serviceProvider = colecaoDeServicos.BuildServiceProvider();
 

@@ -57,7 +57,7 @@ sap.ui.define([
                     return this.waitFor({
                         viewName: NOME_DA_VIEW,
                         searchOpenDialogs: true,
-                        controlType: "sap.m.Button",
+                        
                         success: function (aButtons) {
                             return aButtons.filter(function (oButton) {
                                 if(oButton.getText() == "Não") {

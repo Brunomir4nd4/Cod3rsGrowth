@@ -9,6 +9,11 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.ConfigureProblemDetailsModelState();
 
+var colecaoDeServicos = new ServiceCollection();
+ModuloInjetorInfra.BindServices(colecaoDeServicos);
+var serviceProvider = colecaoDeServicos.BuildServiceProvider();
+ModuloInjetorInfra.AtualizarTabelas(serviceProvider);
+
 string _chaveDeConexaoContextoPadrao = "contextoPadrao";
 string _chaveDeConexaoTestes = "testes";
 var comando = args.FirstOrDefault();

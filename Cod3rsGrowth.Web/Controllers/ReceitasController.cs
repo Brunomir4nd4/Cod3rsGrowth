@@ -47,7 +47,7 @@ namespace Cod3rsGrowth.Web.Controllers
             return Ok(_servicoReceita.Editar(receita));
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete]
         public IActionResult Remover([FromBody] int id)
         {
             _servicoReceita.Remover(id);

@@ -20,6 +20,7 @@ sap.ui.define([
     const METODO_DE_REQUISICAO_DELETE = "DELETE";
     const CHAVE_DA_VIEW_HOME = "appListagem";
     const ID_SELECT_FILHOS = "selectItensFilho";
+    var DIALOGO;
     var PARAMETRO_ID;
     var RECEITAS_ASSOCIADAS = [];
 
@@ -89,22 +90,23 @@ sap.ui.define([
 
         async aoClicarAbrirModalCadastroFilho() {
             const itemFilho = this.getView().byId("selectItensFilho").getSelectedItem().getText();
-
-            itemFilho === "Receitas" ? (
-                this.oDialog ??= await this.loadFragment({
+            
+            DIALOGO = this.oDialog;
+            if (itemFilho === "Receitas") {
+                DIALOGO ??= await this.loadFragment({
                     name: "coders-growth.app.ingrediente.fragments.DialogoCadastroReceita"
                 })
-            ) : (
-                this.oDialog ??= await this.loadFragment({
+            } else {
+                DIALOGO ??= await this.loadFragment({
                     name: "coders-growth.app.ingrediente.fragments.DialogoCadastroPocao"
                 })
-            )
-        
-            this.oDialog.open();
+            }
+            DIALOGO.open();
         },
 
-        aoClicarFecharDialogo() {
-            this.oDialog.close();
+        aoClicarFecharDialogo() {  
+            DIALOGO.close();
+            DIALOGO.destroy();
         },
 
         aoClicarSalvarAlteracoes() {
@@ -113,21 +115,22 @@ sap.ui.define([
             itemFilho === "Receitas" ? this._definirReceita() : this._definirPocao(); 
         },
 
-        _definirPocao() {
+        async _definirPocao() {
             const table = this.getView().byId("tabelaIngrediente1");
             const selectedItems = table.getSelectedItems();
             const ingredientesSelecionados = [];
-        
-            selectedItems.forEach(item => {
-                const cells = item.getCells();
-                const ingrediente = {
-                    nome: cells[0].getTitle(),
-                    naturalidade: cells[1].getText(),
-                    quantidade: parseInt(cells[2].getNumber())
-                };
-                ingredientesSelecionados.push(ingrediente);
+            
+            const lista = this.getView().getModel("ingredientes").getData();
+
+            selectedItems.map(item => {
+                const id = item.getBindingContext("ingredientes").getProperty("id");
+
+                lista.map((ingrediente) => {
+                    if (ingrediente.id === id)
+                        ingredientesSelecionados.push(ingrediente);
+                })
             });            
-            console.log(ingredientesSelecionados)
+            
             this._cadastrarItemFilho(URL_API_POCAO, ingredientesSelecionados);
         },
 
@@ -178,7 +181,8 @@ sap.ui.define([
                 sucesso ? (
                     // this.getView().byId(ID_MENSSAGE_STRIP_SECESSO).setVisible(visivel),
                     // this.getView().byId(ID_MENSSAGE_STRIP_ERRO).setVisible(naoVisivel),
-                    this.oDialog.close()
+                    this._carregarDadosFilho(URL_API_RECEITA, NOME_DO_MODELO_RECEITA),
+                    this.aoClicarFecharDialogo()
                 ) : this._erroNaRequisicaoDaApi(json);
             })
             .catch(err => MessageBox.error(err.message))
@@ -191,7 +195,8 @@ sap.ui.define([
                 const oRouter = this.getOwnerComponent().getRouter();
                 oRouter.getRoute(ROTA_DETALHES).attachPatternMatched((oEvent) => {
                     this._limparResquicios();
-                    this._obterPorId(oEvent);
+                    this._obterParametro(oEvent);
+                    this._obterPorId(PARAMETRO_ID);
                     this._carregarDadosFilho(URL_API_RECEITA, NOME_DO_MODELO_RECEITA);
                     this._carregarDadosIngrediente(URL_API_INGREDIENTE, NOME_DO_MODELO_INGREDIENTES, this.getView());
                 }, this);
@@ -203,14 +208,18 @@ sap.ui.define([
             this.getView().byId("selectItensFilho").setSelectedKey("Receitas");
             this.aoClicarApresentarListagemFilhoRequerido();
         },
+
+        _obterParametro(oEvent) {
+            PARAMETRO_ID = oEvent.getParameter(ARGUMENTOS_DE_PARAMETRO).id;
+        },
  
-        _obterPorId(oEvent) {
+        _obterPorId(id) {
             this._processarAcao(() => {
                 this._showBusyIndicator();
-                PARAMETRO_ID = oEvent.getParameter(ARGUMENTOS_DE_PARAMETRO).id;
                 const barraInvertida = "/";
-                const query = URL_API_INGREDIENTE + barraInvertida + PARAMETRO_ID;
+                const query = URL_API_INGREDIENTE + barraInvertida + id;
                 let sucesso = true;
+
                 fetch(query)
                 .then(resp => {
                     if (!resp.ok) 
@@ -218,7 +227,7 @@ sap.ui.define([
                     return resp.json();
                 })
                 .then(data => {
-                    sucesso ? this.getView().setModel(new JSONModel(data), NOME_DO_MODELO_INGREDIENTE) 
+                    sucesso ? this.getView().setModel(new JSONModel(data), NOME_DO_MODELO_INGREDIENTE)
                     : this._erroNaRequisicaoDaApi(data);
                 })
                 .catch((err) => MessageBox.error(err.message))
