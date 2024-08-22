@@ -2,23 +2,30 @@
 		xmlns="sap.m"
 		xmlns:core="sap.ui.core">
    <Dialog
-      title="Cadastar Poção">
+      title="Cadastar Poção"
+      contentWidth="50%">
       <content>
+         <MessageStrip
+            text="{i18n>CadastroIngrediente.FalhaNaoFoiPossivelCadastrarOIngrediente.}"
+            type="Error"
+            showIcon="true"
+            showCloseButton="true"
+            class="sapUiTinyMargin"
+            id="errorMessageStrip"
+            visible="false" />
          <VBox class="sapUiMediumMargin">
             <Table
                id="tabelaIngrediente1"
                width="auto"
                items="{ path: 'ingredientes>/'}"
                alternateRowColors="true"
-               growing="true"
-               growingScrollToLoad="true"
                mode="MultiSelect" >
 
                <headerToolbar>
                   <Toolbar>
                      <Title text="{i18n>Listagem.Ingredientes}"/>
                      <ToolbarSpacer />
-                     <SearchField width="20%" search="aoProcurarFiltrarTabela" id="filtroNomePocao" />
+                     <SearchField width="30%" search="aoProcurarFiltrarTabelaDialogo" id="filtroNomePocao" />
                   </Toolbar>
                </headerToolbar>
 

@@ -1,5 +1,4 @@
 using Cod3rsGrowth.Infra;
-using Cod3rsGrowth.Web.Controllers;
 using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
