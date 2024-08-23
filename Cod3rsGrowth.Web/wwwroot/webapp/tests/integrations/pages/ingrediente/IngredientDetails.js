@@ -20,6 +20,11 @@ sap.ui.define([
     const ID_BOTAO_REMOVER = "botaoRemover";
     const ID_FILTRO = "filtroNome";
     const ID_SELECT = "selectItensFilho";
+    const ID_MENSAGEM_DE_SUCESSO = "successMessageStrip";
+    const ID_MENSAGEM_DE_ERRO = "errorMessageStrip"
+    const ID_BOTAO_ADICIONAR = "botaoAdicionarFilho";
+    const ID_BOTAO_SALVAR = "botaoSalvarAlteracao";
+    const ID_TABELA_INGREDIENTE2 = "tabelaIngrediente2";
 
     Opa5.createPageObjects({
 
@@ -57,7 +62,7 @@ sap.ui.define([
                     return this.waitFor({
                         viewName: NOME_DA_VIEW,
                         searchOpenDialogs: true,
-                        
+                        controlType: "sap.m.Button",
                         success: function (aButtons) {
                             return aButtons.filter(function (oButton) {
                                 if(oButton.getText() == "Não") {
@@ -96,7 +101,7 @@ sap.ui.define([
                     })
                 },
 
-                aoSelecionarATabelaPocao(){
+                aoSelecionarATabelaFilho(titulo){
                     return this.waitFor({
                         viewName: NOME_DA_VIEW,
                         id: ID_SELECT,
@@ -107,14 +112,92 @@ sap.ui.define([
                                 matchers: [
                                     new sap.ui.test.matchers.PropertyStrictEquals({
                                         name: "key",
-                                        value: "Poções"
+                                        value: titulo
                                     })
                                 ],
                                 actions: new Press(),
-                                errorMessage: "Botão Pocao não encontrado."
+                                errorMessage: `Botão ${titulo} não encontrado.`
                             })
                         },
                         errorMessage: "Não foi possível encontrar o select"
+                    })
+                },
+
+                aoClicarNoBotaoAdicionar() {
+                    return this.waitFor({
+                        viewName: NOME_DA_VIEW,
+                        id: ID_BOTAO_ADICIONAR,
+                        actions: new Press(),
+                        errorMessage: "Botão Adcionar não encontrado."
+                    })
+                },
+
+                aoInserirValorAoInput(idInput, valor, label) {
+                    return this.waitFor({
+                        searchOpenDialogs: true,
+                        viewName: NOME_DA_VIEW,
+                        id: idInput,
+                        actions: new EnterText({
+                            text: valor
+                        }),
+                        errorMessage: `Input ${label} não encontrado.`
+                    })
+                },
+
+                aoClicarNoBotaoSalvar() {
+                    return this.waitFor({
+                        viewName: NOME_DA_VIEW,
+                        id: ID_BOTAO_SALVAR,
+                        searchOpenDialogs: true,
+                        actions: new Press(),
+                        errorMessage: "Botão Salvar não encontrado."
+                    })
+                },
+
+                aoDesmacarItemDaTabela(idTable) {
+                    return this.waitFor({
+                        viewName: NOME_DA_VIEW,
+                        id: idTable,
+                        searchOpenDialogs: true,
+                        actions: function(oTable) {
+                            oTable.removeSelections();
+                        },
+                        errorMessage: "Tabela não encontrada."
+                    })
+                },
+
+                aoClicarEmUmItemDaTabela(valor, idTabela) {
+                    return this.waitFor({
+                        viewName: NOME_DA_VIEW,
+                        id: idTabela,
+                        searchOpenDialogs: true,
+						actions: function(oTable) {
+                            const items = oTable.getItems();
+
+                            items.map((item) => {
+                                let nome = item.getBindingContext("ingredientes").getProperty("nome");
+                                if (nome === valor) {
+                                    oTable.setSelectedItem(item);
+                                    return true;
+                                }
+                            });
+                        },
+						errorMessage: "Item com o nome: " + valor + " não encontrado"
+					});
+                },
+
+                aoClicarNoBotaoCancelar() {
+                    return this.waitFor({
+                        controlType: "sap.m.Button",
+                        matchers: new PropertyStrictEquals({
+                            name: "text",
+                            value: 'Cancelar'
+                        }),
+                        actions: new Press(),
+                        success: function() {
+                            Opa5.assert.ok(true, "Botão Cancelar foi clicado.");
+                        },
+                        errorMessage: "Botão Cancelar não encontrado."
                     })
                 }
             },
@@ -160,6 +243,76 @@ sap.ui.define([
                             Opa5.assert.ok(true, "O texto corresponde ao esperado.");
                         },
                         errorMessage: "O texto não corresponde ao esperado: " + nomeEsperado 
+                    })
+                },
+
+                deveEstarNoModalEsperado(titulo) {
+                    return this.waitFor({
+                        controlType: "sap.m.Dialog",
+                        matchers: new PropertyStrictEquals({
+                            name: "title",
+                            value: titulo
+                        }),
+                        success: function () {
+                            Opa5.assert.ok(true, "O modal corresponde ao esperado.");
+                        },
+                        errorMessage: "O modal não corresponde ao esperado: " + titulo 
+                    })
+                },
+
+                deveApresentarMensagemDeSucessoEsperada() {
+                    return this.waitFor({
+                        viewName: NOME_DA_VIEW,
+                        id: ID_MENSAGEM_DE_SUCESSO,
+                        matchers: new PropertyStrictEquals({
+                            name: "visible",
+                            value: true
+                        }),
+                        success: function () {
+                            Opa5.assert.ok(true, "Mensagem de sucesso é apresentada.");
+                        },
+                        errorMessage: "Mensagem de sucesso não é apresentada."
+                    })
+                },
+
+                deveApresentarMensagemDeErroEsperada() {
+                    return this.waitFor({
+                        viewName: NOME_DA_VIEW,
+                        id: ID_MENSAGEM_DE_ERRO,
+                        matchers: new PropertyStrictEquals({
+                            name: "visible",
+                            value: true
+                        }),
+                        success: function () {
+                            Opa5.assert.ok(true, "Mensagem de erro é apresentada.");
+                        },
+                        errorMessage: "Mensagem de erro não é apresentada."
+                    })
+                },
+
+                deveApresentarDialogoDeErroEsperado(nomeItem) {
+                    return this.waitFor({
+                        controlType: "sap.m.Text",
+                        searchOpenDialogs: true,
+                        matchers: new PropertyStrictEquals({
+                            name: "text",
+                            value: `O cadastro deve possuir o ingrediente "${nomeItem}"`
+                        }),
+                        success: function () {
+                            return this.waitFor({
+                                controlType: "sap.m.Button",
+                                matchers: new PropertyStrictEquals({
+                                    name: "text",
+                                    value: 'Fechar'
+                                }),
+                                actions: new Press(),
+                                success: function() {
+                                    Opa5.assert.ok(true, "Dialogo de erro é apresentado.");
+                                },
+                                errorMessage: "Botão Fechar não encontrado."
+                            })
+                        },
+                        errorMessage: "Dialogo de erro não é apresentado."
                     })
                 }
             }

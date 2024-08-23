@@ -41,7 +41,7 @@ sap.ui.define([
                 if (filtroNaturalidade != FLAG_PARA_FILTROAGEM_NULA)
                     query += "Naturalidade="+filtroNaturalidade;
 
-                this._carregarDados(query, NOME_DO_MODELO);
+                this._carregarDadosIngrediente(query, NOME_DO_MODELO);
             });
         },
 

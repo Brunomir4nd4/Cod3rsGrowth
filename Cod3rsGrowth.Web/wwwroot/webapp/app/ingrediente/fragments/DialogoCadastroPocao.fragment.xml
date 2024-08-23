@@ -33,7 +33,7 @@
                   <Column>
                      <Text text="{i18n>Listagem.NomeDoIngrediente}" />
                   </Column>
-                  <Column>
+                  <Column hAlign="Center">
                      <Text text="{i18n>Listagem.Naturalidade}" />
                   </Column>
                   <Column hAlign="End" >

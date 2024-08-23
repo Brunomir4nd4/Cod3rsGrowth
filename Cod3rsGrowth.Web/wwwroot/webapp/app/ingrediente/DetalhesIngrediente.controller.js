@@ -47,7 +47,7 @@ sap.ui.define([
             this._processarAcao(() => {
                 const oItem = oEvent.getSource();
                 this.getRouter().navTo(CHAVE_VIEW_CADASTRAR_INGREDIENTE, {
-                    id: window.encodeURIComponent(oItem.getBindingContext(NOME_DO_MODELO_INGREDIENTES).getProperty(PROPRIEDADE_ID))
+                    id: oItem._getPropertiesToPropagate().oModels.ingrediente.oData.id
                 }, true);
             })
         },
@@ -209,7 +209,7 @@ sap.ui.define([
                 }
                 
                 possuiItemDetalhado ? this._cadastrarItemFilho(URL_API_RECEITA, receita)
-                : MessageBox.error(`A receita deve possuir o ingrediente "${nomeIngredienteDetalhado}"`);
+                : MessageBox.error(`O cadastro deve possuir o ingrediente "${nomeIngredienteDetalhado}"`);
             })
         },
 
@@ -218,19 +218,25 @@ sap.ui.define([
                 const table = this.getView().byId(ID_TABELA_INGREDIENTE1);
                 const selectedItems = table.getSelectedItems();
                 const ingredientesSelecionados = [];
-                
+                const nomeIngredienteDetalhado = this.getView().getModel(NOME_DO_MODELO_INGREDIENTE).getData().nome;
+                let possuiItemDetalhado = false;
+
                 const listaIngredientes = this.getView().getModel("ingredientes").getData();
     
                 selectedItems.map(item => {
                     const id = item.getBindingContext("ingredientes").getProperty("id");
-    
+                    
+                    if (id === parseInt(PARAMETRO_ID))
+                        possuiItemDetalhado = true;
+
                     listaIngredientes.map((ingrediente) => {
                         if (ingrediente.id === id)
                             ingredientesSelecionados.push(ingrediente);
                     })
                 });            
                 
-                this._cadastrarItemFilho(URL_API_POCAO, ingredientesSelecionados);
+                possuiItemDetalhado ? this._cadastrarItemFilho(URL_API_POCAO, ingredientesSelecionados)
+                : MessageBox.error(`O cadastro deve possuir o ingrediente "${nomeIngredienteDetalhado}"`);
             })
         },
 
