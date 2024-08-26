@@ -32,15 +32,15 @@ namespace Cod3rsGrowth.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult Criar([FromBody] List<Ingrediente> ingredientes)
+        public IActionResult Criar( [FromBody]List<Ingrediente> ingredientes)
         {
             var id = _servicoPocao.Criar(ingredientes);
 
-            return Ok(CreatedAtAction(nameof(ObterPorId), new { id = id }, _servicoPocao.ObterPorId(id)));
+            return CreatedAtAction(nameof(ObterPorId), new { id = id }, _servicoPocao.ObterPorId(id));
         }
         
-        [HttpDelete("{id}")]
-        public IActionResult Remover(int id)
+        [HttpDelete]
+        public IActionResult Remover([FromBody] int id)
         {
             _servicoPocao.Remover(id);
 

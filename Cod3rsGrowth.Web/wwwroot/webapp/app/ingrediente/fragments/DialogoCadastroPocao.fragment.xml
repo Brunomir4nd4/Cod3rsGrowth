@@ -1,0 +1,73 @@
+<core:FragmentDefinition
+		xmlns="sap.m"
+		xmlns:core="sap.ui.core">
+   <Dialog
+      title="Cadastar Poção"
+      contentWidth="50%">
+      <content>
+         <MessageStrip
+            text="{i18n>CadastroIngrediente.FalhaNaoFoiPossivelCadastrarOIngrediente.}"
+            type="Error"
+            showIcon="true"
+            showCloseButton="true"
+            class="sapUiTinyMargin"
+            id="errorMessageStrip"
+            visible="false" />
+         <VBox class="sapUiMediumMargin">
+            <Table
+               id="tabelaIngrediente1"
+               width="auto"
+               items="{ path: 'ingredientes>/'}"
+               alternateRowColors="true"
+               mode="MultiSelect" >
+
+               <headerToolbar>
+                  <Toolbar>
+                     <Title text="{i18n>Listagem.Ingredientes}"/>
+                     <ToolbarSpacer />
+                     <SearchField width="30%" search="aoProcurarFiltrarTabelaDialogo" id="filtroNomePocao" />
+                  </Toolbar>
+               </headerToolbar>
+
+               <columns>
+                  <Column>
+                     <Text text="{i18n>Listagem.NomeDoIngrediente}" />
+                  </Column>
+                  <Column hAlign="Center">
+                     <Text text="{i18n>Listagem.Naturalidade}" />
+                  </Column>
+                  <Column hAlign="End" >
+                     <Text text="{i18n>Listagem.Quantidade}" />
+                  </Column>
+               </columns>
+
+               <items>
+                  <ColumnListItem>
+                     <cells>
+                           <ObjectIdentifier
+                              class="sapUiTinyMarginBottom sapUiSmallMarginTop"
+                              title="{ingredientes>nome}"
+                           />
+                           <Text text="{
+                              path: 'ingredientes>naturalidade',
+                              formatter: '.formatter.formatarValorInteiroDoEnum'
+                           }" />
+                           <ObjectNumber
+                        unit="{i18n>DetalhesIngrediente.Unidades}"
+                        textAlign="End"
+                        state="{
+                           path: 'ingredientes>quantidade',
+                           formatter: '.formatter.quantityState'}"
+                        number="{ingredientes>quantidade}" />
+                     </cells>
+                  </ColumnListItem>
+               </items>
+            </Table>
+         </VBox>
+      </content>
+      <buttons>
+         <Button text="Salvar" press="aoClicarSalvarAlteracoes" id="botaoSalvarAlteracao" />
+         <Button text="Cancelar" press="aoClicarFecharDialogo" id="botaoCancelar" />
+      </buttons>
+   </Dialog>
+</core:FragmentDefinition>

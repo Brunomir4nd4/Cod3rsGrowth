@@ -7,10 +7,36 @@ sap.ui.define([
 
         ValidarIngrediente(inputNome, inputQuantidade) {
             ehValido = true;
-            this.ValidarQuantidade(inputQuantidade);
+            const nomeDoInput = "Quantidade"
             this.ValidarNome(inputNome);
+            this.ValidarNumeros(inputQuantidade, nomeDoInput);
 
             return ehValido;
+        },
+
+        ValidarReceita(inputNome, inputValidade, inputValor, inputDescricao) {
+            ehValido = true;
+            const nomeInputValidade = "Validade";
+            const nomeInputValor = "Valor";
+            this.ValidarNome(inputNome);
+            this.ValidarNumeros(inputValidade, nomeInputValidade);
+            this.ValidarNumeros(inputValor, nomeInputValor);
+            this.ValidarDescricao(inputDescricao);
+
+            return ehValido;
+        },
+
+        ValidarDescricao(oInput) {
+            const mensagemErroDescricaoVazia = "Quantidade não informada.";
+            
+            if (!oInput.getValue()){
+                oInput.setValueState(sap.ui.core.ValueState.Error);
+                oInput.setValueStateText(mensagemErroDescricaoVazia);
+                ehValido = false;
+            } 
+            else {
+                oInput.setValueState(sap.ui.core.ValueState.Success);
+            }
         },
 
         ValidarNome(oInput){
@@ -33,20 +59,20 @@ sap.ui.define([
             }
         },
 
-        ValidarQuantidade(oInput){      
+        ValidarNumeros(oInput, nomeDoInput){      
             const regexNumeros = /[0-9]/;      
             const regexCaracters = /[a-zA-Z!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/; 
-            const menssagemErroQuantidadeVazia = "Quantidade não informada.";
-            const mensagemErroQuantidadeComLetrasOuCaractersEspeciais = "Quantidade deve conter apenas números.";
+            const menssagemErroInputVazio = nomeDoInput + " não informado(a).";
+            const mensagemErroInputComLetrasOuCaractersEspeciais = nomeDoInput + " deve conter apenas números.";
             
             if (!oInput.getValue()){
                 oInput.setValueState(sap.ui.core.ValueState.Error);
-			    oInput.setValueStateText(menssagemErroQuantidadeVazia);
+			    oInput.setValueStateText(menssagemErroInputVazio);
                 ehValido = false;
             }
             else if (!regexNumeros.test(oInput.getValue()) || regexCaracters.test(oInput.getValue())){
                 oInput.setValueState(sap.ui.core.ValueState.Error);
-			    oInput.setValueStateText(mensagemErroQuantidadeComLetrasOuCaractersEspeciais);
+			    oInput.setValueStateText(mensagemErroInputComLetrasOuCaractersEspeciais);
                 ehValido = false;
             }
             else {

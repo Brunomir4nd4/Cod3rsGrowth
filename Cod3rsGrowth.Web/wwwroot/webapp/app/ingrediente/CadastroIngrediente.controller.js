@@ -15,7 +15,7 @@ sap.ui.define([
     const REQUISICAO_POST = "POST";
     const REQUISICAO_PATCH = "PATCH";
     const ARGUMENTOS_DE_PARAMETRO = "arguments";
-    const ID_MENSSAGE_STRIP_SECESSO = "successMessageStrip";
+    const ID_MENSSAGE_STRIP_SUCESSO = "successMessageStrip";
     const ID_MENSSAGE_STRIP_ERRO = "errorMessageStrip";
     const ID_BOTAO_SALVAR = "saveButton";
     const NOME_DO_MODELO_ENUM = "enum";
@@ -29,14 +29,14 @@ sap.ui.define([
         aoAlterarNome(){
             this._processarAcao(() =>{
                 const inputNome = this.getView().byId(ID_INPUT_NOME);       
-                Validators.ValidarNome(inputNome, inputNome.getValue());
+                Validators.ValidarNome(inputNome);
             });
         },
         
         aoAlterarQuantidade(){
             this._processarAcao(() => {
                 const inputQuantidade = this.getView().byId(ID_INPUT_QUANTIDADE);
-                Validators.ValidarQuantidade(inputQuantidade, inputQuantidade.getValue());
+                Validators.ValidarNumeros(inputQuantidade);
             });
         },
 
@@ -66,7 +66,7 @@ sap.ui.define([
                     }
                 } else {
                     this.getView().byId(ID_MENSSAGE_STRIP_ERRO).setVisible(visivel);
-                    this.getView().byId(ID_MENSSAGE_STRIP_SECESSO).setVisible(naoVisivel);
+                    this.getView().byId(ID_MENSSAGE_STRIP_SUCESSO).setVisible(naoVisivel);
                 }
             });
         },
@@ -93,7 +93,7 @@ sap.ui.define([
                 const inputNaturalidade = this.getView().byId(ID_INPUT_NATURALIDADE);
                 const naoVisivel = false;
     
-                this.getView().byId(ID_MENSSAGE_STRIP_SECESSO).setVisible(naoVisivel);
+                this.getView().byId(ID_MENSSAGE_STRIP_SUCESSO).setVisible(naoVisivel);
                 this.getView().byId(ID_MENSSAGE_STRIP_ERRO).setVisible(naoVisivel);
                 this.getView().byId(ID_BOTAO_SALVAR).setIcon(iconSave);
                 inputNome.setValueState(sap.ui.core.ValueState.None);
@@ -170,7 +170,7 @@ sap.ui.define([
                     console.log(json);
                     sucesso ? (
                         this.getView().byId(ID_BOTAO_SALVAR).setIcon(iconComplete),
-                        this.getView().byId(ID_MENSSAGE_STRIP_SECESSO).setVisible(visivel),
+                        this.getView().byId(ID_MENSSAGE_STRIP_SUCESSO).setVisible(visivel),
                         this.getView().byId(ID_MENSSAGE_STRIP_ERRO).setVisible(naoVisivel)
                     ) : this._erroNaRequisicaoDaApi(data);
                 })

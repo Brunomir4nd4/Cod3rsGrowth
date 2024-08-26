@@ -1,5 +1,4 @@
 using Cod3rsGrowth.Infra;
-using Cod3rsGrowth.Web.Controllers;
 using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,6 +7,11 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.ConfigureProblemDetailsModelState();
+
+var colecaoDeServicos = new ServiceCollection();
+ModuloInjetorInfra.BindServices(colecaoDeServicos);
+var serviceProvider = colecaoDeServicos.BuildServiceProvider();
+ModuloInjetorInfra.AtualizarTabelas(serviceProvider);
 
 string _chaveDeConexaoContextoPadrao = "contextoPadrao";
 string _chaveDeConexaoTestes = "testes";
