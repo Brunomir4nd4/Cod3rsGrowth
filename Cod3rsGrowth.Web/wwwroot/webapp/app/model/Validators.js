@@ -27,7 +27,7 @@ sap.ui.define([
         },
 
         ValidarDescricao(oInput) {
-            const mensagemErroDescricaoVazia = "Quantidade não informada.";
+            const mensagemErroDescricaoVazia = "Descrição não informada.";
             
             if (!oInput.getValue()){
                 oInput.setValueState(sap.ui.core.ValueState.Error);

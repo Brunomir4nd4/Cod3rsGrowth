@@ -9,17 +9,18 @@ builder.Services.AddSwaggerGen();
 builder.Services.ConfigureProblemDetailsModelState();
 
 var colecaoDeServicos = new ServiceCollection();
-ModuloInjetorInfra.BindServices(colecaoDeServicos);
-var serviceProvider = colecaoDeServicos.BuildServiceProvider();
-ModuloInjetorInfra.AtualizarTabelas(serviceProvider);
-
 string _chaveDeConexaoContextoPadrao = "contextoPadrao";
 string _chaveDeConexaoTestes = "testes";
 var comando = args.FirstOrDefault();
 
 var conectionString = comando is "--teste"
-    ? builder.Configuration.GetConnectionString(_chaveDeConexaoTestes)
-    : builder.Configuration.GetConnectionString(_chaveDeConexaoContextoPadrao);
+    ? System.Configuration.ConfigurationManager.ConnectionStrings[_chaveDeConexaoTestes].ConnectionString
+    : System.Configuration.ConfigurationManager.ConnectionStrings[_chaveDeConexaoContextoPadrao].ConnectionString;
+
+ModuloInjetorInfra.stringDeConexao = conectionString;
+ModuloInjetorInfra.BindServices(colecaoDeServicos);
+var serviceProvider = colecaoDeServicos.BuildServiceProvider();
+ModuloInjetorInfra.AtualizarTabelas(serviceProvider);
 
 var app = builder.Build();
 

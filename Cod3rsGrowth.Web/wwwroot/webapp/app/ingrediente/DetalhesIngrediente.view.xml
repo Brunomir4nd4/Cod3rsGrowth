@@ -142,7 +142,7 @@
 							text="{i18n>DetalhesIngrediente.Remover}" />
 
 						<Button 
-							press="aoClicarIrParaCadastro" 
+							press="aoClicarAbrirModalCadastroFilho" 
 							id="botaoEditarFilho" 
 							text="{i18n>DetalhesIngrediente.Editar}" 
 							class="sapUiSmallMarginBeginEnd" />

@@ -13,6 +13,7 @@
             class="sapUiTinyMargin"
             id="errorMessageStrip"
             visible="false" />
+            
          <VBox class="sapUiMediumMargin">
             <Table
                id="tabelaIngrediente1"
