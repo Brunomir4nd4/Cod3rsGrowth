@@ -16,13 +16,12 @@ sap.ui.define([
     const NOME_DO_MODELO_POCAO = "pocao";
     const ROTA_DETALHES = "appDetalhesIngrediente";
     const CHAVE_VIEW_CADASTRAR_INGREDIENTE = "appCadastroIngrediente";
-    const PROPRIEDADE_ID = "id";
     const ARGUMENTOS_DE_PARAMETRO = "arguments";
     const METODO_DE_REQUISICAO_DELETE = "DELETE";
     const CHAVE_DA_VIEW_HOME = "appListagem";
     const ID_SELECT_FILHOS = "selectItensFilho";
-    const ID_TABELA_INGREDIENTE1 = "tabelaIngrediente1";
-    const ID_TABELA_INGREDIENTE2 = "tabelaIngrediente2";
+    const ID_TABELA_INGREDIENTE_DIALOGO_POCAO = "tabelaIngrediente1";
+    const ID_TABELA_INGREDIENTE_DIALOGO_RECEITA = "tabelaIngrediente2";
     const VISIVEL = true;
     const NAO_VISIVEL = false;
     var MENSSAGEM_ERRO_CADASTRO_FILHO;
@@ -148,6 +147,7 @@ sap.ui.define([
                 DIALOGO.open();
             }
             MENSSAGEM_ERRO_CADASTRO_FILHO = DIALOGO.getContent()[0];
+            this._selecionarItemDetalhadoNaTabela(tabela);
         },
 
         aoClicarFecharDialogo() {  
@@ -199,17 +199,27 @@ sap.ui.define([
                     const ehValido = Validators.ValidarReceita(inputNome, inputValidade, inputValor, inputDescricao);
                     if (ehValido) {
                         MENSSAGEM_ERRO_CADASTRO_FILHO.setVisible(NAO_VISIVEL);
-                        this._definirReceita(inputNome, inputValidade, inputValor, inputDescricao);     
+                        this._cadastrarReceita(inputNome, inputValidade, inputValor, inputDescricao);     
                     }
                     else
                         MENSSAGEM_ERRO_CADASTRO_FILHO.setVisible(VISIVEL);
                 }
                 else 
-                    this._definirPocao();
+                    this._cadastrarPocao();
             })
         },
 
-        _definirReceita(inputNome, inputValidade, inputValor, inputDescricao) {
+        _selecionarItemDetalhadoNaTabela(tabela) {
+            const items = tabela.getItems();
+
+            items.map((item) => {
+                let id = item.getBindingContext(NOME_DO_MODELO_INGREDIENTES).getProperty("id");
+                if (id === parseInt(PARAMETRO_ID))
+                    tabela.setSelectedItem(item);
+            });
+        },
+
+        _cadastrarReceita(inputNome, inputValidade, inputValor, inputDescricao) {
             this._processarAcao(() => {
                 const nome = inputNome.getValue();
                 const descricao = inputDescricao.getValue();
@@ -218,7 +228,7 @@ sap.ui.define([
                 const nomeIngredienteDetalhado = this.getView().getModel(NOME_DO_MODELO_INGREDIENTE).getData().nome;
                 let possuiItemDetalhado = false;
                 
-                const table = this.getView().byId(ID_TABELA_INGREDIENTE2);
+                const table = this.getView().byId(ID_TABELA_INGREDIENTE_DIALOGO_RECEITA);
                 const selectedItems = table.getSelectedItems();
                 const ingredientesSelecionados = [];
             
@@ -254,9 +264,9 @@ sap.ui.define([
             })
         },
 
-        _definirPocao() {
+        _cadastrarPocao() {
             this._processarAcao(() => {
-                const table = this.getView().byId(ID_TABELA_INGREDIENTE1);
+                const table = this.getView().byId(ID_TABELA_INGREDIENTE_DIALOGO_POCAO);
                 const selectedItems = table.getSelectedItems();
                 const ingredientesSelecionados = [];
                 const nomeIngredienteDetalhado = this.getView().getModel(NOME_DO_MODELO_INGREDIENTE).getData().nome;
@@ -274,10 +284,19 @@ sap.ui.define([
                         if (ingrediente.id === id)
                             ingredientesSelecionados.push(ingrediente);
                     })
-                });            
-                
-                possuiItemDetalhado ? this._requisitarApi(URL_API_POCAO, ingredientesSelecionados)
-                : MessageBox.error(`O cadastro deve possuir o ingrediente "${nomeIngredienteDetalhado}"`);
+                });      
+
+                if (possuiItemDetalhado) {
+                    const metodoPATCH = "PATCH";
+                    const metodoPOST = "POST";
+                    
+                    BOTAO_PRECIONADO === "Adicionar" ? this._requisitarApi(URL_API_POCAO, ingredientesSelecionados, metodoPOST)
+                        : (
+                            receita.id = ID_TABELA_INGREDIENTE_DIALOGO_POCAO,
+                            this._requisitarApi(URL_API_RECEITA, receita, metodoPATCH)
+                        );
+                } else
+                    MessageBox.error(`O cadastro deve possuir o ingrediente "${nomeIngredienteDetalhado}"`);
             })
         },
 

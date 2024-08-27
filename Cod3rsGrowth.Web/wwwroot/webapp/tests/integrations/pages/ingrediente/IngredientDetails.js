@@ -3,11 +3,13 @@ sap.ui.define([
 	'sap/ui/test/matchers/PropertyStrictEquals',
     'sap/ui/test/actions/Press',
     'sap/ui/test/actions/EnterText',
+    "sap/ui/test/matchers/BindingPath",
 ], (
         Opa5,
         PropertyStrictEquals,
         Press,
-        EnterText
+        EnterText,
+        BindingPath
     ) => {
 	"use strict";
     
@@ -199,6 +201,36 @@ sap.ui.define([
                         },
                         errorMessage: "Botão Cancelar não encontrado."
                     })
+                },
+
+                aoClicarNoBotaoEditarItemFilho() {
+                    return this.waitFor({
+                        controlType: "sap.m.Button",
+                        matchers: new PropertyStrictEquals({
+                            name: "text",
+                            value: "Editar",
+                        }),
+                        actions: new Press(),
+                        success: function() {
+                            Opa5.assert.ok(true, "Botão Editar foi clicado.");
+                        },
+                        errorMessage: "Botão Editar não foi encontrado."
+                    })
+                },
+
+                aoClicarEmUmItemDaTabelaFilho(valor) {
+                    return this.waitFor({
+                        controlType: "sap.m.Text",
+                        matchers: new PropertyStrictEquals({
+                            name: "text",
+                            value: valor
+                        }),
+                        actions: new Press(),
+                        success: function() {
+                            Opa5.assert.ok(true, `Item ${valor} foi encontrado.`)
+                        },
+                        errorMessage: `Item ${valor} não foi enconrado.`
+                    })
                 }
             },
 
@@ -314,7 +346,7 @@ sap.ui.define([
                         },
                         errorMessage: "Dialogo de erro não é apresentado."
                     })
-                }
+                },
             }
         }
     })
