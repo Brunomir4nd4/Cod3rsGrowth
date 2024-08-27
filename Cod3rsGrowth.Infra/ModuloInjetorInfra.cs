@@ -1,9 +1,7 @@
-﻿
 ﻿using Cod3rsGrowth.Infra.ConexaoBD;
 using Microsoft.Extensions.DependencyInjection;
 using LinqToDB.AspNet;
 using LinqToDB;
-using System.Configuration;
 using LinqToDB.AspNet.Logging;
 using Cod3rsGrowth.Dominio.Interfaces;
 using Cod3rsGrowth.Infra.Repositorios;
@@ -14,7 +12,7 @@ namespace Cod3rsGrowth.Infra
 {
     public class ModuloInjetorInfra
     {
-        private static string _chaveDeConexao = "contextoPadrao";
+        public static string stringDeConexao;
         public static void BindServices(IServiceCollection servicos)
         {
             servicos.AddScoped<IRepositorioIngrediente, RepositorioIngrediente>();
@@ -24,14 +22,14 @@ namespace Cod3rsGrowth.Infra
 
             servicos.AddLinqToDBContext<MeuContextoDeDados>((provider, options)
                 => options
-                    .UseSqlServer(ConfigurationManager.ConnectionStrings[_chaveDeConexao].ConnectionString)
+                    .UseSqlServer(stringDeConexao)
                     .UseDefaultLogging(provider)
                 );
 
             servicos.AddFluentMigratorCore()
                 .ConfigureRunner(rb => rb
                     .AddSqlServer()
-                    .WithGlobalConnectionString(ConfigurationManager.ConnectionStrings[_chaveDeConexao].ToString())
+                    .WithGlobalConnectionString(stringDeConexao)
                     .ScanIn(typeof(_20240701115000_MigradorIngrediente).Assembly).For.Migrations())
                 .AddLogging(lb => lb.AddFluentMigratorConsole());
         }

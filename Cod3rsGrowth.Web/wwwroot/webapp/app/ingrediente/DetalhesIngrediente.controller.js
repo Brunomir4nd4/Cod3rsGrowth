@@ -16,19 +16,20 @@ sap.ui.define([
     const NOME_DO_MODELO_POCAO = "pocao";
     const ROTA_DETALHES = "appDetalhesIngrediente";
     const CHAVE_VIEW_CADASTRAR_INGREDIENTE = "appCadastroIngrediente";
-    const PROPRIEDADE_ID = "id";
     const ARGUMENTOS_DE_PARAMETRO = "arguments";
     const METODO_DE_REQUISICAO_DELETE = "DELETE";
     const CHAVE_DA_VIEW_HOME = "appListagem";
     const ID_SELECT_FILHOS = "selectItensFilho";
-    const ID_TABELA_INGREDIENTE1 = "tabelaIngrediente1";
-    const ID_TABELA_INGREDIENTE2 = "tabelaIngrediente2";
+    const ID_TABELA_INGREDIENTE_DIALOGO_POCAO = "tabelaIngrediente1";
+    const ID_TABELA_INGREDIENTE_DIALOGO_RECEITA = "tabelaIngrediente2";
     const VISIVEL = true;
     const NAO_VISIVEL = false;
     var MENSSAGEM_ERRO_CADASTRO_FILHO;
     var DIALOGO;
     var PARAMETRO_ID;
     var RECEITAS_ASSOCIADAS = [];
+    var BOTAO_PRECIONADO;
+    var ID_RECEITA_EDITADA;
 
     return BaseController.extend("coders-growth.app.ingrediente.DetalhesIngrediente", {
         formatter: Formatter,
@@ -84,9 +85,11 @@ sap.ui.define([
             if (itemFilho === itemDoSelect) {
                 this.getView().byId("VBoxTabelaPocao").setVisible(VISIVEL);
                 this.getView().byId("VBoxTabelaReceita").setVisible(NAO_VISIVEL);
+                this.getView().byId("botaoEditarFilho").setVisible(NAO_VISIVEL);
             } else {
                 this.getView().byId("VBoxTabelaPocao").setVisible(NAO_VISIVEL);
                 this.getView().byId("VBoxTabelaReceita").setVisible(VISIVEL);   
+                this.getView().byId("botaoEditarFilho").setVisible(VISIVEL);
             }
         },
 
@@ -95,9 +98,14 @@ sap.ui.define([
             this._carregarDadosFilho(query, NOME_DO_MODELO_RECEITA);
         },
 
-        async aoClicarAbrirModalCadastroFilho() {
+        async aoClicarAbrirModalCadastroFilho(oEvent) {
             const itemFilho = this.getView().byId("selectItensFilho").getSelectedItem().getText();
+            const tabelaReceita = this.getView().byId("tabelaReceita");
             let tabela;
+            let listaIdIngrediente;
+            let receita;
+
+            BOTAO_PRECIONADO = oEvent.getSource().mProperties.text;
             
             DIALOGO = this.oDialog;
             if (itemFilho === "Receitas") {
@@ -106,16 +114,40 @@ sap.ui.define([
                     name: "coders-growth.app.ingrediente.fragments.DialogoCadastroReceita"
                 });
                 tabela = DIALOGO.getContent()[1].getItems()[1];
+
+                if (BOTAO_PRECIONADO === "Editar") {
+                    const primeiroItem = 0;
+                    const vazio = 0;
+                    const itemSelecionado = tabelaReceita.getSelectedItems();
+                    
+                    if (itemSelecionado.length !== vazio) {
+                        receita = itemSelecionado[primeiroItem].getBindingContext(NOME_DO_MODELO_RECEITA); 
+                        listaIdIngrediente = receita.getProperty("listaIdIngrediente");
+                        ID_RECEITA_EDITADA = receita.getProperty("id");
+
+                        this.getView().byId("inputNomeReceita").setValue(receita.getProperty("nome"));
+                        this.getView().byId("inputValidadeReceita").setValue(receita.getProperty("validadeEmMeses"));
+                        this.getView().byId("inputValorReceita").setValue(receita.getProperty("valor"));
+                        this.getView().byId("inputDescricaoReceita").setValue(receita.getProperty("descricao"));
+                        this._selecionarIngredientesNaTabela(tabela, listaIdIngrediente);
+                        DIALOGO.open();
+                    } else {
+                        MessageBox.error("Deve haver uma receita selecionada.");
+                        DIALOGO.destroy();
+                    } 
+                } else  
+                    DIALOGO.open();
+
             } else {
                 DIALOGO ??= await this.loadFragment({
                     type: "XML",
                     name: "coders-growth.app.ingrediente.fragments.DialogoCadastroPocao"
                 });
-                tabela = DIALOGO.getContent()[1].getItems()[0];
+
+                DIALOGO.open();
             }
             MENSSAGEM_ERRO_CADASTRO_FILHO = DIALOGO.getContent()[0];
             this._selecionarItemDetalhadoNaTabela(tabela);
-            DIALOGO.open();
         },
 
         aoClicarFecharDialogo() {  
@@ -167,26 +199,36 @@ sap.ui.define([
                     const ehValido = Validators.ValidarReceita(inputNome, inputValidade, inputValor, inputDescricao);
                     if (ehValido) {
                         MENSSAGEM_ERRO_CADASTRO_FILHO.setVisible(NAO_VISIVEL);
-                        this._definirReceita();     
+                        this._cadastrarReceita(inputNome, inputValidade, inputValor, inputDescricao);     
                     }
                     else
                         MENSSAGEM_ERRO_CADASTRO_FILHO.setVisible(VISIVEL);
                 }
                 else 
-                    this._definirPocao();
+                    this._cadastrarPocao();
             })
         },
 
-        _definirReceita() {
+        _selecionarItemDetalhadoNaTabela(tabela) {
+            const items = tabela.getItems();
+
+            items.map((item) => {
+                let id = item.getBindingContext(NOME_DO_MODELO_INGREDIENTES).getProperty("id");
+                if (id === parseInt(PARAMETRO_ID))
+                    tabela.setSelectedItem(item);
+            });
+        },
+
+        _cadastrarReceita(inputNome, inputValidade, inputValor, inputDescricao) {
             this._processarAcao(() => {
-                const nome = this.getView().byId("inputNomeReceita").getValue();
-                const descricao = this.getView().byId("inputDescricaoReceita").getValue();
-                const valor =  parseFloat(this.getView().byId("inputValorReceita").getValue());
-                const validade = parseInt(this.getView().byId("inputValidadeReceita").getValue());
+                const nome = inputNome.getValue();
+                const descricao = inputDescricao.getValue();
+                const valor = parseFloat(inputValor.getValue());
+                const validade = parseInt(inputValidade.getValue());
                 const nomeIngredienteDetalhado = this.getView().getModel(NOME_DO_MODELO_INGREDIENTE).getData().nome;
                 let possuiItemDetalhado = false;
                 
-                const table = this.getView().byId(ID_TABELA_INGREDIENTE2);
+                const table = this.getView().byId(ID_TABELA_INGREDIENTE_DIALOGO_RECEITA);
                 const selectedItems = table.getSelectedItems();
                 const ingredientesSelecionados = [];
             
@@ -207,15 +249,24 @@ sap.ui.define([
                     listaIdIngrediente: ingredientesSelecionados,
                     imagem: "string",
                 }
-                
-                possuiItemDetalhado ? this._cadastrarItemFilho(URL_API_RECEITA, receita)
-                : MessageBox.error(`O cadastro deve possuir o ingrediente "${nomeIngredienteDetalhado}"`);
+
+                if (possuiItemDetalhado) {
+                    const metodoPATCH = "PATCH";
+                    const metodoPOST = "POST";
+                    
+                    BOTAO_PRECIONADO === "Adicionar" ? this._requisitarApi(URL_API_RECEITA, receita, metodoPOST)
+                        : (
+                            receita.id = ID_RECEITA_EDITADA,
+                            this._requisitarApi(URL_API_RECEITA, receita, metodoPATCH)
+                        );
+                } else
+                    MessageBox.error(`O cadastro deve possuir o ingrediente "${nomeIngredienteDetalhado}"`);
             })
         },
 
-        _definirPocao() {
+        _cadastrarPocao() {
             this._processarAcao(() => {
-                const table = this.getView().byId(ID_TABELA_INGREDIENTE1);
+                const table = this.getView().byId(ID_TABELA_INGREDIENTE_DIALOGO_POCAO);
                 const selectedItems = table.getSelectedItems();
                 const ingredientesSelecionados = [];
                 const nomeIngredienteDetalhado = this.getView().getModel(NOME_DO_MODELO_INGREDIENTE).getData().nome;
@@ -233,18 +284,27 @@ sap.ui.define([
                         if (ingrediente.id === id)
                             ingredientesSelecionados.push(ingrediente);
                     })
-                });            
-                
-                possuiItemDetalhado ? this._cadastrarItemFilho(URL_API_POCAO, ingredientesSelecionados)
-                : MessageBox.error(`O cadastro deve possuir o ingrediente "${nomeIngredienteDetalhado}"`);
+                });      
+
+                if (possuiItemDetalhado) {
+                    const metodoPATCH = "PATCH";
+                    const metodoPOST = "POST";
+                    
+                    BOTAO_PRECIONADO === "Adicionar" ? this._requisitarApi(URL_API_POCAO, ingredientesSelecionados, metodoPOST)
+                        : (
+                            receita.id = ID_TABELA_INGREDIENTE_DIALOGO_POCAO,
+                            this._requisitarApi(URL_API_RECEITA, receita, metodoPATCH)
+                        );
+                } else
+                    MessageBox.error(`O cadastro deve possuir o ingrediente "${nomeIngredienteDetalhado}"`);
             })
         },
 
-        _cadastrarItemFilho(url, item) {
+        _requisitarApi(url, item, metodo) {
             this._showBusyIndicator();
             let sucesso = true;
             fetch(url, {
-                method: "POST",
+                method: metodo,
                 body: JSON.stringify(item),
                 headers: { "Content-type": "application/json; charset=UTF-8" }
             })
@@ -282,13 +342,16 @@ sap.ui.define([
             });
         },
 
-        _selecionarItemDetalhadoNaTabela(tabela) {
-            const items = tabela.getItems();
+        _selecionarIngredientesNaTabela(tabela, listaIdIngrediente) {
+            const itens = tabela.getItems();
 
-            items.map((item) => {
-                let id = item.getBindingContext(NOME_DO_MODELO_INGREDIENTES).getProperty("id");
-                if (id === parseInt(PARAMETRO_ID))
-                    tabela.setSelectedItem(item);
+            itens.map((item) => {
+                const id = item.getBindingContext(NOME_DO_MODELO_INGREDIENTES).getProperty("id");
+
+                listaIdIngrediente.map((idIngrediente) => {
+                    if (id === idIngrediente)
+                        tabela.setSelectedItem(item);
+                })
             });
         },
 

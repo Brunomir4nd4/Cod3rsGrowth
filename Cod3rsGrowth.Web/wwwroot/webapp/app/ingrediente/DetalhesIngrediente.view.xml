@@ -70,7 +70,8 @@
 						id="tabelaReceita" 
 						inset="false" 
 						items="{receita>/}" 
-						mode="MultiSelect">
+						mode="MultiSelect"
+						includeItemInSelection="true" >
 						<columns>
 							<Column>
 								<Text text="{i18n>DetalhesIngrediente.Nome}"/>
@@ -100,7 +101,7 @@
 					</Table>
 				</VBox>
 				<VBox id="VBoxTabelaPocao" visible="false">
-					<Table id="tabelaPocao" inset="false" items="{pocao>/}" mode="MultiSelect">
+					<Table id="tabelaPocao" inset="false" items="{pocao>/}" mode="MultiSelect" includeItemInSelection="true">
 						<columns>
 							<Column>
 								<Text text="{i18n>DetalhesIngrediente.Nome}"/>
@@ -142,7 +143,7 @@
 							text="{i18n>DetalhesIngrediente.Remover}" />
 
 						<Button 
-							press="aoClicarIrParaCadastro" 
+							press="aoClicarAbrirModalCadastroFilho" 
 							id="botaoEditarFilho" 
 							text="{i18n>DetalhesIngrediente.Editar}" 
 							class="sapUiSmallMarginBeginEnd" />

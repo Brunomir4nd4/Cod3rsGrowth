@@ -28,8 +28,9 @@ sap.ui.define([
     const TITULO_RECEITAS = "Receitas";
     const MODAL_RECEITAS = "Cadastar Receita";
     const NOME_ITEM_DA_TABELA_PEROLA_DO_END = "Pérola do End";
-    const ID_TABELA_INGREDIENTE2 = "tabelaIngrediente2";
-    const ID_TABELA_INGREDIENTE1 = "tabelaIngrediente1";
+    const ID_TABELA_INGREDIENTE_DIALOGO_RECEITA = "tabelaIngrediente2";
+    const ID_TABELA_INGREDIENTE_DIALOGO_POCAO = "tabelaIngrediente1";
+    const VALOR_POCAO_TESTE_DE_EDICAO = "Poção Teste de Edição"
 
     QUnit.module("Detalhes");
 
@@ -46,7 +47,7 @@ sap.ui.define([
 
     opaTest("Deve verificar se o título da página corresponde ao ingrediente esperado", function (Given, When, Then) {
         When.naPaginaDeDetalhesDoIngrediente.aoClicarNoBotaoDeVoltarPagina();
-        When.naPaginaDeListagemDosIngredientes.aoClicarEmUmItemDaTabela(NOME_ITEM_DA_TABELA_MELANCIA_RELUZENTE, ID_TABELA_INGREDIENTE2);
+        When.naPaginaDeListagemDosIngredientes.aoClicarEmUmItemDaTabela(NOME_ITEM_DA_TABELA_MELANCIA_RELUZENTE, ID_TABELA_INGREDIENTE_DIALOGO_RECEITA);
     
         Then.naPaginaDeDetalhesDoIngrediente.deveSerOIngredienteEsperado(NOME_ITEM_DA_TABELA_MELANCIA_RELUZENTE);
     });
@@ -65,6 +66,8 @@ sap.ui.define([
 
     //     Then.naPaginaDeListagemDosIngredientes.verificaSeOIngredienteFoiRemovido(NOME_ITEM_DA_TABELA_MELANCIA_RELUZENTE);
     // });
+
+    QUnit.module("Detalhes - Itens Filhos")
     
     opaTest("Deve filtrar a lista de receitas por Poção de Cura", function (Given, When, Then) {
         Given.iStartMyApp();
@@ -95,7 +98,7 @@ sap.ui.define([
         When.naPaginaDeDetalhesDoIngrediente.aoInserirValorAoInput(ID_INPUT_VALIDADE, VALOR_12, INPUT_VALIDADE);
         When.naPaginaDeDetalhesDoIngrediente.aoInserirValorAoInput(ID_INPUT_VALOR, VALOR_50, INPUT_VALOR);
         When.naPaginaDeDetalhesDoIngrediente.aoInserirValorAoInput(ID_INPUT_DESCRICAO, VALOR_DESCRICAO_TESTE, INPUT_DESCRICAO);
-        When.naPaginaDeDetalhesDoIngrediente.aoClicarEmUmItemDaTabela(NOME_ITEM_DA_TABELA_PEROLA_DO_END, ID_TABELA_INGREDIENTE2);
+        When.naPaginaDeDetalhesDoIngrediente.aoClicarEmUmItemDaTabela(NOME_ITEM_DA_TABELA_PEROLA_DO_END, ID_TABELA_INGREDIENTE_DIALOGO_RECEITA);
         When.naPaginaDeDetalhesDoIngrediente.aoClicarNoBotaoSalvar();
 
         Then.naPaginaDeDetalhesDoIngrediente.deveApresentarMensagemDeSucessoEsperada();
@@ -137,7 +140,7 @@ sap.ui.define([
         When.naPaginaDeDetalhesDoIngrediente.aoInserirValorAoInput(ID_INPUT_NOME, VALOR_POCAO_TESTE, INPUT_NOME);
         When.naPaginaDeDetalhesDoIngrediente.aoInserirValorAoInput(ID_INPUT_VALIDADE, VALOR_12, INPUT_VALIDADE);
         When.naPaginaDeDetalhesDoIngrediente.aoInserirValorAoInput(ID_INPUT_VALOR, VALOR_50, INPUT_VALOR);
-        When.naPaginaDeDetalhesDoIngrediente.aoDesmacarItemDaTabela(ID_TABELA_INGREDIENTE2);
+        When.naPaginaDeDetalhesDoIngrediente.aoDesmacarItemDaTabela(ID_TABELA_INGREDIENTE_DIALOGO_RECEITA);
         When.naPaginaDeDetalhesDoIngrediente.aoClicarNoBotaoSalvar();
 
         Then.naPaginaDeDetalhesDoIngrediente.deveApresentarDialogoDeErroEsperado(NOME_ITEM_DA_OLHO_DE_ARANHA);
@@ -147,15 +150,31 @@ sap.ui.define([
         When.naPaginaDeDetalhesDoIngrediente.aoClicarNoBotaoCancelar();
         When.naPaginaDeDetalhesDoIngrediente.aoSelecionarATabelaFilho(TITULO_POCOES);
         When.naPaginaDeDetalhesDoIngrediente.aoClicarNoBotaoAdicionar();
-        When.naPaginaDeDetalhesDoIngrediente.aoDesmacarItemDaTabela(ID_TABELA_INGREDIENTE1);
+        When.naPaginaDeDetalhesDoIngrediente.aoDesmacarItemDaTabela(ID_TABELA_INGREDIENTE_DIALOGO_POCAO);
         When.naPaginaDeDetalhesDoIngrediente.aoClicarNoBotaoSalvar();
 
         Then.naPaginaDeDetalhesDoIngrediente.deveApresentarDialogoDeErroEsperado(NOME_ITEM_DA_OLHO_DE_ARANHA);
     });
     
     opaTest("Deve criar uma poção com nome igual a Poção Teste", function (Given, When, Then) {
-        When.naPaginaDeDetalhesDoIngrediente.aoClicarEmUmItemDaTabela(NOME_ITEM_DA_OLHO_DE_ARANHA, ID_TABELA_INGREDIENTE1);
-        When.naPaginaDeDetalhesDoIngrediente.aoClicarEmUmItemDaTabela(NOME_ITEM_DA_TABELA_PEROLA_DO_END, ID_TABELA_INGREDIENTE1);
+        When.naPaginaDeDetalhesDoIngrediente.aoClicarEmUmItemDaTabela(NOME_ITEM_DA_OLHO_DE_ARANHA, ID_TABELA_INGREDIENTE_DIALOGO_POCAO);
+        When.naPaginaDeDetalhesDoIngrediente.aoClicarEmUmItemDaTabela(NOME_ITEM_DA_TABELA_PEROLA_DO_END, ID_TABELA_INGREDIENTE_DIALOGO_POCAO);
+        When.naPaginaDeDetalhesDoIngrediente.aoClicarNoBotaoSalvar();
+
+        Then.naPaginaDeDetalhesDoIngrediente.deveApresentarMensagemDeSucessoEsperada();
+    });
+    
+    opaTest("Deve abrir o modal de cadastro para a edição de um item", function (Given, When, Then) {
+        When.naPaginaDeDetalhesDoIngrediente.aoSelecionarATabelaFilho(TITULO_RECEITAS);
+        When.naPaginaDeDetalhesDoIngrediente.aoClicarEmUmItemDaTabelaFilho(VALOR_POCAO_TESTE);
+        When.naPaginaDeDetalhesDoIngrediente.aoClicarNoBotaoEditarItemFilho();
+        
+        Then.naPaginaDeDetalhesDoIngrediente.deveEstarNoModalEsperado(MODAL_RECEITAS);
+    });
+    
+    opaTest("Deve editar o nome de uma receita de 'Poção Teste' para 'Poção Teste de Edição'", function (Given, When, Then) {
+        When.naPaginaDeDetalhesDoIngrediente.aoInserirValorAoInput(ID_INPUT_NOME, VALOR_POCAO_TESTE_DE_EDICAO, INPUT_NOME);
+        When.naPaginaDeDetalhesDoIngrediente.aoInserirValorAoInput(ID_INPUT_VALIDADE, VALOR_50, INPUT_VALIDADE);
         When.naPaginaDeDetalhesDoIngrediente.aoClicarNoBotaoSalvar();
 
         Then.naPaginaDeDetalhesDoIngrediente.deveApresentarMensagemDeSucessoEsperada();
