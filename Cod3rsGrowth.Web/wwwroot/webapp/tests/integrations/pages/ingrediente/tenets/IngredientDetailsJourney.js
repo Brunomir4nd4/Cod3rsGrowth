@@ -30,7 +30,11 @@ sap.ui.define([
     const NOME_ITEM_DA_TABELA_PEROLA_DO_END = "Pérola do End";
     const ID_TABELA_INGREDIENTE_DIALOGO_RECEITA = "tabelaIngrediente2";
     const ID_TABELA_INGREDIENTE_DIALOGO_POCAO = "tabelaIngrediente1";
-    const VALOR_POCAO_TESTE_DE_EDICAO = "Poção Teste de Edição"
+    const VALOR_POCAO_TESTE_DE_EDICAO = "Poção Teste de Edição";
+    const ID_TABELA_RECEITA = "tabelaReceita";
+    const ID_TABELA_POCAO = "tabelaPocao";
+    const JSON_MODEL_RECEITA = "receita";
+    const JSON_MODEL_POCAO = "pocao";
 
     QUnit.module("Detalhes");
 
@@ -178,6 +182,24 @@ sap.ui.define([
         When.naPaginaDeDetalhesDoIngrediente.aoClicarNoBotaoSalvar();
 
         Then.naPaginaDeDetalhesDoIngrediente.deveApresentarMensagemDeSucessoEsperada();
+    });
+    
+    opaTest("Deve remover a poção com o nome de 'Poção Teste de Edição'", function (Given, When, Then) {
+        When.naPaginaDeDetalhesDoIngrediente.aoSelecionarATabelaFilho(TITULO_POCOES);
+        When.naPaginaDeDetalhesDoIngrediente.aoClicarEmUmItemDaTabelaFilho(VALOR_POCAO_TESTE);
+        When.naPaginaDeDetalhesDoIngrediente.aoClicarNoBotaoRemoverFilho();
+        When.naPaginaDeDetalhesDoIngrediente.aoClicarNoBotaoYesDoMessageBox();
+
+        Then.naPaginaDeDetalhesDoIngrediente.deveRemoverOItemEsperado(VALOR_POCAO_TESTE, ID_TABELA_POCAO, JSON_MODEL_POCAO);
+    });
+
+    opaTest("Deve remover a receita com o nome de 'Poção Teste de Edição'", function (Given, When, Then) {
+        When.naPaginaDeDetalhesDoIngrediente.aoSelecionarATabelaFilho(TITULO_RECEITAS);
+        When.naPaginaDeDetalhesDoIngrediente.aoClicarEmUmItemDaTabelaFilho(VALOR_POCAO_TESTE_DE_EDICAO);
+        When.naPaginaDeDetalhesDoIngrediente.aoClicarNoBotaoRemoverFilho();
+        When.naPaginaDeDetalhesDoIngrediente.aoClicarNoBotaoYesDoMessageBox();
+
+        Then.naPaginaDeDetalhesDoIngrediente.deveRemoverOItemEsperado(VALOR_POCAO_TESTE_DE_EDICAO, ID_TABELA_RECEITA, JSON_MODEL_RECEITA);
         Then.iTeardownMyApp();
     });
 });

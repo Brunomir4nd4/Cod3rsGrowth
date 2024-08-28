@@ -26,7 +26,6 @@ sap.ui.define([
     const ID_MENSAGEM_DE_ERRO = "errorMessageStrip"
     const ID_BOTAO_ADICIONAR = "botaoAdicionarFilho";
     const ID_BOTAO_SALVAR = "botaoSalvarAlteracao";
-    const ID_TABELA_INGREDIENTE2 = "tabelaIngrediente2";
 
     Opa5.createPageObjects({
 
@@ -231,6 +230,21 @@ sap.ui.define([
                         },
                         errorMessage: `Item ${valor} não foi enconrado.`
                     })
+                },
+
+                aoClicarNoBotaoRemoverFilho() {
+                    return this.waitFor({
+                        controlType: "sap.m.Button",
+                        matchers: new PropertyStrictEquals({
+                            name: "text",
+                            value: "Remover"
+                        }),
+                        actions: new Press(),
+                        success: function() {
+                            Opa5.assert.ok(true, "Botão remover item filho foi clicado.")
+                        },
+                        errorMessage: "Botão remover item filho não foi encontrado."
+                    })
                 }
             },
 
@@ -347,6 +361,28 @@ sap.ui.define([
                         errorMessage: "Dialogo de erro não é apresentado."
                     })
                 },
+
+                deveRemoverOItemEsperado(valor, idTabela, jsonModel) {
+                    return this.waitFor({
+						viewName: NOME_DA_VIEW,
+						id: idTabela,
+                        matchers: (oTable) => {
+							const items = oTable.getItems();
+
+							items.map((item) => {
+								let nome = item.getBindingContext(jsonModel).getProperty("nome");
+								if (nome === valor)
+									return false;
+							});
+							
+							return true;
+						},
+                        success: () => {
+                            Opa5.assert.ok(true, `O item filho ${valor} não está na listagem.`);
+                        },
+                        errorMessage: `O item filho ${valor} está na listagem.`
+                    })
+                }
             }
         }
     })

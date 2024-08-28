@@ -138,7 +138,7 @@
 				<VBox alignItems="End">
 					<Toolbar class="footerToolbar" style="Clear" design="Transparent">
 						<Button 
-							press="aoClicarIrParaCadastro" 
+							press="aoClicarExcluirIntemFilho" 
 							id="botaoRemoverFilho" 
 							text="{i18n>DetalhesIngrediente.Remover}" />
 

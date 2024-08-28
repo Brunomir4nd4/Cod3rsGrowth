@@ -60,9 +60,8 @@ sap.ui.define([
                     sap.m.MessageBox.Action.YES ],
                 onClose: function (sAction) {
                     if (sAction === "YES") {
-                        fetch(URL_API_INGREDIENTE, {
+                        fetch(URL_API_INGREDIENTE + '/' + PARAMETRO_ID, {
                             method: METODO_DE_REQUISICAO_DELETE,
-                            body: JSON.stringify(PARAMETRO_ID),
                             headers: { "Content-type": "application/json; charset=UTF-8" }
                         })
                         .then(response => {
@@ -101,7 +100,7 @@ sap.ui.define([
         async aoClicarAbrirModalCadastroFilho(oEvent) {
             const itemFilho = this.getView().byId("selectItensFilho").getSelectedItem().getText();
             const tabelaReceita = this.getView().byId("tabelaReceita");
-            let tabela;
+            let tabelaIngrediente;
             let listaIdIngrediente;
             let receita;
 
@@ -113,7 +112,7 @@ sap.ui.define([
                     type: "XML",
                     name: "coders-growth.app.ingrediente.fragments.DialogoCadastroReceita"
                 });
-                tabela = DIALOGO.getContent()[1].getItems()[1];
+                tabelaIngrediente = DIALOGO.getContent()[1].getItems()[1];
 
                 if (BOTAO_PRECIONADO === "Editar") {
                     const primeiroItem = 0;
@@ -129,7 +128,7 @@ sap.ui.define([
                         this.getView().byId("inputValidadeReceita").setValue(receita.getProperty("validadeEmMeses"));
                         this.getView().byId("inputValorReceita").setValue(receita.getProperty("valor"));
                         this.getView().byId("inputDescricaoReceita").setValue(receita.getProperty("descricao"));
-                        this._selecionarIngredientesNaTabela(tabela, listaIdIngrediente);
+                        this._selecionarIngredientesNaTabela(tabelaIngrediente, listaIdIngrediente);
                         DIALOGO.open();
                     } else {
                         MessageBox.error("Deve haver uma receita selecionada.");
@@ -143,11 +142,11 @@ sap.ui.define([
                     type: "XML",
                     name: "coders-growth.app.ingrediente.fragments.DialogoCadastroPocao"
                 });
-
+                tabelaIngrediente = DIALOGO.getContent()[1].getItems()[0];
                 DIALOGO.open();
             }
             MENSSAGEM_ERRO_CADASTRO_FILHO = DIALOGO.getContent()[0];
-            this._selecionarItemDetalhadoNaTabela(tabela);
+            this._selecionarItemDetalhadoNaTabela(tabelaIngrediente);
         },
 
         aoClicarFecharDialogo() {  
@@ -207,6 +206,64 @@ sap.ui.define([
                 else 
                     this._cadastrarPocao();
             })
+        },
+
+        aoClicarExcluirIntemFilho() {
+            const itemFilho = this.getView().byId("selectItensFilho").getSelectedItem().getText();
+            const tabelaReceita = this.getView().byId("tabelaReceita");
+            const tabelaPocao = this.getView().byId("tabelaPocao");
+            const vazio = 0;
+            const that = this;
+
+            MessageBox.warning("Deseja remover esse item?\nVocê não poderá retomar essa ação.", {
+                actions: [ sap.m.MessageBox.Action.NO,
+                    sap.m.MessageBox.Action.YES ],
+                onClose: function (sAction) {
+                    if (sAction === "YES") {
+                        if (itemFilho === "Receitas") {
+                            const itens = tabelaReceita.getSelectedItems();
+                            if (itens.length !== vazio) {
+                                itens.map((item) => {
+                                    const id = item.getBindingContext(NOME_DO_MODELO_RECEITA).getProperty("id");
+                                    fetch(URL_API_RECEITA + '/' + id, {
+                                            method: METODO_DE_REQUISICAO_DELETE,
+                                            headers: { "Content-type": "application/json; charset=UTF-8" }
+                                        })
+                                        .then(response => {
+                                            if (response.ok) 
+                                                sap.m.MessageToast.show("Item removido com sucesso.");
+                                        })
+                                        .catch(err => MessageBox.error(err.message));
+                                })
+                            } else {
+                                MessageBox.error("Deve haver uma receita selecionada.")
+                            }            
+                        } else {
+                            const itens = tabelaPocao.getSelectedItems();
+            
+                            if (itens.length !== vazio) {
+                                itens.map((item) => {
+                                    const id = item.getBindingContext(NOME_DO_MODELO_POCAO).getProperty("id");
+                                    fetch(URL_API_POCAO + '/' + id, {
+                                            method: METODO_DE_REQUISICAO_DELETE,
+                                            headers: { "Content-type": "application/json; charset=UTF-8" }
+                                        })
+                                        .then(response => {
+                                            if (response.ok) 
+                                                sap.m.MessageToast.show("Item removido com sucesso.");
+                                        })
+                                        .catch(err => MessageBox.error(err.message));
+                                })
+                            } else {
+                                MessageBox.error("Deve haver uma poção selecionada.")
+                            }
+                        }
+                        that._carregarDadosFilho(URL_API_RECEITA, NOME_DO_MODELO_RECEITA);
+                        that._carregarDadosFilho(URL_API_POCAO, NOME_DO_MODELO_POCAO);
+                    }
+                },
+                dependentOn: this.getView()
+            });
         },
 
         _selecionarItemDetalhadoNaTabela(tabela) {
