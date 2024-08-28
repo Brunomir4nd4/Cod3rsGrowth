@@ -8,7 +8,6 @@ namespace Cod3rsGrowth.Forms
     public static class Program
     {
         private static ServiceProvider? _serviceProvider;
-        private static string _conectionString = System.Configuration.ConfigurationManager.ConnectionStrings["contextoPadrao"].ConnectionString;
         [STAThread]
 
         static void Main()

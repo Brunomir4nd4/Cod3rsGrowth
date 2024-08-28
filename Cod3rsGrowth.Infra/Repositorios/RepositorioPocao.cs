@@ -40,7 +40,6 @@ namespace Cod3rsGrowth.Infra.Repositorios
             Pocao pocao = new Pocao()
             {
                 IdReceita = receita.Id,
-                Nome = receita.Nome,
                 Vencido = false,
                 DataDeFabricacao = DateTime.Today
             };

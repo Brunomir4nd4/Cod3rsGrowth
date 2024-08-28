@@ -20,9 +20,9 @@ namespace Cod3rsGrowth.Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult ObterTodos([FromQuery] FiltroPocao filtroPocao)
+        public IActionResult ObterTodos()
         {
-            return Ok(_servicoPocao.ObterTodos(filtroPocao));
+            return Ok(_servicoPocao.ObterTodos(null));
         }
 
         [HttpGet("{id}")]
@@ -32,11 +32,11 @@ namespace Cod3rsGrowth.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult Criar( [FromBody]List<Ingrediente> ingredientes)
+        public IActionResult Criar(List<Ingrediente> ingredientes)
         {
             var id = _servicoPocao.Criar(ingredientes);
 
-            return CreatedAtAction(nameof(ObterPorId), new { id = id }, _servicoPocao.ObterPorId(id));
+            return Ok(CreatedAtAction(nameof(ObterPorId), new { id = id }, _servicoPocao.ObterPorId(id)));
         }
         
         [HttpDelete("{id}")]

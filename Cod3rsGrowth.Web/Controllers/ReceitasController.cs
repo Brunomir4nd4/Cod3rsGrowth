@@ -22,9 +22,9 @@ namespace Cod3rsGrowth.Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult ObterTodos([FromQuery] FiltroReceita filtroReceita)
+        public IActionResult ObterTodos()
         {
-           return  Ok(_servicoReceita.ObterTodos(filtroReceita));
+           return  Ok(_servicoReceita.ObterTodos(null));
         }
         
         [HttpGet("{id}")]
@@ -34,7 +34,7 @@ namespace Cod3rsGrowth.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult Criar([FromBody] Receita receita)
+        public IActionResult Criar(Receita receita)
         {
             int id = _servicoReceita.Criar(receita);
 
@@ -42,7 +42,7 @@ namespace Cod3rsGrowth.Web.Controllers
         }
 
         [HttpPatch]
-        public IActionResult Editar([FromBody] Receita receita)
+        public IActionResult Editar(Receita receita)
         {
             return Ok(_servicoReceita.Editar(receita));
         }

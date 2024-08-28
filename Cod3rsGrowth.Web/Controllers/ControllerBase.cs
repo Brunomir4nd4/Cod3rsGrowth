@@ -1,4 +1,4 @@
-﻿﻿using Cod3rsGrowth.Infra;
+﻿using Cod3rsGrowth.Infra;
 using Cod3rsGrowth.Servico;
 using Microsoft.AspNetCore.Mvc;
 
