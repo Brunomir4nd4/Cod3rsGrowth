@@ -12,7 +12,6 @@ sap.ui.define([
     const ID_INPUT_NOME = "filtroNome";
     const ID_INPUT_QUANTIDADE = "filtroQuantidade";
     const ID_INPUT_NATURALIDADE = "filtroNaturalidade";
-    const FLAG_PARA_FILTROAGEM_NULA = "Todos";
     const CHAVE_VIEW_CADASTRAR_INGREDIENTE = "appCadastroIngrediente";
     const CHAVE_VIEW_DETALHES_INGREDIENTE = "appDetalhesIngrediente";
     const ROTA_LISTAGEM = "appListagem";
@@ -27,21 +26,27 @@ sap.ui.define([
 
         aoAlterarFiltrar(){
             this._processarAcao(() => {
-                let query = URL_API + "?";
-                const filtroNome = this.oView.byId(ID_INPUT_NOME).getValue();
-                const filtroQuantidade = this.oView.byId(ID_INPUT_QUANTIDADE).getValue();
-                const filtroNaturalidade = this.oView.byId(ID_INPUT_NATURALIDADE).getSelectedItem().getText();
-    
-                if (filtroNome)
-                    query += "Nome="+filtroNome+"&";
+                const queryParts = [];
+                const obterTodasNaturalidades = "Todos";
+                const filtroNome = this.getView().byId(ID_INPUT_NOME).getValue();
+                const filtroQuantidade = this.getView().byId(ID_INPUT_QUANTIDADE).getValue();
+                const filtroNaturalidade = this.getView().byId(ID_INPUT_NATURALIDADE).getSelectedItem().getText();
                 
-                if (filtroQuantidade)
-                    query += "Quantidade="+filtroQuantidade+"&";
-    
-                if (filtroNaturalidade != FLAG_PARA_FILTROAGEM_NULA)
-                    query += "Naturalidade="+filtroNaturalidade;
-
-                this._carregarDadosIngrediente(query, NOME_DO_MODELO, this.getView());
+                if (filtroNome) {
+                    queryParts.push(`Nome=${filtroNome}`);
+                }
+                
+                if (filtroQuantidade) {
+                    queryParts.push(`Quantidade=${filtroQuantidade}`);
+                }
+                
+                if (filtroNaturalidade !== obterTodasNaturalidades) {
+                    queryParts.push(`Naturalidade=${filtroNaturalidade}`);
+                }
+                
+                const query = URL_API + "?" + queryParts.join("&");
+                
+                this._carregarIngredientes(query, NOME_DO_MODELO, this.getView());
             });
         },
 
@@ -54,8 +59,8 @@ sap.ui.define([
         aoClicarIrParaDetalhes(oEvent) {
             this._processarAcao(() => {
                 const oItem = oEvent.getSource();
-                const oRouter = this.getOwnerComponent().getRouter();
-                oRouter.navTo(CHAVE_VIEW_DETALHES_INGREDIENTE, {
+                
+                this.getRouter().navTo(CHAVE_VIEW_DETALHES_INGREDIENTE, {
                     id: window.encodeURIComponent(oItem.getBindingContext(NOME_DO_MODELO).getProperty(PROPRIEDADE_ID))
                 });
             })
@@ -63,39 +68,17 @@ sap.ui.define([
 
         _aoCoincidirRota() {
             this._processarAcao(() => {
-                const oRouter = this.getOwnerComponent().getRouter();
-                oRouter.getRoute(ROTA_LISTAGEM).attachPatternMatched(() => {
-                    this._carregarDadosIngrediente(URL_API, NOME_DO_MODELO, this.getView());
-                    this._carregarEnumNaturalidade(URL_API, NOME_DO_MODELO_ENUM);
+                const oSelect = this.getView().byId(ID_INPUT_NATURALIDADE);
+
+                const campoTodos = "Todos";
+                const sim = true;
+
+                this.getRouter().getRoute(ROTA_LISTAGEM).attachPatternMatched(() => {
+                    this._carregarIngredientes(URL_API, NOME_DO_MODELO, this.getView());
+                    this._carregarEnumNaturalidade(URL_API, NOME_DO_MODELO_ENUM, sim);
+                    oSelect.setSelectedKey(campoTodos);
                 }, this);
             });
-        },
-
-        _carregarEnumNaturalidade(query, nomeDoModelo) {
-            query += "/naturalidade";
-            let sucesso = true;
-            const campoTodos = "Todos";
-            const oSelect = this.getView().byId(ID_INPUT_NATURALIDADE);
-            fetch(query)
-            .then(response => {
-                if (!response.ok) 
-                    sucesso = false;
-                return response.json();
-            })
-            .then((data) => {
-                const camposDoSelect = data;
-                camposDoSelect.push(campoTodos);
-
-                sucesso ? this.getView().setModel(new JSONModel({
-                    descricao: camposDoSelect.map(function(item) {
-                        return { text: item };
-                    })
-                }), nomeDoModelo) 
-                : this._erroNaRequisicaoDaApi(data);
-            })
-            .catch((err) => MessageBox.error(err.message))
-            .finally(() => this._hideBusyIndicator());
-            oSelect.setSelectedKey(campoTodos);
         },
     });
 });

@@ -33,7 +33,7 @@
 				<Panel backgroundDesign="Transparent">
 					<ObjectAttribute title="{i18n>DetalhesIngrediente.ID}" text="{ingrediente>id}" />
 					<ObjectAttribute title="{i18n>DetalhesIngrediente.Nome}" text="{ingrediente>nome}" />
-					<ObjectAttribute title="{i18n>DetalhesIngrediente.Naturalidade}" text="{path: 'ingrediente>naturalidade', formatter: '.formatter.formatarValorInteiroDoEnum'}" />
+					<ObjectAttribute title="{i18n>DetalhesIngrediente.Naturalidade}" text="{path: 'ingrediente>naturalidade', formatter: '.formatter.formatarNaturalidadeParaString'}" />
 				</Panel>
 				<Panel>
 					<ObjectNumber 
@@ -138,7 +138,7 @@
 				<VBox alignItems="End">
 					<Toolbar class="footerToolbar" style="Clear" design="Transparent">
 						<Button 
-							press="aoClicarExcluirIntemFilho" 
+							press="aoClicarExcluirItemFilho" 
 							id="botaoRemoverFilho" 
 							text="{i18n>DetalhesIngrediente.Remover}" />
 

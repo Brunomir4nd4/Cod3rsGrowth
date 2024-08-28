@@ -17,31 +17,29 @@ sap.ui.define([
     const ROTA_DETALHES = "appDetalhesIngrediente";
     const CHAVE_VIEW_CADASTRAR_INGREDIENTE = "appCadastroIngrediente";
     const ARGUMENTOS_DE_PARAMETRO = "arguments";
-    const METODO_DE_REQUISICAO_DELETE = "DELETE";
     const CHAVE_DA_VIEW_HOME = "appListagem";
     const ID_SELECT_FILHOS = "selectItensFilho";
     const ID_TABELA_INGREDIENTE_DIALOGO_POCAO = "tabelaIngrediente1";
     const ID_TABELA_INGREDIENTE_DIALOGO_RECEITA = "tabelaIngrediente2";
-    const VISIVEL = true;
-    const NAO_VISIVEL = false;
+    const ID_MENSSAGE_STRIP_SUCESSO = "successMessageStrip";
+    const METODO_DE_REQUISICAO_DELETE = "DELETE";
+    const REQUISICAO_PATCH = "PATCH";
+    const REQUISICAO_POST = "POST";
+    const SIM = true;
+    const NAO = false;
+
     var MENSSAGEM_ERRO_CADASTRO_FILHO;
-    var DIALOGO;
-    var PARAMETRO_ID;
     var RECEITAS_ASSOCIADAS = [];
-    var BOTAO_PRECIONADO;
+    var ID_INGREDIENTE_EDITADO;
     var ID_RECEITA_EDITADA;
+    var BOTAO_PRECIONADO;
+    var DIALOGO;
 
     return BaseController.extend("coders-growth.app.ingrediente.DetalhesIngrediente", {
         formatter: Formatter,
         
         onInit(){
             this._aoCoincidirRota();
-        },
-
-        aoClicarIrParaCadastro() {
-            this._processarAcao(() => {
-                this.getRouter().navTo(CHAVE_VIEW_CADASTRAR_INGREDIENTE, {}, true);
-            })
         },
 
         aoClicarIrParaEditar(oEvent) {
@@ -54,23 +52,16 @@ sap.ui.define([
         },
 
         aoClicarRemover(){
-            const oRouter = this.getOwnerComponent().getRouter();
             MessageBox.warning("Deseja remover esse item?\nVocê não poderá retomar essa ação.", {
-                actions: [ sap.m.MessageBox.Action.NO,
-                    sap.m.MessageBox.Action.YES ],
-                onClose: function (sAction) {
+                actions: [ 
+                    sap.m.MessageBox.Action.NO,
+                    sap.m.MessageBox.Action.YES 
+                ],
+                onClose: (sAction) => {
                     if (sAction === "YES") {
-                        fetch(URL_API_INGREDIENTE + '/' + PARAMETRO_ID, {
-                            method: METODO_DE_REQUISICAO_DELETE,
-                            headers: { "Content-type": "application/json; charset=UTF-8" }
-                        })
-                        .then(response => {
-                            if (response.ok) {
-                                sap.m.MessageToast.show("Ingrediente removido com sucesso.");
-                                oRouter.navTo(CHAVE_DA_VIEW_HOME, {}, true);    
-                            }
-                        })
-                        .catch(err => MessageBox.error(err.message));
+                        const query = `${URL_API_INGREDIENTE}/${ID_INGREDIENTE_EDITADO}`;
+
+                        this._removerItem(query, NAO);
                     }
                 },
                 dependentOn: this.getView()
@@ -78,63 +69,64 @@ sap.ui.define([
         },
 
         aoClicarApresentarListagemFilhoRequerido(){
-            const itemFilho = this.oView.byId(ID_SELECT_FILHOS).getSelectedItem().getText();
-            const itemDoSelect = "Poções";
-
-            if (itemFilho === itemDoSelect) {
-                this.getView().byId("VBoxTabelaPocao").setVisible(VISIVEL);
-                this.getView().byId("VBoxTabelaReceita").setVisible(NAO_VISIVEL);
-                this.getView().byId("botaoEditarFilho").setVisible(NAO_VISIVEL);
-            } else {
-                this.getView().byId("VBoxTabelaPocao").setVisible(NAO_VISIVEL);
-                this.getView().byId("VBoxTabelaReceita").setVisible(VISIVEL);   
-                this.getView().byId("botaoEditarFilho").setVisible(VISIVEL);
-            }
+            this._processarAcao(() => {
+                const itemFilho = this.oView.byId(ID_SELECT_FILHOS).getSelectedItem().getText();
+                const itemDoSelect = "Poções";
+    
+                itemFilho === itemDoSelect ?
+                    (
+                        this.getView().byId("VBoxTabelaPocao").setVisible(SIM),
+                        this.getView().byId("VBoxTabelaReceita").setVisible(NAO),
+                        this.getView().byId("botaoEditarFilho").setVisible(NAO)
+                    )
+                    : (
+                        this.getView().byId("VBoxTabelaPocao").setVisible(NAO),
+                        this.getView().byId("VBoxTabelaReceita").setVisible(SIM), 
+                        this.getView().byId("botaoEditarFilho").setVisible(SIM)
+                    );
+            });
         },
 
         aoProcurarFiltrarTabela(oEvent) {
-            const query = URL_API_RECEITA + "?Nome=" + oEvent.mParameters.query;
-            this._carregarDadosFilho(query, NOME_DO_MODELO_RECEITA);
+            this._processarAcao(() => {
+                const query = URL_API_RECEITA + "?Nome=" + oEvent.mParameters.query;
+    
+                this._carregarDadosFilho(query, NOME_DO_MODELO_RECEITA);
+            });
         },
 
         async aoClicarAbrirModalCadastroFilho(oEvent) {
             const itemFilho = this.getView().byId("selectItensFilho").getSelectedItem().getText();
-            const tabelaReceita = this.getView().byId("tabelaReceita");
+
             let tabelaIngrediente;
-            let listaIdIngrediente;
-            let receita;
 
             BOTAO_PRECIONADO = oEvent.getSource().mProperties.text;
-            
             DIALOGO = this.oDialog;
+
             if (itemFilho === "Receitas") {
                 DIALOGO ??= await this.loadFragment({
                     type: "XML",
                     name: "coders-growth.app.ingrediente.fragments.DialogoCadastroReceita"
                 });
+
                 tabelaIngrediente = DIALOGO.getContent()[1].getItems()[1];
-
+                
                 if (BOTAO_PRECIONADO === "Editar") {
-                    const primeiroItem = 0;
-                    const vazio = 0;
-                    const itemSelecionado = tabelaReceita.getSelectedItems();
+                    const tabelaReceita = this.getView().byId("tabelaReceita");
+                    const itens = tabelaReceita.getSelectedItems();
                     
-                    if (itemSelecionado.length !== vazio) {
-                        receita = itemSelecionado[primeiroItem].getBindingContext(NOME_DO_MODELO_RECEITA); 
-                        listaIdIngrediente = receita.getProperty("listaIdIngrediente");
-                        ID_RECEITA_EDITADA = receita.getProperty("id");
+                    if (itens.length >= 1) {
+                        const primeiroItem = 0;
+                        const receita = itens[primeiroItem].getBindingContext(NOME_DO_MODELO_RECEITA); 
+    
+                        this._inserirValoresReceitaEditada(receita, tabelaIngrediente);
 
-                        this.getView().byId("inputNomeReceita").setValue(receita.getProperty("nome"));
-                        this.getView().byId("inputValidadeReceita").setValue(receita.getProperty("validadeEmMeses"));
-                        this.getView().byId("inputValorReceita").setValue(receita.getProperty("valor"));
-                        this.getView().byId("inputDescricaoReceita").setValue(receita.getProperty("descricao"));
-                        this._selecionarIngredientesNaTabela(tabelaIngrediente, listaIdIngrediente);
                         DIALOGO.open();
                     } else {
                         MessageBox.error("Deve haver uma receita selecionada.");
                         DIALOGO.destroy();
-                    } 
-                } else  
+                    }
+                } else 
                     DIALOGO.open();
 
             } else {
@@ -142,26 +134,35 @@ sap.ui.define([
                     type: "XML",
                     name: "coders-growth.app.ingrediente.fragments.DialogoCadastroPocao"
                 });
+
                 tabelaIngrediente = DIALOGO.getContent()[1].getItems()[0];
+
                 DIALOGO.open();
             }
+
             MENSSAGEM_ERRO_CADASTRO_FILHO = DIALOGO.getContent()[0];
             this._selecionarItemDetalhadoNaTabela(tabelaIngrediente);
         },
 
         aoClicarFecharDialogo() {  
-            DIALOGO.close();
-            DIALOGO.destroy();
+            this._processarAcao(() => {
+                DIALOGO.close();
+                DIALOGO.destroy();
+            });
         },
 
         aoProcurarFiltrarTabelaDialogo(oEvent) {
-            const query = URL_API_INGREDIENTE + "?Nome=" + oEvent.mParameters.query;
-            this._filtrarTabelaIngrediente(query, NOME_DO_MODELO_INGREDIENTES);
+            this._processarAcao(() => {
+                const query = URL_API_INGREDIENTE + "?Nome=" + oEvent.mParameters.query;
+
+                this._carregarIngredientes(query, NOME_DO_MODELO_INGREDIENTES, this.getView());
+            })
         },
 
         aoAlterarValidarNome() {
             this._processarAcao(() => {
                 const inputNome = this.getView().byId("inputNomeReceita");
+
                 Validators.ValidarNome(inputNome);
             })
         },
@@ -169,20 +170,25 @@ sap.ui.define([
         aoAlterarValidarValidade() {
             this._processarAcao(() => {
                 const inputValidade = this.getView().byId("inputValidadeReceita");
-                Validators.ValidarNumeros(inputValidade);
+                const label = "Validade";
+
+                Validators.ValidarNumeros(inputValidade, label);
             })
         },
 
         aoAlterarValidarValor() {
             this._processarAcao(() => {
                 const inputValor = this.getView().byId("inputValorReceita");
-                Validators.ValidarNumeros(inputValor);
+                const label = "Valor";
+
+                Validators.ValidarNumeros(inputValor, label);
             })
         },
 
         aoAlterarValidarDescricao() {
             this._processarAcao(() => {
                 const inputDescricao = this.getView().byId("inputDescricaoReceita");
+
                 Validators.ValidarDescricao(inputDescricao);
             })
         },
@@ -194,193 +200,214 @@ sap.ui.define([
                 const inputValidade = this.getView().byId("inputValidadeReceita");
                 const inputValor = this.getView().byId("inputValorReceita");
                 const inputDescricao = this.getView().byId("inputDescricaoReceita");
+                
                 if (itemFilho === "Receitas") {
                     const ehValido = Validators.ValidarReceita(inputNome, inputValidade, inputValor, inputDescricao);
-                    if (ehValido) {
-                        MENSSAGEM_ERRO_CADASTRO_FILHO.setVisible(NAO_VISIVEL);
-                        this._cadastrarReceita(inputNome, inputValidade, inputValor, inputDescricao);     
-                    }
-                    else
-                        MENSSAGEM_ERRO_CADASTRO_FILHO.setVisible(VISIVEL);
+
+                    ehValido ? (
+                        this._cadastrarReceita(inputNome.getValue(), inputValidade.getValue(), inputValor.getValue(), inputDescricao.getValue()),   
+                        MENSSAGEM_ERRO_CADASTRO_FILHO.setVisible(NAO)
+                    )
+                    : MENSSAGEM_ERRO_CADASTRO_FILHO.setVisible(SIM);
                 }
                 else 
                     this._cadastrarPocao();
             })
         },
 
-        aoClicarExcluirIntemFilho() {
-            const itemFilho = this.getView().byId("selectItensFilho").getSelectedItem().getText();
-            const tabelaReceita = this.getView().byId("tabelaReceita");
-            const tabelaPocao = this.getView().byId("tabelaPocao");
-            const vazio = 0;
-            const that = this;
-
-            MessageBox.warning("Deseja remover esse item?\nVocê não poderá retomar essa ação.", {
-                actions: [ sap.m.MessageBox.Action.NO,
-                    sap.m.MessageBox.Action.YES ],
-                onClose: function (sAction) {
-                    if (sAction === "YES") {
-                        if (itemFilho === "Receitas") {
-                            const itens = tabelaReceita.getSelectedItems();
-                            if (itens.length !== vazio) {
-                                itens.map((item) => {
-                                    const id = item.getBindingContext(NOME_DO_MODELO_RECEITA).getProperty("id");
-                                    fetch(URL_API_RECEITA + '/' + id, {
-                                            method: METODO_DE_REQUISICAO_DELETE,
-                                            headers: { "Content-type": "application/json; charset=UTF-8" }
-                                        })
-                                        .then(response => {
-                                            if (response.ok) 
-                                                sap.m.MessageToast.show("Item removido com sucesso.");
-                                        })
-                                        .catch(err => MessageBox.error(err.message));
-                                })
-                            } else {
-                                MessageBox.error("Deve haver uma receita selecionada.")
-                            }            
-                        } else {
-                            const itens = tabelaPocao.getSelectedItems();
+        aoClicarExcluirItemFilho() {
+            this._processarAcao(() => {
+                const itemFilho = this.getView().byId("selectItensFilho").getSelectedItem().getText();
             
-                            if (itens.length !== vazio) {
-                                itens.map((item) => {
-                                    const id = item.getBindingContext(NOME_DO_MODELO_POCAO).getProperty("id");
-                                    fetch(URL_API_POCAO + '/' + id, {
-                                            method: METODO_DE_REQUISICAO_DELETE,
-                                            headers: { "Content-type": "application/json; charset=UTF-8" }
-                                        })
-                                        .then(response => {
-                                            if (response.ok) 
-                                                sap.m.MessageToast.show("Item removido com sucesso.");
-                                        })
-                                        .catch(err => MessageBox.error(err.message));
-                                })
-                            } else {
-                                MessageBox.error("Deve haver uma poção selecionada.")
-                            }
+                MessageBox.warning("Deseja remover esse(s) item(ns)?\nVocê não poderá retomar essa ação.", {
+                    actions: [sap.m.MessageBox.Action.NO, sap.m.MessageBox.Action.YES],
+                    onClose: sAction => {
+                        if (sAction === "YES") {
+                            itemFilho === "Receitas" ?
+                                this._removerReceita()
+                                : this._removerPocao();
+    
                         }
-                        that._carregarDadosFilho(URL_API_RECEITA, NOME_DO_MODELO_RECEITA);
-                        that._carregarDadosFilho(URL_API_POCAO, NOME_DO_MODELO_POCAO);
-                    }
-                },
-                dependentOn: this.getView()
+                    },
+                    dependentOn: this.getView()
+                });
+            })
+        },
+
+        _toggleMessageStrips(erroVisivel, sucessoVisivel) {
+            this._processarAcao(() => {
+                MENSSAGEM_ERRO_CADASTRO_FILHO.setVisible(erroVisivel);
+                this.getView().byId(ID_MENSSAGE_STRIP_SUCESSO).setVisible(sucessoVisivel);
+            })
+        },
+
+        _inserirValoresReceitaEditada(receita, tabelaIngrediente){
+            this._processarAcao(() => {
+                const listaIdIngrediente = receita.getProperty("listaIdIngrediente");
+
+                ID_RECEITA_EDITADA = receita.getProperty("id");
+
+                this.getView().byId("inputNomeReceita").setValue(receita.getProperty("nome"));
+                this.getView().byId("inputValidadeReceita").setValue(receita.getProperty("validadeEmMeses"));
+                this.getView().byId("inputValorReceita").setValue(receita.getProperty("valor"));
+                this.getView().byId("inputDescricaoReceita").setValue(receita.getProperty("descricao"));
+                this._selecionarIngredientesNaTabela(tabelaIngrediente, listaIdIngrediente);
+            })
+        },
+
+        _removerReceita() {
+            this._processarAcao(() => {
+                const tabelaReceita = this.getView().byId("tabelaReceita");
+                const itens = tabelaReceita.getSelectedItems();
+                const tamanhoMinimo = 1;
+
+                itens.length >= tamanhoMinimo ?
+                    itens.forEach(item => {
+                        const id = item.getBindingContext(NOME_DO_MODELO_RECEITA).getProperty("id");
+                        const query = `${URL_API_RECEITA}/${id}`;
+    
+                        this._removerItem(query, SIM);
+                    })
+                    : MessageBox.error("Deve haver pelo menos uma receita selecionada.");
+            })
+        },
+
+        _removerPocao() {
+            this._processarAcao(() => {
+                const tabelaPocao = this.getView().byId("tabelaPocao");
+                const itens = tabelaPocao.getSelectedItems();
+                const tamanhoMinimo = 1;
+
+                if (itens.length >= tamanhoMinimo) {
+                    itens.forEach(item => {
+                        const id = item.getBindingContext(NOME_DO_MODELO_POCAO).getProperty("id");
+                        const query = `${URL_API_POCAO}/${id}`;
+    
+                        this._removerItem(query, SIM);
+                    });
+                } else {
+                    MessageBox.error("Deve haver pelo menos uma poção selecionada.");
+                }
+            })
+        },
+
+        _removerItem(query, ehItemFilho) {
+            this._showBusyIndicator();
+
+            fetch(query , {
+                method: METODO_DE_REQUISICAO_DELETE,
+                headers: { "Content-type": "application/json; charset=UTF-8" }
+            })
+            .then(resp => {
+                if (resp.ok) {
+                    sap.m.MessageToast.show("Item removido com sucesso.");
+                    if (!ehItemFilho) this.getRouter().navTo(CHAVE_DA_VIEW_HOME, {}, true);    
+                }
+            })
+            .catch(err => MessageBox.error(err.message))
+            .finally(() => {
+                this._hideBusyIndicator();
+                this._carregarDadosFilho(URL_API_RECEITA, NOME_DO_MODELO_RECEITA);
+                this._carregarDadosFilho(URL_API_POCAO, NOME_DO_MODELO_POCAO);
             });
         },
 
         _selecionarItemDetalhadoNaTabela(tabela) {
-            const items = tabela.getItems();
-
-            items.map((item) => {
-                let id = item.getBindingContext(NOME_DO_MODELO_INGREDIENTES).getProperty("id");
-                if (id === parseInt(PARAMETRO_ID))
-                    tabela.setSelectedItem(item);
+            this._processarAcao(() => {
+                const items = tabela.getItems();
+    
+                items.map((item) => {
+                    let id = item.getBindingContext(NOME_DO_MODELO_INGREDIENTES).getProperty("id");
+    
+                    if (id === parseInt(ID_INGREDIENTE_EDITADO))
+                        tabela.setSelectedItem(item);
+                });
             });
         },
 
-        _cadastrarReceita(inputNome, inputValidade, inputValor, inputDescricao) {
+        _cadastrarReceita(nome, validade, valor, descricao) {
             this._processarAcao(() => {
-                const nome = inputNome.getValue();
-                const descricao = inputDescricao.getValue();
-                const valor = parseFloat(inputValor.getValue());
-                const validade = parseInt(inputValidade.getValue());
                 const nomeIngredienteDetalhado = this.getView().getModel(NOME_DO_MODELO_INGREDIENTE).getData().nome;
-                let possuiItemDetalhado = false;
-                
-                const table = this.getView().byId(ID_TABELA_INGREDIENTE_DIALOGO_RECEITA);
-                const selectedItems = table.getSelectedItems();
-                const ingredientesSelecionados = [];
-            
-                selectedItems.forEach(item => {
-                    const id = item.getBindingContext("ingredientes").getProperty("id");
-    
-                    if (id === parseInt(PARAMETRO_ID))
-                        possuiItemDetalhado = true;
-    
-                    ingredientesSelecionados.push(id);
-                });
-            
+                const itensSelecionados = this.getView().byId(ID_TABELA_INGREDIENTE_DIALOGO_RECEITA).getSelectedItems();
+                const requisicao = BOTAO_PRECIONADO === "Adicionar" ? REQUISICAO_POST : REQUISICAO_PATCH;
+
                 const receita = {
                     nome: nome,
                     descricao: descricao,
                     valor: valor,
                     validadeEmMeses: validade,
-                    listaIdIngrediente: ingredientesSelecionados,
                     imagem: "string",
-                }
+                };
 
-                if (possuiItemDetalhado) {
-                    const metodoPATCH = "PATCH";
-                    const metodoPOST = "POST";
-                    
-                    BOTAO_PRECIONADO === "Adicionar" ? this._requisitarApi(URL_API_RECEITA, receita, metodoPOST)
-                        : (
-                            receita.id = ID_RECEITA_EDITADA,
-                            this._requisitarApi(URL_API_RECEITA, receita, metodoPATCH)
-                        );
-                } else
-                    MessageBox.error(`O cadastro deve possuir o ingrediente "${nomeIngredienteDetalhado}"`);
-            })
+                let ingredientesSelecionados = [];
+                let possuiItemDetalhado = false;
+            
+                itensSelecionados.forEach(item => {
+                    const id = item.getBindingContext("ingredientes").getProperty("id");
+    
+                    if (id === parseInt(ID_INGREDIENTE_EDITADO))
+                        possuiItemDetalhado = true;
+    
+                    ingredientesSelecionados.push(id);
+                });
+                
+                receita.listaIdIngrediente = ingredientesSelecionados;
+
+                if (requisicao === REQUISICAO_PATCH) receita.id = ID_RECEITA_EDITADA;
+
+                possuiItemDetalhado ? 
+                    this._requisitarApi(URL_API_RECEITA, receita, requisicao)
+                    : MessageBox.error(`O cadastro deve possuir o ingrediente "${nomeIngredienteDetalhado}"`);
+            });
         },
 
         _cadastrarPocao() {
             this._processarAcao(() => {
-                const table = this.getView().byId(ID_TABELA_INGREDIENTE_DIALOGO_POCAO);
-                const selectedItems = table.getSelectedItems();
-                const ingredientesSelecionados = [];
+                const itensSelecionados = this.getView().byId(ID_TABELA_INGREDIENTE_DIALOGO_POCAO).getSelectedItems();
                 const nomeIngredienteDetalhado = this.getView().getModel(NOME_DO_MODELO_INGREDIENTE).getData().nome;
+                const listaIngredientes = this.getView().getModel("ingredientes").getData();
+                const ingredientesSelecionados = [];
+
                 let possuiItemDetalhado = false;
 
-                const listaIngredientes = this.getView().getModel("ingredientes").getData();
-    
-                selectedItems.map(item => {
+                itensSelecionados.map(item => {
                     const id = item.getBindingContext("ingredientes").getProperty("id");
                     
-                    if (id === parseInt(PARAMETRO_ID))
+                    if (id === parseInt(ID_INGREDIENTE_EDITADO))
                         possuiItemDetalhado = true;
 
                     listaIngredientes.map((ingrediente) => {
                         if (ingrediente.id === id)
                             ingredientesSelecionados.push(ingrediente);
                     })
-                });      
+                });       
 
-                if (possuiItemDetalhado) {
-                    const metodoPATCH = "PATCH";
-                    const metodoPOST = "POST";
-                    
-                    BOTAO_PRECIONADO === "Adicionar" ? this._requisitarApi(URL_API_POCAO, ingredientesSelecionados, metodoPOST)
-                        : (
-                            receita.id = ID_TABELA_INGREDIENTE_DIALOGO_POCAO,
-                            this._requisitarApi(URL_API_RECEITA, receita, metodoPATCH)
-                        );
-                } else
-                    MessageBox.error(`O cadastro deve possuir o ingrediente "${nomeIngredienteDetalhado}"`);
-            })
+                possuiItemDetalhado ?
+                    this._requisitarApi(URL_API_POCAO, ingredientesSelecionados, REQUISICAO_POST)
+                    : MessageBox.error(`O cadastro deve possuir o ingrediente "${nomeIngredienteDetalhado}"`);
+            });
         },
 
-        _requisitarApi(url, item, metodo) {
+        _requisitarApi(url, item, requisicao) {
             this._showBusyIndicator();
-            let sucesso = true;
+            
             fetch(url, {
-                method: metodo,
+                method: requisicao,
                 body: JSON.stringify(item),
                 headers: { "Content-type": "application/json; charset=UTF-8" }
             })
-            .then(response => {
-                if (!response.ok) 
-                    sucesso = false;
-                return response.json();
-            })
-            .then(json => {
-                console.log(json);
-                sucesso ? (
-                    this.getView().byId("successMessageStrip").setVisible(VISIVEL),
+            .then(response => response.json())
+            .then(data => {
+                !data.Detail ? (
+                    this._toggleMessageStrips(NAO, SIM),
 
-                    url.includes("Receitas") ? this._carregarDadosFilho(url, NOME_DO_MODELO_RECEITA) 
+                    url.includes("Receitas") ? 
+                        this._carregarDadosFilho(url, NOME_DO_MODELO_RECEITA) 
                         : this._carregarDadosFilho(url, NOME_DO_MODELO_POCAO),
 
                     this.aoClicarFecharDialogo()
 
-                ) : this._erroNaRequisicaoDaApi(json);
+                ) : this._erroNaRequisicaoDaApi(data);
             })
             .catch(err => MessageBox.error(err.message))
             .finally(() => this._hideBusyIndicator());
@@ -388,13 +415,12 @@ sap.ui.define([
 
         _aoCoincidirRota() {
             this._processarAcao(() => {
-                const oRouter = this.getOwnerComponent().getRouter();
-                oRouter.getRoute(ROTA_DETALHES).attachPatternMatched((oEvent) => {
+                this.getRouter().getRoute(ROTA_DETALHES).attachPatternMatched((oEvent) => {
                     this._limparResquicios();
                     this._obterParametro(oEvent);
-                    this._obterPorId(PARAMETRO_ID);
+                    this._obterPorId(ID_INGREDIENTE_EDITADO);
                     this._carregarDadosFilho(URL_API_RECEITA, NOME_DO_MODELO_RECEITA);
-                    this._carregarDadosIngrediente(URL_API_INGREDIENTE, NOME_DO_MODELO_INGREDIENTES, this.getView());
+                    this._carregarIngredientes(URL_API_INGREDIENTE, NOME_DO_MODELO_INGREDIENTES, this.getView());
                 }, this);
             });
         },
@@ -415,86 +441,58 @@ sap.ui.define([
         _limparResquicios(){
             this.getView().byId("filtroNome").setValue("");
             this.getView().byId("selectItensFilho").setSelectedKey("Receitas");
-            this.getView().byId("successMessageStrip").setVisible(NAO_VISIVEL),
+            this.getView().byId(ID_MENSSAGE_STRIP_SUCESSO).setVisible(NAO);
             this.aoClicarApresentarListagemFilhoRequerido();
         },
 
         _obterParametro(oEvent) {
-            PARAMETRO_ID = oEvent.getParameter(ARGUMENTOS_DE_PARAMETRO).id;
+            ID_INGREDIENTE_EDITADO = oEvent.getParameter(ARGUMENTOS_DE_PARAMETRO).id;
         },
  
         _obterPorId(id) {
-            this._processarAcao(() => {
-                this._showBusyIndicator();
-                const barraInvertida = "/";
-                const query = URL_API_INGREDIENTE + barraInvertida + id;
-                let sucesso = true;
+            this._showBusyIndicator();
+            const query = `${URL_API_INGREDIENTE}/${id}`;
 
-                fetch(query)
-                .then(resp => {
-                    if (!resp.ok) 
-                        sucesso = false;
-                    return resp.json();
-                })
+            fetch(query)
+                .then(resp => resp.json())
                 .then(data => {
-                    sucesso ? this.getView().setModel(new JSONModel(data), NOME_DO_MODELO_INGREDIENTE)
+                    !data.Detail ? this.getView().setModel(new JSONModel(data), NOME_DO_MODELO_INGREDIENTE)
                     : this._erroNaRequisicaoDaApi(data);
                 })
                 .catch((err) => MessageBox.error(err.message))
                 .finally(() => this._hideBusyIndicator());
-            })
         },
 
         _carregarDadosFilho(urlApi, nomeDoModelo) {
             this._showBusyIndicator();
-            let sucesso = true;
 
             fetch(urlApi)
-            .then((res) => {
-                if (!res.ok)   
-                    sucesso = false;
-                return res.json();
-            })
-            .then((data) => {
-                if (sucesso){
-                    if (urlApi.includes("Receitas")){
-                        RECEITAS_ASSOCIADAS = this._obterReceitasAssociadas(data);
-                        this.getView().setModel(new JSONModel(RECEITAS_ASSOCIADAS), nomeDoModelo)
-                        this._carregarDadosFilho(URL_API_POCAO, NOME_DO_MODELO_POCAO);
-                    }
-                    else {
-                        const pocoesAssociadas = this._obterPocoesAssociadas(data, RECEITAS_ASSOCIADAS);
-                        this.getView().setModel(new JSONModel(pocoesAssociadas), nomeDoModelo)
-                    }
-                } else {
-                    this._erroNaRequisicaoDaApi(data);
-                }
-            })
-            .catch((err) => MessageBox.error(err.message))
-            .finally(() => this._hideBusyIndicator());
-        },
+                .then((res) => res.json())
+                .then((data) => {
+                    if (!data.Detail){
+                        if (urlApi.includes("Receitas")){
+                            RECEITAS_ASSOCIADAS = this._obterReceitasAssociadas(data);
 
-        _filtrarTabelaIngrediente(query, nomeDoModelo){
-            this._showBusyIndicator();
-            let sucesso = true;
-            fetch(query)
-            .then((res) => {
-                if (!res.ok)
-                    sucesso = false;
-                return res.json();
-            })
-            .then((data) => {
-                sucesso ? this.getView().setModel(new JSONModel(data), nomeDoModelo)
-                : this._erroNaRequisicaoDaApi(data);
-            })
-            .catch((err) => MessageBox.error(err.message))
-            .finally(() => this._hideBusyIndicator());
+                            this.getView().setModel(new JSONModel(RECEITAS_ASSOCIADAS), nomeDoModelo)
+                            this._carregarDadosFilho(URL_API_POCAO, NOME_DO_MODELO_POCAO);
+                        }
+                        else {
+                            const pocoesAssociadas = this._obterPocoesAssociadas(data, RECEITAS_ASSOCIADAS);
+
+                            this.getView().setModel(new JSONModel(pocoesAssociadas), nomeDoModelo)
+                        }
+                    } else {
+                        this._erroNaRequisicaoDaApi(data);
+                    }
+                })
+                .catch((err) => MessageBox.error(err.message))
+                .finally(() => this._hideBusyIndicator());
         },
 
         _obterReceitasAssociadas(receitas) {
             let receitasAssociadas = [];
             receitas.filter((receita) => {
-                if (receita.listaIdIngrediente.includes(parseInt(PARAMETRO_ID)))
+                if (receita.listaIdIngrediente.includes(parseInt(ID_INGREDIENTE_EDITADO)))
                     receitasAssociadas.push(receita);
             });
 

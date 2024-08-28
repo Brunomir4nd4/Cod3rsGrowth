@@ -8,7 +8,7 @@ sap.ui.define([
     var ValueState = coreLibrary.ValueState;
 
     return{
-        formatarValorInteiroDoEnum(valorInteiroDoEnum) {
+        formatarNaturalidadeParaString(valorInteiroDoEnum) {
 
             switch(valorInteiroDoEnum){
                 case 0:
@@ -22,7 +22,7 @@ sap.ui.define([
             }
         },
 
-        formatarStringDoEnum(valorDoEnum) {
+        formatarNaturalidadeParaInteiro(valorDoEnum) {
             switch(valorDoEnum){
                 case "OverWorld":
                     return 0;

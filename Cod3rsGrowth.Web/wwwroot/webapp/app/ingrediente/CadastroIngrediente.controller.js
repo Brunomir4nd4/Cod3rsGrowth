@@ -14,12 +14,15 @@ sap.ui.define([
     const ROTA_CADASTRO = "appCadastroIngrediente";
     const REQUISICAO_POST = "POST";
     const REQUISICAO_PATCH = "PATCH";
-    const ARGUMENTOS_DE_PARAMETRO = "arguments";
     const ID_MENSSAGE_STRIP_SUCESSO = "successMessageStrip";
     const ID_MENSSAGE_STRIP_ERRO = "errorMessageStrip";
     const ID_BOTAO_SALVAR = "saveButton";
     const NOME_DO_MODELO_ENUM = "enum";
-    var PARAMETRO_ID;
+    const STRING_VAZIA = "";
+    const VISIVEL = true;
+    const NAO_VISIVEL = false;    
+
+    var ID_INGREDIENTE_EDITADO;
 
     return BaseController.extend("coders-growth.app.ingrediente.CadastroIngrediente", {
         onInit(){
@@ -36,7 +39,8 @@ sap.ui.define([
         aoAlterarQuantidade(){
             this._processarAcao(() => {
                 const inputQuantidade = this.getView().byId(ID_INPUT_QUANTIDADE);
-                Validators.ValidarNumeros(inputQuantidade);
+                const label = "Quantidade";
+                Validators.ValidarNumeros(inputQuantidade, label);
             });
         },
 
@@ -48,36 +52,39 @@ sap.ui.define([
                 const nome = inputNome.getValue();
                 const quantidade = inputQuantidade.getValue();
                 const ehValido = Validators.ValidarIngrediente(inputNome, inputQuantidade);
-                const visivel = true;
-                const naoVisivel = false;    
 
                 if (ehValido) {
                     const oIngrediente = {
                         Nome: nome,
                         Quantidade: quantidade,
-                        Naturalidade: Formatter.formatarStringDoEnum(naturalidade)
+                        Naturalidade: Formatter.formatarNaturalidadeParaInteiro(naturalidade)
                     };
                 
-                    if (PARAMETRO_ID !== undefined) {
-                        oIngrediente.Id = PARAMETRO_ID;
-                        this._requistarApi(URL_API, oIngrediente, REQUISICAO_PATCH);
-                    } else {
-                        this._requistarApi(URL_API, oIngrediente, REQUISICAO_POST);
+                    const requisicao = ID_INGREDIENTE_EDITADO !== undefined ? REQUISICAO_PATCH : REQUISICAO_POST;
+                    
+                    if (ID_INGREDIENTE_EDITADO !== undefined) {
+                        oIngrediente.Id = ID_INGREDIENTE_EDITADO;
                     }
+                
+                    this._requistarApi(URL_API, oIngrediente, requisicao);
                 } else {
-                    this.getView().byId(ID_MENSSAGE_STRIP_ERRO).setVisible(visivel);
-                    this.getView().byId(ID_MENSSAGE_STRIP_SUCESSO).setVisible(naoVisivel);
+                    this._toggleMessageStrips(VISIVEL, NAO_VISIVEL);
                 }
             });
         },
 
+        _toggleMessageStrips(erroVisivel, sucessoVisivel) {
+            this.getView().byId(ID_MENSSAGE_STRIP_ERRO).setVisible(erroVisivel);
+            this.getView().byId(ID_MENSSAGE_STRIP_SUCESSO).setVisible(sucessoVisivel);
+        },
+
         _aoCoincidirRota() {
             this._processarAcao(() => {
-                const oRouter = this.getOwnerComponent().getRouter();
-                oRouter.getRoute(ROTA_CADASTRO).attachPatternMatched((oEvent) => {
+                const nao = false;
+                this.getRouter().getRoute(ROTA_CADASTRO).attachPatternMatched((oEvent) => {
                     this._limparResquisiosDeCadastro();
-                    this._regatarParamentroUrl(oEvent);
-                    this._carregarEnumNaturalidade(URL_API, NOME_DO_MODELO_ENUM);
+                    this._regatarIdPelaUrl(oEvent);
+                    this._carregarEnumNaturalidade(URL_API, NOME_DO_MODELO_ENUM, nao);
                     this._obterPorId(URL_API);
                 }, this);
             });
@@ -85,50 +92,48 @@ sap.ui.define([
 
         _limparResquisiosDeCadastro() {
             this._processarAcao(() => {
-                const iconSave = "sap-icon://save";
-                const keyOverWorld = "OverWorld";
-                const SEM_VALORES = "";
+                const iconeSalvo = "sap-icon://save";
+                const chaveOverWorld = "OverWorld";
+        
                 const inputNome = this.getView().byId(ID_INPUT_NOME);
                 const inputQuantidade = this.getView().byId(ID_INPUT_QUANTIDADE);
-                const inputNaturalidade = this.getView().byId(ID_INPUT_NATURALIDADE);
-                const naoVisivel = false;
-    
-                this.getView().byId(ID_MENSSAGE_STRIP_SUCESSO).setVisible(naoVisivel);
-                this.getView().byId(ID_MENSSAGE_STRIP_ERRO).setVisible(naoVisivel);
-                this.getView().byId(ID_BOTAO_SALVAR).setIcon(iconSave);
+                const selectNaturalidade = this.getView().byId(ID_INPUT_NATURALIDADE);
+        
+                this._toggleMessageStrips(NAO_VISIVEL, NAO_VISIVEL);
+                this.getView().byId(ID_BOTAO_SALVAR).setIcon(iconeSalvo);
+                
                 inputNome.setValueState(sap.ui.core.ValueState.None);
                 inputQuantidade.setValueState(sap.ui.core.ValueState.None);
-                inputNome.setValue(SEM_VALORES);
-                inputQuantidade.setValue(SEM_VALORES);
-                inputNaturalidade.getItems().map((item) => {
-                    if (item.getKey() === keyOverWorld){
-                        inputNaturalidade.setSelectedItem(item);
+                inputNome.setValue(STRING_VAZIA);
+                inputQuantidade.setValue(STRING_VAZIA);
+        
+                selectNaturalidade.getItems().forEach(item => {
+                    if (item.getKey() === chaveOverWorld) {
+                        selectNaturalidade.setSelectedItem(item);
                     }
                 });
-            })
+            });
         },
 
-        _regatarParamentroUrl(oEvent){
+        _regatarIdPelaUrl(oEvent){
             this._processarAcao(() => {
-                PARAMETRO_ID = oEvent.getParameter(ARGUMENTOS_DE_PARAMETRO).id;
+                ID_INGREDIENTE_EDITADO = oEvent.getParameter("arguments").id;
             })
         },
 
         _obterPorId(urlApi) {
             this._processarAcao(() => {
                 this._showBusyIndicator();
-                let sucesso = true;
-                if (PARAMETRO_ID){
-                    let query = urlApi + "/" + PARAMETRO_ID;
+
+                if (ID_INGREDIENTE_EDITADO){
+                    let query = `${urlApi}/${ID_INGREDIENTE_EDITADO}`;
+
                     fetch(query)
-                        .then(resp => {
-                            if (!resp.ok)
-                                sucesso = false;
-                            return resp.json();
-                        })
+                        .then(resp => resp.json())
                         .then(data => {
-                            sucesso ? this._inserirDadosDeEdicao(data)
-                            : this._erroNaRequisicaoDaApi(data);
+                            data.Detail ? 
+                                this._erroNaRequisicaoDaApi(data)
+                                : this._inserirDadosDeEdicao(data)
                         })
                         .catch((err) => MessageBox.error(err.message))
                         .finally(() => this._hideBusyIndicator());
@@ -139,66 +144,40 @@ sap.ui.define([
         _inserirDadosDeEdicao(ingrediente){
             this._processarAcao(() => {
                 const oSelect = this.getView().byId(ID_INPUT_NATURALIDADE);
+
                 this.getView().byId(ID_INPUT_NOME).setValue(ingrediente.nome);
                 this.getView().byId(ID_INPUT_QUANTIDADE).setValue(ingrediente.quantidade);
+
                 oSelect.getItems().map((item) => {
-                    if (item.getKey() == Formatter.formatarValorInteiroDoEnum(ingrediente.naturalidade)){
+                    if (item.getKey() == Formatter.formatarNaturalidadeParaString(ingrediente.naturalidade)){
                         oSelect.setSelectedItem(item);
                     }
                 });
             })
         },
         
-        _requistarApi(urlApi, ingrediente, metodoDaRequisicao){
+        _requistarApi(urlApi, ingrediente, requisicao){
             this._processarAcao(() => {
                 this._showBusyIndicator();
-                let sucesso = true;
-                const iconComplete = "sap-icon://complete";
-                const visivel = true;
-                const naoVisivel = false;
+                const iconeCompleto = "sap-icon://complete";
+
                 fetch(urlApi, {
-                    method: metodoDaRequisicao,
+                    method: requisicao,
                     body: JSON.stringify(ingrediente),
                     headers: { "Content-type": "application/json; charset=UTF-8" }
                 })
-                .then(response => {
-                    if (!response.ok) 
-                        sucesso = false;
-                    return response.json();
-                })
-                .then(json => {
-                    console.log(json);
-                    sucesso ? (
-                        this.getView().byId(ID_BOTAO_SALVAR).setIcon(iconComplete),
-                        this.getView().byId(ID_MENSSAGE_STRIP_SUCESSO).setVisible(visivel),
-                        this.getView().byId(ID_MENSSAGE_STRIP_ERRO).setVisible(naoVisivel)
-                    ) : this._erroNaRequisicaoDaApi(data);
+                .then(resp => resp.json())
+                .then(data => {
+                    data.Detail ? 
+                        this._erroNaRequisicaoDaApi(data)
+                        : (
+                            this.getView().byId(ID_BOTAO_SALVAR).setIcon(iconeCompleto),
+                            this._toggleMessageStrips(NAO_VISIVEL, VISIVEL)
+                        ) 
                 })
                 .catch(err => MessageBox.error(err.message))
                 .finally(() => this._hideBusyIndicator());
             })
-        },
-
-        _carregarEnumNaturalidade(query, nomeDoModelo) {
-            this._showBusyIndicator();
-            query += "/naturalidade";
-            let sucesso = true;
-            fetch(query)
-                .then(response => {
-                    if (!response.ok) 
-                        sucesso = false;
-                    return response.json();
-                })
-                .then((data) => {
-                    sucesso ? this.getView().setModel(new JSONModel({
-                        descricao: data.map(function(item) {
-                            return { text: item };
-                        })
-                    }), nomeDoModelo) 
-                    : this._erroNaRequisicaoDaApi(data);
-                })
-                .catch((err) => MessageBox.error(err.message))
-                .finally(() => this._hideBusyIndicator());
         },
     }) 
 });

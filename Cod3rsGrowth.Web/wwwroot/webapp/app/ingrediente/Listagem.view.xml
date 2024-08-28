@@ -56,7 +56,7 @@
                                     title="{ingrediente>nome}"
                                     text="{
                                         path: 'ingrediente>naturalidade',
-                                        formatter: '.formatter.formatarValorInteiroDoEnum'
+                                        formatter: '.formatter.formatarNaturalidadeParaString'
                                     }" 
                                 />
                             </VBox>

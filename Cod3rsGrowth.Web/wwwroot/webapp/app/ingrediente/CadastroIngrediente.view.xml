@@ -8,7 +8,7 @@
     xmlns:core="sap.ui.core"
 	xmlns:semantic="sap.f.semantic" >
     <MessageStrip
-        text="{i18n>DetalhesIngrediente.FalhaNaoFoiPossivelCadastrarItem}"
+        text="{i18n>CadastroIngrediente.IngredienteCadastradoComSucesso.}"
         type="Success"
         showIcon="true"
         showCloseButton="true"

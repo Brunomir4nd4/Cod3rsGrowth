@@ -21,16 +21,6 @@ sap.ui.define([
 		},
 
 		onNavBack() {
-			// let history, previousHash;
-
-			// history = History.getInstance();
-			// previousHash = history.getPreviousHash();
-
-			// if (previousHash !== undefined) {
-			// 	window.history.go(-1);
-			// } else {
-			// 	this.getRouter().navTo(CHAVE_DA_VIEW_HOME, {}, true);
-			// }
 			this.getRouter().navTo(CHAVE_DA_VIEW_HOME, {}, true);
 		},
 		
@@ -43,10 +33,11 @@ sap.ui.define([
 			}
 		},
 
-		_erroNaRequisicaoDaApi(erroRfc){
-            const mensagemErroPrincipal = erroRfc.Extensions.Erros.join(', ');
-            const mensagemErroCompleta = `<p><strong>Status:</strong> ${erroRfc.Status}</p>` +
-                `<p><strong>Detalhes:</strong><br/> ${erroRfc.Detail}</p>` +
+		_erroNaRequisicaoDaApi(problemDetails){
+			debugger
+            const mensagemErroPrincipal = problemDetails.Extensions.Erros.join(', ');
+            const mensagemErroCompleta = `<p><strong>Status:</strong> ${problemDetails.Status}</p>` +
+                `<p><strong>Detalhes:</strong><br/> ${problemDetails.Detail}</p>` +
                 "<p>Para mais ajuda acesse <a href='//www.sap.com' target='_top'>aqui</a>.";
 
             MessageBox.error(mensagemErroPrincipal, {
@@ -65,23 +56,39 @@ sap.ui.define([
 			BusyIndicator.show(0);
 		},
 
-		_carregarDadosIngrediente(query, nomeDoModelo, oView){
+		_carregarIngredientes(query, nomeDoModelo, oView){
             this._showBusyIndicator();
-            let sucesso = true;
+			
             fetch(query)
-            .then(response => {
-                if (!response.ok) 
-                    sucesso = false;
-                return response.json();
-            })
-            .then((data) => {
-                sucesso ? oView.setModel(new JSONModel(data), nomeDoModelo)
-                    : this._erroNaRequisicaoDaApi(data);
-            })
-            .catch((err) => MessageBox.error(err.message))
-            .finally(() => this._hideBusyIndicator());
+				.then(response => response.json())
+				.then((data) => {
+					!data.Detail ? 
+						oView.setModel(new JSONModel(data), nomeDoModelo)
+						: this._erroNaRequisicaoDaApi(data);
+				})
+				.catch((err) => MessageBox.error(err.message))
+				.finally(() => this._hideBusyIndicator());
         },
 
+		_carregarEnumNaturalidade(query, nomeDoModelo, teraTodos) {
+            this._showBusyIndicator();
+            query += "/naturalidade";
+			const campoTodos = "Todos";
+
+            fetch(query)
+                .then(response => response.json())
+                .then((data) => {
+					if (teraTodos) data.push(campoTodos);
+					
+                    data.Detail ? 
+						this._erroNaRequisicaoDaApi(data)
+						: this.getView().setModel(new JSONModel({
+                            descricao: data.map(item => ({ text: item }))
+                        }), nomeDoModelo);
+                })
+                .catch((err) => MessageBox.error(err.message))
+                .finally(() => this._hideBusyIndicator());
+        },
 	});
 });
     
