@@ -366,3 +366,8 @@ FodyWeavers.xsd
 App.config
 .vscode
 .vs
+package.json
+ui5.yaml
+
+SideNavigation.view.xml
+SideNavigation.controller.js

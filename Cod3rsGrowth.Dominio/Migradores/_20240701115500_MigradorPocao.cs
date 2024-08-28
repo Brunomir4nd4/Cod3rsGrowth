@@ -17,8 +17,7 @@ namespace Cod3rsGrowth.Dominio.Migradores
             Create.ForeignKey("fk_IdReceita_Para_Pocao")
                 .FromTable("Pocao").ForeignColumn("IdReceita")
                 .ToTable("Receita").PrimaryColumn("Id")
-                .OnUpdate(System.Data.Rule.SetNull)
-                .OnUpdate(System.Data.Rule.Cascade);
+                .OnDeleteOrUpdate(System.Data.Rule.Cascade);
         }
 
         public override void Down()
