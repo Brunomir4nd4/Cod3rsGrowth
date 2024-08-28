@@ -38,12 +38,6 @@
 			"compact": true,
 			"cozy": true
 		},
-		"rootView": {
-			"viewName": "coders-growth.view.App",
-			"type": "XML",
-			"async": true,
-			"id": "app"
-      	},
 		"dependencies": {
 			"minUI5Version": "1.108.0",
 			"libs": {
@@ -63,27 +57,60 @@
 				}
 			}
 		},
+		"rootView": {
+			"viewName": "coders-growth.app.App",
+			"type": "XML",
+			"async": true,
+			"id": "app"
+      	},
     	"routing": {
 			"config": {
 				"routerClass": "sap.m.routing.Router",
 				"type": "View",
 				"viewType": "XML",
-				"path": "coders-growth.view",
+				"path": "coders-growth",
 				"controlId": "app",
 				"controlAggregation": "pages",
 				"transition": "slide",
+				"bypassed": {
+               		"target": "notFound"
+            	},
 				"async": true
 			},
-			"routes": [{
-				"pattern": "",
-				"name": "appHome",
-				"target": "home"
-			}],
+			"routes": [
+				{
+					"pattern": "",
+					"name": "appListagem",
+					"target": "listagem"
+				},
+				{
+					"pattern": "CadastroIngrediente/:id:",
+					"name": "appCadastroIngrediente",
+					"target": "cadastroIngrediente"
+				},
+				{
+					"pattern": "DetalhesIngrediente/{id}",
+					"name": "appDetalhesIngrediente",
+					"target": "detalhesIngrediente"
+				}
+			],
 			"targets": {
-				"home": {
-					"id": "home",
-					"name": "Home",
-					"level": 1
+				"listagem": {
+					"id": "listagem",
+					"name": "app.ingrediente.Listagem"
+				},
+				"cadastroIngrediente": {
+					"id": "cadastroIngrediente",
+					"name": "app.ingrediente.CadastroIngrediente"
+				},
+				"detalhesIngrediente": {
+					"id": "detalhesIngrediente",
+					"name": "app.ingrediente.DetalhesIngrediente"
+				},
+				"notFound": {
+				   "id": "notFound",
+				   "name": "app.notFound.NotFound",
+				   "transition": "show"
 				}
 			}
     	}

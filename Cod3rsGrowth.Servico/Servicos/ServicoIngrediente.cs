@@ -61,6 +61,6 @@ namespace Cod3rsGrowth.Servico.Servicos
         public void Remover(int idIngredienteSelecionado)
         {
             _repositorioIngrediente.Remover(idIngredienteSelecionado);
-        }
+        } 
     }
 }
