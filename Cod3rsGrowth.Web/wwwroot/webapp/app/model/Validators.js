@@ -6,8 +6,10 @@ sap.ui.define([
     return{
 
         ValidarIngrediente(inputNome, inputQuantidade) {
-            ehValido = true;
             const nomeDoInput = "Quantidade"
+
+            ehValido = true;
+
             this.ValidarNome(inputNome);
             this.ValidarNumeros(inputQuantidade, nomeDoInput);
 
@@ -15,9 +17,11 @@ sap.ui.define([
         },
 
         ValidarReceita(inputNome, inputValidade, inputValor, inputDescricao) {
-            ehValido = true;
             const nomeInputValidade = "Validade";
             const nomeInputValor = "Valor";
+
+            ehValido = true;
+
             this.ValidarNome(inputNome);
             this.ValidarNumeros(inputValidade, nomeInputValidade);
             this.ValidarNumeros(inputValor, nomeInputValor);
@@ -32,6 +36,7 @@ sap.ui.define([
             if (!oInput.getValue()){
                 oInput.setValueState(sap.ui.core.ValueState.Error);
                 oInput.setValueStateText(mensagemErroDescricaoVazia);
+
                 ehValido = false;
             } 
             else {
@@ -47,11 +52,13 @@ sap.ui.define([
             if (!oInput.getValue()){
                 oInput.setValueState(sap.ui.core.ValueState.Error);
                 oInput.setValueStateText(mensagemErroNomeVazio);
+
                 ehValido = false;
             } 
             else if(regex.test(oInput.getValue())) {
                 oInput.setValueState(sap.ui.core.ValueState.Error);
                 oInput.setValueStateText(mensagemErroNomeComNumeroOuCaractersEspeciais);
+
                 ehValido = false;
             }
             else {
@@ -68,11 +75,13 @@ sap.ui.define([
             if (!oInput.getValue()){
                 oInput.setValueState(sap.ui.core.ValueState.Error);
 			    oInput.setValueStateText(menssagemErroInputVazio);
+
                 ehValido = false;
             }
             else if (!regexNumeros.test(oInput.getValue()) || regexCaracters.test(oInput.getValue())){
                 oInput.setValueState(sap.ui.core.ValueState.Error);
 			    oInput.setValueStateText(mensagemErroInputComLetrasOuCaractersEspeciais);
+                
                 ehValido = false;
             }
             else {

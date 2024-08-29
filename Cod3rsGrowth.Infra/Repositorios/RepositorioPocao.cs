@@ -29,10 +29,8 @@ namespace Cod3rsGrowth.Infra.Repositorios
                         where (p.Id == idProcurado)
                         select p;
 
-            var resultado = query.FirstOrDefault()
+            return query.FirstOrDefault()
                 ?? throw new Exception($"Id: [{idProcurado}] não foi encontrado no banco de dados");
-
-            return resultado;
         }
 
         public int Criar(Receita receita)

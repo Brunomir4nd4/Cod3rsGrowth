@@ -7,13 +7,14 @@ using Cod3rsGrowth.Dominio.Interfaces;
 using Cod3rsGrowth.Infra.Repositorios;
 using Cod3rsGrowth.Dominio.Migradores;
 using FluentMigrator.Runner;
+using System.Configuration;
 
 namespace Cod3rsGrowth.Infra
 {
     public class ModuloInjetorInfra
     {
         private static string _chaveDeConexaoContextoPadrao = "contextoPadrao";
-        public static string stringDeConexao = System.Configuration.ConfigurationManager.ConnectionStrings[_chaveDeConexaoContextoPadrao].ConnectionString;
+        public static string stringDeConexao = ConfigurationManager.ConnectionStrings[_chaveDeConexaoContextoPadrao].ConnectionString;
         public static void BindServices(IServiceCollection servicos)
         {
             servicos.AddScoped<IRepositorioIngrediente, RepositorioIngrediente>();

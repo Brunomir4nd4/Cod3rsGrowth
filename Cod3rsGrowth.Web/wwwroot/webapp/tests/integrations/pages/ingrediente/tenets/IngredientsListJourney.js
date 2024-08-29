@@ -4,9 +4,9 @@ sap.ui.define([
 ], function (opaTest) {
 		"use strict";
 
-		const INPUT_OLHO = "Olho";
-		const INPUT_PO = "Pó";
-		const INPUT_15 = 15;
+		const QUERY_OLHO = "Olho";
+		const QUERY_PO = "Pó";
+		const QUERY_15 = 15;
 
 		QUnit.module("Listagem");
 
@@ -14,7 +14,7 @@ sap.ui.define([
 			Given.iStartMyApp();
 
 			//Actions
-			When.naPaginaDeListagemDosIngredientes.aoInserirOlhoNoInputNome(INPUT_OLHO);
+			When.naPaginaDeListagemDosIngredientes.aoInserirOlhoNoInputNome(QUERY_OLHO);
 
 			// Assertions
 			Then.naPaginaDeListagemDosIngredientes.aListaDeveConterItensComNomeOlho();
@@ -51,8 +51,8 @@ sap.ui.define([
 			//Actions
 			When.naPaginaDeListagemDosIngredientes.aoClicarAbrirSelect();
 			When.naPaginaDeListagemDosIngredientes.aoClicarNoBotaoTodos();
-			When.naPaginaDeListagemDosIngredientes.aoInserirPoNoInputNome(INPUT_PO);
-			When.naPaginaDeListagemDosIngredientes.aoInserir15NoInputQuantidade(INPUT_15);
+			When.naPaginaDeListagemDosIngredientes.aoInserirPoNoInputNome(QUERY_PO);
+			When.naPaginaDeListagemDosIngredientes.aoInserir15NoInputQuantidade(QUERY_15);
 
 			// Assertions
 			Then.naPaginaDeListagemDosIngredientes.aTabelaDeveConterItensComNomePoEQuantidade15();

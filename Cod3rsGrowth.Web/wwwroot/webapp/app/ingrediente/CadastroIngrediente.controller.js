@@ -32,6 +32,7 @@ sap.ui.define([
         aoAlterarNome(){
             this._processarAcao(() =>{
                 const inputNome = this.getView().byId(ID_INPUT_NOME);       
+
                 Validators.ValidarNome(inputNome);
             });
         },
@@ -40,6 +41,7 @@ sap.ui.define([
             this._processarAcao(() => {
                 const inputQuantidade = this.getView().byId(ID_INPUT_QUANTIDADE);
                 const label = "Quantidade";
+
                 Validators.ValidarNumeros(inputQuantidade, label);
             });
         },
@@ -60,7 +62,7 @@ sap.ui.define([
                         Naturalidade: Formatter.formatarNaturalidadeParaInteiro(naturalidade)
                     };
                 
-                    const requisicao = ID_INGREDIENTE_EDITADO !== undefined ? REQUISICAO_PATCH : REQUISICAO_POST;
+                    const requisicao = ID_INGREDIENTE_EDITADO ? REQUISICAO_PATCH : REQUISICAO_POST;
                     
                     if (ID_INGREDIENTE_EDITADO !== undefined) {
                         oIngrediente.Id = ID_INGREDIENTE_EDITADO;
@@ -81,6 +83,7 @@ sap.ui.define([
         _aoCoincidirRota() {
             this._processarAcao(() => {
                 const nao = false;
+
                 this.getRouter().getRoute(ROTA_CADASTRO).attachPatternMatched((oEvent) => {
                     this._limparResquisiosDeCadastro();
                     this._regatarIdPelaUrl(oEvent);
@@ -92,16 +95,15 @@ sap.ui.define([
 
         _limparResquisiosDeCadastro() {
             this._processarAcao(() => {
-                const iconeSalvo = "sap-icon://save";
-                const chaveOverWorld = "OverWorld";
-        
                 const inputNome = this.getView().byId(ID_INPUT_NOME);
                 const inputQuantidade = this.getView().byId(ID_INPUT_QUANTIDADE);
                 const selectNaturalidade = this.getView().byId(ID_INPUT_NATURALIDADE);
+                
+                const iconeSalvo = "sap-icon://save";
+                const chaveOverWorld = "OverWorld";
         
                 this._toggleMessageStrips(NAO_VISIVEL, NAO_VISIVEL);
                 this.getView().byId(ID_BOTAO_SALVAR).setIcon(iconeSalvo);
-                
                 inputNome.setValueState(sap.ui.core.ValueState.None);
                 inputQuantidade.setValueState(sap.ui.core.ValueState.None);
                 inputNome.setValue(STRING_VAZIA);
@@ -126,7 +128,7 @@ sap.ui.define([
                 this._showBusyIndicator();
 
                 if (ID_INGREDIENTE_EDITADO){
-                    let query = `${urlApi}/${ID_INGREDIENTE_EDITADO}`;
+                    const query = `${urlApi}/${ID_INGREDIENTE_EDITADO}`;
 
                     fetch(query)
                         .then(resp => resp.json())

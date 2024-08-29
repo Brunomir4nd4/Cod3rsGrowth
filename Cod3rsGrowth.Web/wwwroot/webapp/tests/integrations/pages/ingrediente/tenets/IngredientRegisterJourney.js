@@ -5,18 +5,18 @@ sap.ui.define([
 ], function (opaTest) {
 		"use strict";
 		
-		const INPUT_ABOBOR4 = "Abobor4";
-		const INPUT_ABOBORA = "Abobora";
-		const INPUT_POLVORA = "Polvora";
-		const INPUT_LAGRIMA_DE_GHAST = "Lagíma de Ghast";
-		const INPUT_15 = 15;
-		const INPUT_5 = 5;
-		const INPUT_2 = 2;
-        const VALOR_ESPERADO_TRUE = true;
-        const VALOR_INPUT_34 = 34;
-        const NOME_DO_ITEM = "Pérola do End";
         const NAME_SPACE = "coders-growth";
         const HASH_DE_CADASTRO = "CadastroIngrediente";
+		const NOME_INVALIDO_DO_PRODUTO = "Abobor4";
+		const NOME_DO_PRODUTO_ABOBORA = "Abobora";
+		const NOME_DO_PRODUTO_POLVORA = "Polvora";
+		const NOME_DO_PRODUTO_LAGRIMA_DE_GHAST = "Lagíma de Ghast";
+        const NOME_DO_PRODUTO_PEROLA_DO_END = "Pérola do End";
+		const QUANTIDADE_DO_PRODUTO_15 = 15;
+		const QUANTIDADE_DO_PRODUTO_5 = 5;
+		const QUANTIDADE_DO_PRODUTO_2 = 2;
+        const QUANTIDADE_DO_PRODUTO_34 = 34;
+        const VALOR_ESPERADO_TRUE = true;
 
         QUnit.module("Cadastro");
 
@@ -28,8 +28,8 @@ sap.ui.define([
                 hash: HASH_DE_CADASTRO
             });
 
-            When.naPaginaDeCadastroDeIngrediente.aoInserirAbobor4NoInputNome(INPUT_ABOBOR4);
-            When.naPaginaDeCadastroDeIngrediente.aoInserirAbobor4NoInputQuantidade(INPUT_ABOBOR4);
+            When.naPaginaDeCadastroDeIngrediente.aoInserirAbobor4NoInputNome(NOME_INVALIDO_DO_PRODUTO);
+            When.naPaginaDeCadastroDeIngrediente.aoInserirAbobor4NoInputQuantidade(NOME_INVALIDO_DO_PRODUTO);
             When.naPaginaDeCadastroDeIngrediente.aoClicarNoBotaoSalvar();
 
             Then.naPaginaDeCadastroDeIngrediente.deveApresentarMenssagemDeErroEsperada(VALOR_ESPERADO_TRUE);
@@ -37,8 +37,8 @@ sap.ui.define([
 
 		opaTest("Deve tentar criar um ingrediente com valor quantidade inválidos", function (Given, When, Then) {
 
-            When.naPaginaDeCadastroDeIngrediente.aoInserirAboboraNoInputNome(INPUT_ABOBORA);
-            When.naPaginaDeCadastroDeIngrediente.aoInserirAboboraNoInputQuantidade(INPUT_ABOBORA);
+            When.naPaginaDeCadastroDeIngrediente.aoInserirAboboraNoInputNome(NOME_DO_PRODUTO_ABOBORA);
+            When.naPaginaDeCadastroDeIngrediente.aoInserirAboboraNoInputQuantidade(NOME_DO_PRODUTO_ABOBORA);
             When.naPaginaDeCadastroDeIngrediente.aoClicarNoBotaoSalvar();
 
             Then.naPaginaDeCadastroDeIngrediente.deveApresentarMenssagemDeErroEsperada(VALOR_ESPERADO_TRUE);
@@ -46,8 +46,8 @@ sap.ui.define([
 		
 		opaTest("Criar Abobora como um ingrediente", function (Given, When, Then) {
 
-            When.naPaginaDeCadastroDeIngrediente.aoInserirAboboraNoInputNome(INPUT_ABOBORA);
-            When.naPaginaDeCadastroDeIngrediente.aoInserir5NoInputQuantidade(INPUT_5);
+            When.naPaginaDeCadastroDeIngrediente.aoInserirAboboraNoInputNome(NOME_DO_PRODUTO_ABOBORA);
+            When.naPaginaDeCadastroDeIngrediente.aoInserir5NoInputQuantidade(QUANTIDADE_DO_PRODUTO_5);
             When.naPaginaDeCadastroDeIngrediente.aoClicarNoBotaoSalvar();
 
             Then.naPaginaDeCadastroDeIngrediente.deveApresentarMenssagemDeSecessoEsperada(VALOR_ESPERADO_TRUE);
@@ -55,8 +55,8 @@ sap.ui.define([
 
 		opaTest("Criar Polvora como um ingrediente", function (Given, When, Then) {
 
-            When.naPaginaDeCadastroDeIngrediente.aoInserirAboboraNoInputNome(INPUT_POLVORA);
-            When.naPaginaDeCadastroDeIngrediente.aoInserir5NoInputQuantidade(INPUT_15);
+            When.naPaginaDeCadastroDeIngrediente.aoInserirAboboraNoInputNome(NOME_DO_PRODUTO_POLVORA);
+            When.naPaginaDeCadastroDeIngrediente.aoInserir5NoInputQuantidade(QUANTIDADE_DO_PRODUTO_15);
             When.naPaginaDeCadastroDeIngrediente.aoClicarNoBotaoSalvar();
 
             Then.naPaginaDeCadastroDeIngrediente.deveApresentarMenssagemDeSecessoEsperada(VALOR_ESPERADO_TRUE);
@@ -64,8 +64,8 @@ sap.ui.define([
 
 		opaTest("Criar Lagíma de Ghast como um ingrediente", function (Given, When, Then) {
 
-            When.naPaginaDeCadastroDeIngrediente.aoInserirAboboraNoInputNome(INPUT_LAGRIMA_DE_GHAST);
-            When.naPaginaDeCadastroDeIngrediente.aoInserir2NoInputQuantidade(INPUT_2);
+            When.naPaginaDeCadastroDeIngrediente.aoInserirAboboraNoInputNome(NOME_DO_PRODUTO_LAGRIMA_DE_GHAST);
+            When.naPaginaDeCadastroDeIngrediente.aoInserir2NoInputQuantidade(QUANTIDADE_DO_PRODUTO_2);
             When.naPaginaDeCadastroDeIngrediente.aoClicarAbrirSelect();
             When.naPaginaDeCadastroDeIngrediente.aoSelecionarNaturalidadeNether();
             When.naPaginaDeCadastroDeIngrediente.aoClicarNoBotaoSalvar();
@@ -75,9 +75,9 @@ sap.ui.define([
 
         opaTest("Deve editar um ingrediente escolhido na listagem", function(Given, When, Then) {
             When.naPaginaDeCadastroDeIngrediente.aoClicarNoBotaoDeVoltarPagina();
-            When.naPaginaDeListagemDosIngredientes.aoClicarEmUmItemDaTabela(NOME_DO_ITEM);
+            When.naPaginaDeListagemDosIngredientes.aoClicarEmUmItemDaTabela(NOME_DO_PRODUTO_PEROLA_DO_END);
             When.naPaginaDeDetalhesDoIngrediente.aoClicarNoBotaoEditar();
-            When.naPaginaDeCadastroDeIngrediente.aoInserirValorNoInputQuantidade(VALOR_INPUT_34);
+            When.naPaginaDeCadastroDeIngrediente.aoInserirValorNoInputQuantidade(QUANTIDADE_DO_PRODUTO_34);
             When.naPaginaDeCadastroDeIngrediente.aoClicarNoBotaoSalvar();
 
             Then.naPaginaDeCadastroDeIngrediente.deveApresentarMenssagemDeSecessoEsperada(VALOR_ESPERADO_TRUE);
