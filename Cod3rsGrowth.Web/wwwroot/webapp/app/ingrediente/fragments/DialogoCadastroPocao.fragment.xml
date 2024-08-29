@@ -6,7 +6,7 @@
       contentWidth="50%">
       <content>
          <MessageStrip
-            text="{i18n>CadastroIngrediente.FalhaNaoFoiPossivelCadastrarOIngrediente.}"
+            text="{i18n>DetalhesIngrediente.FalhaNaoFoiPossivelCadastrarAPocao.}"
             type="Error"
             showIcon="true"
             showCloseButton="true"
@@ -51,7 +51,7 @@
                            />
                            <Text text="{
                               path: 'ingredientes>naturalidade',
-                              formatter: '.formatter.formatarValorInteiroDoEnum'
+                              formatter: '.formatter.formatarNaturalidadeParaString'
                            }" />
                            <ObjectNumber
                         unit="{i18n>DetalhesIngrediente.Unidades}"
