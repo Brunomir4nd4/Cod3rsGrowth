@@ -114,7 +114,7 @@ sap.ui.define([
 
         async aoClicarAbrirModalCadastroFilho(oEvent) {
             const itemFilho = this.getView().byId(ID_SELECT_FILHOS).getSelectedItem().getText();
-            const primeiroIdex = 0;
+            const primeiroIndex = 0;
             const segundoIndex = 1;
             const tamanhoMinimo = 1;
 
@@ -136,7 +136,7 @@ sap.ui.define([
                     const itens = tabelaReceita.getSelectedItems();
                     
                     if (itens.length >= tamanhoMinimo) {
-                        const receita = itens[primeiroIdex].getBindingContext(NOME_DO_MODELO_RECEITA); 
+                        const receita = itens[primeiroIndex].getBindingContext(NOME_DO_MODELO_RECEITA); 
     
                         this._inserirValoresReceitaEditada(receita, tabelaIngrediente);
 
@@ -154,12 +154,12 @@ sap.ui.define([
                     name: "coders-growth.app.ingrediente.fragments.DialogoCadastroPocao"
                 });
 
-                tabelaIngrediente = DIALOGO.getContent()[segundoIndex].getItems()[primeiroIdex];
+                tabelaIngrediente = DIALOGO.getContent()[primeiroIndex].getItems()[primeiroIndex];
 
                 DIALOGO.open();
             }
 
-            MENSSAGEM_ERRO_CADASTRO_FILHO = DIALOGO.getContent()[primeiroIdex];
+            MENSSAGEM_ERRO_CADASTRO_FILHO = DIALOGO.getContent()[primeiroIndex];
             this._selecionarItemDetalhadoNaTabela(tabelaIngrediente);
         },
 

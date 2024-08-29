@@ -34,7 +34,6 @@ sap.ui.define([
 		},
 
 		_erroNaRequisicaoDaApi(problemDetails){
-			debugger
             const mensagemErroPrincipal = problemDetails.Extensions.Erros.join(', ');
             const mensagemErroCompleta = `<p><strong>Status:</strong> ${problemDetails.Status}</p>` +
                 `<p><strong>Detalhes:</strong><br/> ${problemDetails.Detail}</p>` +
