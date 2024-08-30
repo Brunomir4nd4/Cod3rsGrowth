@@ -15,7 +15,7 @@ namespace Cod3rsGrowth.Dominio.Migradores
             Insert.IntoTable("Ingrediente").Row(new { Nome = "Cenoura Dourada", Quantidade = 7, Naturalidade = 0 });
             Insert.IntoTable("Ingrediente").Row(new { Nome = "Melancia Reluzente", Quantidade = 4, Naturalidade = 0 });
             Insert.IntoTable("Ingrediente").Row(new { Nome = "Açúcar", Quantidade = 20, Naturalidade = 0 });
-            Insert.IntoTable("Ingrediente").Row(new { Nome = "Peixe-globo", Quantidade = 6, Naturalidade = 0 });
+            Insert.IntoTable("Ingrediente").Row(new { Nome = "Baicú", Quantidade = 6, Naturalidade = 0 });
             Insert.IntoTable("Ingrediente").Row(new { Nome = "Olho de Aranha Fermentado", Quantidade = 5, Naturalidade = 0 });
 
             Insert.IntoTable("Receita").Row(new { Nome = "Poção de Regeneração", Descricao = "+1 coração a cada 2s", Valor = 15.0m, ValidadeEmMeses = 6 });
@@ -46,11 +46,20 @@ namespace Cod3rsGrowth.Dominio.Migradores
             Insert.IntoTable("ReceitaIngrediente").Row(new { IdReceita = 2, IdIngrediente = 5 });
             Insert.IntoTable("ReceitaIngrediente").Row(new { IdReceita = 3, IdIngrediente = 3 });
             Insert.IntoTable("ReceitaIngrediente").Row(new { IdReceita = 3, IdIngrediente = 1 });
+            Insert.IntoTable("ReceitaIngrediente").Row(new { IdReceita = 4, IdIngrediente = 7 });
+            Insert.IntoTable("ReceitaIngrediente").Row(new { IdReceita = 4, IdIngrediente = 8 });
             Insert.IntoTable("ReceitaIngrediente").Row(new { IdReceita = 5, IdIngrediente = 2 });
             Insert.IntoTable("ReceitaIngrediente").Row(new { IdReceita = 5, IdIngrediente = 5 });
             Insert.IntoTable("ReceitaIngrediente").Row(new { IdReceita = 6, IdIngrediente = 2 });
             Insert.IntoTable("ReceitaIngrediente").Row(new { IdReceita = 6, IdIngrediente = 3 });
-            Insert.IntoTable("ReceitaIngrediente").Row(new { IdReceita = 6, IdIngrediente = 5 });
+            Insert.IntoTable("ReceitaIngrediente").Row(new { IdReceita = 7, IdIngrediente = 6 });
+            Insert.IntoTable("ReceitaIngrediente").Row(new { IdReceita = 7, IdIngrediente = 7 });
+            Insert.IntoTable("ReceitaIngrediente").Row(new { IdReceita = 7, IdIngrediente = 9 });
+            Insert.IntoTable("ReceitaIngrediente").Row(new { IdReceita = 8, IdIngrediente = 4 });
+            Insert.IntoTable("ReceitaIngrediente").Row(new { IdReceita = 8, IdIngrediente = 10 });
+            Insert.IntoTable("ReceitaIngrediente").Row(new { IdReceita = 9, IdIngrediente = 1 });
+            Insert.IntoTable("ReceitaIngrediente").Row(new { IdReceita = 9, IdIngrediente = 5 });
+            Insert.IntoTable("ReceitaIngrediente").Row(new { IdReceita = 9, IdIngrediente = 8 });
         }
 
         public override void Down()
