@@ -1,4 +1,5 @@
 ﻿using Cod3rsGrowth.Dominio.Entidades;
+using Cod3rsGrowth.Servico;
 using Cod3rsGrowth.Servico.Servicos;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,9 +22,9 @@ namespace Cod3rsGrowth.Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult ObterTodos()
+        public IActionResult ObterTodos([FromQuery] FiltroIngrediente filtroIngrediente)
         {
-            return Ok(_servicoIngrediente.ObterTodos(null));
+            return Ok(_servicoIngrediente.ObterTodos(filtroIngrediente));
         }
 
         [HttpGet("{id}")]
@@ -32,8 +33,14 @@ namespace Cod3rsGrowth.Web.Controllers
             return Ok(_servicoIngrediente.ObterPorId(id));
         }
 
+        [HttpGet("naturalidade")]
+        public IActionResult ObterEnum()
+        {
+            return Ok(DetalhesEnum.ObterDescricaoEnum());
+        }
+
         [HttpPost]
-        public IActionResult Criar(Ingrediente ingrediente)
+        public IActionResult Criar([FromBody] Ingrediente ingrediente)
         {
             int id = _servicoIngrediente.Criar(ingrediente);
 
@@ -41,12 +48,12 @@ namespace Cod3rsGrowth.Web.Controllers
         }
 
         [HttpPatch]
-        public IActionResult Editar(Ingrediente ingrediente)
+        public IActionResult Editar([FromBody] Ingrediente ingrediente)
         {
             return Ok(_servicoIngrediente.Editar(ingrediente));
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public IActionResult Remover(int id)
         {
             _servicoIngrediente.Remover(id);
